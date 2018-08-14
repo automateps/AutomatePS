@@ -15,9 +15,6 @@ function New-AMTask {
         .PARAMETER Notes
             The notes to set on the object.
 
-        .PARAMETER CompletionState
-            The completion state (staging level) to set on the object.
-
         .PARAMETER Folder
             The folder to place the object in.
 
@@ -45,9 +42,6 @@ function New-AMTask {
 
         [ValidateScript({$_ -like "<AMTASK>*"})]
         [string]$AML = "",
-
-        [ValidateNotNullOrEmpty()]
-        [AMCompletionState]$CompletionState = [AMCompletionState]::Production,
 
         [string]$Notes = "",
 
@@ -77,7 +71,6 @@ function New-AMTask {
         11      { $newObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
         default { throw "Unsupported server major version: $_!" }
     }
-    $newObject.CompletionState = $CompletionState
     $newObject.CreatedBy       = $user.ID
     $newObject.Notes           = $Notes
     $newObject.AML             = $AML

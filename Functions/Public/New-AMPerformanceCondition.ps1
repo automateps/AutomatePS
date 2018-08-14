@@ -48,9 +48,6 @@ function New-AMPerformanceCondition {
         .PARAMETER Notes
             The new notes to set on the object.
 
-        .PARAMETER CompletionState
-            The completion state (staging level) to set on the object.
-
         .PARAMETER Folder
             The folder to place the object in.
 
@@ -98,9 +95,6 @@ function New-AMPerformanceCondition {
 
         [string]$Notes = "",
 
-        [ValidateNotNullOrEmpty()]
-        [AMCompletionState]$CompletionState = [AMCompletionState]::Production,
-
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
@@ -127,7 +121,6 @@ function New-AMPerformanceCondition {
         11      { $newObject = [AMPerformanceTriggerv11]::new($Name, $Folder, $Connection.Alias) }
         default { throw "Unsupported server major version: $_!" }
     }
-    $newObject.CompletionState = $CompletionState
     $newObject.CreatedBy       = $user.ID
     $newObject.Notes           = $Notes
     $newObject.Wait            = $Wait.ToBool()
