@@ -23,9 +23,8 @@ New-AMEmailCondition [[-Name] <String>] [-Wait] [[-Timeout] <Int32>] [[-TimeoutU
  [[-ProtocolType] <AMGetEmailProtocol>] [[-ProxyPort] <String>] [[-ProxyServer] <String>]
  [[-ProxyType] <AMProxyType>] [[-ProxyUserName] <String>] [[-Security] <AMSecurityType>] [[-Server] <String>]
  [-UseAutoDiscovery] [-UseForm] [-UseHTTP] [-UseNTLM] [[-UserAgent] <String>] [[-UserName] <String>]
- [[-WebDavAuthentication] <AMWebDavAuthentication>] [[-Notes] <String>]
- [[-CompletionState] <AMCompletionState>] [[-Folder] <Object>] [[-Connection] <Object>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-WebDavAuthentication] <AMWebDavAuthentication>] [[-Notes] <String>] [[-Folder] <Object>]
+ [[-Connection] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -681,22 +680,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -CompletionState
-The completion state (staging level) to set on the object.
-
-```yaml
-Type: AMCompletionState
-Parameter Sets: (All)
-Aliases:
-Accepted values: InDevelopment, Testing, Production, Archive
-
-Required: False
-Position: 31
-Default value: Production
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Folder
 The folder to place the object in.
 
@@ -706,7 +689,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 32
+Position: 31
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -721,7 +704,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 33
+Position: 32
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -770,7 +753,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 08/14/2018
 
 ## RELATED LINKS
 

@@ -96,7 +96,6 @@ function New-AMConnectionStoreItem {
             }
             if (-not $found) {
                 if ($items -is [Array]) {
-                    write-debug wtfdude
                     $items += $newItem
                 } else {
                     $items = @($items,$newItem)

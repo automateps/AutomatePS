@@ -1,3 +1,4 @@
+using module AutoMatePS  # Expose custom types so PlatyPS can create help
 #requires -Modules PlatyPS
 foreach ($file in Get-ChildItem -Path .\Functions -File -Recurse) {
 
@@ -9,7 +10,7 @@ foreach ($file in Get-ChildItem -Path .\Functions -File -Recurse) {
         if ($content[$i] -like "*Date Modified*") {
             $oldModifyDate = $content[$i].Split(":")[1].Trim()
             if ($modifyDate -ne $oldModifyDate) {
-                $content[$i] = $line.Replace($oldModifyDate, $modifyDate)
+                $content[$i] = $content[$i].Replace($oldModifyDate, $modifyDate)
                 $contentChanged = $true
             }
             break contentloop
@@ -27,6 +28,7 @@ New-MarkdownHelp -Module "AutoMatePS" -OutputFolder ".\Docs" -Force
 $functions = Get-ChildItem ".\Functions\Public\*.ps1" | Select-Object -ExpandProperty BaseName
 Update-ModuleManifest -Path ".\AutoMatePS.psd1" -FunctionsToExport $functions
 
+# Re-import module to update help
 Remove-Module -Name "AutoMatePS" -Force
 Import-Module -Name "AutoMatePS" -Force
 

@@ -15,9 +15,8 @@ Creates a new AutoMate Enterprise window condition.
 ```
 New-AMWindowCondition [-Name] <String> [-Action <AMWindowAction>] [-TriggerOnce] [-HoldFocus] [-Title <String>]
  [-Class <String>] [-Handle <String>] [-ChildWindow] [-Delay <Int32>] [-Wait] [-Timeout <Int32>]
- [-TimeoutUnit <AMTimeMeasure>] [-TriggerAfter <Int32>] [-Notes <String>]
- [-CompletionState <AMCompletionState>] [-Folder <Object>] [-Connection <Object>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-TimeoutUnit <AMTimeMeasure>] [-TriggerAfter <Int32>] [-Notes <String>] [-Folder <Object>]
+ [-Connection <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -250,22 +249,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -CompletionState
-The completion state (staging level) to set on the object.
-
-```yaml
-Type: AMCompletionState
-Parameter Sets: (All)
-Aliases:
-Accepted values: InDevelopment, Testing, Production, Archive
-
-Required: False
-Position: Named
-Default value: Production
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Folder
 The folder to place the object in.
 
@@ -339,7 +322,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 08/14/2018
 
 ## RELATED LINKS
 

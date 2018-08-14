@@ -26,7 +26,7 @@ function New-AMWorkflow {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 08/14/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
