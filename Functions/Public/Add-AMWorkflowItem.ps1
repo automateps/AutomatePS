@@ -55,7 +55,14 @@ function Add-AMWorkflowItem {
         [Parameter(Mandatory = $true, ParameterSetName = "ByConstruct")]
         $Item,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "ByConstruct")]
+        [Parameter(ParameterSetName = "ByConstruct")]
+        [ValidateScript({
+            if ($_.Type -in "Agent","SystemAgent") {
+                $true
+            } else {
+                throw [System.Management.Automation.PSArgumentException]"Agent is invalid!"
+            }
+        })]
         $Agent,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByEvaluation")]
@@ -91,6 +98,9 @@ function Add-AMWorkflowItem {
                         $Y = 10
                     }
                 }
+                if (-not $PSBoundParameters.ContainsKey("Agent")) {
+                    $Agent = Get-AMSystemAgent -Type Default -Connection $obj.ConnectionAlias
+                }
 
                 switch ($PSCmdlet.ParameterSetName) {
                     "ByConstruct" {
@@ -99,7 +109,10 @@ function Add-AMWorkflowItem {
                             11      { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
                             default { throw "Unsupported server major version: $_!" }
                         }
-                        $newItem.AgentID = $Agent.ID
+                        # Workflows and Schedules don't use an agent, so there's no reason to set it
+                        if (($Item.Type -ne "Workflow") -and ($Item.TriggerType -ne "Schedule")) {
+                            $newItem.AgentID = $Agent.ID
+                        }
                         $newItem.ConstructID = $Item.ID
                         $newItem.ConstructType = $Item.Type
                     }
