@@ -14,7 +14,7 @@ Adds an item to an AutoMate Enterprise workflow
 
 ### ByConstruct
 ```
-Add-AMWorkflowItem -InputObject <Object> -Item <Object> -Agent <Object> [-X <Int32>] [-Y <Int32>] [-WhatIf]
+Add-AMWorkflowItem -InputObject <Object> -Item <Object> [-Agent <Object>] [-X <Int32>] [-Y <Int32>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -82,7 +82,7 @@ Type: Object
 Parameter Sets: ByConstruct
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
