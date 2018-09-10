@@ -41,8 +41,8 @@ function Find-AMObject {
 
         [switch]$Regex = $false,
 
-        [ValidateSet("Workflow","Task","Condition","Process","TaskAgent","ProcessAgent","AgentGroup","User","UserGroup")]
-        [string[]]$Type = @("Workflow","Task","Condition","Process","TaskAgent","ProcessAgent","AgentGroup","User","UserGroup"),
+        [ValidateSet("Workflow","Task","Condition","Process","Agent","AgentGroup","User","UserGroup")]
+        [string[]]$Type = @("Workflow","Task","Condition","Process","Agent","AgentGroup","User","UserGroup"),
 
         [ValidateScript({$_ -gt 0})]
         [int]$SearchDepth = 3,
