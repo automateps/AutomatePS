@@ -43,13 +43,20 @@ function Get-AMWorkflowLink {
         [switch]$IgnoreLabels = $false
     )
 
+    BEGIN {
+        $constructCache = @{}
+    }
+
     PROCESS {
         foreach ($obj in $InputObject) {
             Write-Verbose "Processing $($obj.Type) '$($obj.Name)'"
+            if (-not $constructCache.ContainsKey($obj.ConnectionAlias)) {
+                $constructCache.Add($obj.ConnectionAlias, @())
+            }
             if ($obj.Type -eq "Workflow") {
                 $links = $obj.Links | Sort-Object @{Expression={$_.SourcePoint.X}},@{Expression={$_.SourcePoint.Y}},@{Expression={$_.DestinationPoint.X}},@{Expression={$_.DestinationPoint.Y}}
-                if ($PSBoundParameters.Keys -contains "LinkType") {
-                    $allLinks = $allLinks | Where-Object {$_.LinkType -eq $LinkType}
+                if ($PSBoundParameters.ContainsKey("LinkType")) {
+                    $links = $links | Where-Object {$_.LinkType -eq $LinkType}
                 }
                 $allItems = $obj.Items + $obj.Triggers
                 foreach ($link in $links) {
@@ -59,13 +66,19 @@ function Get-AMWorkflowLink {
                     $destObj = $null
                     if (($link | Get-Member -Name SourceObject | Measure-Object).Count -eq 0) {
                         if (-not [string]::IsNullOrEmpty($sourceItem.ConstructID)) {
-                            $sourceObj = Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::($sourceItem.ConstructType)).RestResource)/$($sourceItem.ConstructID)/get" -Connection $obj.ConnectionAlias
+                            if ($constructCache[$obj.ConnectionAlias].ID -notcontains $sourceItem.ConstructID) {
+                                $constructCache[$obj.ConnectionAlias] += Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::($sourceItem.ConstructType)).RestResource)/$($sourceItem.ConstructID)/get" -Connection $obj.ConnectionAlias
+                            }
+                            $sourceObj = $constructCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $sourceItem.ConstructID}
                         }
                         $link | Add-Member -MemberType NoteProperty -Name SourceObject -Value $sourceObj
                     }
                     if (($link | Get-Member -Name DestinationObject | Measure-Object).Count -eq 0) {
                         if (-not [string]::IsNullOrEmpty($destItem.ConstructID)) {
-                            $destObj = Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::($destItem.ConstructType)).RestResource)/$($destItem.ConstructID)/get" -Connection $obj.ConnectionAlias
+                            if ($constructCache[$obj.ConnectionAlias].ID -notcontains $destItem.ConstructID) {
+                                $constructCache[$obj.ConnectionAlias] += Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::($destItem.ConstructType)).RestResource)/$($destItem.ConstructID)/get" -Connection $obj.ConnectionAlias
+                            }
+                            $destObj = $constructCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $destItem.ConstructID}
                         }
                         $link | Add-Member -MemberType NoteProperty -Name DestinationObject -Value $destObj
                     }
