@@ -26,7 +26,7 @@ function Get-AMConsoleOutput {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/16/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -75,7 +75,8 @@ function Get-AMConsoleOutput {
                 $serverStartIndex[$c.Alias] = $serverStartIndex[$c.Alias] + $indexAdd
             }
             Write-Verbose "Using index $($serverStartIndex[$c.Alias]) for server $($c.Alias) (last query returned $($serverLastMessageCount[$c.Alias]) messages)."
-            $temp = Invoke-AMRestMethod -Resource "output/list?start_index=$($serverStartIndex[$c.Alias])&page_size=$MaxItems" -RestMethod "Get" -Connection $c.Alias
+            $uri = Format-AMUri -Path "output/list" -Parameters "start_index=$($serverStartIndex[$c.Alias])","page_size=$MaxItems"
+            $temp = Invoke-AMRestMethod -Resource $uri -RestMethod "Get" -Connection $c.Alias
             $serverLastMessageCount[$c.Alias] = ($temp.Messages | Measure-Object).Count
             foreach ($message in $temp.Messages) {
                 $message.TimeStamp = $message.TimeStamp.ToLocalTime()
