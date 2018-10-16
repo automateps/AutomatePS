@@ -22,7 +22,7 @@ function Get-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -58,7 +58,7 @@ function Get-AMObject {
         throw "Invalid connection specified!"
     }
 
-    $filterSet = @{Property = "ID"; Comparator = "="; Value = $ID}
+    $filterSet = @{Property = "ID"; Operator = "="; Value = $ID}
     foreach ($type in $Types) {
         foreach ($c in $Connection) {
             $resource = Format-AMUri -Path "$(([AMTypeDictionary]::($type)).RestResource)/index" -FilterSet $filterSet

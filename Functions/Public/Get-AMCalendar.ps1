@@ -24,8 +24,8 @@ function Get-AMCalendar {
             Non-Interval - ???
 
         .PARAMETER FilterSet
-            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Comparator, Value.
-            Valid values for the Comparator are: =, !=, <, >, contains (default - no need to supply Comparator when using 'contains')
+            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Operator, Value.
+            Valid values for the Operator are: =, !=, <, >, contains (default - no need to supply Operator when using 'contains')
 
         .PARAMETER FilterSetMode
             If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
@@ -58,13 +58,13 @@ function Get-AMCalendar {
 
         .EXAMPLE
             # Get calendar events using filter sets
-            Get-AMCalendar -FilterSet @{Property = 'ScheduleDescription'; Comparator = 'contains'; Value = 'hour(s)'}
+            Get-AMCalendar -FilterSet @{Property = 'ScheduleDescription'; Operator = 'contains'; Value = 'hour(s)'}
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -130,12 +130,12 @@ function Get-AMCalendar {
                     Write-Verbose "Processing $($obj.Type) '$($obj.Name)'"
                     switch ($obj.Type) {
                         "Workflow" {
-                            $tempFilterSet = $FilterSet + @{Property = "WorkflowID"; Comparator = "="; Value = $obj.ID}
+                            $tempFilterSet = $FilterSet + @{Property = "WorkflowID"; Operator = "="; Value = $obj.ID}
                             $tempSplat += @{ Resource = Format-AMUri -Path "calendar/list" -RangeStart $StartDate -RangeEnd $EndDate -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -CalendarType $Type -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                             $result += Invoke-AMRestMethod @tempSplat
                         }
                         "Condition" {
-                            $tempFilterSet = $FilterSet + @{Property = "ScheduleID"; Comparator = "="; Value = $obj.ID}
+                            $tempFilterSet = $FilterSet + @{Property = "ScheduleID"; Operator = "="; Value = $obj.ID}
                             $tempSplat += @{ Resource = Format-AMUri -Path "calendar/list" -RangeStart $StartDate -RangeEnd $EndDate -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -CalendarType $Type -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                             $result += Invoke-AMRestMethod @tempSplat
                         }

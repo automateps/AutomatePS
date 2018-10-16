@@ -19,8 +19,8 @@ function Get-AMAuditEvent {
             The type of event(s) to be retrieved.  Use auto-complete or see types.ps1 for a full list.
 
         .PARAMETER FilterSet
-            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Comparator, Value.
-            Valid values for the Comparator are: =, !=, <, >, contains (default - no need to supply Comparator when using 'contains')
+            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Operator, Value.
+            Valid values for the Operator are: =, !=, <, >, contains (default - no need to supply Operator when using 'contains')
 
         .PARAMETER FilterSetMode
             If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
@@ -60,13 +60,13 @@ function Get-AMAuditEvent {
 
         .EXAMPLE
             # Get audit events using filter sets
-            Get-AMAuditEvent -FilterSet @{Property = 'EventText'; Comparator = 'contains'; Value = 'connection from IP 10.1.1.10'}
+            Get-AMAuditEvent -FilterSet @{Property = 'EventText'; Operator = 'contains'; Value = 'connection from IP 10.1.1.10'}
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -118,7 +118,7 @@ function Get-AMAuditEvent {
         }
         $result = @()
         if ($EventType -ne [AMAuditEventType]::All) {
-            $FilterSet += @{Property = "EventType"; Comparator = "="; Value = $EventType.value__}
+            $FilterSet += @{Property = "EventType"; Operator = "="; Value = $EventType.value__}
         }
     }
 
@@ -140,9 +140,9 @@ function Get-AMAuditEvent {
                     switch ($obj.Type) {
                         {($_ -in @("Workflow","Task","Process","Condition","Folder","Agent","AgentGroup","User","UserGroup"))} {
                             if ($obj.Type -eq "User" -and $AuditUserActivity) {
-                                $tempFilterSet = $FilterSet + @{Property = "UserID"; Comparator = "="; Value = $obj.ID}
+                                $tempFilterSet = $FilterSet + @{Property = "UserID"; Operator = "="; Value = $obj.ID}
                             } else {
-                                $tempFilterSet = $FilterSet + @{Property = "PrimaryConstructID"; Comparator = "="; Value = $obj.ID}
+                                $tempFilterSet = $FilterSet + @{Property = "PrimaryConstructID"; Operator = "="; Value = $obj.ID}
                                 if ($AuditUserActivity) {
                                     Write-Warning "The -AuditUserActivity switch is only used when a user is piped in."
                                 }

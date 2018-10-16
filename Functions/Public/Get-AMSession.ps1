@@ -18,7 +18,7 @@ function Get-AMSession {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -45,8 +45,8 @@ function Get-AMSession {
         $uptimeSeconds = [int]($uptimePart2.Split(":")[2])
         $uptime = New-TimeSpan -Days $uptimeDays -Hours $uptimeHours -Minutes $uptimeMinutes -Seconds $uptimeSeconds
         $filterSet = @()
-        $filterSet += @{Property = "EventType"; Comparator = "="; Value = [AMAuditEventType]::UserConnectedSmc.value__}
-        $filterSet += @{Property = "EventType"; Comparator = "="; Value = [AMAuditEventType]::UserDisconnectedSmc.value__}
+        $filterSet += @{Property = "EventType"; Operator = "="; Value = [AMAuditEventType]::UserConnectedSmc.value__}
+        $filterSet += @{Property = "EventType"; Operator = "="; Value = [AMAuditEventType]::UserDisconnectedSmc.value__}
         $events = Get-AMAuditEvent -FilterSet $filterSet -FilterSetMode Or -StartDate (Get-Date).Subtract($uptime) -Connection $c -Verbose:$VerbosePreference
 
         $connectEvents = ($events | Group-Object SessionID | Where-Object {$_.Count -eq 1}).Group | Where-Object {$_.EventType -eq [AMAuditEventType]::UserConnectedSmc.value__}

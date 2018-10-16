@@ -35,8 +35,8 @@ function Get-AMInstance {
                 ResumedFromFailure
 
         .PARAMETER FilterSet
-            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Comparator, Value.
-            Valid values for the Comparator are: =, !=, <, >, contains (default - no need to supply Comparator when using 'contains')
+            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Operator, Value.
+            Valid values for the Operator are: =, !=, <, >, contains (default - no need to supply Operator when using 'contains')
 
         .PARAMETER FilterSetMode
             If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
@@ -74,13 +74,13 @@ function Get-AMInstance {
 
         .EXAMPLE
             # Get instances using filter sets
-            Get-AMInstance -FilterSet @{ Property = "ResultText"; Comparator = "contains"; Value = "FTP Workflow"}
+            Get-AMInstance -FilterSet @{ Property = "ResultText"; Operator = "contains"; Value = "FTP Workflow"}
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -157,7 +157,7 @@ function Get-AMInstance {
                     }
                     default {
                         if ($Status -ne [AMInstanceStatus]::All) {
-                            $tempFilterSet += @{Property = "Status"; Comparator = "="; Value = $Status.value__}
+                            $tempFilterSet += @{Property = "Status"; Operator = "="; Value = $Status.value__}
                         }
                     }
                 }
@@ -165,12 +165,12 @@ function Get-AMInstance {
                 $result = Invoke-AMRestMethod @splat
             }
             "ByID" {
-                $tempFilterSet = $FilterSet + @{Property = "ID"; Comparator = "="; Value = $ID}
+                $tempFilterSet = $FilterSet + @{Property = "ID"; Operator = "="; Value = $ID}
                 $splat += @{ Resource = Format-AMUri -Path "instances/list" -RangeStart $StartDate -RangeEnd $EndDate -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -IncludeRelativeInstances:$IncludeRelative.ToBool() -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                 $result = Invoke-AMRestMethod @splat
             }
             "ByTransactionID" {
-                $tempFilterSet = $FilterSet + @{Property = "TransactionID"; Comparator = "="; Value = $TransactionID}
+                $tempFilterSet = $FilterSet + @{Property = "TransactionID"; Operator = "="; Value = $TransactionID}
                 $splat += @{ Resource = Format-AMUri -Path "instances/list" -RangeStart $StartDate -RangeEnd $EndDate -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -IncludeRelativeInstances:$IncludeRelative.ToBool() -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                 $result = Invoke-AMRestMethod @splat
             }
@@ -188,7 +188,7 @@ function Get-AMInstance {
                     Write-Verbose "Processing $($obj.Type) '$($obj.Name)'"
                     switch ($obj.Type) {
                         {($_ -in @("Workflow","Task","Process"))} {
-                            $tempFilterSet = $FilterSet + @{Property = "ConstructID"; Comparator = "="; Value = $obj.ID}
+                            $tempFilterSet = $FilterSet + @{Property = "ConstructID"; Operator = "="; Value = $obj.ID}
                             $tempSplat += @{ Resource = Format-AMUri -Path "instances/list" -RangeStart $StartDate -RangeEnd $EndDate -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -IncludeRelativeInstances:$IncludeRelative.ToBool() -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                             $tempResult += Invoke-AMRestMethod @tempSplat
                         }
@@ -198,7 +198,7 @@ function Get-AMInstance {
                                     $tempSplat += @{ Resource = Format-AMUri -Path "agents/$($obj.ID)/running_instances/list" -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                                 }
                                 default {
-                                    $tempFilterSet = $FilterSet + @{Property = "AgentID"; Comparator = "="; Value = $obj.ID}
+                                    $tempFilterSet = $FilterSet + @{Property = "AgentID"; Operator = "="; Value = $obj.ID}
                                     $tempSplat += @{ Resource = Format-AMUri -Path "instances/list" -RangeStart $StartDate -RangeEnd $EndDate -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -IncludeRelativeInstances:$IncludeRelative.ToBool() -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool()}
                                 }
                             }

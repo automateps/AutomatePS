@@ -17,8 +17,8 @@ function Get-AMAgentGroup {
             The ID of the agent group.
 
         .PARAMETER FilterSet
-            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Comparator, Value.
-            Valid values for the Comparator are: =, !=, <, >, contains (default - no need to supply Comparator when using 'contains')
+            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Operator, Value.
+            Valid values for the Operator are: =, !=, <, >, contains (default - no need to supply Operator when using 'contains')
 
         .PARAMETER FilterSetMode
             If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
@@ -54,13 +54,13 @@ function Get-AMAgentGroup {
 
         .EXAMPLE
             # Get tasks using multiple filter sets
-            Get-AMAgentGroup -FilterSet @{ Property = "Name"; Comparator = "contains"; Value = "FTP"}
+            Get-AMAgentGroup -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "FTP"}
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -110,7 +110,7 @@ function Get-AMAgentGroup {
         $workflowCache = @{}
         $agentGroupCache = @{}
         if ($PSBoundParameters.ContainsKey("Name") -and (-not [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($Name))) {
-            $FilterSet += @{Property = "Name"; Comparator = "="; Value = [System.Management.Automation.WildcardPattern]::Unescape($Name)}
+            $FilterSet += @{Property = "Name"; Operator = "="; Value = [System.Management.Automation.WildcardPattern]::Unescape($Name)}
         } elseif ($PSBoundParameters.ContainsKey("Name") -and [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($Name)) {
             try   { "" -like $Name | Out-Null } # Test wildcard string
             catch { throw }                     # Throw error if wildcard invalid

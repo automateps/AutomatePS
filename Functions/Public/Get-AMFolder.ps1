@@ -17,8 +17,8 @@ function Get-AMFolder {
             The ID of the folder.
 
         .PARAMETER FilterSet
-            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Comparator, Value.
-            Valid values for the Comparator are: =, !=, <, >, contains (default - no need to supply Comparator when using 'contains')
+            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Operator, Value.
+            Valid values for the Operator are: =, !=, <, >, contains (default - no need to supply Operator when using 'contains')
 
         .PARAMETER FilterSetMode
             If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
@@ -81,13 +81,13 @@ function Get-AMFolder {
 
         .EXAMPLE
             # Get folders using filter sets
-            Get-AMFolder -FilterSet @{ Property = "Path"; Comparator = "contains"; Value = "WORKFLOWS"}
+            Get-AMFolder -FilterSet @{ Property = "Path"; Operator = "contains"; Value = "WORKFLOWS"}
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -161,8 +161,8 @@ function Get-AMFolder {
                     # If both Path and Name are provided
                     if (-not [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($Name)) {
                         if ($Path -ne "\") { # The API doesn't return root folders
-                            $FilterSet += @{Property = "Path"; Comparator = "="; Value = $Path}
-                            $FilterSet += @{Property = "Name"; Comparator = "="; Value = $Name}
+                            $FilterSet += @{Property = "Path"; Operator = "="; Value = $Path}
+                            $FilterSet += @{Property = "Name"; Operator = "="; Value = $Name}
                         } elseif (-not $PSBoundParameters.ContainsKey("FilterSet")) {
                             $result += Get-AMFolderRoot -Connection $Connection | Where-Object {$_.Path -eq $Path -and $_.Name -eq $Name}
                         } else {
@@ -170,7 +170,7 @@ function Get-AMFolder {
                         }
                     } else {
                         if ($Path -ne "\") { # The API doesn't return root folders
-                            $FilterSet += @{Property = "Path"; Comparator = "="; Value = $Path}
+                            $FilterSet += @{Property = "Path"; Operator = "="; Value = $Path}
                         } elseif (-not $PSBoundParameters.ContainsKey("FilterSet")) {
                             $result += Get-AMFolderRoot -Connection $Connection | Where-Object {$_.Path -eq $Path -and $_.Name -like $Name}
                         } else {
@@ -180,7 +180,7 @@ function Get-AMFolder {
                 } elseif ($PSBoundParameters.ContainsKey("Path")) {
                     # If just path is provided
                     if ($Path -ne "\") { # The API doesn't return root folders
-                        $FilterSet += @{Property = "Path"; Comparator = "="; Value = $Path}
+                        $FilterSet += @{Property = "Path"; Operator = "="; Value = $Path}
                     } elseif (-not $PSBoundParameters.ContainsKey("FilterSet")) {
                         $result += Get-AMFolderRoot -Connection $Connection | Where-Object {$_.Path -eq $Path}
                     } else {
@@ -189,7 +189,7 @@ function Get-AMFolder {
                 } elseif ($PSBoundParameters.ContainsKey("Name")) {
                     # If just name is provided
                     if (-not [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($Name)) {
-                        $FilterSet += @{Property = "Name"; Comparator = "="; Value = $Name}
+                        $FilterSet += @{Property = "Name"; Operator = "="; Value = $Name}
                         if (-not $PSBoundParameters.ContainsKey("FilterSet")) {
                             $result += Get-AMFolderRoot -Connection $Connection | Where-Object {$_.Name -eq $Name}
                         } else {
@@ -232,7 +232,7 @@ function Get-AMFolder {
                             # Get folders containing the provided object(s)
                             $tempResult = Get-AMFolderRoot | Where-Object {$_.ID -eq $obj.ParentID}
                             if (-not $tempResult) {
-                                $tempFilterSet = $FilterSet + @{Property = "ID"; Comparator = "="; Value = $obj.ParentID}
+                                $tempFilterSet = $FilterSet + @{Property = "ID"; Operator = "="; Value = $obj.ParentID}
                                 $tempSplat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                                 $result += Invoke-AMRestMethod @tempSplat
                             } else {
@@ -245,7 +245,7 @@ function Get-AMFolder {
                             switch ($Type) {
                                 "USERS" {
                                     # Get folder containing the provided user(s)
-                                    $tempFilterSet = $FilterSet + @{Property = "ID"; Comparator = "="; Value = $obj.ParentID}
+                                    $tempFilterSet = $FilterSet + @{Property = "ID"; Operator = "="; Value = $obj.ParentID}
                                     $tempSplat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                                     $result += Invoke-AMRestMethod @tempSplat
                                 }
@@ -292,7 +292,7 @@ function Get-AMFolder {
                                 $tempResult = Get-AMFolderRoot -Connection $obj.ConnectionAlias | Where-Object {$_.ID -eq $obj.ParentID}
                                 if (-not $tempResult) {
                                     # Get folders that contain the provided folders(s)
-                                    $tempFilterSet = $FilterSet + @{Property = "ID"; Comparator = "="; Value = $obj.ParentID}
+                                    $tempFilterSet = $FilterSet + @{Property = "ID"; Operator = "="; Value = $obj.ParentID}
                                     $tempSplat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                                     $result += Invoke-AMRestMethod @tempSplat
                                 } else {
@@ -300,7 +300,7 @@ function Get-AMFolder {
                                 }
                             } else {
                                 # Get folders contained within the provided folder(s)
-                                $tempFilterSet = $FilterSet + @{Property = "ParentID"; Comparator = "="; Value = $obj.ID}
+                                $tempFilterSet = $FilterSet + @{Property = "ParentID"; Operator = "="; Value = $obj.ID}
                                 $tempSplat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                                 $tempResult = Invoke-AMRestMethod @tempSplat
                                 if (($tempResult.Count -gt 0) -and $Recurse) {
