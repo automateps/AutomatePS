@@ -106,9 +106,9 @@ If you have a large number of objects in your environment, calling these functio
 ```PowerShell
 # Gets all disabled workflows
 $filterSet = @{
-    Property   = "Enabled"  # The property of the object to filter on
-    Comparator = "="        # Valid values: =, !=, <, >, contains
-    Value      = "false"    # The value to use in the comparison
+    Property = "Enabled"  # The property of the object to filter on
+    Operator = "="        # Valid values: =, !=, <, >, contains
+    Value    = "false"    # The value to use in the comparison
 }
 Get-AMWorkflow -FilterSet $filterSet
 ```
@@ -119,14 +119,14 @@ Additionally, these filter sets can be combined by supplying multiple filter set
 # Gets all disabled workflows that have "FTP" in the name
 $filterSet = @()
 $filterSet += @{
-    Property   = "Enabled"
-    Comparator = "="
-    Value      = "false"
+    Property = "Enabled"
+    Operator = "="
+    Value    = "false"
 }
 $filterSet += @{
-    Property   = "Name"
-    Comparator = "contains"
-    Value      = "FTP"
+    Property = "Name"
+    Operator = "contains"  # contains is the default operator, and does not have to be specified
+    Value    = "FTP"
 }
 Get-AMWorkflow -FilterSet $filterSet                   # AND's the filter sets together
 Get-AMWorkflow -FilterSet $filterSet -FilterSetMode Or # OR's the filter sets together
