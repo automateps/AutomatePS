@@ -27,7 +27,7 @@ function Search-ObjectProperty {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -70,12 +70,14 @@ function Search-ObjectProperty {
 
             foreach ($property in ($obj | Get-Member -MemberType Property | Where-Object {$_.Name -notin "__type","MatchedProperty"}).Name) {
                 if ($obj."$property" -isnot [string]) {
-                    if ($CurrentDepth -le $Depth) {
-                        Write-Verbose "Searching sub-object $ParentProperty.$property"
-                        $subProperties = $obj."$property" | Search-ObjectProperty -Pattern $Pattern -ParentProperty "$ParentProperty.$property" -Regex:$Regex -Depth $Depth -CurrentDepth ($CurrentDepth + 1)
-                        if ($subProperties) {
-                            $matchedProps += $subProperties.MatchedProperty
-                            $found = $true
+                    if ($obj."$property".GetType().FullName -like "AM*") {
+                        if ($CurrentDepth -le $Depth) {
+                            Write-Verbose "Searching sub-object $ParentProperty.$property"
+                            $subProperties = $obj."$property" | Search-ObjectProperty -Pattern $Pattern -ParentProperty "$ParentProperty.$property" -Regex:$Regex -Depth $Depth -CurrentDepth ($CurrentDepth + 1)
+                            if ($subProperties) {
+                                $matchedProps += $subProperties.MatchedProperty
+                                $found = $true
+                            }
                         }
                     }
                 } else {

@@ -27,7 +27,7 @@ function Resume-AMInstance {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/08/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -50,12 +50,14 @@ function Resume-AMInstance {
                                 "Workflow" {
                                     Invoke-AMRestMethod -Resource "workflows/$($obj.ConstructID)/running_instances/$($obj.ID)/resume" -RestMethod Post -Connection $obj.ConnectionAlias | Out-Null
                                     Start-Sleep 1   # The instance can't be retrieved right away, have to pause briefly
-                                    Invoke-AMRestMethod -Resource ('instances/list?filter_sets="ID","=","\"' + $obj.ID + '\""') -RestMethod Get -Connection $obj.ConnectionAlias
+                                    $uri = Format-AMUri -Path "instances/list" -FilterSet @{Property = "ID"; Operator = "="; Value = $obj.ID}
+                                    Invoke-AMRestMethod -Resource $uri -RestMethod Get -Connection $obj.ConnectionAlias
                                 }
                                 "Task" {
                                     Invoke-AMRestMethod -Resource "tasks/$($obj.ConstructID)/running_instances/$($obj.ID)/resume" -RestMethod Post -Connection $obj.ConnectionAlias | Out-Null
                                     Start-Sleep 1   # The instance can't be retrieved right away, have to pause briefly
-                                    Invoke-AMRestMethod -Resource ('instances/list?filter_sets="ID","=","\"' + $obj.ID + '\""') -RestMethod Get -Connection $obj.ConnectionAlias
+                                    $uri = Format-AMUri -Path "instances/list" -FilterSet @{Property = "ID"; Operator = "="; Value = $obj.ID}
+                                    Invoke-AMRestMethod -Resource $uri -RestMethod Get -Connection $obj.ConnectionAlias
                                 }
                                 default {
                                     if ($_) { $message = "Unsupported construct type '$_' encountered! Workflow: $($obj.Name)"           }

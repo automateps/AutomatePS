@@ -576,9 +576,9 @@ enum AMAuditEventType {
     FolderImported = 1607
 
     # Revision management event types
-    RevisionUpdated             = 2000
-    RevisionDeleted             = 2001
-    RevisionRestored            = 2002
+    RevisionUpdated            = 2000
+    RevisionDeleted            = 2001
+    RevisionRestored           = 2002
     RevisionDeletedRecycleBin  = 2003
     RevisionRestoredRecycleBin = 2004
 
@@ -588,6 +588,7 @@ enum AMAuditEventType {
     ServerPropertiesModified = 1500
     ServerPermissionsModifed = 1501
     ApiPermissionsModified   = 1502
+    RevisionManagementPropertiesModified = 1503
 
     # Miscellaneous
     ConnectionOpened               = 100

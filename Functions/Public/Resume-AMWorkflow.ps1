@@ -4,10 +4,10 @@ function Resume-AMWorkflow {
             Resumes a failed AutoMate Enterprise workflow.
 
         .DESCRIPTION
-            Resume-AMWorkflow resumse paused workflow and task instances.
+            Resume-AMWorkflow resumes paused workflow and task instances.
 
         .PARAMETER InputObject
-            The workflow(s) to resumse.
+            The workflow(s) to resume.
 
         .INPUTS
             Workflows can be supplied on the pipeline to this function.
@@ -20,7 +20,7 @@ function Resume-AMWorkflow {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/19/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS

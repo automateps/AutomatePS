@@ -90,6 +90,9 @@ class AMAutomationConstructv11 : AMObjectConstructv11 {
         }
         return $return
     }
+    [AMAutomationConstructv11]Refresh() {
+        return (Get-AMObject -ID $this.ID -Types $this.Type -Connection $this.ConnectionAlias)
+    }
 }
 
 class AMAgentv11 : AMAutomationConstructv11 {

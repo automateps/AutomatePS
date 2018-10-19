@@ -26,7 +26,7 @@ function Start-AMProcess {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/19/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -52,39 +52,60 @@ function Start-AMProcess {
             if ($obj.Type -eq "Process") {
                 switch($PSCmdlet.ParameterSetName) {
                     "Agent" {
-                        if ($Agent.Type -ne "Agent") {
+                        if ($Agent -is [string]) {
                             $name = $Agent
-                            $Agent = Get-AMAgent -Name $name -Connection $obj.ConnectionAlias
-                            if (($Agent | Measure-Object).Count -ne 1) {
+                            # Can't assign agent directly because of ValidateNotNullOrEmpty on parameter
+                            $tempAgent = Get-AMAgent -Name $name -Connection $obj.ConnectionAlias
+                            if (($tempAgent | Measure-Object).Count -eq 1) {
+                                $Agent = $tempAgent
+                            } else {
                                 throw "Agent '$name' not found!"
                             }
                         }
-                        if ($Agent.AgentType -eq "ProcessAgent") {
-                            Write-Verbose "Running process $($obj.Name) on agent $($Agent.Name)."
-                            $instanceID = Invoke-AMRestMethod -Resource "processes/$($obj.ID)/run?process_agent_id=$($Agent.ID)" -RestMethod Post -Connection $obj.ConnectionAlias
-                            Start-Sleep -Seconds 1   # The instance can't be retrieved right away, have to pause briefly
-                            Invoke-AMRestMethod -Resource ('instances/list?filter_sets="ID","=","\"' + $instanceID + '\""') -RestMethod Get -Connection $obj.ConnectionAlias
+                        if ($Agent.Type -eq "Agent") {
+                            if ($Agent.AgentType -eq "ProcessAgent") {
+                                if ($Agent.ConnectionAlias -eq $obj.ConnectionAlias) {
+                                    Write-Verbose "Running process $($obj.Name) on agent $($Agent.Name)."
+                                    $runUri = Format-AMUri -Path "processes/$($obj.ID)/run" -Parameters "process_agent_id=$($Agent.ID)"
+                                } else {
+                                    throw "Process '$($obj.Name)' and agent '$($Agent.Name)' are not on the same server!" 
+                                }
+                            } else {
+                                throw "Agent $($Agent.Name) is not a process agent!"
+                            }
                         } else {
-                            throw "Agent $($Agent.Name) is not a process agent!"
+                            throw "Unsupported agent type '$($Agent.Type)' encountered!"
                         }
                     }
                     "AgentGroup" {
-                        if ($AgentGroup.Type -ne "AgentGroup") {
+                        if ($AgentGroup -is [string]) {
                             $name = $AgentGroup
-                            $AgentGroup = Get-AMAgentGroup -Name $name -Connection $obj.ConnectionAlias
-                            if (($AgentGroup | Measure-Object).Count -ne 1) {
+                            # Can't assign agent directly because of ValidateNotNullOrEmpty on parameter
+                            $tempAgentGroup = Get-AMAgentGroup -Name $name -Connection $obj.ConnectionAlias
+                            if (($tempAgentGroup | Measure-Object).Count -eq 1) {
+                                $AgentGroup = $tempAgentGroup
+                            } else {
                                 throw "Agent group '$name' not found!"
                             }
                         }
-
-                        Write-Verbose "Running process $($obj.Name) on agent group $($AgentGroup.Name)."
-                        $instanceID = Invoke-AMRestMethod -Resource "processes/$($obj.ID)/run?agent_group_id=$($AgentGroup.ID)" -RestMethod Post -Connection $obj.ConnectionAlias
-                        Start-Sleep -Seconds 1   # The instance can't be retrieved right away, have to pause briefly
-                        Invoke-AMRestMethod -Resource ('instances/list?filter_sets="ID","=","\"' + $instanceID + '\""') -RestMethod Get -Connection $obj.ConnectionAlias
+                        if ($AgentGroup.Type -eq "AgentGroup") {
+                            if ($AgentGroup.ConnectionAlias -eq $obj.ConnectionAlias) {
+                                Write-Verbose "Running process $($obj.Name) on agent group $($AgentGroup.Name)."
+                                $runUri = Format-AMUri -Path "processes/$($obj.ID)/run" -Parameters "agent_group_id=$($AgentGroup.ID)"
+                            } else {
+                                throw "Process '$($obj.Name)' and agent group '$($AgentGroup.Name)' are not on the same server!" 
+                            }
+                        } else {
+                            throw "Unsupported agent group type '$($AgentGroup.Type)' encountered!"
+                        }
                     }
                 }
+                $instanceID = Invoke-AMRestMethod -Resource $runUri -RestMethod Post -Connection $obj.ConnectionAlias
+                Start-Sleep -Seconds 1   # The instance can't be retrieved right away, have to pause briefly
+                $listUri = Format-AMUri -Path "instances/list" -FilterSet @{Property = "ID"; Operator = "="; Value = $instanceID}
+                Invoke-AMRestMethod -Resource $listUri -RestMethod Get -Connection $obj.ConnectionAlias
             } else {
-                Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject -TargetObject $obj
+                Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
             }
         }
     }

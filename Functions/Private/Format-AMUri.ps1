@@ -10,8 +10,8 @@ function Format-AMUri {
             The root URI to build the query from.
 
         .PARAMETER FilterSet
-            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Comparator, Value (these properties can be shorthanded by specifying P, C or V).
-            Valid values for the Comparator are: =, !=, <, >, contains (default - no need to supply Comparator when using 'contains')
+            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Operator, Value (these properties can be shorthanded by specifying P, C or V).
+            Valid values for the Operator are: =, !=, <, >, contains (default - no need to supply Operator when using 'contains')
 
         .PARAMETER FilterSetMode
             If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
@@ -41,13 +41,13 @@ function Format-AMUri {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .EXAMPLE
-            Format-AMUri -FilterSet @{Property = "Enabled"; Comparator = "="; Value = "true"} -SortProperty "Name"
+            Format-AMUri -FilterSet @{Property = "Enabled"; Operator = "="; Value = "true"} -SortProperty "Name"
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -90,17 +90,17 @@ function Format-AMUri {
     $filterStrings = @()
     foreach ($fs in $FilterSet) {
         $filterProperty = $null
-        $filterComparator = $null
+        $filterOperator = $null
         $filterValue = $null
         foreach ($key in $fs.Keys) {
-            if ("Property" -like "$key*")       { $filterProperty = $fs[$key]   }
-            elseif ("Comparator" -like "$key*") { $filterComparator = $fs[$key] } 
-            elseif ("Value" -like "$key*")      { $filterValue = $fs[$key]      }
+            if ("Property" -like "$key*") { $filterProperty = $fs[$key] }
+            elseif ("Comparator" -like "$key*" -or "Operator" -like "$key*") { $filterOperator = $fs[$key] }
+            elseif ("Value" -like "$key*") { $filterValue = $fs[$key] }
         }
         if ($null -ne $filterProperty -and $null -ne $filterValue) {
             if ($filterValue -is [DateTime]) { $filterValue = $filterValue.ToUniversalTime() }
-            if (-not $filterComparator) { $filterComparator = "contains" }
-            $filterStrings += '"' + $filterProperty + '","' + $filterComparator + '","\"' + [uri]::EscapeDataString($filterValue) + '\""'
+            if (-not $filterOperator) { $filterOperator = "contains" }
+            $filterStrings += '"' + $filterProperty + '","' + $filterOperator + '","\"' + [uri]::EscapeDataString($filterValue) + '\""'
         } else {
             throw "'Property' and 'Value' must be specified in the filter set hashtable!"
         }

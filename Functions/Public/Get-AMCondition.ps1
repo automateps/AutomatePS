@@ -17,8 +17,8 @@ function Get-AMCondition {
             The ID of the condition.
 
         .PARAMETER FilterSet
-            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Comparator, Value.
-            Valid values for the Comparator are: =, !=, <, >, contains (default - no need to supply Comparator when using 'contains')
+            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Operator, Value.
+            Valid values for the Operator are: =, !=, <, >, contains (default - no need to supply Operator when using 'contains')
 
         .PARAMETER FilterSetMode
             If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
@@ -65,13 +65,13 @@ function Get-AMCondition {
 
         .EXAMPLE
             # Get conditions that have "Daily" in the name and are not enabled, using filter sets
-            Get-AMCondition -FilterSet @{ Property = "Name"; Comparator = "contains"; Value = "Daily"},@{ Property = "Enabled"; Comparator = "="; Value = "false"}
+            Get-AMCondition -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "Daily"},@{ Property = "Enabled"; Operator = "="; Value = "false"}
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/04/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -123,14 +123,14 @@ function Get-AMCondition {
         $result = @()
         $conditionCache = @{}
         if ($PSBoundParameters.ContainsKey("Name") -and (-not [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($Name))) {
-            $FilterSet += @{Property = "Name"; Comparator = "="; Value = [System.Management.Automation.WildcardPattern]::Unescape($Name)}
+            $FilterSet += @{Property = "Name"; Operator = "="; Value = [System.Management.Automation.WildcardPattern]::Unescape($Name)}
         } elseif ($PSBoundParameters.ContainsKey("Name") -and [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($Name)) {
             try   { "" -like $Name | Out-Null } # Test wildcard string
             catch { throw }                     # Throw error if wildcard invalid
             $splat += @{ FilterScript = {$_.Name -like $Name} }
         }
         if ($Type -ne [AMTriggerType]::All) {
-            $FilterSet += @{Property = "TriggerType"; Comparator = "="; Value = $Type.value__}
+            $FilterSet += @{Property = "TriggerType"; Operator = "="; Value = $Type.value__}
         }
     }
 
@@ -180,7 +180,7 @@ function Get-AMCondition {
                             # Get conditions monitored by the provided agent(s)
                             $tempFilterSet = $FilterSet
                             if ($Type -ne [AMTriggerType]::All) {
-                                $tempFilterSet += @{ Property = "TriggerType"; Comparator = "="; Value = $Type.value__ }
+                                $tempFilterSet += @{ Property = "TriggerType"; Operator = "="; Value = $Type.value__ }
                             }
                             $tempSplat += @{ Resource = Format-AMUri -Path "agents/$($obj.ID)/conditions" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                             $result += Invoke-AMRestMethod @tempSplat

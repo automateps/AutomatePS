@@ -33,7 +33,7 @@ function Move-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/19/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -53,15 +53,12 @@ function Move-AMObject {
             if ($Folder.Path -like "\$(([AMTypeDictionary]::($obj.Type)).RootFolderName)*") {
                 if ($obj.ParentID -ne $Folder.ID) {
                     switch ($obj.Type) {
-                        "Workflow"     { $update = Get-AMWorkflow -ID $obj.ID -Connection $obj.ConnectionAlias   }
-                        "Task"         { $update = Get-AMTask -ID $obj.ID -Connection $obj.ConnectionAlias       }
-                        "Condition"    { $update = Get-AMCondition -ID $obj.ID -Connection $obj.ConnectionAlias  }
-                        "Process"      { $update = Get-AMProcess -ID $obj.ID -Connection $obj.ConnectionAlias    }
-                        "Agent"        { $update = Get-AMAgent -ID $obj.ID -Connection $obj.ConnectionAlias      }
-                        "AgentGroup"   { $update = Get-AMAgentGroup -ID $obj.ID -Connection $obj.ConnectionAlias }
-                        "User"         { $update = Get-AMUser -ID $obj.ID -Connection $obj.ConnectionAlias       }
-                        "UserGroup"    { $update = Get-AMUserGroup -ID $obj.ID -Connection $obj.ConnectionAlias  }
-                        default        { Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj    }
+                        {$_ -in "Workflow","Task","Condition","Process","Agent","AgentGroup","User","UserGroup"} {
+                            $update = Get-AMObject -ID $obj.ID -Types $obj.Type -Connection $obj.ConnectionAlias
+                        }
+                        default {
+                            Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
+                        }
                     }
                     $update.Path     = Join-Path -Path $Folder.Path -ChildPath $Folder.Name
                     $update.ParentID = $Folder.ID

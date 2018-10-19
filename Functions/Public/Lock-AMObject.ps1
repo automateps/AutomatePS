@@ -25,7 +25,7 @@ function Lock-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/19/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -40,13 +40,13 @@ function Lock-AMObject {
         foreach ($obj in $InputObject) {
             $connection = Get-AMConnection -Connection $obj.ConnectionAlias
             switch ($obj.Type) {
-                "Workflow"  { $update = Get-AMWorkflow -ID $obj.ID -Connection $connection  }
-                "Task"      { $update = Get-AMTask -ID $obj.ID -Connection $connection      }
-                "Condition" { $update = Get-AMCondition -ID $obj.ID -Connection $connection }
-                "Process"   { $update = Get-AMProcess -ID $obj.ID -Connection $connection   }
-                default     { Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj  }
+                {$_ -in "Workflow","Task","Condition","Process"} {
+                    $update = Get-AMObject -ID $obj.ID -Types $obj.Type -Connection $connection
+                }
+                default {
+                    Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
+                }
             }
-
             $user = Get-AMUser -Connection $connection | Where-Object {$_.Name -ieq $connection.Credential.UserName}
             $update.LockedBy = $user.ID
             $update | Set-AMObject

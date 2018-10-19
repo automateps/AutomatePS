@@ -22,7 +22,7 @@ function Unlock-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/19/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -36,10 +36,9 @@ function Unlock-AMObject {
     PROCESS {
         foreach ($obj in $InputObject) {
             switch ($obj.Type) {
-                "Workflow"  { $update = Get-AMWorkflow -ID $obj.ID -Connection $obj.ConnectionAlias  }
-                "Task"      { $update = Get-AMTask -ID $obj.ID -Connection $obj.ConnectionAlias      }
-                "Condition" { $update = Get-AMCondition -ID $obj.ID -Connection $obj.ConnectionAlias }
-                "Process"   { $update = Get-AMProcess -ID $obj.ID -Connection $obj.ConnectionAlias   }
+                {$_ -in "Workflow","Task","Condition","Process"} {
+                    $update = Get-AMObject -ID $obj.ID -Types $obj.Type -Connection $obj.ConnectionAlias
+                }
                 default     { Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj  }
             }
             $update.LockedBy = ""

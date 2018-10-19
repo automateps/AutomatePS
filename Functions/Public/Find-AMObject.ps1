@@ -29,7 +29,7 @@ function Find-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/16/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -63,7 +63,7 @@ function Find-AMObject {
     $toSearch = @()
     foreach ($t in $Type) {
         $tempSplat = $splat
-        $tempSplat += @{ Resource = "$(([AMTypeDictionary]::($t)).RestResource)/list?sort_field=Name" }
+        $tempSplat += @{ Resource = Format-AMUri -Path "$(([AMTypeDictionary]::($t)).RestResource)/list" -SortProperty "Name" }
         $toSearch += Invoke-AMRestMethod @tempSplat
     }
 
