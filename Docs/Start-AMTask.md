@@ -52,7 +52,7 @@ Accept wildcard characters: False
 ```
 
 ### -Agent
-The agent to run the process on.
+The agent to run the task on.
 
 ```yaml
 Type: Object
@@ -67,7 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -AgentGroup
-The agent group to run the process on.
+The agent group to run the task on.
 
 ```yaml
 Type: Object
@@ -88,16 +88,14 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Tasks can be supplied on the pipeline to this function.
-
 ## OUTPUTS
 
 ### System.Object[]
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/19/2018
 
 ## RELATED LINKS
 

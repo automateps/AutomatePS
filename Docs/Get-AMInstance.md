@@ -65,7 +65,7 @@ Get-AMWorkflow "My Workflow" | Get-AMInstance -Status Failed
 # Get instances using filter sets
 ```
 
-Get-AMInstance -FilterSet @{ Property = "ResultText"; Comparator = "contains"; Value = "FTP Workflow"}
+Get-AMInstance -FilterSet @{ Property = "ResultText"; Operator = "contains"; Value = "FTP Workflow"}
 
 ## PARAMETERS
 
@@ -172,8 +172,8 @@ Accept wildcard characters: False
 
 ### -FilterSet
 The parameters to filter the search on. 
-Supply hashtable(s) with the following properties: Property, Comparator, Value.
-Valid values for the Comparator are: =, !=, \<, \>, contains (default - no need to supply Comparator when using 'contains')
+Supply hashtable(s) with the following properties: Property, Operator, Value.
+Valid values for the Operator are: =, !=, \<, \>, contains (default - no need to supply Operator when using 'contains')
 
 ```yaml
 Type: Hashtable[]
@@ -271,21 +271,19 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Instances of the following objects can be retrieved by this function:
-Workflow
-Task
-Folder
-TaskAgent
-ProcessAgent
-
+### Workflow
+### Task
+### Folder
+### TaskAgent
+### ProcessAgent
 ## OUTPUTS
 
 ### Instance
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/04/2018
 
 ## RELATED LINKS
 

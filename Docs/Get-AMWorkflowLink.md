@@ -13,7 +13,7 @@ Gets a list of links within a workflow.
 ## SYNTAX
 
 ```
-Get-AMWorkflowLink [-InputObject] <Object> [[-LinkType] <AMLinkType>] [-IgnoreLabels] [<CommonParameters>]
+Get-AMWorkflowLink [-InputObject] <Object> [[-LinkType] <AMLinkType>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -61,21 +61,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -IgnoreLabels
-If workflow items are configured to use labels, ignore the label and show the item type and name.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
 For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -83,15 +68,14 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### The following AutoMate object types can be queried by this function:
-Workflow
-
+### Workflow
 ## OUTPUTS
 
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/23/2018
 
 ## RELATED LINKS
 

@@ -84,15 +84,14 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### The following objects can be modified by this function:
-Workflow
-Task
-Process
-TaskAgent
-ProcessAgent
-AgentGroup
-User
-UserGroup
-
+### Workflow
+### Task
+### Process
+### TaskAgent
+### ProcessAgent
+### AgentGroup
+### User
+### UserGroup
 ## OUTPUTS
 
 ## NOTES

@@ -73,7 +73,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: @("Workflow","Task","Condition","Process","TaskAgent","ProcessAgent","AgentGroup","User","UserGroup")
+Default value: @("Workflow","Task","Condition","Process","Agent","AgentGroup","User","UserGroup")
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -121,7 +121,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/16/2018
 
 ## RELATED LINKS
 

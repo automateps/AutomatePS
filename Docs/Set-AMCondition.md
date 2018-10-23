@@ -137,15 +137,14 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### The following AutoMate object types can be modified by this function:
-Task
-
+### Task
 ## OUTPUTS
 
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/23/2018
 
 ## RELATED LINKS
 

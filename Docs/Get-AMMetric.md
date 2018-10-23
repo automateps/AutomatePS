@@ -159,11 +159,9 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Folder
-
 ## OUTPUTS
 
 ### Metrics
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :

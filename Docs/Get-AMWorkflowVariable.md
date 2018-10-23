@@ -117,12 +117,10 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### The following AutoMate object types can be queried by this function:
-Workflow
-
+### Workflow
 ## OUTPUTS
 
 ### WorkflowVariable
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :

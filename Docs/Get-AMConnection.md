@@ -85,11 +85,9 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Connection, String
-
 ## OUTPUTS
 
 ### Connection
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :

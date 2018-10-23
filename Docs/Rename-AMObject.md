@@ -65,23 +65,21 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### The following objects can be renamed by this function:
-Folder
-Workflow
-WorkflowVariable
-Task
-Process
-AgentGroup
-UserGroup
-
+### Folder
+### Workflow
+### WorkflowVariable
+### Task
+### Process
+### AgentGroup
+### UserGroup
 ## OUTPUTS
 
 ### None
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/19/2018
 
 ## RELATED LINKS
 

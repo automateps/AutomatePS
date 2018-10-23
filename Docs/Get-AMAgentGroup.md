@@ -56,7 +56,7 @@ Get-AMTask "My Task" | Get-AMAgentGroup
 # Get tasks using multiple filter sets
 ```
 
-Get-AMAgentGroup -FilterSet @{ Property = "Name"; Comparator = "contains"; Value = "FTP"}
+Get-AMAgentGroup -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "FTP"}
 
 ## PARAMETERS
 
@@ -111,8 +111,8 @@ Accept wildcard characters: False
 
 ### -FilterSet
 The parameters to filter the search on. 
-Supply hashtable(s) with the following properties: Property, Comparator, Value.
-Valid values for the Comparator are: =, !=, \<, \>, contains (default - no need to supply Comparator when using 'contains')
+Supply hashtable(s) with the following properties: Property, Operator, Value.
+Valid values for the Operator are: =, !=, \<, \>, contains (default - no need to supply Operator when using 'contains')
 
 ```yaml
 Type: Hashtable[]
@@ -195,22 +195,20 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Agent groups related to the following objects can be retrieved by this function:
-Workflow
-Task
-Condition
-Process
-Agent
-Folder
-
+### Workflow
+### Task
+### Condition
+### Process
+### Agent
+### Folder
 ## OUTPUTS
 
 ### AgentGroup
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/04/2018
 
 ## RELATED LINKS
 

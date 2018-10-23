@@ -50,7 +50,7 @@ Get-AMWorkflow "My Workflow" | Get-AMCondition
 # Get conditions that have "Daily" in the name and are not enabled, using filter sets
 ```
 
-Get-AMCondition -FilterSet @{ Property = "Name"; Comparator = "contains"; Value = "Daily"},@{ Property = "Enabled"; Comparator = "="; Value = "false"}
+Get-AMCondition -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "Daily"},@{ Property = "Enabled"; Operator = "="; Value = "false"}
 
 ## PARAMETERS
 
@@ -105,8 +105,8 @@ Accept wildcard characters: False
 
 ### -FilterSet
 The parameters to filter the search on. 
-Supply hashtable(s) with the following properties: Property, Comparator, Value.
-Valid values for the Comparator are: =, !=, \<, \>, contains (default - no need to supply Comparator when using 'contains')
+Supply hashtable(s) with the following properties: Property, Operator, Value.
+Valid values for the Operator are: =, !=, \<, \>, contains (default - no need to supply Operator when using 'contains')
 
 ```yaml
 Type: Hashtable[]
@@ -220,19 +220,17 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Conditions related to the following objects can be retrieved by this function:
-Workflow
-Agent
-Folder
-
+### Workflow
+### Agent
+### Folder
 ## OUTPUTS
 
 ### Condition
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/04/2018
 
 ## RELATED LINKS
 
