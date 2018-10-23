@@ -12,9 +12,6 @@ function Get-AMWorkflowLink {
         .PARAMETER LinkType
             Only retrieve variables of a specific link type.
 
-        .PARAMETER IgnoreLabels
-            If workflow items are configured to use labels, ignore the label and show the item type and name.
-
         .INPUTS
             The following AutoMate object types can be queried by this function:
             Workflow
@@ -27,7 +24,7 @@ function Get-AMWorkflowLink {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/23/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -38,9 +35,7 @@ function Get-AMWorkflowLink {
         [ValidateNotNullOrEmpty()]
         $InputObject,
 
-        [AMLinkType]$LinkType,
-
-        [switch]$IgnoreLabels = $false
+        [AMLinkType]$LinkType
     )
 
     BEGIN {
