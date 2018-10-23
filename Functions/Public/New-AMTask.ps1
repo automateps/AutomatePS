@@ -40,7 +40,6 @@ function New-AMTask {
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
-        [ValidateScript({$_ -like "<AMTASK>*"})]
         [string]$AML = "",
 
         [string]$Notes = "",
@@ -64,6 +63,27 @@ function New-AMTask {
     if (-not $Folder) {
         # Place the task in the users task folder
         $Folder = $user | Get-AMFolder -Type TASKS
+    }
+
+    if ($PSBoundParameters.ContainsKey("AML")) {
+        # Validate AML
+        if ($AML -is [string]) {
+            $convertSuccess = $false
+            try {
+                $xml = [xml]$AML
+                $convertSuccess = $true
+            } catch {
+                Write-Warning "Failed to convert AML to XML, this may be normal since AML does not always conform to XML syntax.  Validation will be skipped."
+            }
+            if ($convertSuccess) {
+                $amlVersion = [version]$xml.SelectSingleNode("//*[@TaskVersion|@TASKVERSION]").TaskVersion
+                if ($amlVersion.Major -ne $Connection.Version.Major) {
+                    throw "AML version ($($amlVersion.Major)) does not match server version ($($Connection.Version.Major))!"
+                }
+            }
+        } else {
+            throw "AML is not a string!"
+        }
     }
 
     switch ($Connection.Version.Major) {
