@@ -37,7 +37,7 @@ function Set-AMTask {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/23/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -61,18 +61,12 @@ function Set-AMTask {
         [string]$Notes,
 
         [Parameter(ParameterSetName = "ByInputObject")]
-        [ValidateScript({
-            if (($_ -is [string]) -and ($_.Trim() -like "<AMTASK>*</AMTASK>")) {
-                $true
-            } else {
-                throw [System.Management.Automation.PSArgumentException]"AML is invalid!"
-            }
-        })]
         [string]$AML,
 
         [Parameter(ParameterSetName = "ByInputObject")]
         [AMCompletionState]$CompletionState
     )
+
     PROCESS {
         switch ($PSCmdlet.ParameterSetName) {
             "ByInputObject" {
@@ -87,6 +81,25 @@ function Set-AMTask {
                             }
                         }
                         if ($PSBoundParameters.ContainsKey("AML")) {
+                            # Validate AML
+                            if ($AML -is [string]) {
+                                $convertSuccess = $false
+                                try {
+                                    $xml = [xml]$AML
+                                    $convertSuccess = $true
+                                } catch {
+                                    Write-Warning "Failed to convert AML to XML, this may be normal since AML does not always conform to XML syntax.  Validation will be skipped."
+                                }
+                                if ($convertSuccess) {
+                                    $serverVersion = (Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version
+                                    $amlVersion = [version]$xml.SelectSingleNode("//*[@TaskVersion|@TASKVERSION]").TaskVersion
+                                    if ($amlVersion.Major -ne $serverVersion.Major) {
+                                        throw "AML version ($($amlVersion.Major)) does not match server version ($($serverVersion.Major))!"
+                                    }
+                                }
+                            } else {
+                                throw "AML is not a string!"
+                            }
                             if ($updateObject.AML -ne $AML) {
                                 $updateObject.AML = $AML
                                 $shouldUpdate = $true
