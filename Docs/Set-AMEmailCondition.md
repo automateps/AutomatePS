@@ -118,7 +118,7 @@ Accept wildcard characters: False
 ```
 
 ### -AllowRedirection
-{{Fill AllowRedirection Description}}
+Allow redirection to occur.
 
 ```yaml
 Type: SwitchParameter
@@ -133,7 +133,7 @@ Accept wildcard characters: False
 ```
 
 ### -AuthType
-{{Fill AuthType Description}}
+Specifies the authentication type to administer.
 
 ```yaml
 Type: String
@@ -148,7 +148,7 @@ Accept wildcard characters: False
 ```
 
 ### -AuthenticationType
-{{Fill AuthenticationType Description}}
+Specifies the authentication type to administer.
 
 ```yaml
 Type: String
@@ -163,7 +163,7 @@ Accept wildcard characters: False
 ```
 
 ### -AutoDiscover
-{{Fill AutoDiscover Description}}
+Automatically discover the server based on the email address entered in the EmailAddress parameter.
 
 ```yaml
 Type: SwitchParameter
@@ -178,7 +178,7 @@ Accept wildcard characters: False
 ```
 
 ### -Certificate
-{{Fill Certificate Description}}
+The certificate to use.
 
 ```yaml
 Type: String
@@ -193,7 +193,7 @@ Accept wildcard characters: False
 ```
 
 ### -CertificatePath
-{{Fill CertificatePath Description}}
+The full path and file name of the certificate (.cer or .pfx extension) used to authenticate with.
 
 ```yaml
 Type: String
@@ -208,7 +208,7 @@ Accept wildcard characters: False
 ```
 
 ### -ConnectionType
-{{Fill ConnectionType Description}}
+The connection type.
 
 ```yaml
 Type: AMConnectionType
@@ -224,7 +224,7 @@ Accept wildcard characters: False
 ```
 
 ### -CurrentFolder
-{{Fill CurrentFolder Description}}
+Specifies the current mailbox folder that this trigger should monitor.
 
 ```yaml
 Type: String
@@ -239,7 +239,7 @@ Accept wildcard characters: False
 ```
 
 ### -DomainName
-{{Fill DomainName Description}}
+The domain name to authenticate with.
 
 ```yaml
 Type: String
@@ -254,7 +254,7 @@ Accept wildcard characters: False
 ```
 
 ### -EWSUseDefault
-{{Fill EWSUseDefault Description}}
+Use EWS.
 
 ```yaml
 Type: SwitchParameter
@@ -269,7 +269,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailAddress
-{{Fill EmailAddress Description}}
+The Exchange server email address to use for email transactions.
 
 ```yaml
 Type: String
@@ -284,7 +284,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailFilterType
-{{Fill EmailFilterType Description}}
+The type of filter to use: Sent or Received.
 
 ```yaml
 Type: AMEmailFilterType
@@ -300,7 +300,7 @@ Accept wildcard characters: False
 ```
 
 ### -ExchangeVersion
-{{Fill ExchangeVersion Description}}
+The Exchange server version.
 
 ```yaml
 Type: String
@@ -315,7 +315,7 @@ Accept wildcard characters: False
 ```
 
 ### -ExternalEWSUrl
-{{Fill ExternalEWSUrl Description}}
+The EWS URL.
 
 ```yaml
 Type: String
@@ -330,7 +330,7 @@ Accept wildcard characters: False
 ```
 
 ### -HasMailBoxURL
-{{Fill HasMailBoxURL Description}}
+Whether mailbox URL is specified.
 
 ```yaml
 Type: SwitchParameter
@@ -345,7 +345,7 @@ Accept wildcard characters: False
 ```
 
 ### -HttpProtocol
-{{Fill HttpProtocol Description}}
+HTTP or HTTPS.
 
 ```yaml
 Type: AMHttpProtocol
@@ -361,7 +361,7 @@ Accept wildcard characters: False
 ```
 
 ### -IgnoreCertificate
-{{Fill IgnoreCertificate Description}}
+Invalid or expired SSL certificates that are detected will be ignored.
 
 ```yaml
 Type: SwitchParameter
@@ -376,7 +376,7 @@ Accept wildcard characters: False
 ```
 
 ### -IgnoreServerCertificate
-{{Fill IgnoreServerCertificate Description}}
+Invalid or expired SSL server certificates that are detected will be ignored.
 
 ```yaml
 Type: SwitchParameter
@@ -391,7 +391,7 @@ Accept wildcard characters: False
 ```
 
 ### -Impersonate
-{{Fill Impersonate Description}}
+Impersonate access as the specified user.
 
 ```yaml
 Type: SwitchParameter
@@ -406,7 +406,7 @@ Accept wildcard characters: False
 ```
 
 ### -MailBoxURL
-{{Fill MailBoxURL Description}}
+The URL for the mailbox.
 
 ```yaml
 Type: String
@@ -421,8 +421,7 @@ Accept wildcard characters: False
 ```
 
 ### -PollingInterval
-\[string\]$Passphrase,
-\[string\]$Password,
+The polling interval.
 
 ```yaml
 Type: Int32
@@ -437,7 +436,7 @@ Accept wildcard characters: False
 ```
 
 ### -Port
-{{Fill Port Description}}
+The port for the email server.
 
 ```yaml
 Type: String
@@ -452,7 +451,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProtocolType
-{{Fill ProtocolType Description}}
+The email server type.
 
 ```yaml
 Type: AMGetEmailProtocol
@@ -468,7 +467,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProxyPort
-\[string\]$ProxyPassword,
+The port used to communicate with the proxy server.
 
 ```yaml
 Type: String
@@ -483,7 +482,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProxyServer
-{{Fill ProxyServer Description}}
+The hostname of IP address of the proxy server.
 
 ```yaml
 Type: String
@@ -498,7 +497,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProxyType
-{{Fill ProxyType Description}}
+The proxy protocol used to accept requests from clients in your network.
 
 ```yaml
 Type: AMProxyType
@@ -514,7 +513,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProxyUserName
-{{Fill ProxyUserName Description}}
+The username used to authenticate connection to the proxy server.
 
 ```yaml
 Type: String
@@ -529,7 +528,7 @@ Accept wildcard characters: False
 ```
 
 ### -Security
-{{Fill Security Description}}
+The security type.
 
 ```yaml
 Type: AMSecurityType
@@ -545,7 +544,7 @@ Accept wildcard characters: False
 ```
 
 ### -Server
-{{Fill Server Description}}
+The email server.
 
 ```yaml
 Type: String
@@ -560,7 +559,7 @@ Accept wildcard characters: False
 ```
 
 ### -UseAutoDiscovery
-{{Fill UseAutoDiscovery Description}}
+Automatically discover the server based on the email address entered in the EmailAddress parameter.
 
 ```yaml
 Type: SwitchParameter
@@ -575,7 +574,7 @@ Accept wildcard characters: False
 ```
 
 ### -UseForm
-{{Fill UseForm Description}}
+Use form authentication.
 
 ```yaml
 Type: SwitchParameter
@@ -590,7 +589,7 @@ Accept wildcard characters: False
 ```
 
 ### -UseHTTP
-{{Fill UseHTTP Description}}
+Use HTTP.
 
 ```yaml
 Type: SwitchParameter
@@ -605,7 +604,7 @@ Accept wildcard characters: False
 ```
 
 ### -UseNTLM
-{{Fill UseNTLM Description}}
+Use NTLM authentication.
 
 ```yaml
 Type: SwitchParameter
@@ -620,7 +619,7 @@ Accept wildcard characters: False
 ```
 
 ### -UserAgent
-{{Fill UserAgent Description}}
+The user agent.
 
 ```yaml
 Type: String
@@ -635,7 +634,7 @@ Accept wildcard characters: False
 ```
 
 ### -UserName
-{{Fill UserName Description}}
+The user name.
 
 ```yaml
 Type: String
@@ -650,7 +649,7 @@ Accept wildcard characters: False
 ```
 
 ### -WebDavAuthentication
-{{Fill WebDavAuthentication Description}}
+The WebDAV authentication type.
 
 ```yaml
 Type: AMWebDavAuthentication

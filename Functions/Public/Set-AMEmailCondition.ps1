@@ -9,6 +9,114 @@ function Set-AMEmailCondition {
         .PARAMETER InputObject
             The condition to modify.
 
+		.PARAMETER AllowRedirection
+			Allow redirection to occur.
+
+		.PARAMETER AuthType
+			Specifies the authentication type to administer.
+
+		.PARAMETER AuthenticationType
+			Specifies the authentication type to administer.
+
+		.PARAMETER AutoDiscover
+			Automatically discover the server based on the email address entered in the EmailAddress parameter.
+
+		.PARAMETER Certificate
+			The certificate to use.
+
+		.PARAMETER CertificatePath
+			The full path and file name of the certificate (.cer or .pfx extension) used to authenticate with.
+
+		.PARAMETER ConnectionType
+			The connection type.
+
+		.PARAMETER CurrentFolder
+			Specifies the current mailbox folder that this trigger should monitor.
+
+		.PARAMETER DomainName
+			The domain name to authenticate with.
+
+		.PARAMETER EWSUseDefault
+			Use EWS.
+
+		.PARAMETER EmailAddress
+			The Exchange server email address to use for email transactions.
+
+		.PARAMETER EmailFilterType
+			The type of filter to use: Sent or Received.
+
+		.PARAMETER ExchangeVersion
+			The Exchange server version.
+
+		.PARAMETER ExternalEWSUrl
+			The EWS URL.
+
+		.PARAMETER HasMailBoxURL
+			Whether mailbox URL is specified.
+
+		.PARAMETER HttpProtocol
+			HTTP or HTTPS.
+
+		.PARAMETER IgnoreCertificate
+			Invalid or expired SSL certificates that are detected will be ignored.
+
+		.PARAMETER IgnoreServerCertificate
+			Invalid or expired SSL server certificates that are detected will be ignored.
+
+		.PARAMETER Impersonate
+			Impersonate access as the specified user.
+
+		.PARAMETER MailBoxURL
+			The URL for the mailbox.
+
+		.PARAMETER PollingInterval
+			The polling interval.
+
+		.PARAMETER Port
+			The port for the email server.
+
+		.PARAMETER ProtocolType
+			The email server type.
+
+		.PARAMETER ProxyPort
+			The port used to communicate with the proxy server.
+
+		.PARAMETER ProxyServer
+			The hostname of IP address of the proxy server.
+
+		.PARAMETER ProxyType
+			The proxy protocol used to accept requests from clients in your network.
+
+		.PARAMETER ProxyUserName
+			The username used to authenticate connection to the proxy server.
+
+		.PARAMETER Security
+			The security type.
+
+		.PARAMETER Server
+			The email server.
+
+		.PARAMETER UseAutoDiscovery
+			Automatically discover the server based on the email address entered in the EmailAddress parameter.
+
+		.PARAMETER UseForm
+			Use form authentication.
+
+		.PARAMETER UseHTTP
+			Use HTTP.
+
+		.PARAMETER UseNTLM
+			Use NTLM authentication.
+
+		.PARAMETER UserAgent
+			The user agent.
+
+		.PARAMETER UserName
+			The user name.
+
+		.PARAMETER WebDavAuthentication
+			The WebDAV authentication type.
+
         .PARAMETER Wait
             Wait for the condition, or evaluate immediately.
 
@@ -31,7 +139,7 @@ function Set-AMEmailCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/25/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
