@@ -65,7 +65,7 @@ Accept wildcard characters: False
 ```
 
 ### -DefaultUserPropertiesSpecified
-Default User
+Whether the default user settings are specified (true) or inherited (false) from the server.
 
 ```yaml
 Type: SwitchParameter
@@ -80,7 +80,7 @@ Accept wildcard characters: False
 ```
 
 ### -DefaultRunAsUserName
-{{Fill DefaultRunAsUserName Description}}
+The default user name that agents should use when automatically logging onto or unlocking a workstation.
 
 ```yaml
 Type: String
@@ -95,7 +95,7 @@ Accept wildcard characters: False
 ```
 
 ### -DefaultRunAsPassword
-{{Fill DefaultRunAsPassword Description}}
+The default password to be used with the user name specified.
 
 ```yaml
 Type: String
@@ -110,7 +110,8 @@ Accept wildcard characters: False
 ```
 
 ### -DefaultRunAsDomain
-{{Fill DefaultRunAsDomain Description}}
+The domain or machine name associated with the user.
+This parameter can be left blank if the user is not a member of a domain or if there is only one workgroup for the machine.
 
 ```yaml
 Type: String
@@ -125,7 +126,8 @@ Accept wildcard characters: False
 ```
 
 ### -LogonScript
-{{Fill LogonScript Description}}
+The keystrokes to use in order for an agent to successfully log onto the workstation when a user is not present.
+Automate will simulate a user entering these keystrokes onto the Windows Logon screen.
 
 ```yaml
 Type: String
@@ -140,7 +142,8 @@ Accept wildcard characters: False
 ```
 
 ### -UnlockScript
-{{Fill UnlockScript Description}}
+The keystrokes to use in order for the agent to successfully unlock the workstation.
+Automate will simulate a user entering these keystrokes in order to successfully unlock a machine.
 
 ```yaml
 Type: String
@@ -155,7 +158,9 @@ Accept wildcard characters: False
 ```
 
 ### -LogonScriptKeystrokeDelay
-{{Fill LogonScriptKeystrokeDelay Description}}
+The number of milliseconds to pause between each keystroke.
+By default, Automate will press each key of the key sequence every 200 milliseconds.
+Adjust this number if keystrokes appear to be missing during the logon or unlock process, which may indicate that they are being typed too quickly.
 
 ```yaml
 Type: Int32
@@ -170,7 +175,7 @@ Accept wildcard characters: False
 ```
 
 ### -IndicatorsPropertiesSpecified
-Indicator
+Whether the indicator settings are specified (true) or inherited (false) from the server.
 
 ```yaml
 Type: SwitchParameter
@@ -185,7 +190,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowTrayIcon
-{{Fill ShowTrayIcon Description}}
+Indicates whether the Automate "A" icon should be displayed in the system tray of the agent machine.
 
 ```yaml
 Type: AMPrefsShowTrayIcon
@@ -201,7 +206,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowTrayIconMenu
-{{Fill ShowTrayIconMenu Description}}
+If enabled, allows right-clicks to be performed on the tray icon in order to display a context menu.
 
 ```yaml
 Type: SwitchParameter
@@ -216,7 +221,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowRunningTaskWindow
-{{Fill ShowRunningTaskWindow Description}}
+If enabled, the agent computer displays a small indicator window in the lower right-hand corner of the desktop during task execution.
 
 ```yaml
 Type: SwitchParameter
@@ -231,7 +236,7 @@ Accept wildcard characters: False
 ```
 
 ### -RunningTaskWindowWithTitleBar
-{{Fill RunningTaskWindowWithTitleBar Description}}
+If enabled, a title bar is displayed on the Running Task Indicator window.
 
 ```yaml
 Type: SwitchParameter
@@ -246,7 +251,7 @@ Accept wildcard characters: False
 ```
 
 ### -RunningTaskOnTop
-{{Fill RunningTaskOnTop Description}}
+If enabled, puts the Running Task Indicator window on top of all other open windows on the desktop.
 
 ```yaml
 Type: SwitchParameter
@@ -261,7 +266,7 @@ Accept wildcard characters: False
 ```
 
 ### -RunningTaskWindowTransparent
-{{Fill RunningTaskWindowTransparent Description}}
+If enabled, the Running Task Indicator window appears transparent.
 
 ```yaml
 Type: SwitchParameter
@@ -276,7 +281,7 @@ Accept wildcard characters: False
 ```
 
 ### -UseInterruptHotkey
-{{Fill UseInterruptHotkey Description}}
+If enabled, activates the Task interruption hotkey parameter which allows entry of a specific hotkey combination used to interrupt running tasks.
 
 ```yaml
 Type: SwitchParameter
@@ -291,7 +296,7 @@ Accept wildcard characters: False
 ```
 
 ### -InterruptHotkey
-{{Fill InterruptHotkey Description}}
+Specifies the hot-key combination to enter in order to suspend one or more running tasks and invoke the a Running Tasks dialog.
 
 ```yaml
 Type: String
@@ -306,7 +311,7 @@ Accept wildcard characters: False
 ```
 
 ### -StagingPropertiesSpecified
-Staging
+Whether the staging settings are specified (true) or inherited (false) from the server.
 
 ```yaml
 Type: SwitchParameter
@@ -321,7 +326,7 @@ Accept wildcard characters: False
 ```
 
 ### -UseLowestCompletionState
-{{Fill UseLowestCompletionState Description}}
+If enabled, tasks and conditions will execute on the agent only if the completion state is equal to or higher than the one specified.
 
 ```yaml
 Type: SwitchParameter
@@ -336,7 +341,10 @@ Accept wildcard characters: False
 ```
 
 ### -LowestCompletionState
-{{Fill LowestCompletionState Description}}
+InDevelopment (default) - Tells the system to run all tasks and conditions currently in development stage (lowest stage) or higher, which basically indicates all tasks and conditions.
+         Testing - Tells the system to run all tasks and conditions that are currently in the testing stage or higher.
+         Production - Tells the system to run all tasks and conditions currently in the production stage or higher.
+         Archive - Tells the system to run all tasks and conditions currently in the archive stage.
 
 ```yaml
 Type: AMCompletionState
@@ -352,7 +360,7 @@ Accept wildcard characters: False
 ```
 
 ### -LoadManagementPropertiesSpecified
-Load Management
+Whether the load management settings are specified (true) or inherited (false) from the server.
 
 ```yaml
 Type: SwitchParameter
@@ -367,7 +375,7 @@ Accept wildcard characters: False
 ```
 
 ### -MaxRunningTasks
-{{Fill MaxRunningTasks Description}}
+Specifies the maximum number of tasks that should run simultaneously on a given agent.
 
 ```yaml
 Type: Int32
@@ -382,7 +390,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProxyPropertiesSpecified
-Proxy
+Whether the proxy settings are specified (true) or inherited (false) from the server.
 
 ```yaml
 Type: SwitchParameter
@@ -397,7 +405,7 @@ Accept wildcard characters: False
 ```
 
 ### -SocksType
-{{Fill SocksType Description}}
+The proxy protocol that the proxy server uses to accept requests from Automate Enterprise.
 
 ```yaml
 Type: AMSocksType
@@ -413,7 +421,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProxyHost
-{{Fill ProxyHost Description}}
+The host name or host address of the proxy to use.
 
 ```yaml
 Type: String
@@ -428,7 +436,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProxyPort
-{{Fill ProxyPort Description}}
+The port on the proxy server to use.
 
 ```yaml
 Type: Int32
@@ -443,7 +451,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProxyUserID
-{{Fill ProxyUserID Description}}
+The user name to authenticate proxy requests.
 
 ```yaml
 Type: String
@@ -458,7 +466,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProxyPassword
-{{Fill ProxyPassword Description}}
+The password to authenticate proxy requests.
 
 ```yaml
 Type: String
@@ -473,7 +481,7 @@ Accept wildcard characters: False
 ```
 
 ### -SNMPPropertiesSpecified
-SNMP
+Whether the SNMP settings are specified (true) or inherited (false) from the server.
 
 ```yaml
 Type: SwitchParameter
@@ -488,7 +496,7 @@ Accept wildcard characters: False
 ```
 
 ### -MIBLocation
-{{Fill MIBLocation Description}}
+Indicates the directory location of the MIB (Management Information Base) files.
 
 ```yaml
 Type: String
@@ -503,7 +511,7 @@ Accept wildcard characters: False
 ```
 
 ### -SNMPTrapPort
-{{Fill SNMPTrapPort Description}}
+The port that Automate Enterprise will use to listen for traps using the SNMP Trap Condition.
 
 ```yaml
 Type: Int32
@@ -518,7 +526,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailPropertiesSpecified
-Email
+Whether the email settings are specified (true) or inherited (false) from the server.
 
 ```yaml
 Type: SwitchParameter
@@ -533,7 +541,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailProtocol
-{{Fill EmailProtocol Description}}
+The email protocol to communicate with.
 
 ```yaml
 Type: AMSendEmailProtocol
@@ -549,7 +557,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailServer
-{{Fill EmailServer Description}}
+The name of the mail server that will send emails generated by Automate Enterprise.
 
 ```yaml
 Type: String
@@ -564,7 +572,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailPort
-{{Fill EmailPort Description}}
+The default port that the mail server uses.
 
 ```yaml
 Type: Int32
@@ -579,7 +587,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailAuthenticationType
-{{Fill EmailAuthenticationType Description}}
+Specifies the authentication type to administer.
 
 ```yaml
 Type: String
@@ -594,7 +602,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailUserName
-{{Fill EmailUserName Description}}
+Specifies the username that the server authenticates with.
 
 ```yaml
 Type: String
@@ -609,7 +617,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailPassword
-{{Fill EmailPassword Description}}
+Specifies the password matching the username that the server authenticates with.
 
 ```yaml
 Type: String
@@ -624,7 +632,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailSecurity
-{{Fill EmailSecurity Description}}
+The type of security that this action should use.
 
 ```yaml
 Type: AMSecurityType
@@ -640,7 +648,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailCertificate
-{{Fill EmailCertificate Description}}
+The full path and file name of the certificate (.cer or .pfx extension) used to authenticate with.
 
 ```yaml
 Type: String
@@ -655,7 +663,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailCertificatePassphrase
-{{Fill EmailCertificatePassphrase Description}}
+The passphrase used to authenticate the SSL/TLS private key file.
 
 ```yaml
 Type: String
@@ -670,7 +678,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailIgnoreServerCertificate
-{{Fill EmailIgnoreServerCertificate Description}}
+Invalid or expired SSL server certificates that are detected will be ignored.
 
 ```yaml
 Type: SwitchParameter
@@ -685,7 +693,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailAddress
-{{Fill EmailAddress Description}}
+The Exchange server email address to use for email transactions.
 
 ```yaml
 Type: String
@@ -700,7 +708,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailUseAutoDiscovery
-{{Fill EmailUseAutoDiscovery Description}}
+Automatically discover the server based on the email address entered in the EmailAddress parameter.
 
 ```yaml
 Type: SwitchParameter
@@ -715,7 +723,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailExchangeProtocol
-{{Fill EmailExchangeProtocol Description}}
+The protocol to use for email transactions.
 
 ```yaml
 Type: AMHttpProtocol
@@ -731,7 +739,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailUrl
-{{Fill EmailUrl Description}}
+The URL for the email server.
 
 ```yaml
 Type: String
@@ -746,7 +754,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailDomainName
-{{Fill EmailDomainName Description}}
+The domain name to authenticate with.
 
 ```yaml
 Type: String
@@ -761,7 +769,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailVersion
-{{Fill EmailVersion Description}}
+The email server version.
 
 ```yaml
 Type: AMEmailVersion
@@ -777,7 +785,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailProxyType
-{{Fill EmailProxyType Description}}
+The proxy protocol used.
 
 ```yaml
 Type: AMProxyType
@@ -793,7 +801,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailProxyServer
-{{Fill EmailProxyServer Description}}
+The hostname or IP address of the proxy server.
 
 ```yaml
 Type: String
@@ -808,7 +816,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailProxyPort
-{{Fill EmailProxyPort Description}}
+The port used to communicate with the proxy server.
 
 ```yaml
 Type: Int32
@@ -823,7 +831,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailProxyUsername
-{{Fill EmailProxyUsername Description}}
+The username used to authenticate connection to the proxy server.
 
 ```yaml
 Type: String
@@ -838,7 +846,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmailProxyPassword
-{{Fill EmailProxyPassword Description}}
+The password used to authenticate the username specified.
 
 ```yaml
 Type: String
@@ -853,7 +861,7 @@ Accept wildcard characters: False
 ```
 
 ### -SystemPropertiesSpecified
-Miscellaneous
+Whether the system settings are specified (true) or inherited (false) from the server.
 
 ```yaml
 Type: SwitchParameter
@@ -868,7 +876,7 @@ Accept wildcard characters: False
 ```
 
 ### -AgentPort
-{{Fill AgentPort Description}}
+Specifies the default port that connected agents should use to communicate with the server component.
 
 ```yaml
 Type: Int32
@@ -883,7 +891,7 @@ Accept wildcard characters: False
 ```
 
 ### -TaskCacheFilePath
-{{Fill TaskCacheFilePath Description}}
+The path to cache task files on the agent.
 
 ```yaml
 Type: String
@@ -898,7 +906,7 @@ Accept wildcard characters: False
 ```
 
 ### -EventMonitorAutoMateStartMode
-{{Fill EventMonitorAutoMateStartMode Description}}
+The event monitor user context.
 
 ```yaml
 Type: AMEventMonitorAutoStartModeType
@@ -914,7 +922,7 @@ Accept wildcard characters: False
 ```
 
 ### -DisableForegroundTimeout
-{{Fill DisableForegroundTimeout Description}}
+If this option is enabled, Windows Foreground Timeout functionality is turned off, allowing Automate to properly bring specific windows into the foreground.
 
 ```yaml
 Type: SwitchParameter
@@ -929,7 +937,7 @@ Accept wildcard characters: False
 ```
 
 ### -EventMonitorUser
-{{Fill EventMonitorUser Description}}
+The user to run the event monitor as.
 
 ```yaml
 Type: String

@@ -9,11 +9,188 @@ function Set-AMAgentProperty {
         .PARAMETER InputObject
             The agent property to modify.
 
+		.PARAMETER DefaultUserPropertiesSpecified
+			Whether the default user settings are specified (true) or inherited (false) from the server.
+
+		.PARAMETER DefaultRunAsUserName
+			The default user name that agents should use when automatically logging onto or unlocking a workstation.
+
+		.PARAMETER DefaultRunAsPassword
+			The default password to be used with the user name specified.
+
+		.PARAMETER DefaultRunAsDomain
+			The domain or machine name associated with the user. This parameter can be left blank if the user is not a member of a domain or if there is only one workgroup for the machine.
+
+		.PARAMETER LogonScript
+			The keystrokes to use in order for an agent to successfully log onto the workstation when a user is not present. Automate will simulate a user entering these keystrokes onto the Windows Logon screen.
+
+		.PARAMETER UnlockScript
+			The keystrokes to use in order for the agent to successfully unlock the workstation. Automate will simulate a user entering these keystrokes in order to successfully unlock a machine.
+
+		.PARAMETER LogonScriptKeystrokeDelay
+			The number of milliseconds to pause between each keystroke. By default, Automate will press each key of the key sequence every 200 milliseconds. Adjust this number if keystrokes appear to be missing during the logon or unlock process, which may indicate that they are being typed too quickly.
+
+		.PARAMETER IndicatorsPropertiesSpecified
+			Whether the indicator settings are specified (true) or inherited (false) from the server.
+
+		.PARAMETER ShowTrayIcon
+			Indicates whether the Automate "A" icon should be displayed in the system tray of the agent machine.
+
+		.PARAMETER ShowTrayIconMenu
+			If enabled, allows right-clicks to be performed on the tray icon in order to display a context menu.
+
+		.PARAMETER ShowRunningTaskWindow
+			If enabled, the agent computer displays a small indicator window in the lower right-hand corner of the desktop during task execution.
+
+		.PARAMETER RunningTaskWindowWithTitleBar
+			If enabled, a title bar is displayed on the Running Task Indicator window.
+
+		.PARAMETER RunningTaskOnTop
+			If enabled, puts the Running Task Indicator window on top of all other open windows on the desktop.
+
+		.PARAMETER RunningTaskWindowTransparent
+			If enabled, the Running Task Indicator window appears transparent.
+
+		.PARAMETER UseInterruptHotkey
+			If enabled, activates the Task interruption hotkey parameter which allows entry of a specific hotkey combination used to interrupt running tasks.
+
+		.PARAMETER InterruptHotkey
+			Specifies the hot-key combination to enter in order to suspend one or more running tasks and invoke the a Running Tasks dialog.
+
+		.PARAMETER StagingPropertiesSpecified
+			Whether the staging settings are specified (true) or inherited (false) from the server.
+
+		.PARAMETER UseLowestCompletionState
+			If enabled, tasks and conditions will execute on the agent only if the completion state is equal to or higher than the one specified.
+
+		.PARAMETER LowestCompletionState
+			InDevelopment (default) - Tells the system to run all tasks and conditions currently in development stage (lowest stage) or higher, which basically indicates all tasks and conditions.
+            Testing - Tells the system to run all tasks and conditions that are currently in the testing stage or higher.
+            Production - Tells the system to run all tasks and conditions currently in the production stage or higher.
+            Archive - Tells the system to run all tasks and conditions currently in the archive stage.
+
+		.PARAMETER LoadManagementPropertiesSpecified
+			Whether the load management settings are specified (true) or inherited (false) from the server.
+
+		.PARAMETER MaxRunningTasks
+			Specifies the maximum number of tasks that should run simultaneously on a given agent.
+
+		.PARAMETER ProxyPropertiesSpecified
+			Whether the proxy settings are specified (true) or inherited (false) from the server.
+
+		.PARAMETER SocksType
+			The proxy protocol that the proxy server uses to accept requests from Automate Enterprise.
+
+		.PARAMETER ProxyHost
+			The host name or host address of the proxy to use.
+
+		.PARAMETER ProxyPort
+			The port on the proxy server to use.
+
+		.PARAMETER ProxyUserID
+			The user name to authenticate proxy requests.
+
+		.PARAMETER ProxyPassword
+			The password to authenticate proxy requests.
+
+		.PARAMETER SNMPPropertiesSpecified
+			Whether the SNMP settings are specified (true) or inherited (false) from the server.
+
+		.PARAMETER MIBLocation
+			Indicates the directory location of the MIB (Management Information Base) files.
+
+		.PARAMETER SNMPTrapPort
+			The port that Automate Enterprise will use to listen for traps using the SNMP Trap Condition.
+
+		.PARAMETER EmailPropertiesSpecified
+			Whether the email settings are specified (true) or inherited (false) from the server.
+
+        .PARAMETER EmailProtocol
+            The email protocol to communicate with.
+
+		.PARAMETER EmailServer
+			The name of the mail server that will send emails generated by Automate Enterprise.
+
+		.PARAMETER EmailPort
+			The default port that the mail server uses.
+
+		.PARAMETER EmailAuthenticationType
+			Specifies the authentication type to administer.
+
+		.PARAMETER EmailUserName
+			Specifies the username that the server authenticates with.
+
+		.PARAMETER EmailPassword
+			Specifies the password matching the username that the server authenticates with.
+
+		.PARAMETER EmailSecurity
+			The type of security that this action should use.
+
+		.PARAMETER EmailCertificate
+			The full path and file name of the certificate (.cer or .pfx extension) used to authenticate with.
+
+		.PARAMETER EmailCertificatePassphrase
+			The passphrase used to authenticate the SSL/TLS private key file. 
+
+		.PARAMETER EmailIgnoreServerCertificate
+			Invalid or expired SSL server certificates that are detected will be ignored.
+
+		.PARAMETER EmailAddress
+			The Exchange server email address to use for email transactions.
+
+		.PARAMETER EmailUseAutoDiscovery
+			Automatically discover the server based on the email address entered in the EmailAddress parameter.
+
+		.PARAMETER EmailExchangeProtocol
+			The protocol to use for email transactions.
+
+		.PARAMETER EmailUrl
+			The URL for the email server.
+
+		.PARAMETER EmailDomainName
+			The domain name to authenticate with.
+
+		.PARAMETER EmailVersion
+			The email server version.
+
+		.PARAMETER EmailProxyType
+			The proxy protocol used.
+
+		.PARAMETER EmailProxyServer
+			The hostname or IP address of the proxy server.
+
+		.PARAMETER EmailProxyPort
+			The port used to communicate with the proxy server.
+
+		.PARAMETER EmailProxyUsername
+			The username used to authenticate connection to the proxy server.
+
+		.PARAMETER EmailProxyPassword
+			The password used to authenticate the username specified.
+
+		.PARAMETER SystemPropertiesSpecified
+			Whether the system settings are specified (true) or inherited (false) from the server.
+
+		.PARAMETER AgentPort
+			Specifies the default port that connected agents should use to communicate with the server component.
+
+		.PARAMETER TaskCacheFilePath
+			The path to cache task files on the agent.
+
+		.PARAMETER EventMonitorAutoMateStartMode
+			The event monitor user context.
+
+		.PARAMETER DisableForegroundTimeout
+			If this option is enabled, Windows Foreground Timeout functionality is turned off, allowing Automate to properly bring specific windows into the foreground.
+
+		.PARAMETER EventMonitorUser
+			The user to run the event monitor as.
+
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/27/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/25/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
