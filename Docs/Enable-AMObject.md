@@ -50,20 +50,18 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### The following objects can be disabled by this function:
-Workflow
-Task
-Condition
-Process
-TaskAgent
-ProcessAgent
-AgentGroup
-User
-UserGroup
-
+### Workflow
+### Task
+### Condition
+### Process
+### TaskAgent
+### ProcessAgent
+### AgentGroup
+### User
+### UserGroup
 ## OUTPUTS
 
 ### None
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :

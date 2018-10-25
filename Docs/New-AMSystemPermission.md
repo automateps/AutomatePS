@@ -49,7 +49,7 @@ Accept wildcard characters: False
 ```
 
 ### -FullControl
-{{Fill FullControl Description}}
+Sets all permissions to allow for the specified user(s) or group(s).
 
 ```yaml
 Type: SwitchParameter
@@ -64,7 +64,7 @@ Accept wildcard characters: False
 ```
 
 ### -Deploy
-{{Fill Deploy Description}}
+Allow or deny permission to deploy agents onto remote computers.
 
 ```yaml
 Type: SwitchParameter
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -EditDashboard
-{{Fill EditDashboard Description}}
+Allow or deny permission to edit the dashboard panel.
 
 ```yaml
 Type: SwitchParameter
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -EditDefaultProperties
-{{Fill EditDefaultProperties Description}}
+Allow or deny permission to edit default properties.
 
 ```yaml
 Type: SwitchParameter
@@ -109,7 +109,7 @@ Accept wildcard characters: False
 ```
 
 ### -EditLicensing
-{{Fill EditLicensing Description}}
+Allow or deny permission to edit product license information.
 
 ```yaml
 Type: SwitchParameter
@@ -124,7 +124,7 @@ Accept wildcard characters: False
 ```
 
 ### -EditPreferences
-{{Fill EditPreferences Description}}
+Allow or deny permission to edit preferences.
 
 ```yaml
 Type: SwitchParameter
@@ -139,7 +139,7 @@ Accept wildcard characters: False
 ```
 
 ### -EditRevisionManagement
-{{Fill EditRevisionManagement Description}}
+Allow or deny permission to edit the Revision Management information.
 
 ```yaml
 Type: SwitchParameter
@@ -154,7 +154,7 @@ Accept wildcard characters: False
 ```
 
 ### -EditServerSettings
-{{Fill EditServerSettings Description}}
+Allow or deny permission to edit server level  settings.
 
 ```yaml
 Type: SwitchParameter
@@ -169,7 +169,7 @@ Accept wildcard characters: False
 ```
 
 ### -ToggleTriggering
-{{Fill ToggleTriggering Description}}
+Allow or deny permission to turn global triggering on or off.
 
 ```yaml
 Type: SwitchParameter
@@ -184,7 +184,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewCalendar
-{{Fill ViewCalendar Description}}
+Allow or deny permission to view the calendar of previous and future events.
 
 ```yaml
 Type: SwitchParameter
@@ -199,7 +199,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewDashboard
-{{Fill ViewDashboard Description}}
+Allow or deny permission to view the dashboard panel of SMC.
 
 ```yaml
 Type: SwitchParameter
@@ -214,7 +214,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewDefaultProperties
-{{Fill ViewDefaultProperties Description}}
+Allow or deny permission to view default properties which affect the behavior of individual workflows, tasks, agents, and other objects.
 
 ```yaml
 Type: SwitchParameter
@@ -229,7 +229,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewLicensing
-{{Fill ViewLicensing Description}}
+Allow or deny permission to view product license information.
 
 ```yaml
 Type: SwitchParameter
@@ -244,7 +244,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewPreferences
-{{Fill ViewPreferences Description}}
+Allow or deny permission to view preferences which affect an assortment of visual and operational characteristics in SMC.
 
 ```yaml
 Type: SwitchParameter
@@ -259,7 +259,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewReports
-{{Fill ViewReports Description}}
+Allow or deny permission to view reports, including charts and tables.
 
 ```yaml
 Type: SwitchParameter
@@ -274,7 +274,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewRevisionManagement
-{{Fill ViewRevisionManagement Description}}
+Allow or deny permission to view reports, including charts and tables.
 
 ```yaml
 Type: SwitchParameter
@@ -289,7 +289,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewServerSettings
-{{Fill ViewServerSettings Description}}
+Allow or deny permission to view server level settings, such as Data Store, Load Management, SQL Connections and more.
 
 ```yaml
 Type: SwitchParameter
@@ -315,7 +315,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/25/2018
 
 ## RELATED LINKS
 

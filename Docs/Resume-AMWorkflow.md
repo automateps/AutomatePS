@@ -23,7 +23,7 @@ Resume-AMWorkflow [-InputObject <Object>] [-WhatIf] [-Confirm] [<CommonParameter
 ```
 
 ## DESCRIPTION
-Resume-AMWorkflow resumse paused workflow and task instances.
+Resume-AMWorkflow resumes paused workflow and task instances.
 
 ## EXAMPLES
 
@@ -37,7 +37,7 @@ Get-AMWorkflow "Failed workflow" | Resume-AMWorkflow
 ## PARAMETERS
 
 ### -InputObject
-The workflow(s) to resumse.
+The workflow(s) to resume.
 
 ```yaml
 Type: Object
@@ -89,16 +89,14 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Workflows can be supplied on the pipeline to this function.
-
 ## OUTPUTS
 
 ### System.Object[]
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/19/2018
 
 ## RELATED LINKS
 

@@ -144,8 +144,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### The following AutoMate object types can be modified by this function:
-Workflow
-
+### Workflow
 ## OUTPUTS
 
 ## NOTES

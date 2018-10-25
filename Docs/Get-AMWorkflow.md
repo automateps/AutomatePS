@@ -69,7 +69,7 @@ Get-AMWorkflow -FilterSet @{ Property = "Name"; Value = "FTP"}
 # Get workflows that have started in the last hour
 ```
 
-Get-AMWorkflow -FilterSet @{Property = "StartedOn"; Comparator = "\>"; Value = (Get-Date).AddHours(-1)}
+Get-AMWorkflow -FilterSet @{Property = "StartedOn"; Operator = "\>"; Value = (Get-Date).AddHours(-1)}
 
 ## PARAMETERS
 
@@ -124,8 +124,8 @@ Accept wildcard characters: False
 
 ### -FilterSet
 The parameters to filter the search on. 
-Supply hashtable(s) with the following properties: Property, Comparator, Value.
-Valid values for the Comparator are: =, !=, \<, \>, contains (default - no need to supply Comparator when using 'contains')
+Supply hashtable(s) with the following properties: Property, Operator, Value.
+Valid values for the Operator are: =, !=, \<, \>, contains (default - no need to supply Operator when using 'contains')
 
 ```yaml
 Type: Hashtable[]
@@ -224,23 +224,21 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Workflows related to the following objects can be retrieved by this function:
-Workflow
-Task
-Process
-Condition
-Folder
-Agent
-AgentGroup
-
+### Workflow
+### Task
+### Process
+### Condition
+### Folder
+### Agent
+### AgentGroup
 ## OUTPUTS
 
 ### Workflow
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/23/2018
 
 ## RELATED LINKS
 

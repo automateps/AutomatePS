@@ -9,6 +9,9 @@ function Get-AMConnection {
         .PARAMETER Connection
             The connection name(s) or object(s).
 
+        .PARAMETER ConnectionAlias
+            The connection alias name.
+
         .INPUTS
             Connection, String
 
@@ -27,7 +30,7 @@ function Get-AMConnection {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/25/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS

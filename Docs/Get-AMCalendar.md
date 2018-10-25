@@ -50,7 +50,7 @@ Get-AMWorkflow "My Workflow" | Get-AMCalendar
 # Get calendar events using filter sets
 ```
 
-Get-AMCalendar -FilterSet @{Property = 'ScheduleDescription'; Comparator = 'contains'; Value = 'hour(s)'}
+Get-AMCalendar -FilterSet @{Property = 'ScheduleDescription'; Operator = 'contains'; Value = 'hour(s)'}
 
 ## PARAMETERS
 
@@ -121,8 +121,8 @@ Accept wildcard characters: False
 
 ### -FilterSet
 The parameters to filter the search on. 
-Supply hashtable(s) with the following properties: Property, Comparator, Value.
-Valid values for the Comparator are: =, !=, \<, \>, contains (default - no need to supply Comparator when using 'contains')
+Supply hashtable(s) with the following properties: Property, Operator, Value.
+Valid values for the Operator are: =, !=, \<, \>, contains (default - no need to supply Operator when using 'contains')
 
 ```yaml
 Type: Hashtable[]
@@ -205,19 +205,17 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Calendar events related to the following objects can be retrieved by this function:
-Workflow
-Condition
-Folder
-
+### Workflow
+### Condition
+### Folder
 ## OUTPUTS
 
 ### Calendar
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/04/2018
 
 ## RELATED LINKS
 

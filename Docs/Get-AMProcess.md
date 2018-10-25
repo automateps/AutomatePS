@@ -62,7 +62,7 @@ Get-AMWorkflow "My Workflow" | Get-AMProcess
 # Get processes using filter sets
 ```
 
-Get-AMProcess -FilterSet @{ Property = "Name"; Comparator = "contains"; Value = "CMD"},@{ Property = "Enabled"; Comparator = "="; Value = "false"}
+Get-AMProcess -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "CMD"},@{ Property = "Enabled"; Operator = "="; Value = "false"}
 
 ## PARAMETERS
 
@@ -117,8 +117,8 @@ Accept wildcard characters: False
 
 ### -FilterSet
 The parameters to filter the search on. 
-Supply hashtable(s) with the following properties: Property, Comparator, Value.
-Valid values for the Comparator are: =, !=, \<, \>, contains (default - no need to supply Comparator when using 'contains')
+Supply hashtable(s) with the following properties: Property, Operator, Value.
+Valid values for the Operator are: =, !=, \<, \>, contains (default - no need to supply Operator when using 'contains')
 
 ```yaml
 Type: Hashtable[]
@@ -201,18 +201,16 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Processes related to the following objects can be retrieved by this function:
-Workflow
-Folder
-
+### Workflow
+### Folder
 ## OUTPUTS
 
 ### Process
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/04/2018
 
 ## RELATED LINKS
 

@@ -43,7 +43,7 @@ Get-AMWorkflow "My Workflow" | Get-AMAuditEvent
 # Get audit events using filter sets
 ```
 
-Get-AMAuditEvent -FilterSet @{Property = 'EventText'; Comparator = 'contains'; Value = 'connection from IP 10.1.1.10'}
+Get-AMAuditEvent -FilterSet @{Property = 'EventText'; Operator = 'contains'; Value = 'connection from IP 10.1.1.10'}
 
 ## PARAMETERS
 
@@ -100,7 +100,7 @@ Use auto-complete or see types.ps1 for a full list.
 Type: AMAuditEventType
 Parameter Sets: (All)
 Aliases:
-Accepted values: ConnectionOpened, ConnectionClosed, UserLoggedOn, UserLogonDenied, UserLoggedOff, AgentConnected, AgentDisconnected, AgentDisconnectedByServer, TaskAgentUpgrading, TaskAgentConnected, ProcessAgentConnected, UserConnectedSMC, UserConnectedWFD, TaskAgentDisconnected, ProcessAgentDisconnected, UserDisconnectedSMC, UserDisconnectedWFD, UserConnectedWebSMC, UserDisconnectedWebSMC, SkybotConnected, SkybotDisconnected, AMExecuteConnected, AMExecuteDisconnected, InterMapperConnected, InterMapperDisconnected, ScheduleEnterpriseConnected, ScheduleEnterpriseDisconnected, LicenseAdded, LicenseRemoved, WorkflowCreated, WorkflowRemoved, WorkflowEdited, WorkflowEnabled, WorkflowDisabled, WorkflowRenamed, WorkflowMoved, WorkflowPropertiesModified, WorkflowExported, WorkflowImported, WorkflowPermissionsModified, TaskCreated, TaskRemoved, TaskEdited, TaskEnabled, TaskDisabled, TaskRenamed, TaskMoved, TaskPropertiesModified, TaskExported, TaskImported, TaskPermissionsModified, ConditionCreated, ConditionRemoved, ConditionEdited, ConditionEnabled, ConditionDisabled, ConditionRenamed, ConditionMoved, ConditionPropertiesModified, ConditionExported, ConditionImported, ConditionPermissionsModified, UserCreated, UserRemoved, UserEdited, UserEnabled, UserDisabled, UserMoved, UserPropertiesModified, UserPermissionsModified, AgentRegistered, AgentRemoved, AgentEnabled, AgentDisabled, AgentMoved, AgentPropertiesModified, AgentRenamed, AgentPermissionsModified, ServerPropertiesModified, ServerPermissionsModifed, ApiPermissionsModified, FolderCreated, FolderRemoved, FolderRenamed, FolderMoved, FolderPropertiesModified, FolderPermissionsModified, FolderExported, FolderImported, AgentGroupCreated, AgentGroupRemoved, AgentGroupEdited, AgentGroupEnabled, AgentGroupDisabled, AgentGroupRenamed, AgentGroupMoved, AgentGroupPropertiesModified, AgentGroupPermissionsModified, UserGroupCreated, UserGroupRemoved, UserGroupEdited, UserGroupEnabled, UserGroupDisabled, UserGroupRenamed, UserGroupMoved, UserGroupPropertiesModified, UserGroupPermissionsModified, ProcessCreated, ProcessRemoved, ProcessEdited, ProcessEnabled, ProcessDisabled, ProcessRenamed, ProcessMoved, ProcessPropertiesModified, ProcessExported, ProcessImported, ProcessPermissionsModified, RevisionUpdated, RevisionDeleted, RevisionRestored, RevisionDeletedRecycleBin, RevisionRestoredRecycleBin, All
+Accepted values: ConnectionOpened, ConnectionClosed, UserLoggedOn, UserLogonDenied, UserLoggedOff, AgentConnected, AgentDisconnected, AgentDisconnectedByServer, TaskAgentUpgrading, TaskAgentConnected, ProcessAgentConnected, UserConnectedSMC, UserConnectedWFD, TaskAgentDisconnected, ProcessAgentDisconnected, UserDisconnectedSMC, UserDisconnectedWFD, UserConnectedWebSMC, UserDisconnectedWebSMC, SkybotConnected, SkybotDisconnected, AMExecuteConnected, AMExecuteDisconnected, InterMapperConnected, InterMapperDisconnected, ScheduleEnterpriseConnected, ScheduleEnterpriseDisconnected, LicenseAdded, LicenseRemoved, WorkflowCreated, WorkflowRemoved, WorkflowEdited, WorkflowEnabled, WorkflowDisabled, WorkflowRenamed, WorkflowMoved, WorkflowPropertiesModified, WorkflowExported, WorkflowImported, WorkflowPermissionsModified, TaskCreated, TaskRemoved, TaskEdited, TaskEnabled, TaskDisabled, TaskRenamed, TaskMoved, TaskPropertiesModified, TaskExported, TaskImported, TaskPermissionsModified, ConditionCreated, ConditionRemoved, ConditionEdited, ConditionEnabled, ConditionDisabled, ConditionRenamed, ConditionMoved, ConditionPropertiesModified, ConditionExported, ConditionImported, ConditionPermissionsModified, UserCreated, UserRemoved, UserEdited, UserEnabled, UserDisabled, UserMoved, UserPropertiesModified, UserPermissionsModified, AgentRegistered, AgentRemoved, AgentEnabled, AgentDisabled, AgentMoved, AgentPropertiesModified, AgentRenamed, AgentPermissionsModified, ServerPropertiesModified, ServerPermissionsModifed, ApiPermissionsModified, RevisionManagementPropertiesModified, FolderCreated, FolderRemoved, FolderRenamed, FolderMoved, FolderPropertiesModified, FolderPermissionsModified, FolderExported, FolderImported, AgentGroupCreated, AgentGroupRemoved, AgentGroupEdited, AgentGroupEnabled, AgentGroupDisabled, AgentGroupRenamed, AgentGroupMoved, AgentGroupPropertiesModified, AgentGroupPermissionsModified, UserGroupCreated, UserGroupRemoved, UserGroupEdited, UserGroupEnabled, UserGroupDisabled, UserGroupRenamed, UserGroupMoved, UserGroupPropertiesModified, UserGroupPermissionsModified, ProcessCreated, ProcessRemoved, ProcessEdited, ProcessEnabled, ProcessDisabled, ProcessRenamed, ProcessMoved, ProcessPropertiesModified, ProcessExported, ProcessImported, ProcessPermissionsModified, RevisionUpdated, RevisionDeleted, RevisionRestored, RevisionDeletedRecycleBin, RevisionRestoredRecycleBin, All
 
 Required: False
 Position: Named
@@ -111,8 +111,8 @@ Accept wildcard characters: False
 
 ### -FilterSet
 The parameters to filter the search on. 
-Supply hashtable(s) with the following properties: Property, Comparator, Value.
-Valid values for the Comparator are: =, !=, \<, \>, contains (default - no need to supply Comparator when using 'contains')
+Supply hashtable(s) with the following properties: Property, Operator, Value.
+Valid values for the Operator are: =, !=, \<, \>, contains (default - no need to supply Operator when using 'contains')
 
 ```yaml
 Type: Hashtable[]
@@ -212,26 +212,24 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Audit events for the following objects can be retrieved by this function:
-Workflow
-Task
-Condition
-Process
-TaskAgent
-ProcessAgent
-AgentGroup
-User
-UserGroup
-Folder
-
+### Workflow
+### Task
+### Condition
+### Process
+### TaskAgent
+### ProcessAgent
+### AgentGroup
+### User
+### UserGroup
+### Folder
 ## OUTPUTS
 
 ### AuditEvent
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/04/2018
 
 ## RELATED LINKS
 

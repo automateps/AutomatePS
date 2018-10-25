@@ -58,20 +58,18 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Permissions for the following objects can be retrieved by this function:
-Workflow
-Task
-Condition
-Process
-Agent
-AgentGroup
-User
-UserGroup
-Folder
-
+### Workflow
+### Task
+### Condition
+### Process
+### Agent
+### AgentGroup
+### User
+### UserGroup
+### Folder
 ## OUTPUTS
 
 ### Permission
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :

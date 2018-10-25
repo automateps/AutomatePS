@@ -53,14 +53,12 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Properties for the following objects can be retrieved by this function:
-Workflow
-Task
-Agent
-
+### Workflow
+### Task
+### Agent
 ## OUTPUTS
 
 ### WorkflowProperty, TaskProperty, AgentProperty
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :

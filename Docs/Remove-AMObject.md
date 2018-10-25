@@ -13,7 +13,7 @@ Removes an AutoMate Enterprise object.
 ## SYNTAX
 
 ```
-Remove-AMObject [[-InputObject] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-AMObject [[-InputObject] <Object>] [-SkipUsageCheck] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,6 +42,21 @@ Required: False
 Position: 1
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -SkipUsageCheck
+Skips checking if object is in use.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -83,25 +98,23 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### The following objects can be disabled by this function:
-Workflow
-Task
-Condition
-Process
-TaskAgent
-ProcessAgent
-AgentGroup
-User
-UserGroup
-
+### Workflow
+### Task
+### Condition
+### Process
+### TaskAgent
+### ProcessAgent
+### AgentGroup
+### User
+### UserGroup
 ## OUTPUTS
 
 ### None
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/23/2018
 
 ## RELATED LINKS
 

@@ -83,11 +83,9 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### SystemPermission objects are deleted by this function.
-
 ## OUTPUTS
 
 ### None
-
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
