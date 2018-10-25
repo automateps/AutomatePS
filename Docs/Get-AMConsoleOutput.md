@@ -13,8 +13,9 @@ Gets AutoMate Enterprise console output.
 ## SYNTAX
 
 ```
-Get-AMConsoleOutput [[-MaxItems] <Int32>] [[-PollIntervalSeconds] <Int32>] [-Colorize] [[-Connection] <Object>]
- [<CommonParameters>]
+Get-AMConsoleOutput [[-MaxItems] <Int32>] [[-PollIntervalSeconds] <Int32>] [[-SuccessTextColor] <ConsoleColor>]
+ [[-FailureTextColor] <ConsoleColor>] [[-SuccessBackgroundColor] <ConsoleColor>]
+ [[-FailureBackgroundColor] <ConsoleColor>] [[-Connection] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -48,7 +49,7 @@ Accept wildcard characters: False
 
 ### -PollIntervalSeconds
 The number of seconds to wait between polls. 
-Specifying this parameter enables polling until cancelled by the user.
+Specifying this parameter enables polling until cancelled by the user with Ctrl + C.
 
 ```yaml
 Type: Int32
@@ -62,17 +63,66 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Colorize
-If specified, error output is written in red text.
+### -SuccessTextColor
+The text color to output success messages.
 
 ```yaml
-Type: SwitchParameter
+Type: ConsoleColor
 Parameter Sets: (All)
 Aliases:
+Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
 
 Required: False
-Position: Named
-Default value: False
+Position: 3
+Default value: White
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FailureTextColor
+The text color to output failure messages.
+
+```yaml
+Type: ConsoleColor
+Parameter Sets: (All)
+Aliases:
+Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
+
+Required: False
+Position: 4
+Default value: Red
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SuccessBackgroundColor
+The background color to output success messages.
+
+```yaml
+Type: ConsoleColor
+Parameter Sets: (All)
+Aliases:
+Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FailureBackgroundColor
+The background color to output failure messages.
+
+```yaml
+Type: ConsoleColor
+Parameter Sets: (All)
+Aliases:
+Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
+
+Required: False
+Position: 6
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -86,7 +136,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: 7
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -104,7 +154,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 10/16/2018
+Date Modified  : 10/25/2018
 
 ## RELATED LINKS
 
