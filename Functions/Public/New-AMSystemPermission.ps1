@@ -9,6 +9,57 @@ function New-AMSystemPermission {
         .PARAMETER InputObject
             The user or group to assign security to.
 
+		.PARAMETER FullControl
+			Sets all permissions to allow for the specified user(s) or group(s).
+
+		.PARAMETER Deploy
+			Allow or deny permission to deploy agents onto remote computers.
+
+		.PARAMETER EditDashboard
+			Allow or deny permission to edit the dashboard panel.
+
+		.PARAMETER EditDefaultProperties
+			Allow or deny permission to edit default properties.
+
+		.PARAMETER EditLicensing
+			Allow or deny permission to edit product license information.
+
+		.PARAMETER EditPreferences
+			Allow or deny permission to edit preferences.
+
+		.PARAMETER EditRevisionManagement
+			Allow or deny permission to edit the Revision Management information.
+
+		.PARAMETER EditServerSettings
+			Allow or deny permission to edit server level settings.
+
+		.PARAMETER ToggleTriggering
+			Allow or deny permission to turn global triggering on or off.
+
+		.PARAMETER ViewCalendar
+			Allow or deny permission to view the calendar of previous and future events.
+
+		.PARAMETER ViewDashboard
+            Allow or deny permission to view the dashboard panel of SMC.
+
+		.PARAMETER ViewDefaultProperties
+			Allow or deny permission to view default properties which affect the behavior of individual workflows, tasks, agents, and other objects.
+
+		.PARAMETER ViewLicensing
+			Allow or deny permission to view product license information.
+
+		.PARAMETER ViewPreferences
+			Allow or deny permission to view preferences which affect an assortment of visual and operational characteristics in SMC.
+
+		.PARAMETER ViewReports
+			Allow or deny permission to view reports, including charts and tables.
+
+		.PARAMETER ViewRevisionManagement
+			Allow or deny permission to view the Revision Management information.
+
+		.PARAMETER ViewServerSettings
+			Allow or deny permission to view server level settings, such as Data Store, Load Management, SQL Connections and more.
+
         .EXAMPLE
             # Denies user 'John' access to task 'Test'
             Get-AMTask -Name "Test" | New-AMPermission -Principal 'John'
@@ -17,7 +68,7 @@ function New-AMSystemPermission {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/25/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
