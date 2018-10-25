@@ -10,10 +10,19 @@ function Get-AMConsoleOutput {
             The maximum number of events in the console output to retrieve.
 
         .PARAMETER PollIntervalSeconds
-            The number of seconds to wait between polls.  Specifying this parameter enables polling until cancelled by the user.
+            The number of seconds to wait between polls.  Specifying this parameter enables polling until cancelled by the user with Ctrl + C.
 
-        .PARAMETER Colorize
-            If specified, error output is written in red text.
+        .PARAMETER SuccessTextColor
+            The text color to output success messages.
+
+        .PARAMETER FailureTextColor
+            The text color to output failure messages.
+
+        .PARAMETER SuccessBackgroundColor
+            The background color to output success messages.
+
+        .PARAMETER FailureBackgroundColor
+            The background color to output failure messages.
 
         .PARAMETER Connection
             The AutoMate Enterprise management server.
@@ -26,7 +35,7 @@ function Get-AMConsoleOutput {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/16/2018
+            Date Modified  : 10/25/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -38,8 +47,13 @@ function Get-AMConsoleOutput {
 
         [int]$PollIntervalSeconds,
 
-        [ValidateNotNullOrEmpty()]
-        [switch]$Colorize = $false,
+        [ConsoleColor]$SuccessTextColor = [ConsoleColor]::White,
+
+        [ConsoleColor]$FailureTextColor = [ConsoleColor]::Red,
+
+        [ConsoleColor]$SuccessBackgroundColor,
+
+        [ConsoleColor]$FailureBackgroundColor,
 
         [ValidateNotNullOrEmpty()]
         $Connection
@@ -67,7 +81,7 @@ function Get-AMConsoleOutput {
                 if (($serverIndex - $MaxItems) -ge 0) {
                     $serverStartIndex[$c.Alias] = $serverIndex - $MaxItems
                 } else {
-                    $serverStartIndex[$c.Alias] = 0
+                    continue
                 }
             } else {
                 $indexAdd = $serverLastMessageCount[$c.Alias]
@@ -81,14 +95,23 @@ function Get-AMConsoleOutput {
             foreach ($message in $temp.Messages) {
                 $message.TimeStamp = $message.TimeStamp.ToLocalTime()
                 $message | Add-Member -MemberType NoteProperty -Name "ConnectionAlias" -Value $c.Alias
-                if ($Colorize.ToBool()) {
-                    switch ($message.Type) {
-                        1       { Write-Host "$(Get-Date $message.TimeStamp -Format G) - $($message.Text) ($($message.ConnectionAlias))" -ForegroundColor Red }
-                        default { Write-Host "$(Get-Date $message.TimeStamp -Format G) - $($message.Text) ($($message.ConnectionAlias))"}
+                $output = "$(Get-Date $message.TimeStamp -Format G) - $($message.Text)"
+                if (($Connection | Measure-Object).Count -gt 1) {
+                    $output += " (Connection: $($message.ConnectionAlias))"
+                }
+                $splat = @{ Object = $output }
+                if ($message.Type -eq 1) {
+                    $splat.Add("ForegroundColor", $FailureTextColor)
+                    if ($PSBoundParameters.ContainsKey("FailureBackgroundColor")) {
+                        $splat.Add("BackgroundColor", $FailureBackgroundColor)
                     }
                 } else {
-                    $message
+                    $splat.Add("ForegroundColor", $SuccessTextColor)
+                    if ($PSBoundParameters.ContainsKey("SuccessBackgroundColor")) {
+                        $splat.Add("BackgroundColor", $SuccessBackgroundColor)
+                    }
                 }
+                Write-Host @splat
             }
         }
         if ($pollContinuously) {
