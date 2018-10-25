@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -SkipUsageCheck
-{{Fill SkipUsageCheck Description}}
+Skips checking if object is in use.
 
 ```yaml
 Type: SwitchParameter
