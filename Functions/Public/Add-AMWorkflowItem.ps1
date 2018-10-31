@@ -35,14 +35,14 @@ function Add-AMWorkflowItem {
             None
 
         .EXAMPLE
-            # Add a link between "Copy Files" and "Move Files"
+            # Add task "Copy Files" to workflow "FTP Files"
             Get-AMWorkflow "FTP Files" | Add-AMWorkflowItem -Item (Get-AMTask "Copy Files")
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/14/2018
+            Date Modified  : 10/31/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -53,6 +53,13 @@ function Add-AMWorkflowItem {
         $InputObject,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByConstruct")]
+        [ValidateScript({
+            if ($_.Type -in "Process","Task","Workflow") {
+                $true
+            } else {
+                throw [System.Management.Automation.PSArgumentException]"Item is invalid!"
+            }
+        })]
         $Item,
 
         [Parameter(ParameterSetName = "ByConstruct")]
@@ -109,8 +116,8 @@ function Add-AMWorkflowItem {
                             11      { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
                             default { throw "Unsupported server major version: $_!" }
                         }
-                        # Workflows and Schedules don't use an agent, so there's no reason to set it
-                        if (($Item.Type -ne "Workflow") -and ($Item.TriggerType -ne "Schedule")) {
+                        # Workflows don't use an agent, so there's no reason to set it
+                        if ($Item.Type -ne "Workflow") {
                             $newItem.AgentID = $Agent.ID
                         }
                         $newItem.ConstructID = $Item.ID
@@ -137,11 +144,7 @@ function Add-AMWorkflowItem {
                 $newItem.X = $X
                 $newItem.Y = $Y
 
-                if ($updateObject.Items.Count -gt 0) {
-                    $updateObject.Items += $newItem
-                } else {
-                    $updateObject.Items = @($newItem)
-                }
+                $updateObject.Items += $newItem
                 Set-AMWorkflow -Instance $updateObject
             } else {
                 Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj

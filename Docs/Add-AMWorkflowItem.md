@@ -37,7 +37,7 @@ Add-AMWorkflowItem can add an item to an AutoMate Enterprise workflow
 
 ### EXAMPLE 1
 ```
-# Add a link between "Copy Files" and "Move Files"
+# Add task "Copy Files" to workflow "FTP Files"
 ```
 
 Get-AMWorkflow "FTP Files" | Add-AMWorkflowItem -Item (Get-AMTask "Copy Files")
