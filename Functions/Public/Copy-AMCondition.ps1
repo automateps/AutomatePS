@@ -33,7 +33,7 @@ function Copy-AMCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/31/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -200,17 +200,17 @@ function Copy-AMCondition {
                     if (($property.PropertyType.IsPrimitive) -or ($property.PropertyType.IsEnum) -or ($property.PropertyType -in [string],[DateTime])) {
                         # If the property is a primitive, set it normally
                         $copyObject."$($property.Name)" = $currentObject."$($property.Name)"
-                    } elseif ($property.PropertyType -is [System.Collections.ArrayList]) {
+                    } elseif ($property.PropertyType -eq [System.Collections.ArrayList]) {
                         # If the property is an arraylist that contains primitives, loop through and add them
                         foreach ($item in $currentObject."$($property.Name)") {
                             if (($item.GetType().IsPrimitive) -or ($item.GetType().IsEnum) -or ($item.GetType() -in [string],[DateTime])) {
                                 $copyObject."$($property.Name)".Add($item)
                             } else {
-                                throw "Unsupported property type '$($item.GetType().FullName)' encountered!"
+                                throw "Unsupported property type '$($item.GetType().FullName)' (Property: $item) encountered!"
                             }
                         }
                     } else {
-                        throw "Unsupported property type '$($property.PropertyType.FullName)' encountered!"
+                        throw "Unsupported property type '$($property.PropertyType.FullName)' (Property: $($property.Name)) encountered!"
                     }
                 }
                 $copyObject.CompletionState = $currentObject.CompletionState
