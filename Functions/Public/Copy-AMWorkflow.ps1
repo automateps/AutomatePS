@@ -18,6 +18,10 @@ function Copy-AMWorkflow {
         .PARAMETER ConflictAction
             The action to take if a conflicting object is found on the destination server.
 
+        .PARAMETER IdSubstitutions
+            A hashtable containing ID mappings between the source and destination server.  The ID from the source server object is the key, the destination server is the value.
+            Use this to define mappings of agents/agent groups, or repository objects where the default mapping actions taken by this workflow are not sufficient.
+
         .PARAMETER Connection
             The server to copy the object to.
 
@@ -33,7 +37,7 @@ function Copy-AMWorkflow {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/31/2018
+            Date Modified  : 11/01/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -51,6 +55,8 @@ function Copy-AMWorkflow {
 
         [ValidateSet("CopySourceServerObject","UseDestinationServerObject")]
         [string]$ConflictAction,
+
+        [Hashtable]$IdSubstitutions = [Hashtable]::new(),
 
         $Connection
     )
@@ -104,7 +110,6 @@ function Copy-AMWorkflow {
                 $copyObject.LockedBy        = $currentObject.LockedBy
                 $copyObject.Notes           = $currentObject.Notes
 
-                $idLookup = @{}
                 foreach ($item in $currentObject.Items) {
                     switch ($item.ConstructType) {
                         "Evaluation" {
@@ -134,7 +139,10 @@ function Copy-AMWorkflow {
                                 $newItem.AgentID = $item.AgentID
                             }
                             if ($obj.ConnectionAlias -ne $Connection.Alias) {
-                                if (-not $idLookup.ContainsKey($item.ConstructID)) {
+                                if ($IdSubstitutions.ContainsKey($item.AgentID)) {
+                                    $newItem.AgentID = $IdSubstitutions[$item.AgentID]
+                                }
+                                if (-not $IdSubstitutions.ContainsKey($item.ConstructID)) {
                                     $idFilterSet = @{Property = "ID"; Operator = "="; Value = $item.ConstructID}
                                     switch ($item.ConstructType) {
                                         "Workflow" {
@@ -154,19 +162,19 @@ function Copy-AMWorkflow {
                                                     switch ($ConflictAction) {
                                                         "CopySourceServerObject" {
                                                             $newWorkflow = $sourceItem | Copy-AMWorkflow -Folder $Folder -Connection $Connection
-                                                            $idLookup.Add($item.ConstructID, $newWorkflow.ID)
+                                                            $IdSubstitutions.Add($item.ConstructID, $newWorkflow.ID)
                                                         }
                                                         "UseDestinationServerObject" {
-                                                            $idLookup.Add($item.ConstructID, $destinationItem.ID)
+                                                            $IdSubstitutions.Add($item.ConstructID, $destinationItem.ID)
                                                         }
                                                     }
                                                 } else {
                                                     $newWorkflow = $sourceItem | Copy-AMWorkflow -Folder $Folder -Connection $Connection
-                                                    $idLookup.Add($item.ConstructID, $newWorkflow.ID)
+                                                    $IdSubstitutions.Add($item.ConstructID, $newWorkflow.ID)
                                                 }
                                             } else {
                                                 # Enter a bogus GUID, will result in an unbuilt item
-                                                $idLookup.Add($item.ConstructID, (New-Guid).Guid)
+                                                $IdSubstitutions.Add($item.ConstructID, (New-Guid).Guid)
                                             }
                                         }
                                         "Task" {
@@ -186,19 +194,19 @@ function Copy-AMWorkflow {
                                                     switch ($ConflictAction) {
                                                         "CopySourceServerObject" {
                                                             $newTask = $sourceItem | Copy-AMTask -Folder $taskFolder -Connection $Connection
-                                                            $idLookup.Add($item.ConstructID, $newTask.ID)
+                                                            $IdSubstitutions.Add($item.ConstructID, $newTask.ID)
                                                         }
                                                         "UseDestinationServerObject" {
-                                                            $idLookup.Add($item.ConstructID, $destinationItem.ID)
+                                                            $IdSubstitutions.Add($item.ConstructID, $destinationItem.ID)
                                                         }
                                                     }
                                                 } else {
                                                     $newTask = $sourceItem | Copy-AMTask -Folder $taskFolder -Connection $Connection
-                                                    $idLookup.Add($item.ConstructID, $newTask.ID)
+                                                    $IdSubstitutions.Add($item.ConstructID, $newTask.ID)
                                                 }
                                             } else {
                                                 # Enter a bogus GUID, will result in an unbuilt item
-                                                $idLookup.Add($item.ConstructID, (New-Guid).Guid)
+                                                $IdSubstitutions.Add($item.ConstructID, (New-Guid).Guid)
                                             }
                                         }
                                         "Process" {
@@ -218,24 +226,24 @@ function Copy-AMWorkflow {
                                                     switch ($ConflictAction) {
                                                         "CopySourceServerObject" {
                                                             $newProcess = $sourceItem | Copy-AMProcess -Folder $processFolder -Connection $Connection
-                                                            $idLookup.Add($item.ConstructID, $newProcess.ID)
+                                                            $IdSubstitutions.Add($item.ConstructID, $newProcess.ID)
                                                         }
                                                         "UseDestinationServerObject" {
-                                                            $idLookup.Add($item.ConstructID, $destinationItem.ID)
+                                                            $IdSubstitutions.Add($item.ConstructID, $destinationItem.ID)
                                                         }
                                                     }
                                                 } else {
                                                     $newProcess = $sourceItem | Copy-AMProcess -Folder $processFolder -Connection $Connection
-                                                    $idLookup.Add($item.ConstructID, $newProcess.ID)
+                                                    $IdSubstitutions.Add($item.ConstructID, $newProcess.ID)
                                                 }
                                             } else {
                                                 # Enter a bogus GUID, will result in an unbuilt item
-                                                $idLookup.Add($item.ConstructID, (New-Guid).Guid)
+                                                $IdSubstitutions.Add($item.ConstructID, (New-Guid).Guid)
                                             }
                                         }
                                     }
                                 }
-                                $newItem.ConstructID = $idLookup[$item.ConstructID]
+                                $newItem.ConstructID = $IdSubstitutions[$item.ConstructID]
                             } else {
                                 $newItem.ConstructID = $item.ConstructID
                             }
@@ -251,7 +259,7 @@ function Copy-AMWorkflow {
                     $newItem.X          = $item.X
                     $newItem.Y          = $item.Y
                     $copyObject.Items += $newItem
-                    $idLookup.Add($item.ID, $newItem.ID)
+                    $IdSubstitutions.Add($item.ID, $newItem.ID)
                 }
                 foreach ($trigger in $currentObject.Triggers) {
                     switch ($Connection.Version.Major) {
@@ -264,7 +272,10 @@ function Copy-AMWorkflow {
                         $newTrigger.AgentID = $trigger.AgentID
                     }
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
-                        if (-not $idLookup.ContainsKey($trigger.ConstructID)) {
+                        if ($IdSubstitutions.ContainsKey($trigger.AgentID)) {
+                            $newTrigger.AgentID = $IdSubstitutions[$trigger.AgentID]
+                        }
+                        if (-not $IdSubstitutions.ContainsKey($trigger.ConstructID)) {
                             $idFilterSet = @{Property = "ID"; Operator = "="; Value = $trigger.ConstructID}
                             $sourceItem = Get-AMCondition -FilterSet $idFilterSet -Connection $obj.ConnectionAlias
                             if ($null -ne $sourceItem) {
@@ -282,22 +293,22 @@ function Copy-AMWorkflow {
                                     switch ($ConflictAction) {
                                         "CopySourceServerObject" {
                                             $newCondition = $sourceItem | Copy-AMCondition -Folder $conditionFolder -Connection $Connection
-                                            $idLookup.Add($trigger.ConstructID, $newCondition.ID)
+                                            $IdSubstitutions.Add($trigger.ConstructID, $newCondition.ID)
                                         }
                                         "UseDestinationServerObject" {
-                                            $idLookup.Add($trigger.ConstructID, $destinationItem.ID)
+                                            $IdSubstitutions.Add($trigger.ConstructID, $destinationItem.ID)
                                         }
                                     }
                                 } else {
                                     $newCondition = $sourceItem | Copy-AMCondition -Folder $conditionFolder -Connection $Connection
-                                    $idLookup.Add($trigger.ConstructID, $newCondition.ID)
+                                    $IdSubstitutions.Add($trigger.ConstructID, $newCondition.ID)
                                 }
                             } else {
                                 # Enter a bogus GUID, will result in an unbuilt item
-                                $idLookup.Add($trigger.ConstructID, (New-Guid).Guid)
+                                $IdSubstitutions.Add($trigger.ConstructID, (New-Guid).Guid)
                             }
                         }
-                        $newTrigger.ConstructID = $idLookup[$trigger.ConstructID]
+                        $newTrigger.ConstructID = $IdSubstitutions[$trigger.ConstructID]
                     } else {
                         $newTrigger.ConstructID = $trigger.ConstructID
                     }
@@ -312,7 +323,7 @@ function Copy-AMWorkflow {
                     $newTrigger.X             = $trigger.X
                     $newTrigger.Y             = $trigger.Y
                     $copyObject.Triggers += $newTrigger
-                    $idLookup.Add($trigger.ID, $newTrigger.ID)
+                    $IdSubstitutions.Add($trigger.ID, $newTrigger.ID)
                 }
                 foreach ($link in $currentObject.Links) {
                     switch ($Connection.Version.Major) {
@@ -321,11 +332,11 @@ function Copy-AMWorkflow {
                         default { throw "Unsupported server major version: $_!" }
                     }
                     $newLink.ParentID         = $copyObject.ID
-                    $newLink.DestinationID    = $idLookup[$link.DestinationID]
+                    $newLink.DestinationID    = $IdSubstitutions[$link.DestinationID]
                     $newLink.DestinationPoint = [PSCustomObject]@{x = $link.DestinationPoint.X; y = $link.DestinationPoint.Y}
                     $newLink.LinkType         = $link.LinkType
                     $newLink.ResultType       = $link.ResultType
-                    $newLink.SourceID         = $idLookup[$link.SourceID]
+                    $newLink.SourceID         = $IdSubstitutions[$link.SourceID]
                     $newLink.SourcePoint      = [PSCustomObject]@{x = $link.SourcePoint.X; y = $link.SourcePoint.Y}
                     $newLink.Value            = $link.Value
                     $newLink.WorkflowID       = $copyObject.ID
