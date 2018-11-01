@@ -54,7 +54,7 @@ function Add-AMWorkflowItem {
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByConstruct")]
         [ValidateScript({
-            if ($_.Type -in "Process","Task","Workflow") {
+            if ($_.Type -in "Workflow","Task","Condition","Process") {
                 $true
             } else {
                 throw [System.Management.Automation.PSArgumentException]"Item is invalid!"
@@ -109,15 +109,26 @@ function Add-AMWorkflowItem {
                     $Agent = Get-AMSystemAgent -Type Default -Connection $obj.ConnectionAlias
                 }
 
+                $isTrigger = $false
                 switch ($PSCmdlet.ParameterSetName) {
                     "ByConstruct" {
-                        switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
-                            10      { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
-                            11      { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
-                            default { throw "Unsupported server major version: $_!" }
+                        if ($Item.Type -eq "Condition")  {
+                            switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                                10      { $newItem = [AMWorkflowTriggerv10]::new($obj.ConnectionAlias) }
+                                11      { $newItem = [AMWorkflowTriggerv11]::new($obj.ConnectionAlias) }
+                                default { throw "Unsupported server major version: $_!" }
+                            }
+                            $newItem.TriggerType = $Item.TriggerType
+                            $isTrigger = $true
+                        } else {
+                            switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                                10      { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
+                                11      { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
+                                default { throw "Unsupported server major version: $_!" }
+                            }
                         }
                         # Workflows don't use an agent, so there's no reason to set it
-                        if ($Item.Type -ne "Workflow") {
+                        if (($Item.Type -ne "Workflow") -and ($Item.TriggerType -ne "Schedule")) {
                             $newItem.AgentID = $Agent.ID
                         }
                         $newItem.ConstructID = $Item.ID
@@ -144,7 +155,11 @@ function Add-AMWorkflowItem {
                 $newItem.X = $X
                 $newItem.Y = $Y
 
-                $updateObject.Items += $newItem
+                if ($isTrigger) {
+                    $updateObject.Triggers += $newItem
+                } else {
+                    $updateObject.Items += $newItem
+                }
                 Set-AMWorkflow -Instance $updateObject
             } else {
                 Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
