@@ -32,7 +32,7 @@ function Add-AMConstant {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/31/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -70,11 +70,7 @@ function Add-AMConstant {
                     $newConstant.Value         = $Value
                     $newConstant.Comment       = $Comment
                     $newConstant.ConstantUsage = [AMConstantType]::Constant
-                    if ($updateObject.Constants.Count -gt 0) {
-                        $updateObject.Constants += $newConstant
-                    } else {
-                        $updateObject.Constants = @($newConstant)
-                    }
+                    $updateObject.Constants += $newConstant
                     $shouldUpdate = $true
                 }
                 if ($shouldUpdate) {

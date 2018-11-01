@@ -13,7 +13,8 @@ Copies an AutoMate Enterprise workflow.
 ## SYNTAX
 
 ```
-Copy-AMWorkflow [-InputObject] <Object> [[-Name] <String>] [[-Folder] <Object>] [<CommonParameters>]
+Copy-AMWorkflow [-InputObject] <Object> [[-Name] <String>] [[-Folder] <Object>] [[-ConflictAction] <String>]
+ [[-Connection] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -70,6 +71,36 @@ Aliases:
 
 Required: False
 Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ConflictAction
+The action to take if a conflicting object is found on the destination server.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Connection
+The server to copy the object to.
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 5
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

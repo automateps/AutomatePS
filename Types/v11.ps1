@@ -1696,6 +1696,9 @@ class AMWorkflowItemv11 : AMObjectConstructv11 {
 class AMWorkflowTriggerv11 : AMWorkflowItemv11 {
     [AMTriggerType]$TriggerType
 
+    AMWorkflowTriggerv11([string]$ConnectionAlias) : Base($ConnectionAlias) {
+        $this.__type = "WorkFlowTriggerConstruct:#AutoMate.Constructs.v11"
+    }
     AMWorkflowTriggerv11([PSCustomObject]$PSCustomObject, $Workflow, [string]$ConnectionAlias) : Base($PSCustomObject, $Workflow, $ConnectionAlias) {
         $this.TriggerType = $PSCustomObject.TriggerType
     }

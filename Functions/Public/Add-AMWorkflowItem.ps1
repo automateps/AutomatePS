@@ -35,14 +35,14 @@ function Add-AMWorkflowItem {
             None
 
         .EXAMPLE
-            # Add a link between "Copy Files" and "Move Files"
+            # Add task "Copy Files" to workflow "FTP Files"
             Get-AMWorkflow "FTP Files" | Add-AMWorkflowItem -Item (Get-AMTask "Copy Files")
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/14/2018
+            Date Modified  : 10/31/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -53,6 +53,13 @@ function Add-AMWorkflowItem {
         $InputObject,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByConstruct")]
+        [ValidateScript({
+            if ($_.Type -in "Workflow","Task","Condition","Process") {
+                $true
+            } else {
+                throw [System.Management.Automation.PSArgumentException]"Item is invalid!"
+            }
+        })]
         $Item,
 
         [Parameter(ParameterSetName = "ByConstruct")]
@@ -102,14 +109,25 @@ function Add-AMWorkflowItem {
                     $Agent = Get-AMSystemAgent -Type Default -Connection $obj.ConnectionAlias
                 }
 
+                $isTrigger = $false
                 switch ($PSCmdlet.ParameterSetName) {
                     "ByConstruct" {
-                        switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
-                            10      { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
-                            11      { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
-                            default { throw "Unsupported server major version: $_!" }
+                        if ($Item.Type -eq "Condition")  {
+                            switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                                10      { $newItem = [AMWorkflowTriggerv10]::new($obj.ConnectionAlias) }
+                                11      { $newItem = [AMWorkflowTriggerv11]::new($obj.ConnectionAlias) }
+                                default { throw "Unsupported server major version: $_!" }
+                            }
+                            $newItem.TriggerType = $Item.TriggerType
+                            $isTrigger = $true
+                        } else {
+                            switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                                10      { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
+                                11      { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
+                                default { throw "Unsupported server major version: $_!" }
+                            }
                         }
-                        # Workflows and Schedules don't use an agent, so there's no reason to set it
+                        # Workflows don't use an agent, so there's no reason to set it
                         if (($Item.Type -ne "Workflow") -and ($Item.TriggerType -ne "Schedule")) {
                             $newItem.AgentID = $Agent.ID
                         }
@@ -137,10 +155,10 @@ function Add-AMWorkflowItem {
                 $newItem.X = $X
                 $newItem.Y = $Y
 
-                if ($updateObject.Items.Count -gt 0) {
-                    $updateObject.Items += $newItem
+                if ($isTrigger) {
+                    $updateObject.Triggers += $newItem
                 } else {
-                    $updateObject.Items = @($newItem)
+                    $updateObject.Items += $newItem
                 }
                 Set-AMWorkflow -Instance $updateObject
             } else {
