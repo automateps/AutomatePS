@@ -14,7 +14,7 @@ Copies an AutoMate Enterprise workflow.
 
 ```
 Copy-AMWorkflow [-InputObject] <Object> [[-Name] <String>] [[-Folder] <Object>] [[-ConflictAction] <String>]
- [[-Connection] <Object>] [<CommonParameters>]
+ [[-IdSubstitutions] <Hashtable>] [[-Connection] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -91,6 +91,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -IdSubstitutions
+A hashtable containing ID mappings between the source and destination server. 
+The ID from the source server object is the key, the destination server is the value.
+Use this to define mappings of agents/agent groups, or repository objects where the default mapping actions taken by this workflow are not sufficient.
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 5
+Default value: [Hashtable]::new()
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Connection
 The server to copy the object to.
 
@@ -100,7 +117,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: 6
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -120,7 +137,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 11/01/2018
 
 ## RELATED LINKS
 
