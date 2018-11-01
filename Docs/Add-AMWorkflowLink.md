@@ -12,9 +12,17 @@ Adds a link between two objects in an AutoMate Enterprise workflow
 
 ## SYNTAX
 
+### ByConstruct
 ```
-Add-AMWorkflowLink [-InputObject] <Object> [-SourceItem] <Object> [-DestinationItem] <Object>
- [[-Type] <AMLinkType>] [[-ResultType] <AMLinkResultType>] [[-Value] <Object>] [-WhatIf] [-Confirm]
+Add-AMWorkflowLink -InputObject <Object> -SourceConstruct <Object> -DestinationConstruct <Object>
+ [-Type <AMLinkType>] [-ResultType <AMLinkResultType>] [-Value <Object>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### ByItem
+```
+Add-AMWorkflowLink -InputObject <Object> -SourceItemID <Object> -DestinationItemID <Object>
+ [-Type <AMLinkType>] [-ResultType <AMLinkResultType>] [-Value <Object>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -28,7 +36,7 @@ Add-AMWorkflowLink can add a link between two objects in an AutoMate Enterprise 
 # Add a link between "Copy Files" and "Move Files"
 ```
 
-Get-AMWorkflow "FTP Files" | Add-AMWorkflowLink -SourceItem (Get-AMTask "Copy Files") -DestinationItem (Get-AMTask "Move Files")
+Get-AMWorkflow "FTP Files" | Add-AMWorkflowLink -SourceConstruct (Get-AMTask "Copy Files") -DestinationConstruct (Get-AMTask "Move Files")
 
 ## PARAMETERS
 
@@ -41,39 +49,69 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -SourceItem
-The source object for the link. 
+### -SourceConstruct
+The source repository object for the link. 
 Object can only exist once in the workflow.
 
 ```yaml
 Type: Object
-Parameter Sets: (All)
+Parameter Sets: ByConstruct
 Aliases:
 
 Required: True
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DestinationItem
-The destination object for the link. 
+### -DestinationConstruct
+The destination repository object for the link. 
 Object can only exist once in the workflow.
 
 ```yaml
 Type: Object
-Parameter Sets: (All)
+Parameter Sets: ByConstruct
 Aliases:
 
 Required: True
-Position: 3
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SourceItemID
+The source workflow item or trigger ID for the link.
+
+```yaml
+Type: Object
+Parameter Sets: ByItem
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DestinationItemID
+The destination workflow item or trigger ID for the link.
+
+```yaml
+Type: Object
+Parameter Sets: ByItem
+Aliases:
+
+Required: True
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -89,7 +127,7 @@ Aliases:
 Accepted values: Blank, Success, Failure, Result
 
 Required: False
-Position: 4
+Position: Named
 Default value: Success
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -105,7 +143,7 @@ Aliases:
 Accepted values: Default, True, False, Value
 
 Required: False
-Position: 5
+Position: Named
 Default value: Default
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -120,7 +158,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -172,7 +210,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 10/31/2018
 
 ## RELATED LINKS
 
