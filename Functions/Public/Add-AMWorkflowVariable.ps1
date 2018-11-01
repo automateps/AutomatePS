@@ -45,7 +45,7 @@ function Add-AMWorkflowVariable {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 10/31/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -109,11 +109,7 @@ function Add-AMWorkflowVariable {
                     $newVariable.Parameter    = $PassValueFromParent.ToBool()
                     $newVariable.Private      = $PassValueToParent.ToBool()
                     $newVariable.VariableType = $DataType
-                    if ($updateObject.Variables.Count -gt 0) {
-                        $updateObject.Variables += $newVariable
-                    } else {
-                        $updateObject.Variables = @($newVariable)
-                    }
+                    $updateObject.Variables += $newVariable
                     $shouldUpdate = $true
                 }
                 if ($shouldUpdate) {
