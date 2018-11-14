@@ -609,3 +609,9 @@ enum AMEventStatusType {
     Warning = 2
     Denied  = 3
 }
+
+enum AMCalendarType {
+    Gregorian = 0
+    Islamic   = 6
+    Hebrew    = 8
+}

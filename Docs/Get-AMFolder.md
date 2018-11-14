@@ -15,7 +15,8 @@ Gets AutoMate Enterprise folders.
 ### All (Default)
 ```
 Get-AMFolder [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-Path <String>]
- [-Type <String>] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-Recurse] [-Type <String>] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>]
+ [<CommonParameters>]
 ```
 
 ### ByPipeline
@@ -28,8 +29,8 @@ Get-AMFolder [-InputObject <Object>] [[-Name] <String>] [-FilterSet <Hashtable[]
 ### ByID
 ```
 Get-AMFolder [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-Path <String>] [-Type <String>] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>]
- [<CommonParameters>]
+ [-Path <String>] [-Recurse] [-Type <String>] [-SortProperty <String[]>] [-SortDescending]
+ [-Connection <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -195,11 +196,11 @@ Accept wildcard characters: False
 ```
 
 ### -Recurse
-If specified, searches the InputObject recursively for folders.
+If specified, searches recursively for subfolders.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: ByPipeline
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -294,7 +295,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 10/04/2018
+Date Modified  : 11/07/2018
 
 ## RELATED LINKS
 

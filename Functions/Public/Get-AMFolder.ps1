@@ -30,7 +30,7 @@ function Get-AMFolder {
             Get folders that contain the specified folders.  This parameter is only used when a folder is piped in.
 
         .PARAMETER Recurse
-            If specified, searches the InputObject recursively for folders.
+            If specified, searches recursively for subfolders.
 
         .PARAMETER Type
             The folder type: AGENTGROUPS, CONDITIONS, PROCESSAGENTS, PROCESSES, TASKAGENTS, TASKS, USERGROUPS, USERS, WORKFLOWS
@@ -87,7 +87,7 @@ function Get-AMFolder {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/04/2018
+            Date Modified  : 11/07/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -118,7 +118,6 @@ function Get-AMFolder {
         [Parameter(ParameterSetName = "ByPipeline")]
         [switch]$Parent = $false,
 
-        [Parameter(ParameterSetName = "ByPipeline")]
         [switch]$Recurse = $false,
 
         [ValidateSet("AGENTGROUPS","CONDITIONS","PROCESSAGENTS","PROCESSES","TASKAGENTS","TASKS","USERGROUPS","USERS","WORKFLOWS")]
@@ -213,9 +212,9 @@ function Get-AMFolder {
                 $tempResult = Get-AMFolderRoot -Connection $Connection | Where-Object {$_.ID -eq $ID}
                 if (-not $tempResult) {
                     $splat += @{ Resource = "folders/$ID/get" }
-                    $result = Invoke-AMRestMethod @splat
+                    $result += Invoke-AMRestMethod @splat
                 } else {
-                    $result = $tempResult
+                    $result += $tempResult
                 }
             }
             "ByPipeline" {
@@ -303,9 +302,6 @@ function Get-AMFolder {
                                 $tempFilterSet = $FilterSet + @{Property = "ParentID"; Operator = "="; Value = $obj.ID}
                                 $tempSplat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                                 $tempResult = Invoke-AMRestMethod @tempSplat
-                                if (($tempResult.Count -gt 0) -and $Recurse) {
-                                    $tempResult += $tempResult | Get-AMFolder -Recurse
-                                }
                                 $result += $tempResult
                             }
                         }
@@ -341,6 +337,11 @@ function Get-AMFolder {
                 $r.Path = $r.Path.Replace("PROCESSS","PROCESSES")
             }
         }
+
+        if (($result.Count -gt 0) -and $Recurse) {
+            $result += $result | Get-AMFolder -Recurse
+        }
+
         # End workaround
         $SortProperty += "ConnectionAlias","ID"
         return $result | Sort-Object $SortProperty -Unique -Descending:$SortDescending.ToBool()
