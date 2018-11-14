@@ -35,11 +35,20 @@ function Import-AMHoliday {
     switch -Regex -File $Path {
         "^\[(.+)\]" { # Category 
             $section = $matches[1]
-            $result[$section] = @{}
+            $result[$section] = @()
         }
         "(.+?)\s*,(.*)" { # Holiday
             $name,$value = $matches[1..2]
-            $result[$section][$name] = $value
+            if ($value -like "*,*") {
+                $value,$calendarType = $value.Split(",")
+            } else {
+                $calendarType = [AMCalendarType]::Gregorian
+            }
+            $result[$section] += [PSCustomObject]@{
+                Name = $name
+                Date = $value
+                CalendarType = [AMCalendarType]$calendarType
+            }
         }
     }
     return $result
