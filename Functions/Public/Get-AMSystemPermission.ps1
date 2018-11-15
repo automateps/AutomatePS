@@ -1,4 +1,4 @@
-function Get-AMSystemPermission {
+﻿function Get-AMSystemPermission {
     <#
         .SYNOPSIS
             Gets AutoMate Enterprise system permissions.
@@ -45,17 +45,21 @@ function Get-AMSystemPermission {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/04/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(DefaultParameterSetName = "All")]
     [OutputType([System.Object[]])]
-    param(
+    param (
         [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         $InputObject,
+
+        [Parameter(ParameterSetName = "ByID")]
+        [ValidateNotNullOrEmpty()]
+        [string]$ID,
 
         [Hashtable[]]$FilterSet,
 
@@ -88,6 +92,10 @@ function Get-AMSystemPermission {
                 $splat += @{ Resource = Format-AMUri -Path "system_permissions/list" -FilterSet $FilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                 $result = Invoke-AMRestMethod @splat
             }
+            "ByID" {
+                $splat += @{ Resource = "system_permissions/$ID/get" }
+                $result = Invoke-AMRestMethod @splat
+            }
             "ByPipeline" {
                 foreach ($obj in $InputObject) {
                     Write-Verbose "Processing $($obj.Type) '$($obj.Name)'"
@@ -106,8 +114,8 @@ function Get-AMSystemPermission {
                         }
                         default {
                             $unsupportedType = $obj.GetType().FullName
-                            if ($_) { 
-                                $unsupportedType = $_ 
+                            if ($_) {
+                                $unsupportedType = $_
                             } elseif (-not [string]::IsNullOrEmpty($obj.Type)) {
                                 $unsupportedType = $obj.Type
                             }
