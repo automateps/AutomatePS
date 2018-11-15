@@ -29,20 +29,27 @@ function Add-AMEmailConditionFilter {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "Default")]
-    param(
+    [CmdletBinding(DefaultParameterSetName="Default")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
+        [Parameter(Mandatory = $true)]
         [ValidateSet("From","To","CC","Subject","Body","Date","Time","AttachmentName","AttachmentExtension","AttachmentSize","AttachmentCount")]
         [string]$FieldName,
+        
+        [Parameter(Mandatory = $true)]
         [ValidateSet("Equal","NotEqual","Less","LessOrEqual","Greater","GreaterOrEqual","Contains","NotContains")]
         [string]$Operator,
+        
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$FieldValue
     )
 
@@ -56,7 +63,7 @@ function Add-AMEmailConditionFilter {
                         continue objectloop
                     }
                 }
-                switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
                     10      { $emailFilter = [AMEmailFilterv10]::new() }
                     11      { $emailFilter = [AMEmailFilterv11]::new() }
                     default { throw "Unsupported server major version: $_!" }

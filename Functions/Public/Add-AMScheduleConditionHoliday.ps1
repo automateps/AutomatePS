@@ -1,4 +1,4 @@
-function Add-AMScheduleConditionHoliday {    
+function Add-AMScheduleConditionHoliday {
     <#
         .SYNOPSIS
             Adds a holiday to an AutoMate Enterprise schedule condition using the Holidays interval.
@@ -27,14 +27,15 @@ function Add-AMScheduleConditionHoliday {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "Default")]
-    param(
+    [CmdletBinding(DefaultParameterSetName="Default")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [Parameter(Mandatory = $true, Position = 0)]

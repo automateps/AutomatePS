@@ -31,6 +31,9 @@ function Connect-AMServer {
         .PARAMETER SaveConnection
             Saves the new connection to the connection store.
 
+        .OUTPUTS
+            Connection
+
         .EXAMPLE
             Connect-AMServer -Connection "automate01" -Credential (Get-Credential)
 
@@ -38,13 +41,14 @@ function Connect-AMServer {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "ByConnectionStore")]
-    param(
+    [CmdletBinding(DefaultParameterSetName="ByConnectionStore")]
+    [OutputType([AMConnection[]])]
+    param (
         [Parameter(Position = 0, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string[]]$Server,

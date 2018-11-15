@@ -58,11 +58,19 @@ function New-AMProcessCondition {
         [string]$Name,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$ProcessName,
+    
+        [ValidateNotNullOrEmpty()]
         [AMProcessTriggerState]$Action = [AMProcessTriggerState]::StoppedResponding,
+    
+        [ValidateNotNullOrEmpty()]
         [switch]$TriggerOnce = $false,
+    
+        [ValidateNotNullOrEmpty()]
         [switch]$Started = $false,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -73,6 +81,7 @@ function New-AMProcessCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

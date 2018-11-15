@@ -70,6 +70,7 @@ function New-AMWmiCondition {
         #[string]$Password, API BUG: does not support setting password via REST call
         [int]$PollIntervalSeconds = 1,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -80,6 +81,7 @@ function New-AMWmiCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

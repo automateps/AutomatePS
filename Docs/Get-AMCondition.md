@@ -136,7 +136,7 @@ Accept wildcard characters: False
 ```
 
 ### -Type
-The condition type: 
+The condition type:
     All
     Logon
     Window

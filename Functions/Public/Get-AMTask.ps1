@@ -2,7 +2,7 @@ function Get-AMTask {
     <#
         .SYNOPSIS
             Gets AutoMate Enterprise tasks.
- 
+
         .DESCRIPTION
             Get-AMTask gets task objects from AutoMate Enterprise.  Get-AMTask can receive items on the pipeline and return related objects.
 
@@ -60,14 +60,14 @@ function Get-AMTask {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/04/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "All")]
+    [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([System.Object[]])]
-    param(
+    param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
         $InputObject,
@@ -80,6 +80,7 @@ function Get-AMTask {
         [ValidateNotNullOrEmpty()]
         [string]$ID,
 
+        [ValidateNotNullOrEmpty()]
         [Hashtable[]]$FilterSet,
 
         [ValidateSet("And","Or")]
@@ -88,6 +89,7 @@ function Get-AMTask {
         [ValidateNotNullOrEmpty()]
         [string[]]$SortProperty = "Name",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
@@ -125,7 +127,7 @@ function Get-AMTask {
             }
             "ByID" {
                 $splat += @{ Resource = "tasks/$ID/get" }
-                $result = Invoke-AMRestMethod @splat 
+                $result = Invoke-AMRestMethod @splat
             }
             "ByPipeline" {
                 foreach ($obj in $InputObject) {
@@ -161,8 +163,8 @@ function Get-AMTask {
                         }
                         default {
                             $unsupportedType = $obj.GetType().FullName
-                            if ($_) { 
-                                $unsupportedType = $_ 
+                            if ($_) {
+                                $unsupportedType = $_
                             } elseif (-not [string]::IsNullOrEmpty($obj.Type)) {
                                 $unsupportedType = $obj.Type
                             }

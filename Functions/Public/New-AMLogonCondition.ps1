@@ -1,4 +1,4 @@
-﻿function New-AMLogonCondition {
+function New-AMLogonCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise logon condition.
@@ -56,6 +56,7 @@
 
         [string[]]$User = @(),
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -65,6 +66,7 @@
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

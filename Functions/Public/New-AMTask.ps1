@@ -47,6 +47,7 @@ function New-AMTask {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

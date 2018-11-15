@@ -1,4 +1,4 @@
-﻿function New-AMKeyboardCondition {
+function New-AMKeyboardCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise keyboard condition.
@@ -71,6 +71,7 @@
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

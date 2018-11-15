@@ -183,7 +183,7 @@ function New-AMPermission {
                 $currentPermissions = $obj | Get-AMPermission
                 foreach ($p in $Principal) {
                     if ($null -eq ($currentPermissions | Where-Object {$_.GroupID -eq $p.ID})) {
-                        switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                        switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
                             10 { $newObject = [AMPermissionv10]::new($obj, $p, $obj.ConnectionAlias) }
                             11 {
                                 $newObject = [AMPermissionv11]::new($obj, $p, $obj.ConnectionAlias)

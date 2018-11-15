@@ -43,6 +43,7 @@ function Remove-AMObject {
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="High")]
     param (
         [Parameter(ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [switch]$SkipUsageCheck = $false

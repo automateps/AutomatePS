@@ -29,14 +29,14 @@ function Wait-AMAgent {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "All")]
+    [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([System.Object[]])]
-    param(
+    param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
         $InputObject,

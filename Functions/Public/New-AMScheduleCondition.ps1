@@ -1,4 +1,4 @@
-﻿function New-AMScheduleCondition {
+function New-AMScheduleCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise schedule condition.
@@ -80,8 +80,10 @@
         [ValidateSet(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,"first","second","third","fourth","last")]
         $Frequency = 1,
 
+        [ValidateNotNullOrEmpty()]
         [DayOfWeek[]]$Day,
 
+        [ValidateNotNullOrEmpty()]
         [DateTime]$End,
 
         [ValidateNotNullOrEmpty()]
@@ -104,6 +106,7 @@
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

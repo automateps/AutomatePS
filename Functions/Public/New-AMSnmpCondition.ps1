@@ -1,4 +1,4 @@
-﻿function New-AMSnmpCondition {
+function New-AMSnmpCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise SNMP condition.
@@ -78,6 +78,7 @@
         [switch]$TimetickStringNotation = $false,
         [switch]$AcceptUnathenticatedTrap = $false,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -88,6 +89,7 @@
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

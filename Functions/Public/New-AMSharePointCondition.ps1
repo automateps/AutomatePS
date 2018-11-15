@@ -1,4 +1,4 @@
-﻿function New-AMSharePointCondition {
+function New-AMSharePointCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise SharePoint condition.
@@ -148,6 +148,7 @@
         [string]$Name,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$SiteURL,
         [AMSharePointScope]$Scope = [AMSharePointScope]::Web,
         [string]$List,
@@ -192,6 +193,7 @@
         #[string]$Password, API BUG: does not support setting password via REST call
         [string]$Domain = "",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -202,6 +204,7 @@
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

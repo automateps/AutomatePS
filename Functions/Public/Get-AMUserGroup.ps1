@@ -56,14 +56,14 @@ function Get-AMUserGroup {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/04/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "All")]
+    [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([System.Object[]])]
-    param(
+    param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
         $InputObject,
@@ -76,6 +76,7 @@ function Get-AMUserGroup {
         [ValidateNotNullOrEmpty()]
         [string]$ID,
 
+        [ValidateNotNullOrEmpty()]
         [Hashtable[]]$FilterSet,
 
         [ValidateSet("And","Or")]
@@ -84,6 +85,7 @@ function Get-AMUserGroup {
         [ValidateNotNullOrEmpty()]
         [string[]]$SortProperty = "Name",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
@@ -121,14 +123,14 @@ function Get-AMUserGroup {
             }
             "ByID" {
                 $splat += @{ Resource = "user_groups/$ID/get" }
-                $result = Invoke-AMRestMethod @splat 
+                $result = Invoke-AMRestMethod @splat
             }
             "ByPipeline" {
                 foreach ($obj in $InputObject) {
                     $tempSplat = $splat
                     if (-not $tempSplat.ContainsKey("Connection")) {
-                        $tempSplat += @{ Connection = $obj.ConnectionAlias } 
-                    } else { 
+                        $tempSplat += @{ Connection = $obj.ConnectionAlias }
+                    } else {
                         $tempSplat["Connection"] = $obj.ConnectionAlias
                     }
                     if (-not $userGroupCache.ContainsKey($obj.ConnectionAlias)) {
@@ -153,8 +155,8 @@ function Get-AMUserGroup {
                         }
                         default {
                             $unsupportedType = $obj.GetType().FullName
-                            if ($_) { 
-                                $unsupportedType = $_ 
+                            if ($_) {
+                                $unsupportedType = $_
                             } elseif (-not [string]::IsNullOrEmpty($obj.Type)) {
                                 $unsupportedType = $obj.Type
                             }

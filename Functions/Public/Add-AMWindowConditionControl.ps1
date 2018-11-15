@@ -1,4 +1,4 @@
-function Add-AMWindowConditionControl {    
+function Add-AMWindowConditionControl {
     <#
         .SYNOPSIS
             Adds a control to an AutoMate Enterprise window condition.
@@ -41,21 +41,33 @@ function Add-AMWindowConditionControl {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "Default")]
-    param(
+    [CmdletBinding(DefaultParameterSetName="Default")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
+        [ValidateNotNullOrEmpty()]
         $Class,
+        
+        [ValidateNotNullOrEmpty()]
         $Name,
+        
+        [ValidateNotNullOrEmpty()]
         $Type,
+        
+        [ValidateNotNullOrEmpty()]
         $Value,
+        
+        [ValidateNotNullOrEmpty()]
         $XPosition,
+        
+        [ValidateNotNullOrEmpty()]
         $YPosition
     )
 
@@ -63,7 +75,7 @@ function Add-AMWindowConditionControl {
         foreach ($obj in $InputObject) {
             if (($obj.Type -eq "Condition") -and ($obj.TriggerType -eq [AMTriggerType]::Window)) {
                 $updateObject = Get-AMCondition -ID $obj.ID -Connection $obj.ConnectionAlias
-                switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
                     10      { $windowcontrol = [AMWindowTriggerControlv10]::new() }
                     default { throw "Unsupported server major version: $_!" }
                 }

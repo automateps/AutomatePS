@@ -30,6 +30,7 @@ function Unlock-AMObject {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject
     )
 
@@ -39,7 +40,7 @@ function Unlock-AMObject {
                 {$_ -in "Workflow","Task","Condition","Process"} {
                     $update = Get-AMObject -ID $obj.ID -Types $obj.Type -Connection $obj.ConnectionAlias
                 }
-                default     { Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj  }
+                default { Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj  }
             }
             $update.LockedBy = ""
             $update | Set-AMObject

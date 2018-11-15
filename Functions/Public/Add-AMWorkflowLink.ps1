@@ -45,32 +45,40 @@ function Add-AMWorkflowLink {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/31/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact='Medium')]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByConstruct")]
+        [ValidateNotNullOrEmpty()]
         $SourceConstruct,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByConstruct")]
+        [ValidateNotNullOrEmpty()]
         $DestinationConstruct,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByItem")]
+        [ValidateNotNullOrEmpty()]
         $SourceItemID,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByItem")]
+        [ValidateNotNullOrEmpty()]
         $DestinationItemID,
 
+        [ValidateNotNullOrEmpty()]
         [AMLinkType]$Type = [AMLinkType]::Success,
 
+        [ValidateNotNullOrEmpty()]
         [AMLinkResultType]$ResultType = [AMLinkResultType]::Default,
 
+        [ValidateNotNullOrEmpty()]
         $Value = ""
     )
 
@@ -130,7 +138,7 @@ function Add-AMWorkflowLink {
                     }
                 }
 
-                switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
                     10      { $newLink = [AMWorkflowLinkv10]::new($obj.ConnectionAlias) }
                     11      { $newLink = [AMWorkflowLinkv11]::new($obj.ConnectionAlias) }
                     default { throw "Unsupported server major version: $_!" }

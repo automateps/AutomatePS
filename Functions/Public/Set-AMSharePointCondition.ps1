@@ -1,4 +1,4 @@
-function Set-AMSharePointCondition {    
+function Set-AMSharePointCondition {
     <#
         .SYNOPSIS
             Sets properties of an AutoMate Enterprise SharePoint condition.
@@ -46,7 +46,7 @@ function Set-AMSharePointCondition {
             If set to YES, the condition will monitor for an attachment to be deleted from a list item in the specified site/list.
 
         .PARAMETER FieldAdded
-            If set to YES, the condition will monitor for a field to be added to the site/list. 
+            If set to YES, the condition will monitor for a field to be added to the site/list.
 
         .PARAMETER FieldUpdated
             If set to YES, the condition will monitor for a field to be updated in the site/list.
@@ -133,14 +133,15 @@ function Set-AMSharePointCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact='Medium',DefaultParameterSetName='Default')]
-    param(
+    [CmdletBinding(DefaultParameterSetName="Default",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [ValidateNotNullOrEmpty()]
@@ -190,6 +191,7 @@ function Set-AMSharePointCondition {
         #[string]$Password, API BUG: does not support setting password via REST call
         [string]$Domain,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait,
 
         [ValidateNotNullOrEmpty()]
@@ -201,6 +203,7 @@ function Set-AMSharePointCondition {
         [ValidateNotNullOrEmpty()]
         [int]$TriggerAfter,
 
+        [AllowEmptyString()]
         [string]$Notes,
 
         [ValidateNotNullOrEmpty()]

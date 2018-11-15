@@ -67,7 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -ID
-{{Fill ID Description}}
+The ID of the system permission object.
 
 ```yaml
 Type: String
@@ -176,7 +176,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 11/15/2018
+Date Modified  : 11/14/2018
 
 ## RELATED LINKS
 

@@ -33,12 +33,13 @@ function Lock-AMObject {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject
     )
 
     PROCESS {
         foreach ($obj in $InputObject) {
-            $connection = Get-AMConnection -Connection $obj.ConnectionAlias
+            $connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
             switch ($obj.Type) {
                 {$_ -in "Workflow","Task","Condition","Process"} {
                     $update = Get-AMObject -ID $obj.ID -Types $obj.Type -Connection $connection

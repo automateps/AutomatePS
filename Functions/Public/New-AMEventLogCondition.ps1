@@ -60,12 +60,22 @@ function New-AMEventLogCondition {
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
+        [ValidateNotNullOrEmpty()]
         [string]$LogType = "Application",
+
+        [ValidateNotNullOrEmpty()]
         [string]$EventSource = "All Sources",
+
+        [ValidateNotNullOrEmpty()]
         [AMEventLogTriggerEventType]$EventType = [AMEventLogTriggerEventType]::Any,
+
+        [ValidateNotNullOrEmpty()]
         [string]$EventCategory = "All Categories",
+
+        [ValidateNotNullOrEmpty()]
         [string]$EventDescription = "*",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -76,6 +86,7 @@ function New-AMEventLogCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

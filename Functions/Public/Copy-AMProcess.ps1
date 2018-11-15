@@ -37,14 +37,15 @@ function Copy-AMProcess {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [ValidateNotNullOrEmpty()]
@@ -53,6 +54,7 @@ function Copy-AMProcess {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 
@@ -78,7 +80,7 @@ function Copy-AMProcess {
                         }
                     }
                 } else {
-                    $Connection = Get-AMConnection -Connection $obj.ConnectionAlias
+                    $Connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
                     if (-not $PSBoundParameters.ContainsKey("Folder")) {
                         $Folder = Get-AMFolder -ID $obj.ParentID -Connection $obj.ConnectionAlias
                     }

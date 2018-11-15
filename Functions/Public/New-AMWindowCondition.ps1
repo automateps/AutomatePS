@@ -1,4 +1,4 @@
-﻿function New-AMWindowCondition {
+function New-AMWindowCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise window condition.
@@ -78,6 +78,7 @@
         [switch]$ChildWindow = $false,
         [int]$Delay = 1000,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -88,6 +89,7 @@
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

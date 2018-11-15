@@ -68,14 +68,14 @@ function Get-AMAgent {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/04/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "All")]
+    [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([System.Object[]])]
-    param(
+    param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
         $InputObject,
@@ -91,6 +91,7 @@ function Get-AMAgent {
         [ValidateNotNullOrEmpty()]
         [AMAgentType]$Type = [AMAgentType]::All,
 
+        [ValidateNotNullOrEmpty()]
         [Hashtable[]]$FilterSet,
 
         [ValidateSet("And","Or")]
@@ -99,6 +100,7 @@ function Get-AMAgent {
         [ValidateNotNullOrEmpty()]
         [string[]]$SortProperty = "Name",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
@@ -150,7 +152,7 @@ function Get-AMAgent {
                     $tempSplat = $splat
                     if (-not $tempSplat.ContainsKey("Connection")) {
                         $tempSplat += @{ Connection = $obj.ConnectionAlias }
-                    } else { 
+                    } else {
                         $tempSplat["Connection"] = $obj.ConnectionAlias
                     }
                     if (-not $agentCache.ContainsKey($obj.ConnectionAlias)) {
@@ -267,8 +269,8 @@ function Get-AMAgent {
                         }
                         default {
                             $unsupportedType = $obj.GetType().FullName
-                            if ($_) { 
-                                $unsupportedType = $_ 
+                            if ($_) {
+                                $unsupportedType = $_
                             } elseif (-not [string]::IsNullOrEmpty($obj.Type)) {
                                 $unsupportedType = $obj.Type
                             }
@@ -277,8 +279,8 @@ function Get-AMAgent {
                     }
                 }
             }
-        }  
-    }  
+        }
+    }
 
     END {
         $SortProperty += "ConnectionAlias", "ID"

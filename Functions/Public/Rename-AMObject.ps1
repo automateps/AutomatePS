@@ -40,6 +40,7 @@ function Rename-AMObject {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [Parameter(Mandatory = $true, Position = 0)]

@@ -34,9 +34,11 @@ function New-AMObject {
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

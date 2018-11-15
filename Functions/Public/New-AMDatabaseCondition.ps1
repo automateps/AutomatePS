@@ -81,19 +81,42 @@ function New-AMDatabaseCondition {
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
+        [ValidateNotNullOrEmpty()]
         [AMDatabaseTriggerType]$DatabaseType = [AMDatabaseTriggerType]::SQL,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$Server,
+
         [int]$NotificationPort = -1,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$Database,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$Table,
+
+        [ValidateNotNullOrEmpty()]
         [string]$UserName,
         #[string]$Password,
+        [ValidateNotNullOrEmpty()]
         [switch]$Insert,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$Delete,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$Update,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$Drop,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$Alter,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -104,6 +127,7 @@ function New-AMDatabaseCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
     if ($PSBoundParameters.ContainsKey("Connection")) {

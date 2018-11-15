@@ -13,8 +13,8 @@ Adds a filter to an AutoMate Enterprise Email condition.
 ## SYNTAX
 
 ```
-Add-AMEmailConditionFilter [-InputObject] <Object> [[-FieldName] <String>] [[-Operator] <String>]
- [[-FieldValue] <String>] [<CommonParameters>]
+Add-AMEmailConditionFilter [-InputObject] <Object> [-FieldName] <String> [-Operator] <String>
+ [-FieldValue] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -54,7 +54,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 2
 Default value: None
 Accept pipeline input: False
@@ -69,7 +69,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 3
 Default value: None
 Accept pipeline input: False
@@ -84,7 +84,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
@@ -106,7 +106,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 11/14/2018
 
 ## RELATED LINKS
 

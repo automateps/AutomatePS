@@ -1,4 +1,4 @@
-﻿function Get-AMSystemPermission {
+function Get-AMSystemPermission {
     <#
         .SYNOPSIS
             Gets AutoMate Enterprise system permissions.
@@ -25,6 +25,9 @@
         .PARAMETER Connection
             The AutoMate Enterprise management server.
 
+        .PARAMETER ID
+            The ID of the system permission object.
+
         .INPUTS
             Permissions for the following objects can be retrieved by this function:
             User
@@ -50,7 +53,7 @@
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "All")]
+    [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([System.Object[]])]
     param (
         [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
@@ -61,6 +64,7 @@
         [ValidateNotNullOrEmpty()]
         [string]$ID,
 
+        [ValidateNotNullOrEmpty()]
         [Hashtable[]]$FilterSet,
 
         [ValidateSet("And","Or")]
@@ -69,6 +73,7 @@
         [ValidateNotNullOrEmpty()]
         [string[]]$SortProperty = "GroupID",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]

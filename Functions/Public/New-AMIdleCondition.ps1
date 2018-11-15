@@ -54,6 +54,7 @@ function New-AMIdleCondition {
         [int]$Delay = 1,
         [AMTimeMeasure]$Measure = [AMTimeMeasure]::Minutes,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -64,6 +65,7 @@ function New-AMIdleCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

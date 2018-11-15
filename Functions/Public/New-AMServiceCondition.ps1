@@ -52,10 +52,13 @@ function New-AMServiceCondition {
         [string]$Name,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$ServiceName,
 
+        [ValidateNotNullOrEmpty()]
         [AMServiceTriggerState]$Action = [AMServiceTriggerState]::StoppedResponding,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -66,6 +69,7 @@ function New-AMServiceCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

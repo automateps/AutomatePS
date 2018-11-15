@@ -47,13 +47,13 @@ function Format-AMUri {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/04/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
+    param (
         [ValidateNotNullOrEmpty()]
         [string]$Path,
 
@@ -117,7 +117,7 @@ function Format-AMUri {
     if ($PSBoundParameters.ContainsKey("FolderID")) {
         $Parameters += "folder_id=$FolderID"
     }
-    if ($PSBoundParameters.ContainsKey("CalendarType") -and ($CalendarType -notin $null,"")) {
+    if ($PSBoundParameters.ContainsKey("CalendarType") -and (-not [string]::IsNullOrEmpty($CalendarType))) {
         $Parameters += "type=$Type"
     }
     if ($IncludeRelativeInstances.ToBool()) {
@@ -128,7 +128,7 @@ function Format-AMUri {
         if ($SortDescending.ToBool()) { $Parameters += "sort_order=DSC" }
     }
     $index = 0
-    foreach ($parameter in $Parameters | Where-Object {$_ -notin $null,""}) {
+    foreach ($parameter in $Parameters | Where-Object {-not [string]::IsNullOrEmpty($_)}) {
         if ($index -eq 0) { $Path += "?" }
         else              { $Path += "&" }
         $Path += $parameter

@@ -1,4 +1,4 @@
-﻿function New-AMPerformanceCondition {
+function New-AMPerformanceCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise performance condition.
@@ -72,22 +72,30 @@
         [string]$MachineName = "",
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$CategoryName,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$CounterName,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$InstanceName,
 
+        [ValidateNotNullOrEmpty()]
         [AMPerformanceOperator]$Operator = [AMPerformanceOperator]::Below,
 
+        [ValidateNotNullOrEmpty()]
         [int]$Amount = 10,
 
+        [ValidateNotNullOrEmpty()]
         [int]$TimePeriod = 3,
 
+        [ValidateNotNullOrEmpty()]
         [AMTimeMeasure]$TimePeriodUnit = [AMTimeMeasure]::Milliseconds,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -98,6 +106,7 @@
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 

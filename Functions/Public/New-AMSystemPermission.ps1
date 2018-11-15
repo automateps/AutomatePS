@@ -120,7 +120,7 @@ function New-AMSystemPermission {
 
     PROCESS {
         foreach ($obj in $InputObject) {
-            $connection = Get-AMConnection $obj.ConnectionAlias
+            $connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
             if ($obj.Type -in @("User","UserGroup")) {
                 $currentPermissions = $obj | Get-AMSystemPermission
                 if ($null -eq $currentPermissions) {
@@ -155,7 +155,7 @@ function New-AMSystemPermission {
                         Body = $newObject.ToJson()
                         Connection = $obj.ConnectionAlias
                     }
-                    if ($PSCmdlet.ShouldProcess($Connection.Name, "Creating system permission for: $(Join-Path -Path $obj.Path -ChildPath $obj.Name)")) {
+                    if ($PSCmdlet.ShouldProcess($connection.Name, "Creating system permission for: $(Join-Path -Path $obj.Path -ChildPath $obj.Name)")) {
                         Invoke-AMRestMethod @splat | Out-Null
                         Write-Verbose "Assigned system permissions to $($obj.Type) '$($obj.Name)'!"
                         Get-AMSystemPermission -ID $newObject.ID

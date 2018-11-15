@@ -29,13 +29,13 @@ function Invoke-AMRestMethod {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             http://cloud.networkautomation.com/installs/AutoMate/v10/10.5.0.56/BPA_RESTful_API.html
     #>
-    [CmdletBinding(DefaultParameterSetName = "AllConnections")]
-    param(
+    [CmdletBinding(DefaultParameterSetName="AllConnections")]
+    param (
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$Resource,
@@ -46,9 +46,11 @@ function Invoke-AMRestMethod {
         [ValidateNotNullOrEmpty()]
         [string]$Body = "",
 
+        [ValidateNotNullOrEmpty()]
         [ScriptBlock]$FilterScript,
 
         [Parameter(ParameterSetName = "SpecificConnection")]
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
     Write-Verbose "$(Get-Date -f G) - Invoke-AMRestMethod started"

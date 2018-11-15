@@ -1,4 +1,4 @@
-function Set-AMFileSystemCondition {    
+function Set-AMFileSystemCondition {
     <#
         .SYNOPSIS
             Sets properties of an AutoMate Enterprise file system condition.
@@ -97,14 +97,15 @@ function Set-AMFileSystemCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact='Medium')]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [ValidateNotNullOrEmpty()]
@@ -142,6 +143,7 @@ function Set-AMFileSystemCondition {
         #[string]$Password, API BUG: does not support setting password via REST call
         [string]$Domain,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait,
 
         [ValidateNotNullOrEmpty()]
@@ -150,11 +152,13 @@ function Set-AMFileSystemCondition {
         [ValidateNotNullOrEmpty()]
         [AMTimeMeasure]$TimeoutUnit,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$IgnoreExistingCondition,
 
         [ValidateNotNullOrEmpty()]
         [int]$TriggerAfter,
 
+        [AllowEmptyString()]
         [string]$Notes,
 
         [ValidateNotNullOrEmpty()]

@@ -13,7 +13,7 @@ Adds constants to an AutoMate Enterprise agent property.
 ## SYNTAX
 
 ```
-Add-AMConstant [-InputObject] <Object> [-Name] <String> [-Value] <String> [[-Comment] <String>]
+Add-AMConstant -InputObject <Object> [-Name] <String> [-Value] <String> [-Comment <String>]
  [<CommonParameters>]
 ```
 
@@ -38,7 +38,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
@@ -53,7 +53,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -68,7 +68,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 3
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -83,7 +83,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -104,7 +104,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 10/31/2018
+Date Modified  : 11/14/2018
 
 ## RELATED LINKS
 
