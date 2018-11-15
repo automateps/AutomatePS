@@ -1,4 +1,5 @@
 using module AutoMatePS  # Expose custom types so PlatyPS can create help
+[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")] param ()
 #requires -Modules PlatyPS
 foreach ($file in Get-ChildItem -Path .\Functions -File -Recurse) {
     # Don't update the modify dates if the file was just pulled from Github
@@ -18,15 +19,19 @@ foreach ($file in Get-ChildItem -Path .\Functions -File -Recurse) {
             }
         }
         if ($contentChanged) {
-            $content | Set-Content -Path $file.FullName
-            New-MarkdownHelp -Command $file.BaseName -OutputFolder ".\Docs" -Force
+            if ($PSCmdlet.ShouldProcess("Updating help and modify date for $file")) {
+                $content | Set-Content -Path $file.FullName
+                New-MarkdownHelp -Command $file.BaseName -OutputFolder ".\Docs" -Force
+            }
         }
     }
 }
 
 # Update module manifest
-$functions = Get-ChildItem ".\Functions\Public\*.ps1" | Select-Object -ExpandProperty BaseName
-Update-ModuleManifest -Path ".\AutoMatePS.psd1" -FunctionsToExport $functions
+if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
+    $functions = Get-ChildItem ".\Functions\Public\*.ps1" | Select-Object -ExpandProperty BaseName
+    Update-ModuleManifest -Path ".\AutoMatePS.psd1" -FunctionsToExport $functions
+}
 
 # Re-import module to update help
 Remove-Module -Name "AutoMatePS" -Force
