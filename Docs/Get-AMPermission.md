@@ -12,14 +12,8 @@ Gets AutoMate Enterprise permissions.
 
 ## SYNTAX
 
-### All (Default)
 ```
-Get-AMPermission [<CommonParameters>]
-```
-
-### ByPipeline
-```
-Get-AMPermission [[-InputObject] <Object>] [<CommonParameters>]
+Get-AMPermission [[-InputObject] <Object>] [-ID <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,13 +35,28 @@ The object(s) to retrieve permissions for.
 
 ```yaml
 Type: Object
-Parameter Sets: ByPipeline
+Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 1
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ID
+The ID of the permission to retrieve.
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -74,7 +83,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 11/15/2018
 
 ## RELATED LINKS
 
