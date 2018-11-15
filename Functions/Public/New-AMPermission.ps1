@@ -89,13 +89,13 @@ function New-AMPermission {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding()]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         $InputObject,
 
@@ -219,8 +219,11 @@ function New-AMPermission {
                             Body = $newObject.ToJson()
                             Connection = $obj.ConnectionAlias
                         }
-                        Invoke-AMRestMethod @splat | Out-Null
-                        Write-Verbose "Assigned permissions to $($p.Type) '$($p.Name)' for $($obj.Type) '$($obj.Name)'!"
+                        if ($PSCmdlet.ShouldProcess($Connection.Name, "Creating permission for: $(Join-Path -Path $obj.Path -ChildPath $obj.Name)")) {
+                            Invoke-AMRestMethod @splat | Out-Null
+                            Write-Verbose "Assigned permissions to $($p.Type) '$($p.Name)' for $($obj.Type) '$($obj.Name)'!"
+                            $obj | Get-AMPermission -ID $newObject.ID
+                        }
                     } else {
                         Write-Warning "$($p.Type) '$($p.Name)' already has permissions for $($obj.Type) '$($obj.Name)'!"
                     }
