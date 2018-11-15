@@ -68,13 +68,13 @@ function New-AMSystemPermission {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/25/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding()]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         $InputObject,
 
@@ -153,10 +153,13 @@ function New-AMSystemPermission {
                         Resource = "/system_permissions/create"
                         RestMethod = "Post"
                         Body = $newObject.ToJson()
-                        AMServer = $obj.ConnectionAlias
+                        Connection = $obj.ConnectionAlias
                     }
-                    Invoke-AMRestMethod @splat | Out-Null
-                    Write-Verbose "Assigned system permissions to $($obj.Type) '$($obj.Name)'!"
+                    if ($PSCmdlet.ShouldProcess($Connection.Name, "Creating system permission for: $(Join-Path -Path $obj.Path -ChildPath $obj.Name)")) {
+                        Invoke-AMRestMethod @splat | Out-Null
+                        Write-Verbose "Assigned system permissions to $($obj.Type) '$($obj.Name)'!"
+                        Get-AMSystemPermission -ID $newObject.ID
+                    }
                 } else {
                     Write-Warning "$($obj.Type) '$($obj.Name)' already has system permissions!"
                 }
