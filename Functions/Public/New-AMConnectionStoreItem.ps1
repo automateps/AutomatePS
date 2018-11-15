@@ -34,13 +34,13 @@ function New-AMConnectionStoreItem {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/14/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding()]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Server,
@@ -81,35 +81,37 @@ function New-AMConnectionStoreItem {
         ID         = (New-Guid).Guid
         Type       = "ConnectionStoreItem"
     }
-    if (Test-Path -Path $FilePath) {
-        $items = Import-Clixml -Path $FilePath
-        if ($items.Alias -contains $ConnectionAlias) {
-            throw "A connection with this alias already exists in the connection store!"
-        }
-        # Change it if it already exists, otherwise add it
-        if ($null -ne $items) {
-            $found = $false
-            foreach ($item in $items) {
-                if ($item.Server -eq $Server -and $item.Port -eq $Port) {
-                    $item = $newItem
-                }
+    if ($PSCmdlet.ShouldProcess("Creating saved connection to $($newItem.Server):$($newItem.Port) for user $($newItem.Credential.UserName).")) {
+        if (Test-Path -Path $FilePath) {
+            $items = Import-Clixml -Path $FilePath
+            if ($items.Alias -contains $ConnectionAlias) {
+                throw "A connection with this alias already exists in the connection store!"
             }
-            if (-not $found) {
-                if ($items -is [Array]) {
-                    $items += $newItem
-                } else {
-                    $items = @($items,$newItem)
+            # Change it if it already exists, otherwise add it
+            if ($null -ne $items) {
+                $found = $false
+                foreach ($item in $items) {
+                    if ($item.Server -eq $Server -and $item.Port -eq $Port) {
+                        $item = $newItem
+                    }
                 }
+                if (-not $found) {
+                    if ($items -is [Array]) {
+                        $items += $newItem
+                    } else {
+                        $items = @($items,$newItem)
+                    }
+                }
+            } else {
+                $items = @($newItem)
             }
-		} else {
-			$items = @($newItem)
-		}
-    } else {
-        # Create folder if it doesn't exist
-        if (-not (Test-Path -Path (Split-Path -Path $FilePath -Parent))) {
-            New-Item -Path (Split-Path -Path $FilePath -Parent) -ItemType Directory -Force | Out-Null
+        } else {
+            # Create folder if it doesn't exist
+            if (-not (Test-Path -Path (Split-Path -Path $FilePath -Parent))) {
+                New-Item -Path (Split-Path -Path $FilePath -Parent) -ItemType Directory -Force | Out-Null
+            }
+            $items = @($newItem)
         }
-        $items = @($newItem)
+        $items | Export-Clixml -Path $FilePath
     }
-    $items | Export-Clixml -Path $FilePath
 }

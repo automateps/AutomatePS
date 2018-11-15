@@ -33,14 +33,16 @@ function Remove-AMWorkflowVariable {
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact='Medium')]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [ValidateNotNullOrEmpty()]
         [string]$Name
     )
+
     PROCESS {
         foreach ($obj in $InputObject) {
             $shouldUpdate = $false
