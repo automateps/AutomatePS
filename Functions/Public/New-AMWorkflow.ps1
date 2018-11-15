@@ -26,13 +26,13 @@ function New-AMWorkflow {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/14/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -65,9 +65,7 @@ function New-AMWorkflow {
         11      { $newObject = [AMWorkflowv11]::new($Name, $Folder, $Connection.Alias) }
         default { throw "Unsupported server major version: $_!" }
     }
-    $newObject.CreatedBy       = $user.ID
-    $newObject.Notes           = $Notes
-
+    $newObject.CreatedBy = $user.ID
+    $newObject.Notes     = $Notes
     $newObject | New-AMObject -Connection $Connection
-    Get-AMWorkflow -ID $newObject.ID -Connection $Connection
 }

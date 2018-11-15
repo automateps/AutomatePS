@@ -32,7 +32,7 @@ function New-AMAgentGroup {
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -67,5 +67,4 @@ function New-AMAgentGroup {
     $newObject.CreatedBy = $user.ID
     $newObject.Notes     = $Notes
     $newObject | New-AMObject -Connection $Connection
-    Get-AMAgentGroup -ID $newObject.ID -Connection $Connection
 }

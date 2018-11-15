@@ -46,13 +46,13 @@ function New-AMProcessCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/14/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -113,5 +113,4 @@ function New-AMProcessCondition {
         $newObject.Started = $Started.ToBool()
     }
     $newObject | New-AMObject -Connection $Connection
-    Get-AMCondition -ID $newObject.ID -Connection $Connection
 }
