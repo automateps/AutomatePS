@@ -31,14 +31,14 @@ function Enable-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
-        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]        
+    param (
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         $InputObject
     )
@@ -60,3 +60,12 @@ function Enable-AMObject {
         }
     }
 }
+
+New-Alias -Name Enable-AMAgent      -Value Enable-AMObject -Scope Global
+New-Alias -Name Enable-AMAgentGroup -Value Enable-AMObject -Scope Global
+New-Alias -Name Enable-AMCondition  -Value Enable-AMObject -Scope Global
+New-Alias -Name Enable-AMProcess    -Value Enable-AMObject -Scope Global
+New-Alias -Name Enable-AMTask       -Value Enable-AMObject -Scope Global
+New-Alias -Name Enable-AMUser       -Value Enable-AMObject -Scope Global
+New-Alias -Name Enable-AMUserGroup  -Value Enable-AMObject -Scope Global
+New-Alias -Name Enable-AMWorkflow   -Value Enable-AMObject -Scope Global

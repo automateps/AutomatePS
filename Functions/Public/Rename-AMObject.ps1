@@ -32,13 +32,13 @@ function Rename-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/19/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         $InputObject,
 
@@ -81,3 +81,10 @@ function Rename-AMObject {
         }
     }
 }
+
+New-Alias -Name Rename-AMAgentGroup -Value Rename-AMObject -Scope Global
+New-Alias -Name Rename-AMCondition  -Value Rename-AMObject -Scope Global
+New-Alias -Name Rename-AMProcess    -Value Rename-AMObject -Scope Global
+New-Alias -Name Rename-AMTask       -Value Rename-AMObject -Scope Global
+New-Alias -Name Rename-AMUserGroup  -Value Rename-AMObject -Scope Global
+New-Alias -Name Rename-AMWorkflow   -Value Rename-AMObject -Scope Global
