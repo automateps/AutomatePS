@@ -31,14 +31,14 @@ function Disable-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
-        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]        
+    param (
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         $InputObject
     )
@@ -59,3 +59,12 @@ function Disable-AMObject {
         }
     }
 }
+
+New-Alias -Name Disable-AMAgent      -Value Disable-AMObject -Scope Global
+New-Alias -Name Disable-AMAgentGroup -Value Disable-AMObject -Scope Global
+New-Alias -Name Disable-AMCondition  -Value Disable-AMObject -Scope Global
+New-Alias -Name Disable-AMProcess    -Value Disable-AMObject -Scope Global
+New-Alias -Name Disable-AMTask       -Value Disable-AMObject -Scope Global
+New-Alias -Name Disable-AMUser       -Value Disable-AMObject -Scope Global
+New-Alias -Name Disable-AMUserGroup  -Value Disable-AMObject -Scope Global
+New-Alias -Name Disable-AMWorkflow   -Value Disable-AMObject -Scope Global

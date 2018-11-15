@@ -1,4 +1,4 @@
-function Start-AMTask {
+﻿function Start-AMTask {
     <#
         .SYNOPSIS
             Starts AutoMate Enterprise tasks.
@@ -26,14 +26,14 @@ function Start-AMTask {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/19/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     [OutputType([System.Object[]])]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         $InputObject,
@@ -50,6 +50,7 @@ function Start-AMTask {
     PROCESS {
         foreach ($obj in $InputObject) {
             if ($obj.Type -eq "Task") {
+                $connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
                 switch($PSCmdlet.ParameterSetName) {
                     "Agent" {
                         if ($Agent -is [string]) {
@@ -68,7 +69,7 @@ function Start-AMTask {
                                     Write-Verbose "Running task $($obj.Name) on agent $($Agent.Name)."
                                     $runUri = Format-AMUri -Path "tasks/$($obj.ID)/run" -Parameters "agent_id=$($Agent.ID)"
                                 } else {
-                                    throw "Task '$($obj.Name)' and agent '$($Agent.Name)' are not on the same server!" 
+                                    throw "Task '$($obj.Name)' and agent '$($Agent.Name)' are not on the same server!"
                                 }
                             } else {
                                 throw "Agent $($Agent.Name) is not a task agent!"
@@ -93,17 +94,19 @@ function Start-AMTask {
                                 Write-Verbose "Running task $($obj.Name) on agent group $($AgentGroup.Name)."
                                 $runUri = Format-AMUri -Path "tasks/$($obj.ID)/run" -Parameters "agent_group_id=$($AgentGroup.ID)"
                             } else {
-                                throw "Task '$($obj.Name)' and agent group '$($AgentGroup.Name)' are not on the same server!" 
+                                throw "Task '$($obj.Name)' and agent group '$($AgentGroup.Name)' are not on the same server!"
                             }
                         } else {
                             throw "Unsupported agent group type '$($AgentGroup.Type)' encountered!"
                         }
                     }
                 }
-                $instanceID = Invoke-AMRestMethod -Resource $runUri -RestMethod Post -Connection $obj.ConnectionAlias
-                Start-Sleep -Seconds 1   # The instance can't be retrieved right away, have to pause briefly
-                $listUri = Format-AMUri -Path "instances/list" -FilterSet @{Property = "ID"; Operator = "="; Value = $instanceID}
-                Invoke-AMRestMethod -Resource $listUri -RestMethod Get -Connection $obj.ConnectionAlias
+                if ($PSCmdlet.ShouldProcess($connection.Name, "Starting task: $(Join-Path -Path $obj.Path -ChildPath $obj.Name)")) {
+                    $instanceID = Invoke-AMRestMethod -Resource $runUri -RestMethod Post -Connection $obj.ConnectionAlias
+                    Start-Sleep -Seconds 1   # The instance can't be retrieved right away, have to pause briefly
+                    $listUri = Format-AMUri -Path "instances/list" -FilterSet @{Property = "ID"; Operator = "="; Value = $instanceID}
+                    Invoke-AMRestMethod -Resource $listUri -RestMethod Get -Connection $obj.ConnectionAlias
+                }
             } else {
                 Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
             }

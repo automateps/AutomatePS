@@ -19,10 +19,10 @@ function Get-AMInstance {
             The first date of events to retrieve (Default: 1 day ago).
 
         .PARAMETER EndDate
-            The last date of events to retrieve (Default: now). 
+            The last date of events to retrieve (Default: now).
 
         .PARAMETER Status
-            The status of the instance: 
+            The status of the instance:
                 All
                 Completed
                 Running
@@ -80,14 +80,14 @@ function Get-AMInstance {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/04/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "All")]
+    [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([System.Object[]])]
-    param(
+    param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
         $InputObject,
@@ -109,6 +109,7 @@ function Get-AMInstance {
         [ValidateNotNullOrEmpty()]
         [AMInstanceStatus]$Status = [AMInstanceStatus]::All,
 
+        [ValidateNotNullOrEmpty()]
         [Hashtable[]]$FilterSet,
 
         [ValidateSet("And","Or")]
@@ -120,6 +121,7 @@ function Get-AMInstance {
         [ValidateNotNullOrEmpty()]
         [string[]]$SortProperty = "StartDateTime",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]

@@ -44,7 +44,7 @@ function Get-AMMetric {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -57,12 +57,16 @@ function Get-AMMetric {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
-        $StartDate = (Get-Date).AddDays(-1),
+        [ValidateNotNullOrEmpty()]
+        [DateTime]$StartDate = (Get-Date).AddDays(-1),
 
-        $EndDate = (Get-Date),
+        [ValidateNotNullOrEmpty()]
+        [DateTime]$EndDate = (Get-Date),
 
+        [ValidateNotNullOrEmpty()]
         [int]$IntervalSeconds = 3600,
 
+        [ValidateNotNullOrEmpty()]
         [int]$DeviationPercentage,
 
         [ValidateSet("ABOVE","BELOW","BOTH")]

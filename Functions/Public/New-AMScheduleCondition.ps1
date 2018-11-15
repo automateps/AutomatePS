@@ -1,4 +1,4 @@
-function New-AMScheduleCondition {    
+function New-AMScheduleCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise schedule condition.
@@ -60,13 +60,13 @@ function New-AMScheduleCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/14/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -80,8 +80,10 @@ function New-AMScheduleCondition {
         [ValidateSet(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,"first","second","third","fourth","last")]
         $Frequency = 1,
 
+        [ValidateNotNullOrEmpty()]
         [DayOfWeek[]]$Day,
 
+        [ValidateNotNullOrEmpty()]
         [DateTime]$End,
 
         [ValidateNotNullOrEmpty()]
@@ -104,6 +106,7 @@ function New-AMScheduleCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 
@@ -150,5 +153,4 @@ function New-AMScheduleCondition {
         $newObject.Month += $Month.ToLower()
     }
     $newObject | New-AMObject -Connection $Connection
-    Get-AMCondition -ID $newObject.ID -Connection $Connection
 }

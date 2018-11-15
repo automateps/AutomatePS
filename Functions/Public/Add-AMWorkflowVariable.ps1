@@ -45,14 +45,15 @@ function Add-AMWorkflowVariable {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/31/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact='Medium')]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [Parameter(Mandatory = $true)]
@@ -96,7 +97,7 @@ function Add-AMWorkflowVariable {
                 $shouldUpdate = $false
 
                 if ($updateObject.Variables.Name -notcontains $Name) {
-                    switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                    switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
                         10      { $newVariable = [AMWorkflowVariablev10]::new($obj.ConnectionAlias) }
                         11      { $newVariable = [AMWorkflowVariablev11]::new($obj.ConnectionAlias) }
                         default { throw "Unsupported server major version: $_!" }

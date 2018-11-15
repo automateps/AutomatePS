@@ -8,7 +8,7 @@ class AMObjectConstructv11 {
 
     AMObjectConstructv11() {}
     AMObjectConstructv11([string]$ConnectionAlias) {
-        if ($ConnectionAlias -notin $null,[string]::Empty) {
+        if (-not [string]::IsNullOrEmpty($ConnectionAlias)) {
             $this | Add-Member -Name "ConnectionAlias" -MemberType NoteProperty -Value $ConnectionAlias
         }
     }
@@ -16,7 +16,7 @@ class AMObjectConstructv11 {
         $this.Name     = $Name
         $this.ParentID = $Folder.ID
         $this.Path     = Join-Path -Path $Folder.Path -ChildPath $Folder.Name
-        if ($ConnectionAlias -notin $null,[string]::Empty) {
+        if (-not [string]::IsNullOrEmpty($ConnectionAlias)) {
             $this | Add-Member -Name "ConnectionAlias" -MemberType NoteProperty -Value $ConnectionAlias
         }
     }
@@ -27,7 +27,7 @@ class AMObjectConstructv11 {
         $this.ParentID  = $PSCustomObject.ParentID
         $this.Path      = $PSCustomObject.Path
         $this.Type      = $PSCustomObject.Type
-        if ($ConnectionAlias -notin $null,[string]::Empty) {
+        if (-not [string]::IsNullOrEmpty($ConnectionAlias)) {
             $this | Add-Member -Name "ConnectionAlias" -MemberType NoteProperty -Value $ConnectionAlias
         }
     }
@@ -346,7 +346,7 @@ class AMConfigurationConstructv11 {
         $this.Type             = $PSCustomObject.Type
         $this.EmailServer      = [AMEmailServerv11]::new($PSCustomObject.EmailServer,$ConnectionAlias)
         $this.NotificationType = $PSCustomObject.NotificationType
-        if ($ConnectionAlias -notin $null,[string]::Empty) {
+        if (-not [string]::IsNullOrEmpty($ConnectionAlias)) {
             $this | Add-Member -Name "ConnectionAlias" -MemberType NoteProperty -Value $ConnectionAlias
         }
     }
@@ -1000,7 +1000,7 @@ class AMEmailFilterv11 {
         $this.FieldName      = $PSCustomObject.FieldName
         $this.FieldValue     = $PSCustomObject.FieldValue
         $this.Operator       = $PSCustomObject.Operator
-        if ($ConnectionAlias -notin $null,[string]::Empty) {
+        if (-not [string]::IsNullOrEmpty($ConnectionAlias)) {
             $this | Add-Member -Name "ConnectionAlias" -MemberType NoteProperty -Value $ConnectionAlias
         }
         $this | Add-Member -Name Trigger -MemberType NoteProperty -Value $Trigger
@@ -1377,7 +1377,7 @@ class AMSNMPTriggerCredentialv11 {
         $this.EncryptionAlgorithm    = $PSCustomObject.EncryptionAlgorithm
         $this.PrivacyPassword        = $PSCustomObject.PrivacyPassword
         $this.User                   = $PSCustomObject.User
-        if ($ConnectionAlias -notin $null,[string]::Empty) {
+        if (-not [string]::IsNullOrEmpty($ConnectionAlias)) {
             $this | Add-Member -Name "ConnectionAlias" -MemberType NoteProperty -Value $ConnectionAlias
         }
         $this | Add-Member -Name Trigger -MemberType NoteProperty -Value $Trigger
@@ -1458,7 +1458,7 @@ class AMWindowTriggerControlv11 {
         $this.CheckValue    = $PSCustomObject.CheckValue
         $this.CheckType     = $PSCustomObject.CheckType
         $this.CheckPosition = $PSCustomObject.CheckPosition
-        if ($ConnectionAlias -notin $null,[string]::Empty) {
+        if (-not [string]::IsNullOrEmpty($ConnectionAlias)) {
             $this | Add-Member -Name "ConnectionAlias" -MemberType NoteProperty -Value $ConnectionAlias
         }
         $this | Add-Member -Name Trigger -MemberType NoteProperty -Value $Trigger

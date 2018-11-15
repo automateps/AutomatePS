@@ -103,13 +103,13 @@ function New-AMFileSystemCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/14/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -117,30 +117,58 @@ function New-AMFileSystemCondition {
         [Parameter(Mandatory = $true, Position = 1)]
         [string]$MonitorFolder,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Subfolders = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$WaitForAccess = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$FileAdded = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$FileRemoved = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$FileRenamed = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$FileModified = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$FolderAdded = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$FolderRemoved = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$FolderRenamed = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$FolderModified = $false,
 
+        [ValidateNotNullOrEmpty()]
         [int]$FileCount = -1,
+
+        [ValidateNotNullOrEmpty()]
         [int]$FolderCount = -1,
+
+        [ValidateNotNullOrEmpty()]
         [int]$FileSize = -1,
+
+        [ValidateNotNullOrEmpty()]
         [int]$FolderSize = -1,
 
         [string]$Include = "",
         [string]$Exclude = "",
 
+        [ValidateNotNullOrEmpty()]
         [AMConditionUserMode]$UserMode = [AMConditionUserMode]::NoUser,
         [string]$UserName = "",
         #[string]$Password, API BUG: does not support setting password via REST call
         [string]$Domain = "",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -152,6 +180,7 @@ function New-AMFileSystemCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 
@@ -208,5 +237,4 @@ function New-AMFileSystemCondition {
         $newObject.IgnoreExistingCondition = $IgnoreExistingCondition.ToBool()
     }
     $newObject | New-AMObject -Connection $Connection
-    Get-AMCondition -ID $newObject.ID -Connection $Connection
 }

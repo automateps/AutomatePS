@@ -4,7 +4,7 @@ function Get-AMSession {
             Gets AutoMate Enterprise user sessions.
 
         .DESCRIPTION
-            Get-AMSession returns open SMC sessions from AutoMate Enterprise.  This function uses the audit event log to determine which sessions are open.  
+            Get-AMSession returns open SMC sessions from AutoMate Enterprise.  This function uses the audit event log to determine which sessions are open.
             The results of this function could be inaccurate if a session wasn't closed property, or if audit events have aged out since the last server start.
 
         .PARAMETER Connection
@@ -18,7 +18,7 @@ function Get-AMSession {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/04/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS

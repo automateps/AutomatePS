@@ -16,7 +16,8 @@ Assigns security to an AutoMate Enterprise system.
 New-AMSystemPermission [-InputObject] <Object> [-FullControl] [-Deploy] [-EditDashboard]
  [-EditDefaultProperties] [-EditLicensing] [-EditPreferences] [-EditRevisionManagement] [-EditServerSettings]
  [-ToggleTriggering] [-ViewCalendar] [-ViewDashboard] [-ViewDefaultProperties] [-ViewLicensing]
- [-ViewPreferences] [-ViewReports] [-ViewRevisionManagement] [-ViewServerSettings] [<CommonParameters>]
+ [-ViewPreferences] [-ViewReports] [-ViewRevisionManagement] [-ViewServerSettings] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -154,7 +155,7 @@ Accept wildcard characters: False
 ```
 
 ### -EditServerSettings
-Allow or deny permission to edit server level  settings.
+Allow or deny permission to edit server level settings.
 
 ```yaml
 Type: SwitchParameter
@@ -274,7 +275,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewRevisionManagement
-Allow or deny permission to view reports, including charts and tables.
+Allow or deny permission to view the Revision Management information.
 
 ```yaml
 Type: SwitchParameter
@@ -303,6 +304,37 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
 For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -315,7 +347,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 10/25/2018
+Date Modified  : 11/14/2018
 
 ## RELATED LINKS
 

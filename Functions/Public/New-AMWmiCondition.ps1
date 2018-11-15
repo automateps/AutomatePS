@@ -52,13 +52,13 @@ function New-AMWmiCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/14/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -70,6 +70,7 @@ function New-AMWmiCondition {
         #[string]$Password, API BUG: does not support setting password via REST call
         [int]$PollIntervalSeconds = 1,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -80,6 +81,7 @@ function New-AMWmiCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 
@@ -118,5 +120,4 @@ function New-AMWmiCondition {
     #$newObject.Password         = $Password
     $newObject.IntervalInSeconds = $PollIntervalSeconds
     $newObject | New-AMObject -Connection $Connection
-    Get-AMCondition -ID $newObject.ID -Connection $Connection
 }

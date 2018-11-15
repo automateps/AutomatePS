@@ -82,14 +82,15 @@ function Set-AMTaskProperty {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/27/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [ValidateNotNullOrEmpty()]
@@ -165,6 +166,7 @@ function Set-AMTaskProperty {
     PROCESS {
         foreach ($obj in $InputObject) {
             if ($obj.Type -eq "TaskProperty") {
+                $connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
                 $parent = Get-AMTask -ID $obj.ParentID -Connection $obj.ConnectionAlias
                 $updateObject = $parent | Get-AMObjectProperty
                 $shouldUpdate = $false
@@ -298,8 +300,10 @@ function Set-AMTaskProperty {
                         Body = $updateObject.ToJson()
                         Connection = $updateObject.ConnectionAlias
                     }
-                    Invoke-AMRestMethod @splat | Out-Null
-                    Write-Verbose "Modified $($obj.Type) for $($parent.Type): $(Join-Path -Path $parent.Path -ChildPath $parent.Name)."
+                    if ($PSCmdlet.ShouldProcess($connection.Name, "Modifying $($obj.Type) for $($parent.Type): $(Join-Path -Path $parent.Path -ChildPath $parent.Name)")) {
+                        Invoke-AMRestMethod @splat | Out-Null
+                        Write-Verbose "Modified $($obj.Type) for $($parent.Type): $(Join-Path -Path $parent.Path -ChildPath $parent.Name)."
+                    }
                 } else {
                     Write-Verbose "$($obj.Type) for $($parent.Type) '$($parent.Name)' already contains the specified values."
                 }

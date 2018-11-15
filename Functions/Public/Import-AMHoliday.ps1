@@ -1,6 +1,6 @@
 function Import-AMHoliday {
     <#
-        .SYNOPSIS 
+        .SYNOPSIS
             Read the holidays.aho file into a dictionary.
 
         .DESCRIPTION
@@ -16,10 +16,11 @@ function Import-AMHoliday {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 11/13/2018
-            Date Modified  : 11/13/2018
+            Date Modified  : 11/15/2018
     #>
     [CmdletBinding()]
-    param(
+    [OutputType([Hashtable])]
+    param (
         [Parameter(Mandatory=$true)]
         [ValidateScript({
             if (Test-Path -Path $_) {
@@ -30,10 +31,10 @@ function Import-AMHoliday {
         })]
         [string]$Path
     )
-    
+
     $result = @{}
     switch -Regex -File $Path {
-        "^\[(.+)\]" { # Category 
+        "^\[(.+)\]" { # Category
             $section = $matches[1]
             $result[$section] = @()
         }

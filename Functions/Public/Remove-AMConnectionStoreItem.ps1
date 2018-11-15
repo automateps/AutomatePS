@@ -16,24 +16,31 @@ function Remove-AMConnectionStoreItem {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding()]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         $ConnectionStoreItem
     )
+
     PROCESS {
         foreach ($item in $ConnectionStoreItem) {
             if ($item.Type -eq "ConnectionStoreItem") {
                 if (Test-Path -Path $item.FilePath) {
                     $connStoreItems = Import-Clixml -Path $item.FilePath
-                    $connStoreItems = $connStoreItems | Where-Object {$_.ID -ne $item.ID}
-                    $connStoreItems | Export-Clixml -Path $item.FilePath
+                    if (($connStoreItems | Where-Object {$_.ID -eq $item.ID} | Measure-Object).Count -gt 0) {
+                        if ($PSCmdlet.ShouldProcess("Removing saved connection to $($item.Server):$($item.Port) for user $($item.Credential.UserName).")) {
+                            $connStoreItems = $connStoreItems | Where-Object {$_.ID -ne $item.ID}
+                            $connStoreItems | Export-Clixml -Path $item.FilePath
+                        }
+                    } else {
+                        Write-Verbose "No saved connection found with ID $($item.ID)."
+                    }
                 }
             } else {
                 Write-Error -Message "Unsupported input type '$($item.Type)' encountered!" -TargetObject $item

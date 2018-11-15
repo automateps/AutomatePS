@@ -66,14 +66,14 @@ function Get-AMAuditEvent {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/04/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "All")]
+    [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([System.Object[]])]
-    param(
+    param (
         [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         $InputObject,
@@ -87,6 +87,7 @@ function Get-AMAuditEvent {
         [ValidateNotNullOrEmpty()]
         [AMAuditEventType]$EventType = [AMAuditEventType]::All,
 
+        [ValidateNotNullOrEmpty()]
         [Hashtable[]]$FilterSet,
 
         [ValidateSet("And","Or")]
@@ -95,6 +96,7 @@ function Get-AMAuditEvent {
         [ValidateNotNullOrEmpty()]
         [string[]]$SortProperty = "EventDateTime",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$SortDescending = $false,
 
         [Parameter(ParameterSetName = "ByPipeline")]
@@ -152,8 +154,8 @@ function Get-AMAuditEvent {
                         }
                         default {
                             $unsupportedType = $obj.GetType().FullName
-                            if ($_) { 
-                                $unsupportedType = $_ 
+                            if ($_) {
+                                $unsupportedType = $_
                             } elseif (-not [string]::IsNullOrEmpty($obj.Type)) {
                                 $unsupportedType = $obj.Type
                             }

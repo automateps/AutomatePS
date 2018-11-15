@@ -26,14 +26,15 @@ function Remove-AMConstant {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding()]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [Parameter(Mandatory = $true)]
@@ -43,6 +44,7 @@ function Remove-AMConstant {
 
     PROCESS {
         foreach ($obj in $InputObject) {
+            $connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
             if ($obj.Type -eq "AgentProperty") {
                 $parent = Get-AMAgent -ID $obj.ParentID -Connection $obj.ConnectionAlias
                 $updateObject = $parent | Get-AMObjectProperty
@@ -70,8 +72,10 @@ function Remove-AMConstant {
                         Body = $updateObject.ToJson()
                         Connection = $updateObject.ConnectionAlias
                     }
-                    Invoke-AMRestMethod @splat | Out-Null
-                    Write-Verbose "Modified $($obj.Type) for $($parent.Type): $(Join-Path -Path $parent.Path -ChildPath $parent.Name)."
+                    if ($PSCmdlet.ShouldProcess($connection.Name, "Removing constant '$Name' from agent: $((Get-AMAgent -ID $obj.ParentID).Name)")) {
+                        Invoke-AMRestMethod @splat | Out-Null
+                        Write-Verbose "Modified $($obj.Type) for $($parent.Type): $(Join-Path -Path $parent.Path -ChildPath $parent.Name)."
+                    }
                 } else {
                     Write-Verbose "$($obj.Type) for $($parent.Type) '$($parent.Name)' already contains the specified values."
                 }

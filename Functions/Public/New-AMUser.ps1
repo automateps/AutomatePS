@@ -26,13 +26,13 @@ function New-AMUser {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding()]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -44,6 +44,7 @@ function New-AMUser {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 
@@ -71,5 +72,4 @@ function New-AMUser {
     $newObject.Username  = $Name
     #$newObject.Password  = $Password # Not yet supported by the API
     $newObject | New-AMObject -Connection $Connection
-    Get-AMUser -ID $newObject.ID -Connection $Connection
 }

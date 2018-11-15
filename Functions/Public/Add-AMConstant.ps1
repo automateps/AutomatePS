@@ -32,21 +32,21 @@ function Add-AMConstant {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/31/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         $InputObject,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, Position = 1)]
         [ValidateNotNullOrEmpty()]
         [string]$Value,
 
@@ -60,7 +60,7 @@ function Add-AMConstant {
                 $updateObject = $parent | Get-AMObjectProperty
                 $shouldUpdate = $false
                 if ($updateObject.Constants.Name -notcontains $Name) {
-                    switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                    switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
                         10      { $newConstant = [AMConstantv10]::new($obj.ConnectionAlias) }
                         11      { $newConstant = [AMConstantv11]::new($obj.ConnectionAlias) }
                         default { throw "Unsupported server major version: $_!" }

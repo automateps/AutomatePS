@@ -1,4 +1,4 @@
-function Set-AMScheduleCondition {    
+function Set-AMScheduleCondition {
     <#
         .SYNOPSIS
             Sets properties of an AutoMate Enterprise schedule condition.
@@ -53,14 +53,15 @@ function Set-AMScheduleCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium",DefaultParameterSetName="Default")]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [ValidateNotNullOrEmpty()]
@@ -91,6 +92,7 @@ function Set-AMScheduleCondition {
         [ValidateNotNullOrEmpty()]
         [AMRescheduleOption]$Reschedule = [AMRescheduleOption]::RelativeToOriginalTime,
 
+        [AllowEmptyString()]
         [string]$Notes,
 
         [ValidateNotNullOrEmpty()]

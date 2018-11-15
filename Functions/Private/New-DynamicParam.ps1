@@ -1,8 +1,8 @@
-Function New-DynamicParam {
+﻿Function New-DynamicParam {
     <#
         .SYNOPSIS
             Helper function to simplify creating dynamic parameters
-        
+
         .DESCRIPTION
             Helper function to simplify creating dynamic parameters
             Example use cases:
@@ -36,13 +36,13 @@ Function New-DynamicParam {
             If specified, set the ValueFromPipelineByPropertyName attribute for this dynamic parameter
         .PARAMETER HelpMessage
             If specified, set the HelpMessage for this dynamic parameter
-        
+
         .PARAMETER DPDictionary
             If specified, add resulting RuntimeDefinedParameter to an existing RuntimeDefinedParameterDictionary (appropriate for multiple dynamic parameters)
             If not specified, create and return a RuntimeDefinedParameterDictionary (appropriate for a single dynamic parameter)
             See final example for illustration
         .EXAMPLE
-            
+
             function Show-Free
             {
                 [CmdletBinding()]
@@ -76,7 +76,7 @@ Function New-DynamicParam {
                 {
                     #Create the RuntimeDefinedParameterDictionary
                     $Dictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
-            
+
                     New-DynamicParam -Name AlwaysParam -ValidateSet @( gwmi win32_volume | %{$_.driveletter} | sort ) -DPDictionary $Dictionary
                     #Add dynamic parameters to $dictionary
                     if($x -eq 1)
@@ -91,7 +91,7 @@ Function New-DynamicParam {
                         New-DynamicParam -Name OtherParam2 -DPDictionary $Dictionary
                         New-DynamicParam -Name OtherParam3 -DPDictionary $Dictionary -Type DateTime
                     }
-            
+
                     #return RuntimeDefinedParameterDictionary
                     $Dictionary
                 }
@@ -123,34 +123,34 @@ Function New-DynamicParam {
             PowerShell Language
     #>
     param(
-        
+
         [string]
         $Name,
-        
+
         [System.Type]
         $Type = [string],
-    
+
         [string[]]
         $Alias = @(),
-    
+
         [string[]]
         $ValidateSet,
-        
+
         [switch]
         $Mandatory,
-        
+
         [string]
         $ParameterSetName="__AllParameterSets",
-        
+
         [int]
         $Position,
-        
+
         [switch]
         $ValueFromPipelineByPropertyName,
-        
+
         [string]
         $HelpMessage,
-    
+
         [validatescript({
             if(-not ( $_ -is [System.Management.Automation.RuntimeDefinedParameterDictionary] -or -not $_) )
             {
@@ -159,9 +159,9 @@ Function New-DynamicParam {
             $True
         })]
         $DPDictionary = $false
-     
+
     )
-        #Create attribute object, add attributes, add to collection   
+        #Create attribute object, add attributes, add to collection
             $ParamAttr = New-Object System.Management.Automation.ParameterAttribute
             $ParamAttr.ParameterSetName = $ParameterSetName
             if($mandatory)
@@ -180,27 +180,27 @@ Function New-DynamicParam {
             {
                 $ParamAttr.HelpMessage = $HelpMessage
             }
-     
+
             $AttributeCollection = New-Object 'Collections.ObjectModel.Collection[System.Attribute]'
             $AttributeCollection.Add($ParamAttr)
-        
+
         #param validation set if specified
             if($ValidateSet)
             {
                 $ParamOptions = New-Object System.Management.Automation.ValidateSetAttribute -ArgumentList $ValidateSet
                 $AttributeCollection.Add($ParamOptions)
             }
-    
+
         #Aliases if specified
             if($Alias.count -gt 0) {
                 $ParamAlias = New-Object System.Management.Automation.AliasAttribute -ArgumentList $Alias
                 $AttributeCollection.Add($ParamAlias)
             }
-    
-     
+
+
         #Create the dynamic parameter
             $Parameter = New-Object -TypeName System.Management.Automation.RuntimeDefinedParameter -ArgumentList @($Name, $Type, $AttributeCollection)
-        
+
         #Add the dynamic parameter to an existing dynamic parameter dictionary, or create the dictionary and add it
             if($DPDictionary)
             {

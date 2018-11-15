@@ -33,14 +33,15 @@ function Move-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/19/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [Parameter(Mandatory = $true, Position = 0)]
@@ -73,3 +74,12 @@ function Move-AMObject {
         }
     }
 }
+
+New-Alias -Name Move-AMAgent      -Value Move-AMObject -Scope Global
+New-Alias -Name Move-AMAgentGroup -Value Move-AMObject -Scope Global
+New-Alias -Name Move-AMCondition  -Value Move-AMObject -Scope Global
+New-Alias -Name Move-AMProcess    -Value Move-AMObject -Scope Global
+New-Alias -Name Move-AMTask       -Value Move-AMObject -Scope Global
+New-Alias -Name Move-AMUser       -Value Move-AMObject -Scope Global
+New-Alias -Name Move-AMUserGroup  -Value Move-AMObject -Scope Global
+New-Alias -Name Move-AMWorkflow   -Value Move-AMObject -Scope Global

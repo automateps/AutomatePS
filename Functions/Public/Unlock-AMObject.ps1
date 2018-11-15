@@ -22,14 +22,15 @@ function Unlock-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/19/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject
     )
 
@@ -39,7 +40,7 @@ function Unlock-AMObject {
                 {$_ -in "Workflow","Task","Condition","Process"} {
                     $update = Get-AMObject -ID $obj.ID -Types $obj.Type -Connection $obj.ConnectionAlias
                 }
-                default     { Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj  }
+                default { Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj  }
             }
             $update.LockedBy = ""
             $update | Set-AMObject
@@ -47,3 +48,8 @@ function Unlock-AMObject {
         }
     }
 }
+
+New-Alias -Name Unlock-AMCondition  -Value Unlock-AMObject -Scope Global
+New-Alias -Name Unlock-AMProcess    -Value Unlock-AMObject -Scope Global
+New-Alias -Name Unlock-AMTask       -Value Unlock-AMObject -Scope Global
+New-Alias -Name Unlock-AMWorkflow   -Value Unlock-AMObject -Scope Global

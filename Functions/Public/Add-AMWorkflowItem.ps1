@@ -42,14 +42,15 @@ function Add-AMWorkflowItem {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/31/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact='Medium')]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByConstruct")]
@@ -73,6 +74,7 @@ function Add-AMWorkflowItem {
         $Agent,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByEvaluation")]
+        [ValidateNotNullOrEmpty()]
         [string]$Expression,
 
         [Parameter(Mandatory = $true, ParameterSetName = "ByWait")]
@@ -108,12 +110,12 @@ function Add-AMWorkflowItem {
                 if (-not $PSBoundParameters.ContainsKey("Agent")) {
                     $Agent = Get-AMSystemAgent -Type Default -Connection $obj.ConnectionAlias
                 }
-
+                $connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
                 $isTrigger = $false
                 switch ($PSCmdlet.ParameterSetName) {
                     "ByConstruct" {
                         if ($Item.Type -eq "Condition")  {
-                            switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                            switch ($connection.Version.Major) {
                                 10      { $newItem = [AMWorkflowTriggerv10]::new($obj.ConnectionAlias) }
                                 11      { $newItem = [AMWorkflowTriggerv11]::new($obj.ConnectionAlias) }
                                 default { throw "Unsupported server major version: $_!" }
@@ -121,7 +123,7 @@ function Add-AMWorkflowItem {
                             $newItem.TriggerType = $Item.TriggerType
                             $isTrigger = $true
                         } else {
-                            switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                            switch ($connection.Version.Major) {
                                 10      { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
                                 11      { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
                                 default { throw "Unsupported server major version: $_!" }
@@ -135,7 +137,7 @@ function Add-AMWorkflowItem {
                         $newItem.ConstructType = $Item.Type
                     }
                     "ByEvaluation" {
-                        switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                        switch ($connection.Version.Major) {
                             10      { $newItem = [AMWorkflowConditionv10]::new($obj.ConnectionAlias) }
                             11      { $newItem = [AMWorkflowConditionv11]::new($obj.ConnectionAlias) }
                             default { throw "Unsupported server major version: $_!" }
@@ -143,7 +145,7 @@ function Add-AMWorkflowItem {
                         $newItem.Expression = $Expression
                     }
                     "ByWait" {
-                        switch ((Get-AMConnection $obj.ConnectionAlias).Version.Major) {
+                        switch ($connection.Version.Major) {
                             10      { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
                             11      { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
                             default { throw "Unsupported server major version: $_!" }

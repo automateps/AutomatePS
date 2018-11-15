@@ -1,4 +1,4 @@
-function Set-AMPerformanceCondition {    
+function Set-AMPerformanceCondition {
     <#
         .SYNOPSIS
             Sets properties of an AutoMate Enterprise performance condition.
@@ -55,14 +55,15 @@ function Set-AMPerformanceCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [string]$MachineName = "",
@@ -88,6 +89,7 @@ function Set-AMPerformanceCondition {
         [ValidateNotNullOrEmpty()]
         [AMTimeMeasure]$TimePeriodUnit,
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait,
 
         [ValidateNotNullOrEmpty()]
@@ -99,6 +101,7 @@ function Set-AMPerformanceCondition {
         [ValidateNotNullOrEmpty()]
         [int]$TriggerAfter,
 
+        [AllowEmptyString()]
         [string]$Notes,
 
         [ValidateNotNullOrEmpty()]

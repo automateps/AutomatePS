@@ -35,14 +35,15 @@ function Remove-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/23/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact='High')]
-    param(
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="High")]
+    param (
         [Parameter(ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [switch]$SkipUsageCheck = $false
@@ -207,7 +208,7 @@ function Remove-AMObject {
                                     Write-Verbose "Caching user objects for server $($obj.ConnectionAlias) for better performance"
                                     $userCache.Add($obj.ConnectionAlias, (Get-AMTask -Connection $obj.ConnectionAlias))
                                 }
-                                Write-Warning "User Group '$($obj.Name)' has a system permission defined!" 
+                                Write-Warning "User Group '$($obj.Name)' has a system permission defined!"
                                 foreach ($user in $userCache[$obj.ConnectionAlias]) {
                                     if ($user.ID -in $obj.UserIDs) {
                                         Write-Warning "User Group '$($obj.Name)' contains user '$($user.Name)'"
@@ -229,3 +230,12 @@ function Remove-AMObject {
         }
     }
 }
+
+New-Alias -Name Remove-AMAgent      -Value Remove-AMObject -Scope Global
+New-Alias -Name Remove-AMAgentGroup -Value Remove-AMObject -Scope Global
+New-Alias -Name Remove-AMCondition  -Value Remove-AMObject -Scope Global
+New-Alias -Name Remove-AMProcess    -Value Remove-AMObject -Scope Global
+New-Alias -Name Remove-AMTask       -Value Remove-AMObject -Scope Global
+New-Alias -Name Remove-AMUser       -Value Remove-AMObject -Scope Global
+New-Alias -Name Remove-AMUserGroup  -Value Remove-AMObject -Scope Global
+New-Alias -Name Remove-AMWorkflow   -Value Remove-AMObject -Scope Global

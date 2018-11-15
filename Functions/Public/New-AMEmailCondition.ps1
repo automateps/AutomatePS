@@ -1,4 +1,4 @@
-function New-AMEmailCondition {
+﻿function New-AMEmailCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise Email condition.
@@ -8,7 +8,7 @@ function New-AMEmailCondition {
 
         .PARAMETER Name
             The name of the new object.
-            
+
         .PARAMETER AllowRedirection
 			Allow redirection to occur.
 
@@ -142,13 +142,13 @@ function New-AMEmailCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/25/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -274,5 +274,4 @@ function New-AMEmailCondition {
     $newObject.UserName                = $UserName
     $newObject.WebDavAuthentication    = $WebDavAuthentication
     $newObject | New-AMObject -Connection $Connection
-    Get-AMCondition -ID $newObject.ID -Connection $Connection
 }

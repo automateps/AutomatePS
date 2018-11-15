@@ -25,20 +25,21 @@ function Lock-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 10/19/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject
     )
 
     PROCESS {
         foreach ($obj in $InputObject) {
-            $connection = Get-AMConnection -Connection $obj.ConnectionAlias
+            $connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
             switch ($obj.Type) {
                 {$_ -in "Workflow","Task","Condition","Process"} {
                     $update = Get-AMObject -ID $obj.ID -Types $obj.Type -Connection $connection
@@ -54,3 +55,8 @@ function Lock-AMObject {
         }
     }
 }
+
+New-Alias -Name Lock-AMCondition  -Value Lock-AMObject -Scope Global
+New-Alias -Name Lock-AMProcess    -Value Lock-AMObject -Scope Global
+New-Alias -Name Lock-AMTask       -Value Lock-AMObject -Scope Global
+New-Alias -Name Lock-AMWorkflow   -Value Lock-AMObject -Scope Global

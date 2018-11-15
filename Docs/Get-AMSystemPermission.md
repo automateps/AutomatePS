@@ -24,6 +24,12 @@ Get-AMSystemPermission [[-InputObject] <Object>] [-FilterSet <Hashtable[]>] [-Fi
  [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
 ```
 
+### ByID
+```
+Get-AMSystemPermission [-ID <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
+ [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+```
+
 ## DESCRIPTION
 Get-AMSystemPermission gets system permissions.
 
@@ -57,6 +63,21 @@ Required: False
 Position: 1
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ID
+The ID of the system permission object.
+
+```yaml
+Type: String
+Parameter Sets: ByID
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -155,7 +176,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 10/04/2018
+Date Modified  : 11/14/2018
 
 ## RELATED LINKS
 

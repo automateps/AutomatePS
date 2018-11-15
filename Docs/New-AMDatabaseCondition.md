@@ -13,8 +13,8 @@ Creates a new AutoMate Enterprise database condition.
 ## SYNTAX
 
 ```
-New-AMDatabaseCondition [-Name] <String> [-DatabaseType <AMDatabaseTriggerType>] [-Server <String>]
- [-NotificationPort <Int32>] [-Database <String>] [-Table <String>] [-UserName <String>] [-Insert] [-Delete]
+New-AMDatabaseCondition [-Name] <String> [-DatabaseType <AMDatabaseTriggerType>] -Server <String>
+ [-NotificationPort <Int32>] -Database <String> -Table <String> [-UserName <String>] [-Insert] [-Delete]
  [-Update] [-Drop] [-Alter] [-Wait] [-Timeout <Int32>] [-TimeoutUnit <AMTimeMeasure>] [-TriggerAfter <Int32>]
  [-Notes <String>] [-Folder <Object>] [-Connection <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -72,7 +72,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -103,7 +103,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -119,7 +119,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -365,7 +365,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/14/2018
+Date Modified  : 11/14/2018
 
 ## RELATED LINKS
 

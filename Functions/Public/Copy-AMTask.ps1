@@ -37,14 +37,15 @@ function Copy-AMTask {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [ValidateNotNullOrEmpty()]
@@ -53,6 +54,7 @@ function Copy-AMTask {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 
@@ -69,7 +71,7 @@ function Copy-AMTask {
                 if ($PSBoundParameters.ContainsKey("Connection")) {
                     # Copy from one AutoMate server to another
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
-                        if ((Get-AMConnection -Connection $obj.ConnectionAlias).Version.Major -ne $Connection.Version.Major) {
+                        if ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major -ne $Connection.Version.Major) {
                             throw "Source server and destination server are different versions! This module does not support changing task versions."
                         }
                         if ($PSBoundParameters.ContainsKey("Folder")) {
@@ -81,13 +83,13 @@ function Copy-AMTask {
                         }
                     }
                 } else {
-                    $Connection = Get-AMConnection -Connection $obj.ConnectionAlias
+                    $Connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
                     if (-not $PSBoundParameters.ContainsKey("Folder")) {
                         $Folder = Get-AMFolder -ID $obj.ParentID -Connection $obj.ConnectionAlias
                     }
                     $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
                 }
-                
+
                 if (-not $PSBoundParameters.ContainsKey("Name")) { $Name = $obj.Name }
                 switch ($Connection.Version.Major) {
                     10      { $copyObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }

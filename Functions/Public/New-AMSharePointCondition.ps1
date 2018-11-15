@@ -1,4 +1,4 @@
-function New-AMSharePointCondition {    
+function New-AMSharePointCondition {
     <#
         .SYNOPSIS
             Creates a new AutoMate Enterprise SharePoint condition.
@@ -46,7 +46,7 @@ function New-AMSharePointCondition {
             If set to YES, the condition will monitor for an attachment to be deleted from a list item in the specified site/list.
 
         .PARAMETER FieldAdded
-            If set to YES, the condition will monitor for a field to be added to the site/list. 
+            If set to YES, the condition will monitor for a field to be added to the site/list.
 
         .PARAMETER FieldUpdated
             If set to YES, the condition will monitor for a field to be updated in the site/list.
@@ -136,18 +136,19 @@ function New-AMSharePointCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/14/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string]$SiteURL,
         [AMSharePointScope]$Scope = [AMSharePointScope]::Web,
         [string]$List,
@@ -192,6 +193,7 @@ function New-AMSharePointCondition {
         #[string]$Password, API BUG: does not support setting password via REST call
         [string]$Domain = "",
 
+        [ValidateNotNullOrEmpty()]
         [switch]$Wait = $true,
         [int]$Timeout = 0,
         [AMTimeMeasure]$TimeoutUnit = [AMTimeMeasure]::Seconds,
@@ -202,6 +204,7 @@ function New-AMSharePointCondition {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 
@@ -269,5 +272,4 @@ function New-AMSharePointCondition {
     $newObject.RoleAssignmentAdded   = $RoleAssignmentAdded.ToBool()
     $newObject.RoleAssignmentDeleted = $RoleAssignmentDeleted.ToBool()
     $newObject | New-AMObject -Connection $Connection
-    Get-AMCondition -ID $newObject.ID -Connection $Connection
 }

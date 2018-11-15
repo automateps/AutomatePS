@@ -145,7 +145,7 @@ Accept wildcard characters: False
 ```
 
 ### -Status
-The status of the instance: 
+The status of the instance:
     All
     Completed
     Running

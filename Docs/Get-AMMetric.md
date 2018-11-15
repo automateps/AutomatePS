@@ -13,7 +13,7 @@ Gets metrics from AutoMate Enterprise.
 ## SYNTAX
 
 ```
-Get-AMMetric [[-Type] <Object>] [[-Folder] <Object>] [[-StartDate] <Object>] [[-EndDate] <Object>]
+Get-AMMetric [[-Type] <Object>] [[-Folder] <Object>] [[-StartDate] <DateTime>] [[-EndDate] <DateTime>]
  [[-IntervalSeconds] <Int32>] [[-DeviationPercentage] <Int32>] [[-DeviationDirection] <String>]
  [[-Connection] <Object>] [<CommonParameters>]
 ```
@@ -66,7 +66,7 @@ Accept wildcard characters: False
 The first date of metrics to retrieve (Default: 1 day ago).
 
 ```yaml
-Type: Object
+Type: DateTime
 Parameter Sets: (All)
 Aliases:
 
@@ -81,7 +81,7 @@ Accept wildcard characters: False
 The last date of metrics to retrieve (Default: now).
 
 ```yaml
-Type: Object
+Type: DateTime
 Parameter Sets: (All)
 Aliases:
 

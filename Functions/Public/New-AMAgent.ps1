@@ -33,13 +33,13 @@ function New-AMAgent {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -52,6 +52,7 @@ function New-AMAgent {
         [ValidateScript({$_.Type -eq "Folder"})]
         $Folder,
 
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 
@@ -89,5 +90,4 @@ function New-AMAgent {
     $newObject.Notes     = $Notes
     $newObject.AgentType = $Type
     $newObject | New-AMObject -Connection $Connection
-    Get-AMAgent -ID $newObject.ID -Connection $Connection
 }

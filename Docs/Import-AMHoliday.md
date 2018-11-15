@@ -51,6 +51,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
+### System.Collections.Hashtable
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :

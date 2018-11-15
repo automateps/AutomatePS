@@ -9,6 +9,9 @@ function Get-AMPermission {
         .PARAMETER InputObject
             The object(s) to retrieve permissions for.
 
+        .PARAMETER ID
+            The ID of the permission to retrieve.
+
         .INPUTS
             Permissions for the following objects can be retrieved by this function:
             Workflow
@@ -32,26 +35,31 @@ function Get-AMPermission {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
-    [CmdletBinding(DefaultParameterSetName = "All")]
+    [CmdletBinding()]
     [OutputType([System.Object[]])]
-    param(
-        [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
+    param (
+        [Parameter(Position = 0, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-        $InputObject
+        $InputObject,
+
+        [ValidateNotNullOrEmpty()]
+        $ID
     )
 
     PROCESS {
         foreach ($obj in $InputObject) {
             Write-Verbose "Processing $($obj.Type) '$($obj.Name)'"
             if ($obj.Type -in @("Workflow","Task","Condition","Process","Folder","Agent","AgentGroup","User","UserGroup")) {
-                $permissionIndex = Invoke-AMRestMethod -Resource "$([AMTypeDictionary]::($obj.Type).RestResource)/$($obj.ID)/permissions/index" -RestMethod Get -Connection $obj.Connection
+                $permissionIndex = Invoke-AMRestMethod -Resource "$([AMTypeDictionary]::($obj.Type).RestResource)/$($obj.ID)/permissions/index" -RestMethod Get -Connection $obj.ConnectionAlias
                 foreach ($permissionID in $permissionIndex) {
-                    Invoke-AMRestMethod -Resource "$([AMTypeDictionary]::($obj.Type).RestResource)/$($obj.ID)/permissions/$permissionID/get" -RestMethod Get -Connection $obj.Connection
+                    if (($PSBoundParameters.ContainsKey("ID") -and $permissionID -eq $ID) -or -not $PSBoundParameters.ContainsKey("ID")) {
+                        Invoke-AMRestMethod -Resource "$([AMTypeDictionary]::($obj.Type).RestResource)/$($obj.ID)/permissions/$permissionID/get" -RestMethod Get -Connection $obj.ConnectionAlias
+                    }
                 }
             } else {
                 $unsupportedType = $obj.GetType().FullName

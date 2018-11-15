@@ -27,16 +27,18 @@ function New-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 08/08/2018
+            Date Modified  : 11/15/2018
         .LINK
             https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         $Connection
     )
 
@@ -56,6 +58,7 @@ function New-AMObject {
             if ($PSCmdlet.ShouldProcess($Connection.Name, "Creating $($type): $(Join-Path -Path $obj.Path -ChildPath $obj.Name)")) {
                 Invoke-AMRestMethod @splat | Out-Null
                 Write-Verbose "Created $($type): $(Join-Path -Path $obj.Path -ChildPath $obj.Name) on server $($Connection.Name) ($($Connection.Alias))."
+                Get-AMObject -ID $obj.ID -Types $type -Connection $Connection
             }
         }
     }
