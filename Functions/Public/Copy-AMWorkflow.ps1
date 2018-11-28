@@ -37,7 +37,7 @@ function Copy-AMWorkflow {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 11/28/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -72,6 +72,8 @@ function Copy-AMWorkflow {
             $conditionFolder = $user | Get-AMFolder -Type CONDITIONS
             $processFolder = $user | Get-AMFolder -Type PROCESSES
         }
+
+        $substitions = $IdSubstitutions.PSObject.Copy()
     }
 
     PROCESS {
@@ -90,8 +92,8 @@ function Copy-AMWorkflow {
                             }
                         } else {
                             # If a folder substition was given, use it, otherwise default to the user folder
-                            if ($IdSubstitutions.ContainsKey($obj.ParentID)) {
-                                $Folder = Get-AMFolder -ID $IdSubstitutions[$obj.ParentID] -Connection $Connection
+                            if ($substitions.ContainsKey($obj.ParentID)) {
+                                $Folder = Get-AMFolder -ID $substitions[$obj.ParentID] -Connection $Connection
                             } else {
                                 $Folder = Get-AMFolder -ID $user.WorkflowFolderID -Connection $Connection
                             }
@@ -161,11 +163,11 @@ function Copy-AMWorkflow {
                             # If copying to another server
                             if ($obj.ConnectionAlias -ne $Connection.Alias) {
                                 # Look for any specified substitions for the agent, use if provided
-                                if ($IdSubstitutions.ContainsKey($item.AgentID)) {
-                                    $newItem.AgentID = $IdSubstitutions[$item.AgentID]
+                                if ($substitions.ContainsKey($item.AgentID)) {
+                                    $newItem.AgentID = $substitions[$item.AgentID]
                                 }
                                 # If there is no substition specified for the item
-                                if (-not $IdSubstitutions.ContainsKey($item.ConstructID)) {
+                                if (-not $substitions.ContainsKey($item.ConstructID)) {
                                     $idFilterSet = @{Property = "ID"; Operator = "="; Value = $item.ConstructID}
                                     switch ($item.ConstructType) {
                                         "Workflow" {
@@ -189,24 +191,24 @@ function Copy-AMWorkflow {
                                                         "CopySourceServerObject" {
                                                             # Copy object from source server to destination server
                                                             $splat = @{
-                                                                IdSubstitutions = $IdSubstitutions
+                                                                IdSubstitutions = $substitions
                                                                 Connection = $Connection
                                                             }
                                                             if ($PSBoundParameters.ContainsKey("Folder")) {
                                                                 $splat.Add("Folder", $Folder)
                                                             }
                                                             $newWorkflow = $sourceItem | Copy-AMWorkflow @splat
-                                                            $IdSubstitutions.Add($item.ConstructID, $newWorkflow.ID)
+                                                            $substitions.Add($item.ConstructID, $newWorkflow.ID)
                                                         }
                                                         "UseDestinationServerObject" {
                                                             # Use existing object in the destination server
-                                                            $IdSubstitutions.Add($item.ConstructID, $destinationItem.ID)
+                                                            $substitions.Add($item.ConstructID, $destinationItem.ID)
                                                         }
                                                     }
                                                 } else {
                                                     # If the destination item does not already exist, create it
                                                     $splat = @{
-                                                        IdSubstitutions = $IdSubstitutions
+                                                        IdSubstitutions = $substitions
                                                         Connection = $Connection
                                                     }
                                                     # Only specify the folder if it was specified by the user, allows IdSubstitions to be used in recursive calls
@@ -214,11 +216,11 @@ function Copy-AMWorkflow {
                                                         $splat.Add("Folder", $Folder)
                                                     }
                                                     $newWorkflow = $sourceItem | Copy-AMWorkflow @splat
-                                                    $IdSubstitutions.Add($item.ConstructID, $newWorkflow.ID)
+                                                    $substitions.Add($item.ConstructID, $newWorkflow.ID)
                                                 }
                                             } else {
                                                 # Enter a bogus GUID, will result in an unbuilt item
-                                                $IdSubstitutions.Add($item.ConstructID, (New-Guid).Guid)
+                                                $substitions.Add($item.ConstructID, (New-Guid).Guid)
                                             }
                                         }
                                         "Task" {
@@ -226,8 +228,8 @@ function Copy-AMWorkflow {
                                             # If the source item exists
                                             if ($null -ne $sourceItem) {
                                                 # Check if a folder substition was provided, default to user folder if not
-                                                if ($IdSubstitutions.ContainsKey($sourceItem.ParentID)) {
-                                                    $tempTaskFolder = Get-AMFolder -ID $IdSubstitutions[$sourceItem.ParentID] -Connection $Connection
+                                                if ($substitions.ContainsKey($sourceItem.ParentID)) {
+                                                    $tempTaskFolder = Get-AMFolder -ID $substitions[$sourceItem.ParentID] -Connection $Connection
                                                 } else {
                                                     $tempTaskFolder = $taskFolder
                                                 }
@@ -248,29 +250,29 @@ function Copy-AMWorkflow {
                                                         "CopySourceServerObject" {
                                                             # Copy object from source server to destination server
                                                             $newTask = $sourceItem | Copy-AMTask -Folder $tempTaskFolder -Connection $Connection
-                                                            $IdSubstitutions.Add($item.ConstructID, $newTask.ID)
+                                                            $substitions.Add($item.ConstructID, $newTask.ID)
                                                         }
                                                         "UseDestinationServerObject" {
                                                             # Use existing object in the destination server
-                                                            $IdSubstitutions.Add($item.ConstructID, $destinationItem.ID)
+                                                            $substitions.Add($item.ConstructID, $destinationItem.ID)
                                                         }
                                                     }
                                                 } else {
                                                     # If the destination item does not already exist, create it
                                                     $newTask = $sourceItem | Copy-AMTask -Folder $tempTaskFolder -Connection $Connection
-                                                    $IdSubstitutions.Add($item.ConstructID, $newTask.ID)
+                                                    $substitions.Add($item.ConstructID, $newTask.ID)
                                                 }
                                             } else {
                                                 # Enter a bogus GUID, will result in an unbuilt item
-                                                $IdSubstitutions.Add($item.ConstructID, (New-Guid).Guid)
+                                                $substitions.Add($item.ConstructID, (New-Guid).Guid)
                                             }
                                         }
                                         "Process" {
                                             $sourceItem = Get-AMProcess -FilterSet $idFilterSet -Connection $obj.ConnectionAlias
                                             # If the source item exists
                                             if ($null -ne $sourceItem) {
-                                                if ($IdSubstitutions.ContainsKey($sourceItem.ParentID)) {
-                                                    $tempProcessFolder = Get-AMFolder -ID $IdSubstitutions[$sourceItem.ParentID] -Connection $Connection
+                                                if ($substitions.ContainsKey($sourceItem.ParentID)) {
+                                                    $tempProcessFolder = Get-AMFolder -ID $substitions[$sourceItem.ParentID] -Connection $Connection
                                                 } else {
                                                     $tempProcessFolder = $processFolder
                                                 }
@@ -291,26 +293,26 @@ function Copy-AMWorkflow {
                                                         "CopySourceServerObject" {
                                                             # Copy object from source server to destination server
                                                             $newProcess = $sourceItem | Copy-AMProcess -Folder $tempProcessFolder -Connection $Connection
-                                                            $IdSubstitutions.Add($item.ConstructID, $newProcess.ID)
+                                                            $substitions.Add($item.ConstructID, $newProcess.ID)
                                                         }
                                                         "UseDestinationServerObject" {
                                                             # Use existing object in the destination server
-                                                            $IdSubstitutions.Add($item.ConstructID, $destinationItem.ID)
+                                                            $substitions.Add($item.ConstructID, $destinationItem.ID)
                                                         }
                                                     }
                                                 } else {
                                                     # If the destination item does not already exist, create it
                                                     $newProcess = $sourceItem | Copy-AMProcess -Folder $tempProcessFolder -Connection $Connection
-                                                    $IdSubstitutions.Add($item.ConstructID, $newProcess.ID)
+                                                    $substitions.Add($item.ConstructID, $newProcess.ID)
                                                 }
                                             } else {
                                                 # Enter a bogus GUID, will result in an unbuilt item
-                                                $IdSubstitutions.Add($item.ConstructID, (New-Guid).Guid)
+                                                $substitions.Add($item.ConstructID, (New-Guid).Guid)
                                             }
                                         }
                                     }
                                 }
-                                $newItem.ConstructID = $IdSubstitutions[$item.ConstructID]
+                                $newItem.ConstructID = $substitions[$item.ConstructID]
                             } else {
                                 $newItem.ConstructID = $item.ConstructID
                             }
@@ -326,7 +328,7 @@ function Copy-AMWorkflow {
                     $newItem.X          = $item.X
                     $newItem.Y          = $item.Y
                     $copyObject.Items += $newItem
-                    $IdSubstitutions.Add($item.ID, $newItem.ID)
+                    $substitions.Add($item.ID, $newItem.ID)
                 }
                 foreach ($trigger in $currentObject.Triggers) {
                     switch ($Connection.Version.Major) {
@@ -341,17 +343,17 @@ function Copy-AMWorkflow {
                     # If copying to another server
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
                         # Look for any specified substitions for the agent, use if provided
-                        if ($IdSubstitutions.ContainsKey($trigger.AgentID)) {
-                            $newTrigger.AgentID = $IdSubstitutions[$trigger.AgentID]
+                        if ($substitions.ContainsKey($trigger.AgentID)) {
+                            $newTrigger.AgentID = $substitions[$trigger.AgentID]
                         }
                         # If there is no substition specified for the item
-                        if (-not $IdSubstitutions.ContainsKey($trigger.ConstructID)) {
+                        if (-not $substitions.ContainsKey($trigger.ConstructID)) {
                             $idFilterSet = @{Property = "ID"; Operator = "="; Value = $trigger.ConstructID}
                             $sourceItem = Get-AMCondition -FilterSet $idFilterSet -Connection $obj.ConnectionAlias
                             # If the source item exists
                             if ($null -ne $sourceItem) {
-                                if ($IdSubstitutions.ContainsKey($sourceItem.ParentID)) {
-                                    $tempConditionFolder = Get-AMFolder -ID $IdSubstitutions[$sourceItem.ParentID] -Connection $Connection
+                                if ($substitions.ContainsKey($sourceItem.ParentID)) {
+                                    $tempConditionFolder = Get-AMFolder -ID $substitions[$sourceItem.ParentID] -Connection $Connection
                                 } else {
                                     $tempConditionFolder = $conditionFolder
                                 }
@@ -372,24 +374,24 @@ function Copy-AMWorkflow {
                                         "CopySourceServerObject" {
                                             # Copy object from source server to destination server
                                             $newCondition = $sourceItem | Copy-AMCondition -Folder $tempConditionFolder -Connection $Connection
-                                            $IdSubstitutions.Add($trigger.ConstructID, $newCondition.ID)
+                                            $substitions.Add($trigger.ConstructID, $newCondition.ID)
                                         }
                                         "UseDestinationServerObject" {
                                             # Use existing object in the destination server
-                                            $IdSubstitutions.Add($trigger.ConstructID, $destinationItem.ID)
+                                            $substitions.Add($trigger.ConstructID, $destinationItem.ID)
                                         }
                                     }
                                 } else {
                                     # If the destination item does not already exist, create it
                                     $newCondition = $sourceItem | Copy-AMCondition -Folder $tempConditionFolder -Connection $Connection
-                                    $IdSubstitutions.Add($trigger.ConstructID, $newCondition.ID)
+                                    $substitions.Add($trigger.ConstructID, $newCondition.ID)
                                 }
                             } else {
                                 # Enter a bogus GUID, will result in an unbuilt item
-                                $IdSubstitutions.Add($trigger.ConstructID, (New-Guid).Guid)
+                                $substitions.Add($trigger.ConstructID, (New-Guid).Guid)
                             }
                         }
-                        $newTrigger.ConstructID = $IdSubstitutions[$trigger.ConstructID]
+                        $newTrigger.ConstructID = $substitions[$trigger.ConstructID]
                     } else {
                         $newTrigger.ConstructID = $trigger.ConstructID
                     }
@@ -404,7 +406,7 @@ function Copy-AMWorkflow {
                     $newTrigger.X             = $trigger.X
                     $newTrigger.Y             = $trigger.Y
                     $copyObject.Triggers += $newTrigger
-                    $IdSubstitutions.Add($trigger.ID, $newTrigger.ID)
+                    $substitions.Add($trigger.ID, $newTrigger.ID)
                 }
                 foreach ($link in $currentObject.Links) {
                     switch ($Connection.Version.Major) {
@@ -412,12 +414,11 @@ function Copy-AMWorkflow {
                         11      { $newLink = [AMWorkflowLinkv11]::new($Connection.Alias) }
                         default { throw "Unsupported server major version: $_!" }
                     }
-                    $newLink.ParentID         = $copyObject.ID
-                    $newLink.DestinationID    = $IdSubstitutions[$link.DestinationID]
+                    $newLink.DestinationID    = $substitions[$link.DestinationID]
                     $newLink.DestinationPoint = [PSCustomObject]@{x = $link.DestinationPoint.X; y = $link.DestinationPoint.Y}
                     $newLink.LinkType         = $link.LinkType
                     $newLink.ResultType       = $link.ResultType
-                    $newLink.SourceID         = $IdSubstitutions[$link.SourceID]
+                    $newLink.SourceID         = $substitions[$link.SourceID]
                     $newLink.SourcePoint      = [PSCustomObject]@{x = $link.SourcePoint.X; y = $link.SourcePoint.Y}
                     $newLink.Value            = $link.Value
                     $newLink.WorkflowID       = $copyObject.ID
@@ -440,7 +441,6 @@ function Copy-AMWorkflow {
                     $copyObject.Variables += $newVariable
                 }
                 $copyObject | New-AMObject -Connection $Connection
-                Get-AMWorkflow -ID $copyObject.ID -Connection $Connection
             } else {
                 Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
             }

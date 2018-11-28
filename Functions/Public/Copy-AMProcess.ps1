@@ -37,7 +37,7 @@ function Copy-AMProcess {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 11/28/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -104,7 +104,6 @@ function Copy-AMProcess {
                 $copyObject.LockedBy             = $currentObject.LockedBy
                 $copyObject.Notes                = $currentObject.Notes
                 $copyObject | New-AMObject -Connection $Connection
-                Get-AMProcess -ID $copyObject.ID -Connection $Connection
             } else {
                 Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
             }
