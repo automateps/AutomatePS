@@ -64,7 +64,7 @@ function Get-AMCalendar {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 11/30/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -85,8 +85,8 @@ function Get-AMCalendar {
         [ValidateSet("Specific","Weekly","Monthly","Holidays","Non-interval")]
         [string]$Type,
 
-        [ValidateNotNullOrEmpty()]
-        [Hashtable[]]$FilterSet,
+        [ValidateNotNull()]
+        [Hashtable[]]$FilterSet = @(),
 
         [ValidateSet("And","Or")]
         [string]$FilterSetMode = "And",

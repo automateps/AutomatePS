@@ -120,7 +120,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: @()
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -203,7 +203,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 10/04/2018
+Date Modified  : 11/30/2018
 
 ## RELATED LINKS
 
