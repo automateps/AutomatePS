@@ -38,7 +38,7 @@ function New-AMProcess {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 12/03/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -72,26 +72,24 @@ function New-AMProcess {
     } else {
         $Connection = Get-AMConnection
     }
-    if (($Connection | Measure-Object).Count -gt 1) {
-        throw "Multiple AutoMate Servers are connected, please specify which server to create the new process on!"
+    switch (($Connection | Measure-Object).Count) {
+        1 {
+            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
+            if (-not $Folder) { $Folder = $user | Get-AMFolder -Type PROCESSES -Connection $Connection } # Place the process in the users process folder
+            switch ($Connection.Version.Major) {
+                10      { $newObject = [AMProcessv10]::new($Name, $Folder, $Connection.Alias) }
+                11      { $newObject = [AMProcessv11]::new($Name, $Folder, $Connection.Alias) }
+                default { throw "Unsupported server major version: $_!" }
+            }
+            $newObject.CreatedBy            = $user.ID
+            $newObject.Notes                = $Notes
+            $newObject.CommandLine          = $CommandLine
+            $newObject.EnvironmentVariables = $EnvironmentVariables
+            $newObject.RunProcessAs         = $RunningContext
+            $newObject.WorkingDirectory     = $WorkingDirectory
+            $newObject | New-AMObject -Connection $Connection
+        }
+        0       { throw "No servers are currently connected!" }
+        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new process on!" }
     }
-
-    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-    if (-not $Folder) {
-        # Place the task in the users task folder
-        $Folder = $user | Get-AMFolder -Type PROCESSES -Connection $Connection
-    }
-
-    switch ($Connection.Version.Major) {
-        10      { $newObject = [AMProcessv10]::new($Name, $Folder, $Connection.Alias) }
-        11      { $newObject = [AMProcessv11]::new($Name, $Folder, $Connection.Alias) }
-        default { throw "Unsupported server major version: $_!" }
-    }
-    $newObject.CreatedBy            = $user.ID
-    $newObject.Notes                = $Notes
-    $newObject.CommandLine          = $CommandLine
-    $newObject.EnvironmentVariables = $EnvironmentVariables
-    $newObject.RunProcessAs         = $RunningContext
-    $newObject.WorkingDirectory     = $WorkingDirectory
-    $newObject | New-AMObject -Connection $Connection
 }

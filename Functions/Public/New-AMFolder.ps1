@@ -26,7 +26,7 @@ function New-AMFolder {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 12/03/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -52,18 +52,19 @@ function New-AMFolder {
     } else {
         $Connection = Get-AMConnection
     }
-    if (($Connection | Measure-Object).Count -gt 1) {
-        throw "Multiple AutoMate Servers are connected, please specify which server to create the new folder on!"
+    switch (($Connection | Measure-Object).Count) {
+        1 {
+            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
+            switch ($Connection.Version.Major) {
+                10      { $newObject = [AMFolderv10]::new($Name, $Folder, $Connection.Alias) }
+                11      { $newObject = [AMFolderv11]::new($Name, $Folder, $Connection.Alias) }
+                default { throw "Unsupported server major version: $_!" }
+            }
+            $newObject.CreatedBy = $user.ID
+            $newObject.Notes     = $Notes
+            $newObject | New-AMObject -Connection $Connection
+        }
+        0       { throw "No servers are currently connected!" }
+        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new folder on!" }
     }
-
-    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-
-    switch ($Connection.Version.Major) {
-        10      { $newObject = [AMFolderv10]::new($Name, $Folder, $Connection.Alias) }
-        11      { $newObject = [AMFolderv11]::new($Name, $Folder, $Connection.Alias) }
-        default { throw "Unsupported server major version: $_!" }
-    }
-    $newObject.CreatedBy = $user.ID
-    $newObject.Notes     = $Notes
-    $newObject | New-AMObject -Connection $Connection
 }

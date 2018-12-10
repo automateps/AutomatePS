@@ -136,7 +136,7 @@ function New-AMSharePointCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 12/03/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -213,63 +213,61 @@ function New-AMSharePointCondition {
     } else {
         $Connection = Get-AMConnection
     }
-    if (($Connection | Measure-Object).Count -gt 1) {
-        throw "Multiple AutoMate Servers are connected, please specify which server to create the new SharePoint condition on!"
+    switch (($Connection | Measure-Object).Count) {
+        1 {
+            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
+            if (-not $Folder) { $Folder = $user | Get-AMFolder -Type CONDITIONS } # Place the condition in the users condition folder
+            switch ($Connection.Version.Major) {
+                10      { $newObject = [AMSharePointTriggerv10]::new($Name, $Folder, $Connection.Alias) }
+                11      { $newObject = [AMSharePointTriggerv11]::new($Name, $Folder, $Connection.Alias) }
+                default { throw "Unsupported server major version: $_!" }
+            }
+            $newObject.CreatedBy       = $user.ID
+            $newObject.Notes           = $Notes
+            $newObject.Wait            = $Wait.ToBool()
+            if ($newObject.UserMode -eq [AMConditionUserMode]::SpecifiedUser) {
+                $newObject.UserName = $UserName
+                #$newObject.Password = $Password
+                $newObject.Domain   = $Domain
+            }
+            if ($newObject.Wait) {
+                $newObject.Timeout      = $Timeout
+                $newObject.TimeoutUnit  = $TimeoutUnit
+                $newObject.TriggerAfter = $TriggerAfter
+            }
+            $newObject.SiteURL               = $SiteURL
+            $newObject.Scope                 = $Scope
+            $newObject.List                  = $List
+            $newObject.ItemAdded             = $ItemAdded.ToBool()
+            $newObject.ItemUpdated           = $ItemUpdated.ToBool()
+            $newObject.ItemDeleted           = $ItemDeleted.ToBool()
+            $newObject.ItemCheckedIn         = $ItemCheckedIn.ToBool()
+            $newObject.ItemCheckedOut        = $ItemCheckedOut.ToBool()
+            $newObject.ItemUncheckedOut      = $ItemUncheckedOut.ToBool()
+            $newObject.ItemFileMoved         = $ItemFileMoved.ToBool()
+            $newObject.ItemAttachmentAdded   = $ItemAttachmentAdded.ToBool()
+            $newObject.ItemAttachmentDeleted = $ItemAttachmentDeleted.ToBool()
+            $newObject.FieldAdded            = $FieldAdded.ToBool()
+            $newObject.FieldUpdated          = $FieldUpdated.ToBool()
+            $newObject.FieldDeleted          = $FieldDeleted.ToBool()
+            $newObject.WorkflowStarted       = $WorkflowStarted.ToBool()
+            $newObject.WorkflowPostponed     = $WorkflowPostponed.ToBool()
+            $newObject.WorkflowCompleted     = $WorkflowCompleted.ToBool()
+            $newObject.ListAdded             = $ListAdded.ToBool()
+            $newObject.ListDeleted           = $ListDeleted.ToBool()
+            $newObject.GroupAdded            = $GroupAdded.ToBool()
+            $newObject.GroupUpdated          = $GroupUpdated.ToBool()
+            $newObject.GroupDeleted          = $GroupDeleted.ToBool()
+            $newObject.GroupUserAdded        = $GroupUserAdded.ToBool()
+            $newObject.GroupUserDeleted      = $GroupUserDeleted.ToBool()
+            $newObject.RoleDefinitionAdded   = $RoleDefinitionAdded.ToBool()
+            $newObject.RoleDefinitionUpdated = $RoleDefinitionUpdated.ToBool()
+            $newObject.RoleDefinitionDeleted = $RoleDefinitionDeleted.ToBool()
+            $newObject.RoleAssignmentAdded   = $RoleAssignmentAdded.ToBool()
+            $newObject.RoleAssignmentDeleted = $RoleAssignmentDeleted.ToBool()
+            $newObject | New-AMObject -Connection $Connection
+        }
+        0       { throw "No servers are currently connected!" }
+        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
     }
-
-    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-    if (-not $Folder) {
-        # Place the task in the users condition folder
-        $Folder = $user | Get-AMFolder -Type CONDITIONS
-    }
-
-    switch ($Connection.Version.Major) {
-        10      { $newObject = [AMSharePointTriggerv10]::new($Name, $Folder, $Connection.Alias) }
-        11      { $newObject = [AMSharePointTriggerv11]::new($Name, $Folder, $Connection.Alias) }
-        default { throw "Unsupported server major version: $_!" }
-    }
-    $newObject.CreatedBy       = $user.ID
-    $newObject.Notes           = $Notes
-    $newObject.Wait            = $Wait.ToBool()
-    if ($newObject.UserMode -eq [AMConditionUserMode]::SpecifiedUser) {
-        $newObject.UserName = $UserName
-        #$newObject.Password = $Password
-        $newObject.Domain   = $Domain
-    }
-    if ($newObject.Wait) {
-        $newObject.Timeout      = $Timeout
-        $newObject.TimeoutUnit  = $TimeoutUnit
-        $newObject.TriggerAfter = $TriggerAfter
-    }
-    $newObject.SiteURL               = $SiteURL
-    $newObject.Scope                 = $Scope
-    $newObject.List                  = $List
-    $newObject.ItemAdded             = $ItemAdded.ToBool()
-    $newObject.ItemUpdated           = $ItemUpdated.ToBool()
-    $newObject.ItemDeleted           = $ItemDeleted.ToBool()
-    $newObject.ItemCheckedIn         = $ItemCheckedIn.ToBool()
-    $newObject.ItemCheckedOut        = $ItemCheckedOut.ToBool()
-    $newObject.ItemUncheckedOut      = $ItemUncheckedOut.ToBool()
-    $newObject.ItemFileMoved         = $ItemFileMoved.ToBool()
-    $newObject.ItemAttachmentAdded   = $ItemAttachmentAdded.ToBool()
-    $newObject.ItemAttachmentDeleted = $ItemAttachmentDeleted.ToBool()
-    $newObject.FieldAdded            = $FieldAdded.ToBool()
-    $newObject.FieldUpdated          = $FieldUpdated.ToBool()
-    $newObject.FieldDeleted          = $FieldDeleted.ToBool()
-    $newObject.WorkflowStarted       = $WorkflowStarted.ToBool()
-    $newObject.WorkflowPostponed     = $WorkflowPostponed.ToBool()
-    $newObject.WorkflowCompleted     = $WorkflowCompleted.ToBool()
-    $newObject.ListAdded             = $ListAdded.ToBool()
-    $newObject.ListDeleted           = $ListDeleted.ToBool()
-    $newObject.GroupAdded            = $GroupAdded.ToBool()
-    $newObject.GroupUpdated          = $GroupUpdated.ToBool()
-    $newObject.GroupDeleted          = $GroupDeleted.ToBool()
-    $newObject.GroupUserAdded        = $GroupUserAdded.ToBool()
-    $newObject.GroupUserDeleted      = $GroupUserDeleted.ToBool()
-    $newObject.RoleDefinitionAdded   = $RoleDefinitionAdded.ToBool()
-    $newObject.RoleDefinitionUpdated = $RoleDefinitionUpdated.ToBool()
-    $newObject.RoleDefinitionDeleted = $RoleDefinitionDeleted.ToBool()
-    $newObject.RoleAssignmentAdded   = $RoleAssignmentAdded.ToBool()
-    $newObject.RoleAssignmentDeleted = $RoleAssignmentDeleted.ToBool()
-    $newObject | New-AMObject -Connection $Connection
 }

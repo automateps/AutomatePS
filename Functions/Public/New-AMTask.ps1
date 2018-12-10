@@ -29,7 +29,7 @@ function New-AMTask {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 12/03/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -56,44 +56,41 @@ function New-AMTask {
     } else {
         $Connection = Get-AMConnection
     }
-    if (($Connection | Measure-Object).Count -gt 1) {
-        throw "Multiple AutoMate Servers are connected, please specify which server to create the new task on!"
-    }
-
-    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-    if (-not $Folder) {
-        # Place the task in the users task folder
-        $Folder = $user | Get-AMFolder -Type TASKS
-    }
-
-    if ($PSBoundParameters.ContainsKey("AML")) {
-        # Validate AML
-        if ($AML -is [string]) {
-            $convertSuccess = $false
-            try {
-                $xml = [xml]$AML
-                $convertSuccess = $true
-            } catch {
-                Write-Warning "Failed to convert AML to XML, this may be normal since AML does not always conform to XML syntax.  Validation will be skipped."
-            }
-            if ($convertSuccess) {
-                $amlVersion = [version]$xml.SelectSingleNode("//*[@TaskVersion|@TASKVERSION]").TaskVersion
-                if ($amlVersion.Major -ne $Connection.Version.Major) {
-                    throw "AML version ($($amlVersion.Major)) does not match server version ($($Connection.Version.Major))!"
+    switch (($Connection | Measure-Object).Count) {
+        1 {
+            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
+            if (-not $Folder) { $Folder = $user | Get-AMFolder -Type TASKS } # Place the task in the users task folder
+            if ($PSBoundParameters.ContainsKey("AML")) {
+                # Validate AML
+                if ($AML -is [string]) {
+                    $convertSuccess = $false
+                    try {
+                        $xml = [xml]$AML
+                        $convertSuccess = $true
+                    } catch {
+                        Write-Warning "Failed to convert AML to XML, this may be normal since AML does not always conform to XML syntax.  Validation will be skipped."
+                    }
+                    if ($convertSuccess) {
+                        $amlVersion = [version]$xml.SelectSingleNode("//*[@TaskVersion|@TASKVERSION]").TaskVersion
+                        if ($amlVersion.Major -ne $Connection.Version.Major) {
+                            throw "AML version ($($amlVersion.Major)) does not match server version ($($Connection.Version.Major))!"
+                        }
+                    }
+                } else {
+                    throw "AML is not a string!"
                 }
             }
-        } else {
-            throw "AML is not a string!"
+            switch ($Connection.Version.Major) {
+                10      { $newObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
+                11      { $newObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
+                default { throw "Unsupported server major version: $_!" }
+            }
+            $newObject.CreatedBy       = $user.ID
+            $newObject.Notes           = $Notes
+            $newObject.AML             = $AML
+            $newObject | New-AMObject -Connection $Connection
         }
+        0       { throw "No servers are currently connected!" }
+        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new task on!" }
     }
-
-    switch ($Connection.Version.Major) {
-        10      { $newObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
-        11      { $newObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
-        default { throw "Unsupported server major version: $_!" }
-    }
-    $newObject.CreatedBy       = $user.ID
-    $newObject.Notes           = $Notes
-    $newObject.AML             = $AML
-    $newObject | New-AMObject -Connection $Connection
 }

@@ -33,7 +33,7 @@ function New-AMAgent {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 12/03/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -65,29 +65,30 @@ function New-AMAgent {
     } else {
         $Connection = Get-AMConnection
     }
-    if (($Connection | Measure-Object).Count -gt 1) {
-        throw "Multiple AutoMate Servers are connected, please specify which server to create the new agent on!"
-    }
-
-    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-    if (-not $Folder) {
-        switch ($Type) {
-            "TaskAgent" {
-                $Folder = Get-AMFolder -Name TASKAGENTS -Connection $Connection
+    switch (($Connection | Measure-Object).Count) {
+        1 {
+            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
+            if (-not $Folder) {
+                switch ($Type) {
+                    "TaskAgent" {
+                        $Folder = Get-AMFolder -Name TASKAGENTS -Connection $Connection
+                    }
+                    "ProcessAgent" {
+                        $Folder = Get-AMFolder -Name PROCESSAGENTS -Connection $Connection
+                    }
+                }
             }
-            "ProcessAgent" {
-                $Folder = Get-AMFolder -Name PROCESSAGENTS -Connection $Connection
+            switch ($Connection.Version.Major) {
+                10      { $newObject = [AMAgentv10]::new($Name, $Folder, $Connection.Alias) }
+                11      { $newObject = [AMAgentv11]::new($Name, $Folder, $Connection.Alias) }
+                default { throw "Unsupported server major version: $_!" }
             }
+            $newObject.CreatedBy = $user.ID
+            $newObject.Notes     = $Notes
+            $newObject.AgentType = $Type
+            $newObject | New-AMObject -Connection $Connection
         }
+        0       { throw "No servers are currently connected!" }
+        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new agent on!" }
     }
-
-    switch ($Connection.Version.Major) {
-        10      { $newObject = [AMAgentv10]::new($Name, $Folder, $Connection.Alias) }
-        11      { $newObject = [AMAgentv11]::new($Name, $Folder, $Connection.Alias) }
-        default { throw "Unsupported server major version: $_!" }
-    }
-    $newObject.CreatedBy = $user.ID
-    $newObject.Notes     = $Notes
-    $newObject.AgentType = $Type
-    $newObject | New-AMObject -Connection $Connection
 }

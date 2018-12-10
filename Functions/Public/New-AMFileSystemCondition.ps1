@@ -103,7 +103,7 @@ function New-AMFileSystemCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 12/03/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -189,52 +189,50 @@ function New-AMFileSystemCondition {
     } else {
         $Connection = Get-AMConnection
     }
-    if (($Connection | Measure-Object).Count -gt 1) {
-        throw "Multiple AutoMate Servers are connected, please specify which server to create the new file system condition on!"
+    switch (($Connection | Measure-Object).Count) {
+        1 {
+            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
+            if (-not $Folder) { $Folder = $user | Get-AMFolder -Type CONDITIONS } # Place the condition in the users condition folder
+            switch ($Connection.Version.Major) {
+                10      { $newObject = [AMFileSystemTriggerv10]::new($Name, $Folder, $Connection.Alias) }
+                11      { $newObject = [AMFileSystemTriggerv11]::new($Name, $Folder, $Connection.Alias) }
+                default { throw "Unsupported server major version: $_!" }
+            }
+            $newObject.CreatedBy       = $user.ID
+            $newObject.Notes           = $Notes
+            $newObject.Folder          = $MonitorFolder
+            $newObject.SubFolders      = $Subfolders.ToBool()
+            $newObject.WaitForAccess   = $WaitForAccess.ToBool()
+            $newObject.FileAdded       = $FileAdded.ToBool()
+            $newObject.FileRemoved     = $FileRemoved.ToBool()
+            $newObject.FileRenamed     = $FileRenamed.ToBool()
+            $newObject.FileModified    = $FileModified.ToBool()
+            $newObject.FolderAdded     = $FolderAdded.ToBool()
+            $newObject.FolderRemoved   = $FolderRemoved.ToBool()
+            $newObject.FolderRenamed   = $FolderRenamed.ToBool()
+            $newObject.FolderModified  = $FolderModified.ToBool()
+            $newObject.FileCount       = $FileCount
+            $newObject.FileSize        = $FileSize
+            $newObject.FolderCount     = $FolderCount
+            $newObject.FolderSize      = $FolderSize
+            $newObject.Include         = $Include
+            $newObject.Exclude         = $Exclude
+            $newObject.UserMode        = $UserMode
+            $newObject.Wait            = $Wait.ToBool()
+            if ($newObject.UserMode -eq [AMConditionUserMode]::SpecifiedUser) {
+                $newObject.UserName = $UserName
+                #$newObject.Password = $Password
+                $newObject.Domain   = $Domain
+            }
+            if ($newObject.Wait) {
+                $newObject.Timeout                 = $Timeout
+                $newObject.TimeoutUnit             = $TimeoutUnit
+                $newObject.TriggerAfter            = $TriggerAfter
+                $newObject.IgnoreExistingCondition = $IgnoreExistingCondition.ToBool()
+            }
+            $newObject | New-AMObject -Connection $Connection
+        }
+        0       { throw "No servers are currently connected!" }
+        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
     }
-
-    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-    if (-not $Folder) {
-        # Place the task in the users condition folder
-        $Folder = $user | Get-AMFolder -Type CONDITIONS
-    }
-
-    switch ($Connection.Version.Major) {
-        10      { $newObject = [AMFileSystemTriggerv10]::new($Name, $Folder, $Connection.Alias) }
-        11      { $newObject = [AMFileSystemTriggerv11]::new($Name, $Folder, $Connection.Alias) }
-        default { throw "Unsupported server major version: $_!" }
-    }
-    $newObject.CreatedBy       = $user.ID
-    $newObject.Notes           = $Notes
-    $newObject.Folder          = $MonitorFolder
-    $newObject.SubFolders      = $Subfolders.ToBool()
-    $newObject.WaitForAccess   = $WaitForAccess.ToBool()
-    $newObject.FileAdded       = $FileAdded.ToBool()
-    $newObject.FileRemoved     = $FileRemoved.ToBool()
-    $newObject.FileRenamed     = $FileRenamed.ToBool()
-    $newObject.FileModified    = $FileModified.ToBool()
-    $newObject.FolderAdded     = $FolderAdded.ToBool()
-    $newObject.FolderRemoved   = $FolderRemoved.ToBool()
-    $newObject.FolderRenamed   = $FolderRenamed.ToBool()
-    $newObject.FolderModified  = $FolderModified.ToBool()
-    $newObject.FileCount       = $FileCount
-    $newObject.FileSize        = $FileSize
-    $newObject.FolderCount     = $FolderCount
-    $newObject.FolderSize      = $FolderSize
-    $newObject.Include         = $Include
-    $newObject.Exclude         = $Exclude
-    $newObject.UserMode        = $UserMode
-    $newObject.Wait            = $Wait.ToBool()
-    if ($newObject.UserMode -eq [AMConditionUserMode]::SpecifiedUser) {
-        $newObject.UserName = $UserName
-        #$newObject.Password = $Password
-        $newObject.Domain   = $Domain
-    }
-    if ($newObject.Wait) {
-        $newObject.Timeout                 = $Timeout
-        $newObject.TimeoutUnit             = $TimeoutUnit
-        $newObject.TriggerAfter            = $TriggerAfter
-        $newObject.IgnoreExistingCondition = $IgnoreExistingCondition.ToBool()
-    }
-    $newObject | New-AMObject -Connection $Connection
 }
