@@ -72,7 +72,7 @@ function Get-AMWorkflow {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 11/30/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -92,8 +92,8 @@ function Get-AMWorkflow {
         [ValidateNotNullOrEmpty()]
         [string]$ID,
 
-        [ValidateNotNullOrEmpty()]
-        [Hashtable[]]$FilterSet,
+        [ValidateNotNull()]
+        [Hashtable[]]$FilterSet = @(),
 
         [ValidateSet("And","Or")]
         [string]$FilterSetMode = "And",

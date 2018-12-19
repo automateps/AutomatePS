@@ -20,7 +20,7 @@ function Get-AMServer {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 11/29/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -36,25 +36,28 @@ function Get-AMServer {
     )
 
     if ($PSBoundParameters.ContainsKey("Connection")) {
-        $Connection = Get-AMConnection -Connection $Connection
+        $conn = Get-AMConnection -Connection $Connection
     } else {
-        $Connection = Get-AMConnection
+        $conn = Get-AMConnection
     }
-    switch ($Type) {
-        "Server" {
-            $result = Invoke-AMRestMethod -Resource "info/get" -RestMethod "Get" -Connection $Connection
-            $result | Foreach-Object {$_.PSObject.TypeNames.Insert(0,"AMServer")}
-            $result | ForEach-Object {$_.Version = [Version]$_.Version} # Cast to the [Version] type
+    $result = @()
+    foreach ($c in $conn) {
+        switch ($Type) {
+            "Server" {
+                $temp = Invoke-AMRestMethod -Resource "info/get" -RestMethod "Get" -Connection $c
+                $temp.PSObject.TypeNames.Insert(0,"AMServer")
+                $temp.Version = [Version]$temp.Version # Cast to the [Version] type
+            }
+            "Execution" {
+                $temp = Invoke-AMRestMethod -Resource "metrics/execution/get" -RestMethod "Get" -Connection $c
+                $temp.PSObject.TypeNames.Insert(0,"AMServerExecution")
+            }
+            "Management" {
+                $temp = Invoke-AMRestMethod -Resource "metrics/management/get" -RestMethod "Get" -Connection $c
+                $temp.PSObject.TypeNames.Insert(0,"AMServerManagement")
+            }
         }
-        "Execution" {
-            $result = Invoke-AMRestMethod -Resource "metrics/execution/get" -RestMethod "Get" -Connection $Connection
-            $result | Foreach-Object {$_.PSObject.TypeNames.Insert(0,"AMServerExecution")}
-        }
-        "Management" {
-            $result = Invoke-AMRestMethod -Resource "metrics/management/get" -RestMethod "Get" -Connection $Connection
-            $result | Foreach-Object {$_.PSObject.TypeNames.Insert(0,"AMServerManagement")}
-        }
+        $result += $temp
     }
-
     return $result
 }

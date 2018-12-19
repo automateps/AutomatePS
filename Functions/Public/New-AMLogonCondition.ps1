@@ -43,7 +43,7 @@ function New-AMLogonCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 12/03/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -75,34 +75,32 @@ function New-AMLogonCondition {
     } else {
         $Connection = Get-AMConnection
     }
-    if (($Connection | Measure-Object).Count -gt 1) {
-        throw "Multiple AutoMate Servers are connected, please specify which server to create the new logon condition on!"
+    switch (($Connection | Measure-Object).Count) {
+        1 {
+            $AMUser = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
+            if (-not $Folder) { $Folder = $AMUser | Get-AMFolder -Type CONDITIONS } # Place the condition in the users condition folder
+            switch ($Connection.Version.Major) {
+                10      { $newObject = [AMLogonTriggerv10]::new($Name, $Folder, $Connection.Alias) }
+                11      { $newObject = [AMLogonTriggerv11]::new($Name, $Folder, $Connection.Alias) }
+                default { throw "Unsupported server major version: $_!" }
+            }
+            $newObject.CreatedBy       = $AMUser.ID
+            $newObject.Notes           = $Notes
+            $newObject.Wait            = $Wait.ToBool()
+            if ($newObject.Wait) {
+                $newObject.Timeout     = $Timeout
+                $newObject.TimeoutUnit = $TimeoutUnit
+            }
+            if (($User.Count -eq 1) -and ($User[0] -like "*;*")) {
+                $newObject.User = $User[0].Split(";")
+            } elseif ($User -is [string[]]) {
+                $newObject.User = $User
+            } else {
+                $newObject.User = @()
+            }
+            $newObject | New-AMObject -Connection $Connection
+        }
+        0       { throw "No servers are currently connected!" }
+        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
     }
-
-    $AMUser = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-    if (-not $Folder) {
-        # Place the task in the users condition folder
-        $Folder = $AMUser | Get-AMFolder -Type CONDITIONS
-    }
-
-    switch ($Connection.Version.Major) {
-        10      { $newObject = [AMLogonTriggerv10]::new($Name, $Folder, $Connection.Alias) }
-        11      { $newObject = [AMLogonTriggerv11]::new($Name, $Folder, $Connection.Alias) }
-        default { throw "Unsupported server major version: $_!" }
-    }
-    $newObject.CreatedBy       = $AMUser.ID
-    $newObject.Notes           = $Notes
-    $newObject.Wait            = $Wait.ToBool()
-    if ($newObject.Wait) {
-        $newObject.Timeout     = $Timeout
-        $newObject.TimeoutUnit = $TimeoutUnit
-    }
-    if (($User.Count -eq 1) -and ($User[0] -like "*;*")) {
-        $newObject.User = $User[0].Split(";")
-    } elseif ($User -is [string[]]) {
-        $newObject.User = $User
-    } else {
-        $newObject.User = @()
-    }
-    $newObject | New-AMObject -Connection $Connection
 }
