@@ -33,7 +33,7 @@ function Copy-AMCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/28/2018
+            Date Modified  : 01/04/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -196,6 +196,12 @@ function Copy-AMCondition {
                     }
                     default { throw "Unsupported server major version: $_!" }
                 }
+
+                # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
+                if ((Get-AMCondition -ID $obj.ID -Connection $Connection -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
+                    $copyObject.ID = $obj.ID
+                }
+
                 # Collect all the properties that are defined for the specific object type
                 $properties = $currentObject.GetType().GetProperties() | Where-Object {$_.DeclaringType -eq $currentObject.GetType()}
                 foreach ($property in $properties | Where-Object {$_.Name -notin $excludedProperties}) {

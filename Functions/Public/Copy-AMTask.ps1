@@ -37,7 +37,7 @@ function Copy-AMTask {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/28/2018
+            Date Modified  : 01/04/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -95,6 +95,11 @@ function Copy-AMTask {
                     10      { $copyObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
                     11      { $copyObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
                     default { throw "Unsupported server major version: $_!" }
+                }
+
+                # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
+                if ((Get-AMTask -ID $obj.ID -Connection $Connection -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
+                    $copyObject.ID = $obj.ID
                 }
 
                 $copyObject.CreatedBy = $user.ID
