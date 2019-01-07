@@ -37,7 +37,7 @@ function Copy-AMProcess {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 01/04/2019
+            Date Modified  : 01/07/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -61,6 +61,11 @@ function Copy-AMProcess {
     BEGIN {
         if ($PSBoundParameters.ContainsKey("Connection")) {
             $Connection = Get-AMConnection -Connection $Connection
+            if (($Connection | Measure-Object).Count -eq 0) {
+                throw "No AutoMate server specified!"
+            } elseif (($Connection | Measure-Object).Count -gt 1) {
+                throw "Multiple AutoMate servers specified, please specify one server to copy the process to!"
+            }
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
         }
     }
@@ -94,9 +99,11 @@ function Copy-AMProcess {
                     default { throw "Unsupported server major version: $_!" }
                 }
 
-                # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
-                if ((Get-AMProcess -ID $obj.ID -Connection $Connection -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
-                    $copyObject.ID = $obj.ID
+                if ($PSBoundParameters.ContainsKey("Connection") -and $obj.ConnectionAlias -ne $Connection.Alias) {
+                    # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
+                    if ((Get-AMProcess -ID $obj.ID -Connection $Connection -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
+                        $copyObject.ID = $obj.ID
+                    }
                 }
 
                 $copyObject.CreatedBy = $user.ID

@@ -37,7 +37,7 @@ function Copy-AMWorkflow {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 01/04/2019
+            Date Modified  : 01/07/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -67,6 +67,11 @@ function Copy-AMWorkflow {
     BEGIN {
         if ($PSBoundParameters.ContainsKey("Connection")) {
             $Connection = Get-AMConnection -Connection $Connection
+            if (($Connection | Measure-Object).Count -eq 0) {
+                throw "No AutoMate server specified!"
+            } elseif (($Connection | Measure-Object).Count -gt 1) {
+                throw "Multiple AutoMate servers specified, please specify one server to copy the workflow to!"
+            }
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
             $taskFolder = $user | Get-AMFolder -Type TASKS
             $conditionFolder = $user | Get-AMFolder -Type CONDITIONS
@@ -118,9 +123,11 @@ function Copy-AMWorkflow {
                     default { throw "Unsupported server major version: $_!" }
                 }
 
-                # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
-                if ((Get-AMWorkflow -ID $obj.ID -Connection $Connection -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
-                    $copyObject.ID = $obj.ID
+                if ($PSBoundParameters.ContainsKey("Connection") -and $obj.ConnectionAlias -ne $Connection.Alias) {
+                    # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
+                    if ((Get-AMWorkflow -ID $obj.ID -Connection $Connection -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
+                        $copyObject.ID = $obj.ID
+                    }
                 }
 
                 # Copy properties of the source workflow to the new workflow
