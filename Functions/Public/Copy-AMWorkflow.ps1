@@ -76,6 +76,15 @@ function Copy-AMWorkflow {
             $taskFolder = $user | Get-AMFolder -Type TASKS
             $conditionFolder = $user | Get-AMFolder -Type CONDITIONS
             $processFolder = $user | Get-AMFolder -Type PROCESSES
+
+            Write-Verbose "Caching workflow IDs for server $($Connection.ConnectionAlias) for ID checking"
+            $workflowCache = Get-AMWorkflow -Connection $Connection
+            $existingIds = @()
+            $existingIds += $workflowCache.ID
+            $existingIds += $workflowCache.Items.ID
+            $existingIds += $workflowCache.Triggers.ID
+            $existingIds += $workflowCache.Links.ID
+            $existingIds += $workflowCache.Variables.ID
         }
 
         $substitions = $IdSubstitutions.PSObject.Copy()
@@ -123,9 +132,9 @@ function Copy-AMWorkflow {
                     default { throw "Unsupported server major version: $_!" }
                 }
 
-                if ($PSBoundParameters.ContainsKey("Connection") -and $obj.ConnectionAlias -ne $Connection.Alias) {
+                if ($obj.ConnectionAlias -ne $Connection.Alias) {
                     # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
-                    if ((Get-AMWorkflow -ID $obj.ID -Connection $Connection -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
+                    if ($obj.ID -notin $existingIds) {
                         $copyObject.ID = $obj.ID
                     }
                 }
@@ -174,6 +183,10 @@ function Copy-AMWorkflow {
                             }
                             # If copying to another server
                             if ($obj.ConnectionAlias -ne $Connection.Alias) {
+                                # Retain the item ID if it does not already exist
+                                if ($item.ID -notin $existingIds) {
+                                    $newItem.ID = $item.ID
+                                }
                                 # Look for any specified substitions for the agent, use if provided
                                 if ($substitions.ContainsKey($item.AgentID)) {
                                     $newItem.AgentID = $substitions[$item.AgentID]
@@ -354,6 +367,10 @@ function Copy-AMWorkflow {
                     }
                     # If copying to another server
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
+                        # Retain the item ID if it does not already exist
+                        if ($trigger.ID -notin $existingIds) {
+                            $newTrigger.ID = $trigger.ID
+                        }
                         # Look for any specified substitions for the agent, use if provided
                         if ($substitions.ContainsKey($trigger.AgentID)) {
                             $newTrigger.AgentID = $substitions[$trigger.AgentID]
@@ -426,6 +443,13 @@ function Copy-AMWorkflow {
                         11      { $newLink = [AMWorkflowLinkv11]::new($Connection.Alias) }
                         default { throw "Unsupported server major version: $_!" }
                     }
+                    # If copying to another server
+                    if ($obj.ConnectionAlias -ne $Connection.Alias) {
+                        # Retain the link ID if it does not already exist
+                        if ($link.ID -notin $existingIds) {
+                            $newLink.ID = $link.ID
+                        }
+                    }
                     $newLink.DestinationID    = $substitions[$link.DestinationID]
                     $newLink.DestinationPoint = [PSCustomObject]@{x = $link.DestinationPoint.X; y = $link.DestinationPoint.Y}
                     $newLink.LinkType         = $link.LinkType
@@ -441,6 +465,13 @@ function Copy-AMWorkflow {
                         10      { $newVariable = [AMWorkflowVariablev10]::new($Connection.Alias) }
                         11      { $newVariable = [AMWorkflowVariablev11]::new($Connection.Alias) }
                         default { throw "Unsupported server major version: $_!" }
+                    }
+                    # If copying to another server
+                    if ($obj.ConnectionAlias -ne $Connection.Alias) {
+                        # Retain the variable ID if it does not already exist
+                        if ($variable.ID -notin $existingIds) {
+                            $newVariable.ID = $variable.ID
+                        }
                     }
                     $newVariable.Name         = $variable.Name
                     $newVariable.ParentID     = $copyObject.ID
