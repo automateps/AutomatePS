@@ -23,7 +23,7 @@ function Remove-AMPermission {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 01/21/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -45,7 +45,7 @@ function Remove-AMPermission {
                         if (($affectedUser | Measure-Object).Count -eq 1) {
                             if ($PSCmdlet.ShouldProcess($obj.ConnectionAlias, "Removing permission from $($construct.Type) '$($construct.Name)': $($affectedUser.Name)")) {
                                 Write-Verbose "Removing permission from $($construct.Type) '$($construct.Name)' for '$($affectedUser.Name) (Type: $($affectedUser.Type))'."
-                                Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::$($construct.Type)).RestResource)/$($obj.ConstructID)/permissions/$($obj.ID)/delete" -RestMethod Post | Out-Null
+                                Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::$($construct.Type)).RestResource)/$($obj.ConstructID)/permissions/$($obj.ID)/delete" -RestMethod Post -Connection $obj.ConnectionAlias | Out-Null
                             }
                         } else {
                             Write-Warning "Multiple objects found for user/group ID $($obj.ConstructID)! No action will be taken."

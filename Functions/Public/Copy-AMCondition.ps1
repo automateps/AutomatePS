@@ -33,7 +33,7 @@ function Copy-AMCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/28/2018
+            Date Modified  : 01/21/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -57,8 +57,20 @@ function Copy-AMCondition {
     BEGIN {
         if ($PSBoundParameters.ContainsKey("Connection")) {
             $Connection = Get-AMConnection -Connection $Connection
+            if (($Connection | Measure-Object).Count -eq 0) {
+                throw "No AutoMate server specified!"
+            } elseif (($Connection | Measure-Object).Count -gt 1) {
+                throw "Multiple AutoMate servers specified, please specify one server to copy the condition to!"
+            }
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
         }
+        
+        Write-Verbose "Caching condition IDs for server $($Connection.ConnectionAlias) for ID checking"
+        $conditionCache = Get-AMCondition -Connection $Connection
+        $existingIds = @()
+        $existingIds += $conditionCache.ID
+        $existingIds += $conditionCache.Credentials.ID # SNMP condition credential IDs
+        $existingIds += $conditionCache.WindowControl.ID # Window condition control IDs
     }
 
     PROCESS {
@@ -108,7 +120,10 @@ function Copy-AMCondition {
                                     $copyCredential.EncryptionAlgorithm    = $credential.EncryptionAlgorithm
                                     $copyCredential.PrivacyPassword        = $credential.PrivacyPassword
                                     $copyCredential.User                   = $credential.User
-                                    $copyObject.Credentials.Add($copyCredential)
+                                    if ($obj.ConnectionAlias -ne $Connection.Alias -and $credential.ID -notin $existingIds) {
+                                        $copyCredential.ID = $credential.ID
+                                    }
+                                    $copyObject.Credentials.Add($copyCredential) | Out-Null
                                 }
                                 $excludedProperties += "Credentials"
                             }
@@ -127,7 +142,10 @@ function Copy-AMCondition {
                                     $copyControl.CheckValue    = $control.CheckValue
                                     $copyControl.CheckType     = $control.CheckType
                                     $copyControl.CheckPosition = $control.CheckPosition
-                                    $copyObject.WindowControl.Add($copyControl)
+                                    if ($obj.ConnectionAlias -ne $Connection.Alias -and $control.ID -notin $existingIds) {
+                                        $copyControl.ID = $control.ID
+                                    }
+                                    $copyObject.WindowControl.Add($copyControl) | Out-Null
                                 }
                                 $excludedProperties += "WindowControl"
                             }
@@ -167,7 +185,10 @@ function Copy-AMCondition {
                                     $copyCredential.EncryptionAlgorithm    = $credential.EncryptionAlgorithm
                                     $copyCredential.PrivacyPassword        = $credential.PrivacyPassword
                                     $copyCredential.User                   = $credential.User
-                                    $copyObject.Credentials.Add($copyCredential)
+                                    if ($obj.ConnectionAlias -ne $Connection.Alias -and $credential.ID -notin $existingIds) {
+                                        $copyCredential.ID = $credential.ID
+                                    }
+                                    $copyObject.Credentials.Add($copyCredential) | Out-Null
                                 }
                                 $excludedProperties += "Credentials"
                             }
@@ -186,7 +207,10 @@ function Copy-AMCondition {
                                     $copyControl.CheckValue    = $control.CheckValue
                                     $copyControl.CheckType     = $control.CheckType
                                     $copyControl.CheckPosition = $control.CheckPosition
-                                    $copyObject.WindowControl.Add($copyControl)
+                                    if ($obj.ConnectionAlias -ne $Connection.Alias -and $control.ID -notin $existingIds) {
+                                        $copyControl.ID = $control.ID
+                                    }
+                                    $copyObject.WindowControl.Add($copyControl) | Out-Null
                                 }
                                 $excludedProperties += "WindowControl"
                             }
@@ -196,6 +220,14 @@ function Copy-AMCondition {
                     }
                     default { throw "Unsupported server major version: $_!" }
                 }
+
+                if ($PSBoundParameters.ContainsKey("Connection") -and $obj.ConnectionAlias -ne $Connection.Alias) {
+                    # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
+                    if ((Get-AMCondition -ID $obj.ID -Connection $Connection -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
+                        $copyObject.ID = $obj.ID
+                    }
+                }
+
                 # Collect all the properties that are defined for the specific object type
                 $properties = $currentObject.GetType().GetProperties() | Where-Object {$_.DeclaringType -eq $currentObject.GetType()}
                 foreach ($property in $properties | Where-Object {$_.Name -notin $excludedProperties}) {
