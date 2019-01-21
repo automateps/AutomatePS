@@ -38,8 +38,19 @@ Remove-Module -Name "AutoMatePS" -Force
 Import-Module -Name "AutoMatePS" -Force
 
 # Validate parameter help
-$helps = $functions | ForEach-Object {Get-Help $_}
+# Validate parameter help
+$helps = $functions | ForEach-Object {
+    if (Get-Command -Name $_ -ErrorAction SilentlyContinue) {
+        Get-Help $_
+    } else {
+        Write-Warning "Could not find command $_."
+    }
+}
 foreach ($help in $helps) {
+    # Check for Description
+    if ([string]::IsNullOrEmpty($help.Description)) {
+        Write-Warning "$($help.Name) does not have a description defined in help."
+    }
     foreach ($parameter in $help.Parameters.Parameter) {
         if ($parameter -notmatch 'whatif|confirm') {
             if ([string]::IsNullOrEmpty($parameter.Description.Text)) {
