@@ -44,7 +44,7 @@ function Get-AMMetric {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 01/24/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -108,7 +108,7 @@ function Get-AMMetric {
                 $obj.PSObject.Typenames.Insert(0, "AMMetricRunning")
             }
             "Completed" {
-                $obj.PSObject.TypenamesInsert(0, "AMMetricCompleted")
+                $obj.PSObject.Typenames.Insert(0, "AMMetricCompleted")
             }
             "Queued" {
                 $obj.PSObject.Typenames.Insert(0, "AMMetricQueued")
