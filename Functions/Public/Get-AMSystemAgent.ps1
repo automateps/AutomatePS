@@ -27,7 +27,7 @@ function Get-AMSystemAgent {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 01/28/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -62,20 +62,20 @@ function Get-AMSystemAgent {
                 $name = [AMSystemAgent]::new().GetByID($ID)
                 if ($name) {
                     [PSCustomObject]@{
-                        ID        = $ID
-                        Name      = $name
-                        Type      = "SystemAgent"
-                        Connection = $c
+                        ID              = $ID
+                        Name            = $name
+                        Type            = "SystemAgent"
+                        ConnectionAlias = $c.Alias
                     }
                 }
             }
             "ByType" {
                 # Return specified system agent type
                 [PSCustomObject]@{
-                    ID        = [AMSystemAgent]::$Type
-                    Name      = $Type
-                    Type      = "SystemAgent"
-                    Connection = $c
+                    ID              = [AMSystemAgent]::$Type
+                    Name            = $Type
+                    Type            = "SystemAgent"
+                    ConnectionAlias = $c.Alias
                 }
             }
             "All" {
@@ -83,10 +83,10 @@ function Get-AMSystemAgent {
                 $Types = @("Condition","Default","Previous","Triggered","Variable")
                 foreach ($Type in $Types) {
                     [PSCustomObject]@{
-                        ID        = [AMSystemAgent]::$Type
-                        Name      = $Type
-                        Type      = "SystemAgent"
-                        Connection = $c
+                        ID              = [AMSystemAgent]::$Type
+                        Name            = $Type
+                        Type            = "SystemAgent"
+                        ConnectionAlias = $c.Alias
                     }
                 }
             }
