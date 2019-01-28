@@ -24,7 +24,7 @@ function Get-AMFolderRoot {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 01/28/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -34,6 +34,12 @@ function Get-AMFolderRoot {
     param (
         [ValidateSet("AgentGroup","Condition","Process","ProcessAgent","Task","TaskAgent","User","UserGroup","Workflow")]
         [string]$Type,
+
+        [ValidateNotNull()]
+        [Hashtable[]]$FilterSet = @(),
+
+        [ValidateSet("And","Or")]
+        [string]$FilterSetMode = "And",
 
         [ValidateNotNullOrEmpty()]
         $Connection
@@ -61,7 +67,10 @@ function Get-AMFolderRoot {
             $result.Name = ([AMTypeDictionary]::$Type).RootFolderName
             $result.Path = ([AMTypeDictionary]::$Type).RootFolderPath
             $result.Type = [AMConstructType]::Folder
-            $result
+            $result.CreatedOn   = (New-Object DateTime 1900, 1, 1, 0, 0, 0, ([DateTimeKind]::Utc))
+            $result.ModifiedOn  = (New-Object DateTime 1900, 1, 1, 0, 0, 0, ([DateTimeKind]::Utc))
+            $result.VersionDate = (New-Object DateTime 1900, 1, 1, 0, 0, 0, ([DateTimeKind]::Utc))
+            $result | Invoke-AMFilterSet -FilterSet $FilterSet -FilterSetMode $FilterSetMode
         }
     }
 }
