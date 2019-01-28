@@ -87,7 +87,7 @@ function Get-AMFolder {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/30/2018
+            Date Modified  : 01/28/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -123,6 +123,11 @@ function Get-AMFolder {
         [ValidateNotNullOrEmpty()]
         [switch]$Recurse = $false,
 
+        # -RecurseCache is a private parameter used only within this function, and should not be used externally.
+        #  This parameter allows the folder cache to be based to subsequent, recursive calls
+        [Parameter(DontShow = $true)]
+        [Hashtable]$RecurseCache = @{},
+
         [ValidateSet("AGENTGROUPS","CONDITIONS","PROCESSAGENTS","PROCESSES","TASKAGENTS","TASKS","USERGROUPS","USERS","WORKFLOWS")]
         [ValidateNotNullOrEmpty()]
         [string]$Type,
@@ -152,6 +157,10 @@ function Get-AMFolder {
             $Connection = Get-AMConnection
         }
         $result = @()
+        $folderCache = @{}
+        if ($RecurseCache.Keys.Count -gt 0) {
+            $folderCache = $RecurseCache
+        }
         $sortOptions = "sort_field=$($SortProperty[0])"
         if ($SortDescending.ToBool()) { $sortOptions += "&sort_order=DSC" }
         if ($Path -like "*?\") { $Path = $Path.TrimEnd("\") }
@@ -160,60 +169,24 @@ function Get-AMFolder {
     PROCESS {
         switch($PSCmdlet.ParameterSetName) {
             "All" {
-                if ($PSBoundParameters.ContainsKey("Path") -and $PSBoundParameters.ContainsKey("Name")) {
-                    # If both Path and Name are provided
-                    if (-not [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($Name)) {
-                        if ($Path -ne "\") { # The API doesn't return root folders
-                            $FilterSet += @{Property = "Path"; Operator = "="; Value = $Path}
-                            $FilterSet += @{Property = "Name"; Operator = "="; Value = $Name}
-                        } elseif (-not $PSBoundParameters.ContainsKey("FilterSet")) {
-                            $result += Get-AMFolderRoot -Connection $Connection | Where-Object {$_.Path -eq $Path -and $_.Name -eq $Name}
-                        } else {
-                            Write-Warning "Root folders are not returned when using -FilterSet!"
-                        }
-                    } else {
-                        if ($Path -ne "\") { # The API doesn't return root folders
-                            $FilterSet += @{Property = "Path"; Operator = "="; Value = $Path}
-                        } elseif (-not $PSBoundParameters.ContainsKey("FilterSet")) {
-                            $result += Get-AMFolderRoot -Connection $Connection | Where-Object {$_.Path -eq $Path -and $_.Name -like $Name}
-                        } else {
-                            Write-Warning "Root folders are not returned when using -FilterSet!"
-                        }
-                    }
-                } elseif ($PSBoundParameters.ContainsKey("Path")) {
-                    # If just path is provided
-                    if ($Path -ne "\") { # The API doesn't return root folders
-                        $FilterSet += @{Property = "Path"; Operator = "="; Value = $Path}
-                    } elseif (-not $PSBoundParameters.ContainsKey("FilterSet")) {
-                        $result += Get-AMFolderRoot -Connection $Connection | Where-Object {$_.Path -eq $Path}
-                    } else {
-                        Write-Warning "Root folders are not returned when using -FilterSet!"
-                    }
-                } elseif ($PSBoundParameters.ContainsKey("Name")) {
-                    # If just name is provided
-                    if (-not [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($Name)) {
-                        $FilterSet += @{Property = "Name"; Operator = "="; Value = $Name}
-                        if (-not $PSBoundParameters.ContainsKey("FilterSet")) {
-                            $result += Get-AMFolderRoot -Connection $Connection | Where-Object {$_.Name -eq $Name}
-                        } else {
-                            Write-Warning "Root folders are not returned when using -FilterSet!"
-                        }
-                    } elseif (-not $PSBoundParameters.ContainsKey("FilterSet")) {
-                        $result += Get-AMFolderRoot -Connection $Connection | Where-Object {$_.Name -like $Name}
-                    } else {
-                        Write-Warning "Root folders are not returned when using -FilterSet!"
-                    }
-                } elseif (-not $PSBoundParameters.ContainsKey("FilterSet")) {
-                    # If neither are provided
-                    $result += Get-AMFolderRoot -Connection $Connection
+                # Add -Path parameter to filter set
+                if ($PSBoundParameters.ContainsKey("Path")) {
+                    $FilterSet += @{Property = "Path"; Operator = "="; Value = $Path}
                 }
-                if ($Path -ne "\") { # The API doesn't return root folders
-                    $splat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $FilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
-                    $result += Invoke-AMRestMethod @splat
+                # Add -Name parameter to filter set, ignore if wildcards used (will be filtered after results are retrieved)
+                if ($PSBoundParameters.ContainsKey("Name") -and -not [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($Name)) {
+                    $FilterSet += @{Property = "Name"; Operator = "="; Value = $Name}
                 }
+                # Call API
+                $splat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $FilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
+                $result += Invoke-AMRestMethod @splat
+                # Add system folders (not supported by API)
+                $result += Get-AMFolderRoot -FilterSet $FilterSet -FilterSetMode $FilterSetMode
             }
             "ByID" {
+                # Check system folders first (no API call)
                 $tempResult = Get-AMFolderRoot -Connection $Connection | Where-Object {$_.ID -eq $ID}
+                # If nothing returned, call API
                 if (-not $tempResult) {
                     $splat += @{ Resource = "folders/$ID/get" }
                     $result += Invoke-AMRestMethod @splat
@@ -229,18 +202,18 @@ function Get-AMFolder {
                     } else {
                         $tempSplat["Connection"] = $obj.ConnectionAlias
                     }
+                    if (-not $folderCache.ContainsKey($obj.ConnectionAlias)) {
+                        Write-Verbose "Caching folder objects for server $($obj.ConnectionAlias) for better performance"
+                        $tempCache = @()
+                        $tempCache += Get-AMFolderRoot -FilterSet $FilterSet -FilterSetMode $FilterSetMode -Connection $obj.ConnectionAlias
+                        $tempCache += Get-AMFolder -FilterSet $FilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() -Connection $obj.ConnectionAlias
+                        $folderCache.Add($obj.ConnectionAlias, $tempCache)
+                    }
                     Write-Verbose "Processing $($obj.Type) '$($obj.Name)'"
                     switch ($obj.Type) {
                         {($_ -in @("Workflow","Task","Process","Condition","Agent","AgentGroup","UserGroup"))} {
                             # Get folders containing the provided object(s)
-                            $tempResult = Get-AMFolderRoot | Where-Object {$_.ID -eq $obj.ParentID}
-                            if (-not $tempResult) {
-                                $tempFilterSet = $FilterSet + @{Property = "ID"; Operator = "="; Value = $obj.ParentID}
-                                $tempSplat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
-                                $result += Invoke-AMRestMethod @tempSplat
-                            } else {
-                                $result += $tempResult
-                            }
+                            $result += $folderCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $obj.ParentID}
                         }
                         "User" {
                             # Get the folder containing the user by default
@@ -248,65 +221,33 @@ function Get-AMFolder {
                             switch ($Type) {
                                 "USERS" {
                                     # Get folder containing the provided user(s)
-                                    $tempFilterSet = $FilterSet + @{Property = "ID"; Operator = "="; Value = $obj.ParentID}
-                                    $tempSplat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
-                                    $result += Invoke-AMRestMethod @tempSplat
+                                    $result += $folderCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $obj.ParentID}
                                 }
                                 "WORKFLOWS" {
                                     # Get the workflow folder for the specified user ID
-                                    $tempResult = Get-AMFolderRoot -Connection $obj.ConnectionAlias | Where-Object {$_.ID -eq $obj.WorkflowFolderID}
-                                    if (-not $tempResult) {
-                                        $result += Get-AMFolder -ID $obj.WorkflowFolderID -Connection $obj.ConnectionAlias
-                                    } else {
-                                        $result += $tempResult
-                                    }
+                                    $result += $folderCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $obj.WorkflowFolderID}
                                 }
                                 "TASKS" {
                                     # Get the task folder for the specified user ID
-                                    $tempResult = Get-AMFolderRoot -Connection $obj.ConnectionAlias | Where-Object {$_.ID -eq $obj.TaskFolderID}
-                                    if (-not $tempResult) {
-                                        $result += Get-AMFolder -ID $obj.TaskFolderID -Connection $obj.ConnectionAlias
-                                    } else {
-                                        $result += $tempResult
-                                    }
+                                    $result += $folderCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $obj.TaskFolderID}
                                 }
                                 "PROCESSES" {
                                     # Get the process folder for the specified user ID
-                                    $tempResult = Get-AMFolderRoot -Connection $obj.ConnectionAlias | Where-Object {$_.ID -eq $obj.ProcessFolderID}
-                                    if (-not $tempResult) {
-                                        $result += Get-AMFolder -ID $obj.ProcessFolderID -Connection $obj.ConnectionAlias
-                                    } else {
-                                        $result += $tempResult
-                                    }
+                                    $result += $folderCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $obj.ProcessFolderID}
                                 }
                                 "CONDITIONS" {
                                     # Get the condition folder for the specified user ID
-                                    $tempResult = Get-AMFolderRoot -Connection $obj.ConnectionAlias | Where-Object {$_.ID -eq $obj.ConditionFolderID}
-                                    if (-not $tempResult) {
-                                        $result += Get-AMFolder -ID $obj.ConditionFolderID -Connection $obj.ConnectionAlias
-                                    } else {
-                                        $result += $tempResult
-                                    }
+                                    $result += $folderCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $obj.ConditionFolderID}
                                 }
                             }
                         }
                         "Folder" {
                             if ($Parent) {
-                                $tempResult = Get-AMFolderRoot -Connection $obj.ConnectionAlias | Where-Object {$_.ID -eq $obj.ParentID}
-                                if (-not $tempResult) {
-                                    # Get folders that contain the provided folders(s)
-                                    $tempFilterSet = $FilterSet + @{Property = "ID"; Operator = "="; Value = $obj.ParentID}
-                                    $tempSplat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
-                                    $result += Invoke-AMRestMethod @tempSplat
-                                } else {
-                                    $result += $tempResult
-                                }
+                                # Get folders that contain the provided folders(s)
+                                $result += $folderCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $obj.ParentID}
                             } else {
                                 # Get folders contained within the provided folder(s)
-                                $tempFilterSet = $FilterSet + @{Property = "ParentID"; Operator = "="; Value = $obj.ID}
-                                $tempSplat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $tempFilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
-                                $tempResult = Invoke-AMRestMethod @tempSplat
-                                $result += $tempResult
+                                $result += $folderCache[$obj.ConnectionAlias] | Where-Object {$_.ParentID -eq $obj.ID}
                             }
                         }
                         default {
@@ -341,12 +282,12 @@ function Get-AMFolder {
                 $r.Path = $r.Path.Replace("PROCESSS","PROCESSES")
             }
         }
+        # End workaround
 
         if (($result.Count -gt 0) -and $Recurse) {
-            $result += $result | Get-AMFolder -Recurse
+            $result += $result | Get-AMFolder -Recurse -RecurseCache $folderCache
         }
 
-        # End workaround
         $SortProperty += "ConnectionAlias","ID"
         return $result | Sort-Object $SortProperty -Unique -Descending:$SortDescending.ToBool()
     }
