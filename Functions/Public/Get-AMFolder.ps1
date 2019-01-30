@@ -181,7 +181,7 @@ function Get-AMFolder {
                 $splat += @{ Resource = Format-AMUri -Path "folders/list" -FilterSet $FilterSet -FilterSetMode $FilterSetMode -SortProperty $SortProperty -SortDescending:$SortDescending.ToBool() }
                 $result += Invoke-AMRestMethod @splat
                 # Add system folders (not supported by API)
-                $result += Get-AMFolderRoot -FilterSet $FilterSet -FilterSetMode $FilterSetMode
+                $result += Get-AMFolderRoot -FilterSet $FilterSet -FilterSetMode $FilterSetMode -Connection $Connection
             }
             "ByID" {
                 # Check system folders first (no API call)
