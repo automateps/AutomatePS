@@ -1,5 +1,6 @@
-﻿Add-Type -AssemblyName PresentationFramework
-
+﻿using module AutoMatePS
+Import-Module AutomatePS -Force
+Add-Type -AssemblyName PresentationFramework
 function Toggle-Connect {
     if ($connected) {
         Disconnect-AMServer
@@ -10,28 +11,31 @@ function Toggle-Connect {
             $connectedControls[$key].IsEnabled = $false
         }
     } else {
-        if ($connectionControls["AMServerTextBox"].Text -like "*:*") {
-            $split = $connectionControls["AMServerTextBox"].Text -split ":"
-            $server = $split[0]
-            $port = $split[1]
-            $splat = @{ Server = $server; Port = $port; Verbose = $true }
-        } else {
-            $splat = @{ Server = $connectionControls["AMServerTextBox"].Text; Verbose = $true }
-        }
-        $alreadyConnected = $false
-        foreach ($connection in Get-AMConnection) {
-            if ($connection.Server -eq $splat.Server) {
-                if ($null -eq $port) {
-                    $alreadyConnected = $true
-                } else {
-                    if ($connection.Port -eq $port) {
+        $amServers = $connectionControls["AMServerTextBox"].Text -split "/"
+        foreach ($amServer in $amServers) {
+            if ($amServer -like "*:*") {
+                $split = $amServer -split ":"
+                $server = $split[0]
+                $port = $split[1]
+                $splat = @{ Server = $server; Port = $port; Verbose = $true }
+            } else {
+                $splat = @{ Server = $amServer; Verbose = $true }
+            }
+            $alreadyConnected = $false
+            foreach ($connection in Get-AMConnection) {
+                if ($connection.Server -eq $splat.Server) {
+                    if ($null -eq $port) {
                         $alreadyConnected = $true
+                    } else {
+                        if ($connection.Port -eq $port) {
+                            $alreadyConnected = $true
+                        }
                     }
                 }
             }
-        }
-        if (-not $alreadyConnected) {
-            Connect-AMServer @splat
+            if (-not $alreadyConnected) {
+                Connect-AMServer @splat
+            }
         }
         if ((Get-AMConnection).Count -gt 0) {
             $script:connected = $true
@@ -46,36 +50,42 @@ function Toggle-Connect {
 }
 
 function Load-Repository {
-    $rootFolders = @(
-        (Get-AMFolderRoot -Type Workflow),
-        (Get-AMFolderRoot -Type Task),
-        (Get-AMFolderRoot -Type Process),
-        (Get-AMFolderRoot -Type TaskAgent),
-        (Get-AMFolderRoot -Type ProcessAgent)
-    )
     $connectedControls["RepositoryTreeView"].Items.Clear()
-    foreach ($rootFolder in $rootFolders) {
-        $treeViewItem = New-Object System.Windows.Controls.TreeViewItem
-        $treeViewItem.Header = $rootFolder.Name
-        $treeViewItem.Tag    = $rootFolder
-        $treeViewItem.Items.Add("Loading...")
-        $treeViewItem.Add_Expanded({
-            param($sender, $e)
-            $treeViewItem = $e.Source
-            if ($treeViewItem.Tag.Type -eq "Folder") {
-                $treeViewItem.Items.Clear()
-                foreach ($object in (Load-ChildItems -Parent $treeViewItem.Tag -Debug)) {
-                    $childTreeViewItem = New-Object System.Windows.Controls.TreeViewItem
-                    $childTreeViewItem.Header = $object.Name
-                    $childTreeViewItem.Tag    = $object
-                    if ($object.Type -eq "Folder") {
-                        $childTreeViewItem.Items.Add("Loading...")
+    foreach ($connection in Get-AMConnection) {
+        $rootFolders = @()
+        $rootFolders += Get-AMFolderRoot -Type Workflow -Connection $connection.Alias
+        $rootFolders += Get-AMFolderRoot -Type Task -Connection $connection.Alias
+        $rootFolders += Get-AMFolderRoot -Type Process -Connection $connection.Alias
+        $rootFolders += Get-AMFolderRoot -Type TaskAgent -Connection $connection.Alias
+        $rootFolders += Get-AMFolderRoot -Type ProcessAgent -Connection $connection.Alias
+        
+        $connectionTreeViewItem = New-Object System.Windows.Controls.TreeViewItem
+        $connectionTreeViewItem.Header = $connection.Alias
+        $connectionTreeViewItem.Tag    = $connection
+        foreach ($rootFolder in $rootFolders) {
+            $treeViewItem = New-Object System.Windows.Controls.TreeViewItem
+            $treeViewItem.Header = $rootFolder.Name
+            $treeViewItem.Tag    = $rootFolder
+            $treeViewItem.Items.Add("Loading...")
+            $treeViewItem.Add_Expanded({
+                param($sender, $e)
+                $treeViewItem = $e.Source
+                if ($treeViewItem.Tag.Type -eq "Folder") {
+                    $treeViewItem.Items.Clear()
+                    foreach ($object in (Load-ChildItems -Parent $treeViewItem.Tag)) {
+                        $childTreeViewItem = New-Object System.Windows.Controls.TreeViewItem
+                        $childTreeViewItem.Header = $object.Name
+                        $childTreeViewItem.Tag    = $object
+                        if ($object.Type -eq "Folder") {
+                            $childTreeViewItem.Items.Add("Loading...")
+                        }
+                        $treeViewItem.Items.Add($childTreeViewItem)
                     }
-                    $treeViewItem.Items.Add($childTreeViewItem)
                 }
-            }
-        })
-        $connectedControls["RepositoryTreeView"].Items.Add($treeViewItem)
+            })
+            $connectionTreeViewItem.Items.Add($treeViewItem)
+        }
+        $connectedControls["RepositoryTreeView"].Items.Add($connectionTreeViewItem)
     }
 }
 
@@ -94,13 +104,13 @@ function Load-ChildItems {
         elseif ($Parent.Path -like "\PROCESSAGENTS*") { $type = "PROCESSAGENTS" }
     }
     $results = @()
-    $results += $Parent | Get-AMFolder
+    $results += $Parent | Get-AMFolder -Connection $Parent.ConnectionAlias
     switch ($type) {
-        "WORKFLOWS"     { $results += Get-AMWorkflow -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Verbose }
-        "TASKS"         { $results += Get-AMTask -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Verbose     }
-        "PROCESSES"     { $results += Get-AMProcess -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Verbose  }
-        "TASKAGENTS"    { $results += Get-AMAgent -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Verbose    }
-        "PROCESSAGENTS" { $results += Get-AMAgent -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Verbose    }
+        "WORKFLOWS"     { $results += Get-AMWorkflow -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Connection $Parent.ConnectionAlias -Verbose }
+        "TASKS"         { $results += Get-AMTask -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Connection $Parent.ConnectionAlias -Verbose     }
+        "PROCESSES"     { $results += Get-AMProcess -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Connection $Parent.ConnectionAlias -Verbose  }
+        "TASKAGENTS"    { $results += Get-AMAgent -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Connection $Parent.ConnectionAlias -Verbose    }
+        "PROCESSAGENTS" { $results += Get-AMAgent -FilterSet @{ Property = "ParentID"; Operator = "="; Value = $Parent.ID } -Connection $Parent.ConnectionAlias -Verbose    }
         default         { throw "Unsupported type ($type) encountered!" }
     }
     return $results
@@ -133,7 +143,7 @@ function Load-ChildItems {
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="AMServerLabel" Content="AM Server:" Grid.Column="0" Grid.Row="0" Margin="0,5,5,5" IsEnabled="false" />
+        <Label x:Name="AMServerLabel" Content="Server:" Grid.Column="0" Grid.Row="0" Margin="0,5,5,5" IsEnabled="false" />
         <TextBox x:Name="AMServerTextBox" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" IsEnabled="false" ToolTip="Specify the server name, or server:port (for a non-standard port)" />
         <Button x:Name="ToggleConnectButton" Content="Connect" Grid.Column="2" Grid.Row="0" Margin="5,5,5,5" IsEnabled="false" />
 
