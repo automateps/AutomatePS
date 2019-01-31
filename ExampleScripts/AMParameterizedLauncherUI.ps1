@@ -1,4 +1,6 @@
-﻿Add-Type -AssemblyName PresentationFramework
+﻿using module AutoMatePS
+Import-Module AutomatePS -Force
+Add-Type -AssemblyName PresentationFramework
 
 function Toggle-Connect {
     if ($connected) {
@@ -10,28 +12,31 @@ function Toggle-Connect {
             $connectedControls[$key].IsEnabled = $false
         }
     } else {
-        if ($connectionControls["AMServerTextBox"].Text -like "*:*") {
-            $split = $connectionControls["AMServerTextBox"].Text -split ":"
-            $server = $split[0]
-            $port = $split[1]
-            $splat = @{ Server = $server; Port = $port; Verbose = $true }
-        } else {
-            $splat = @{ Server = $connectionControls["AMServerTextBox"].Text; Verbose = $true }
-        }
-        $alreadyConnected = $false
-        foreach ($connection in Get-AMConnection) {
-            if ($connection.Server -eq $splat.Server) {
-                if ($null -eq $port) {
-                    $alreadyConnected = $true
-                } else {
-                    if ($connection.Port -eq $port) {
+        $amServers = $connectionControls["AMServerTextBox"].Text -split "/"
+        foreach ($amServer in $amServers) {
+            if ($amServer -like "*:*") {
+                $split = $amServer -split ":"
+                $server = $split[0]
+                $port = $split[1]
+                $splat = @{ Server = $server; Port = $port; Verbose = $true }
+            } else {
+                $splat = @{ Server = $amServer; Verbose = $true }
+            }
+            $alreadyConnected = $false
+            foreach ($connection in Get-AMConnection) {
+                if ($connection.Server -eq $splat.Server) {
+                    if ($null -eq $port) {
                         $alreadyConnected = $true
+                    } else {
+                        if ($connection.Port -eq $port) {
+                            $alreadyConnected = $true
+                        }
                     }
                 }
             }
-        }
-        if (-not $alreadyConnected) {
-            Connect-AMServer @splat
+            if (-not $alreadyConnected) {
+                Connect-AMServer @splat
+            }
         }
         if ((Get-AMConnection).Count -gt 0) {
             $script:connected = $true
@@ -50,38 +55,47 @@ function Toggle-Connect {
 }
 
 function Load-Repository {
-    $rootFolder = Get-AMFolderRoot -Type Workflow
     $connectedControls["RepositoryTreeView"].Items.Clear()
-    $treeViewItem = New-Object System.Windows.Controls.TreeViewItem
-    $treeViewItem.Header = $rootFolder.Name
-    $treeViewItem.Tag    = $rootFolder
-    $treeViewItem.Items.Add("Loading...")
-    $treeViewItem.Add_Expanded({
-        param($sender, $e)
-        $treeViewItem = $e.Source
-        if ($treeViewItem.Tag.Type -eq "Folder") {
-            $treeViewItem.Items.Clear()
-            foreach ($object in (Load-ChildItems -Parent $treeViewItem.Tag -Debug)) {
-                $childTreeViewItem = New-Object System.Windows.Controls.TreeViewItem
-                $childTreeViewItem.Header = $object.Name
-                $childTreeViewItem.Tag    = $object
-                if ($object.Type -eq "Folder") {
-                    $childTreeViewItem.Items.Add("Loading...")
-                }
-                
-                [System.Windows.RoutedEventHandler]$treeViewItemSelectedEvent = {
-                    if ($_.OriginalSource -is [System.Windows.Controls.TreeViewItem]) {
-                        if ($_.OriginalSource.Tag.Type -eq "Workflow") {
-                            Load-Variables -Workflow $_.OriginalSource.Tag
+    foreach ($connection in Get-AMConnection) {
+        $rootFolders = @()
+        $rootFolders += Get-AMFolderRoot -Type Workflow -Connection $connection.Alias
+        
+        $connectionTreeViewItem = New-Object System.Windows.Controls.TreeViewItem
+        $connectionTreeViewItem.Header = $connection.Alias
+        $connectionTreeViewItem.Tag    = $connection
+        foreach ($rootFolder in $rootFolders) {
+            $treeViewItem = New-Object System.Windows.Controls.TreeViewItem
+            $treeViewItem.Header = $rootFolder.Name
+            $treeViewItem.Tag    = $rootFolder
+            $treeViewItem.Items.Add("Loading...")
+            $treeViewItem.Add_Expanded({
+                param($sender, $e)
+                $treeViewItem = $e.Source
+                if ($treeViewItem.Tag.Type -eq "Folder") {
+                    $treeViewItem.Items.Clear()
+                    foreach ($object in (Load-ChildItems -Parent $treeViewItem.Tag)) {
+                        $childTreeViewItem = New-Object System.Windows.Controls.TreeViewItem
+                        $childTreeViewItem.Header = $object.Name
+                        $childTreeViewItem.Tag    = $object
+                        if ($object.Type -eq "Folder") {
+                            $childTreeViewItem.Items.Add("Loading...")
                         }
+                        [System.Windows.RoutedEventHandler]$treeViewItemSelectedEvent = {
+                            if ($_.OriginalSource -is [System.Windows.Controls.TreeViewItem]) {
+                                if ($_.OriginalSource.Tag.Type -eq "Workflow") {
+                                    Load-Variables -Workflow $_.OriginalSource.Tag
+                                }
+                            }
+                        }
+                        $childTreeViewItem.AddHandler([System.Windows.Controls.TreeViewItem]::SelectedEvent, $treeViewItemSelectedEvent)
+                        $treeViewItem.Items.Add($childTreeViewItem)
                     }
                 }
-                $childTreeViewItem.AddHandler([System.Windows.Controls.TreeViewItem]::SelectedEvent, $treeViewItemSelectedEvent)
-                $treeViewItem.Items.Add($childTreeViewItem)
-            } 
-        }        
-    })
-    $connectedControls["RepositoryTreeView"].Items.Add($treeViewItem)
+            })
+            $connectionTreeViewItem.Items.Add($treeViewItem)
+        }
+        $connectedControls["RepositoryTreeView"].Items.Add($connectionTreeViewItem)
+    }
 }
 
 function Load-ChildItems {
@@ -102,26 +116,63 @@ function Load-Variables {
         $Workflow
     )
 
+    $vars = $Workflow.Variables | Where-Object {$_.DataType -eq 1} | Sort-Object Name
     $connectedControls["WorkflowNameLabel"].Content = $Workflow.Name
     $connectedControls["SaveValuesCheckBox"].Visibility = "Visible"
     $connectedControls["ExecuteButton"].Visibility = "Visible"
     $connectedControls["FieldStackView"].Children.Clear()
-    foreach ($var in $Workflow.Variables | Where-Object {$_.DataType -eq 1} | Sort-Object Name) {
-        $textBlock = New-Object System.Windows.Controls.TextBlock
-        $textBlock.Text = $var.Name
-        $textBlock.Margin = "5,5,5,5"
 
-        $textBox = New-Object System.Windows.Controls.TextBox
-        $textBox.Tag = $var.Name
-        $textBox.Text = $var.InitalValue
-        $textBox.Margin = "5,5,5,5"
+    if (($vars | Measure-Object).Count -gt 0) {
+        $grid = New-Object System.Windows.Controls.Grid
+        # Create column definitions
+        $gridCol1 = New-Object System.Windows.Controls.ColumnDefinition
+        $gridCol2 = New-Object System.Windows.Controls.ColumnDefinition
+        $gridCol1.Width = "auto"
+        $gridCol2.Width = "*"
+        $grid.ColumnDefinitions.Add($gridCol1)
+        $grid.ColumnDefinitions.Add($gridCol2)
 
-        $dockPanel = New-Object System.Windows.Controls.DockPanel
-        $dockPanel.LastChildFill = $true
-        $dockPanel.AddChild($textBlock)
-        $dockPanel.AddChild($textBox)
+        # Create row definitions
+        $gridRow = New-Object System.Windows.Controls.RowDefinition
+        $grid.RowDefinitions.Add($gridRow)
 
-        $connectedControls["FieldStackView"].AddChild($dockPanel)
+        # Create header row
+        $header1 = New-Object System.Windows.Controls.TextBlock
+        $header1.Text = "Variable"
+        $header1.FontWeight = "Bold"
+        $header2 = New-Object System.Windows.Controls.TextBlock
+        $header2.Text = "Initial Value"
+        $header2.FontWeight = "Bold"
+        [System.Windows.Controls.Grid]::SetColumn($header1, 0)
+        [System.Windows.Controls.Grid]::SetRow($header1, 0)
+        [System.Windows.Controls.Grid]::SetColumn($header2, 1)
+        [System.Windows.Controls.Grid]::SetRow($header2, 0)
+        $grid.AddChild($header1)
+        $grid.AddChild($header2)
+
+        $index = 1
+        foreach ($var in $vars) {
+            $textBlock = New-Object System.Windows.Controls.TextBlock
+            $textBlock.Text = $var.Name
+            $textBlock.Margin = "5,5,5,5"
+
+            $textBox = New-Object System.Windows.Controls.TextBox
+            $textBox.Tag = $var.Name
+            $textBox.Text = $var.InitalValue
+            $textBox.Margin = "5,5,5,5"
+
+            $gridRow = New-Object System.Windows.Controls.RowDefinition
+            $grid.RowDefinitions.Add($gridRow)
+            [System.Windows.Controls.Grid]::SetColumn($textBlock, 0)
+            [System.Windows.Controls.Grid]::SetRow($textBlock, $index)
+            [System.Windows.Controls.Grid]::SetColumn($textBox, 1)
+            [System.Windows.Controls.Grid]::SetRow($textBox, $index)
+
+            $grid.AddChild($textBlock)
+            $grid.AddChild($textBox)
+            $index += 1
+        }
+        $connectedControls["FieldStackView"].AddChild($grid)
     }
 }
 
@@ -132,8 +183,7 @@ function Execute-Workflow {
     $workflow = $connectedControls["RepositoryTreeView"].SelectedItem.Tag
     $valueChanged = $false
     $originalVariables = @{}
-    foreach ($dockPanel in $connectedControls["FieldStackView"].Children) {
-        $textBox = $dockPanel.Children | Where-Object {$_ -is [System.Windows.Controls.TextBox]}
+    foreach ($textBox in ($connectedControls["FieldStackView"].Children.Children | Where-Object {$_ -is [System.Windows.Controls.TextBox]})) {
         $originalValue = ($workflow.Variables | Where-Object {$_.Name -eq $textBox.Tag}).InitalValue
         if ($originalValue -ne $textBox.Text) {
             $originalVariables.Add($textBox.Tag, $originalValue)
@@ -143,17 +193,18 @@ function Execute-Workflow {
     }
     if ($valueChanged) {
         # Save workflow with new variable values
-        Set-AMWorkflow -Instance $Workflow -Verbose
+        Set-AMWorkflow -Instance $workflow -Verbose
     }
-    $Workflow | Start-AMWorkflow -Verbose
+    $workflow | Start-AMWorkflow -Verbose | Wait-AMInstance -Verbose
+    Start-Sleep -Seconds 2
     if ($valueChanged -and $connectedControls["SaveValuesCheckBox"].IsChecked) {
         # Revert values back
         foreach ($key in $originalVariables.Keys) {
             ($Workflow.Variables | Where-Object {$_.Name -eq $key}).InitalValue = $originalVariables[$key]
         }
-        Set-AMWorkflow -Instance $Workflow -Verbose
+        Set-AMWorkflow -Instance $workflow -Verbose
     }
-    Load-Variables -Workflow (Get-AMWorkflow -ID $Workflow.ID)
+    Load-Variables -Workflow $workflow.Refresh()
 }
 
 [xml]$xaml = @"
@@ -166,6 +217,7 @@ function Execute-Workflow {
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="75" />
@@ -174,7 +226,7 @@ function Execute-Workflow {
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="AMServerLabel" Content="AM Server:" Grid.Column="0" Grid.Row="0" Margin="0,5,5,5" IsEnabled="false" />
+        <Label x:Name="AMServerLabel" Content="Server:" Grid.Column="0" Grid.Row="0" Margin="0,5,5,5" IsEnabled="false" />
         <TextBox x:Name="AMServerTextBox" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" IsEnabled="false" ToolTip="Specify the server name, or server:port (for a non-standard port)" />
         <Button x:Name="ToggleConnectButton" Content="Connect" Grid.Column="2" Grid.Row="0" Margin="5,5,5,5" IsEnabled="false" />
          
@@ -184,19 +236,19 @@ function Execute-Workflow {
         <Label x:Name="AutoMatePSPrerequisiteLabel" Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="6" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
 
         <Label x:Name="RepositoryLabel" Content="Repository:" Grid.Column="0" Grid.Row="1" IsEnabled="false" />
-        <TreeView x:Name="RepositoryTreeView" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,5,0" IsEnabled="false" />
+        <TreeView x:Name="RepositoryTreeView" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,5,0" IsEnabled="false" />
                
         <ScrollViewer Grid.Column="3" Grid.Row="2" HorizontalScrollBarVisibility="Auto">
             <StackPanel>
                 <Label x:Name="WorkflowNameLabel" />
                 <StackPanel x:Name="FieldStackView" Grid.Column="3" Grid.Row="2" Margin="5,5,0,0">
                 </StackPanel>
-                <DockPanel>
-                    <CheckBox x:Name="SaveValuesCheckBox" Visibility="Hidden" IsChecked="true" IsEnabled="false" Margin="0,0,5,0">Save Original Values</CheckBox>
-                    <Button x:Name="ExecuteButton" Content="Execute" Visibility="Hidden" IsEnabled="false" />
-                </DockPanel>
             </StackPanel>
         </ScrollViewer> 
+        <DockPanel Grid.Column="3" Grid.Row="4">
+            <CheckBox x:Name="SaveValuesCheckBox" Visibility="Hidden" IsChecked="true" IsEnabled="false" Margin="0,0,5,0">Save Original Values</CheckBox>
+            <Button x:Name="ExecuteButton" Content="Execute" Visibility="Hidden" IsEnabled="false" />
+        </DockPanel>
     </Grid>
 </Window>
 "@

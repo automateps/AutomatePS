@@ -1,6 +1,6 @@
 ---
-external help file: AutoMatePS-help.xml
-Module Name: AutoMatePS
+external help file: AutomatePS-help.xml
+Module Name: AutomatePS
 online version: https://github.com/davidseibel/AutoMatePS
 schema: 2.0.0
 ---
@@ -15,22 +15,22 @@ Gets AutoMate Enterprise folders.
 ### All (Default)
 ```
 Get-AMFolder [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-Path <String>]
- [-Recurse] [-Type <String>] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>]
- [<CommonParameters>]
+ [-Recurse] [-RecurseCache <Hashtable>] [-Type <String>] [-SortProperty <String[]>] [-SortDescending]
+ [-Connection <Object>] [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
 Get-AMFolder [-InputObject <Object>] [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-Path <String>] [-Parent] [-Recurse] [-Type <String>] [-SortProperty <String[]>] [-SortDescending]
- [-Connection <Object>] [<CommonParameters>]
+ [-Path <String>] [-Parent] [-Recurse] [-RecurseCache <Hashtable>] [-Type <String>] [-SortProperty <String[]>]
+ [-SortDescending] [-Connection <Object>] [<CommonParameters>]
 ```
 
 ### ByID
 ```
 Get-AMFolder [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-Path <String>] [-Recurse] [-Type <String>] [-SortProperty <String[]>] [-SortDescending]
- [-Connection <Object>] [<CommonParameters>]
+ [-Path <String>] [-Recurse] [-RecurseCache <Hashtable>] [-Type <String>] [-SortProperty <String[]>]
+ [-SortDescending] [-Connection <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -210,6 +210,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -RecurseCache
+-RecurseCache is a private parameter used only within this function, and should not be used externally.
+ This parameter allows the folder cache to be based to subsequent, recursive calls
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: @{}
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Type
 The folder type: AGENTGROUPS, CONDITIONS, PROCESSAGENTS, PROCESSES, TASKAGENTS, TASKS, USERGROUPS, USERS, WORKFLOWS
 
@@ -295,7 +311,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 11/30/2018
+Date Modified  : 01/28/2019
 
 ## RELATED LINKS
 

@@ -1,6 +1,6 @@
 ---
-external help file: AutoMatePS-help.xml
-Module Name: AutoMatePS
+external help file: AutomatePS-help.xml
+Module Name: AutomatePS
 online version: https://github.com/davidseibel/AutoMatePS
 schema: 2.0.0
 ---
@@ -13,7 +13,8 @@ Gets AutoMate Enterprise root folders.
 ## SYNTAX
 
 ```
-Get-AMFolderRoot [[-Type] <String>] [[-Connection] <Object>] [<CommonParameters>]
+Get-AMFolderRoot [[-Type] <String>] [[-FilterSet] <Hashtable[]>] [[-FilterSetMode] <String>]
+ [[-Connection] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -52,6 +53,36 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -FilterSet
+{{Fill FilterSet Description}}
+
+```yaml
+Type: Hashtable[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: @()
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FilterSetMode
+{{Fill FilterSetMode Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: And
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Connection
 The AutoMate Enterprise management server.
 
@@ -61,7 +92,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -80,7 +111,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 08/08/2018
+Date Modified  : 01/28/2019
 
 ## RELATED LINKS
 
