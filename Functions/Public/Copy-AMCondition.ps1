@@ -33,7 +33,7 @@ function Copy-AMCondition {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 01/21/2019
+            Date Modified  : 02/01/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -65,7 +65,7 @@ function Copy-AMCondition {
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
         }
         
-        Write-Verbose "Caching condition IDs for server $($Connection.ConnectionAlias) for ID checking"
+        Write-Verbose "Caching condition IDs for server $($Connection.Alias) for ID checking"
         $conditionCache = Get-AMCondition -Connection $Connection
         $existingIds = @()
         $existingIds += $conditionCache.ID
