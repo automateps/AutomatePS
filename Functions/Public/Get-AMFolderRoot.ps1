@@ -9,6 +9,13 @@ function Get-AMFolderRoot {
         .PARAMETER Type
             The type of root folder to return.
 
+        .PARAMETER FilterSet
+            The parameters to filter the search on.  Supply hashtable(s) with the following properties: Property, Operator, Value.
+            Valid values for the Operator are: =, !=, <, >, contains (default - no need to supply Operator when using 'contains')
+
+        .PARAMETER FilterSetMode
+            If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
+
         .PARAMETER Connection
             The AutoMate Enterprise management server.
 
@@ -24,7 +31,7 @@ function Get-AMFolderRoot {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 01/28/2019
+            Date Modified  : 02/01/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
