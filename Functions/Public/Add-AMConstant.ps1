@@ -32,7 +32,7 @@ function Add-AMConstant {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 02/06/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -55,9 +55,19 @@ function Add-AMConstant {
 
     PROCESS {
         foreach ($obj in $InputObject) {
-            if ($obj.Type -eq "AgentProperty") {
-                $parent = Get-AMAgent -ID $obj.ParentID -Connection $obj.ConnectionAlias
-                $updateObject = $parent | Get-AMObjectProperty
+            switch ($obj.Type) {
+                "Agent" {
+                    $parent = Get-AMAgent -ID $obj.ID -Connection $obj.ConnectionAlias
+                }
+                "AgentProperty" {
+                    $parent = Get-AMAgent -ID $obj.ParentID -Connection $obj.ConnectionAlias
+                }
+                default {
+                    Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
+                }
+            }
+            $updateObject = $parent | Get-AMObjectProperty
+            if (($updateObject | Measure-Object).Count -eq 1) {
                 $shouldUpdate = $false
                 if ($updateObject.Constants.Name -notcontains $Name) {
                     switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
@@ -65,11 +75,12 @@ function Add-AMConstant {
                         11      { $newConstant = [AMConstantv11]::new($obj.ConnectionAlias) }
                         default { throw "Unsupported server major version: $_!" }
                     }
-                    $newConstant.ParentID      = $updateObject.ID
-                    $newConstant.Name          = $Name
-                    $newConstant.Value         = $Value
-                    $newConstant.Comment       = $Comment
-                    $newConstant.ConstantUsage = [AMConstantType]::Constant
+                    $newConstant.ParentID       = $updateObject.ID
+                    $newConstant.Name           = $Name
+                    $newConstant.Value          = $Value
+                    $newConstant.ClearTextValue = $Value
+                    $newConstant.Comment        = $Comment
+                    $newConstant.ConstantUsage  = [AMConstantType]::Constant
                     $updateObject.Constants += $newConstant
                     $shouldUpdate = $true
                 }
@@ -86,7 +97,7 @@ function Add-AMConstant {
                     Write-Verbose "$($obj.Type) for $($parent.Type) '$($parent.Name)' already contains the specified values."
                 }
             } else {
-                Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
+                Write-Error -Message "AgentProperty not specified!" -TargetObject $obj
             }
         }
     }
