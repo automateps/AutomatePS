@@ -26,7 +26,7 @@ function Get-AMObjectProperty {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 02/06/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -55,3 +55,7 @@ function Get-AMObjectProperty {
         }
     }
 }
+
+New-Alias -Name Get-AMAgentProperty    -Value Get-AMObjectProperty -Scope Global
+New-Alias -Name Get-AMTaskProperty     -Value Get-AMObjectProperty -Scope Global
+New-Alias -Name Get-AMWorkflowProperty -Value Get-AMObjectProperty -Scope Global
