@@ -1,5 +1,5 @@
 ---
-external help file: AutoMatePS-help.xml
+external help file: AutomatePS-help.xml
 Module Name: AutoMatePS
 online version: https://github.com/davidseibel/AutoMatePS
 schema: 2.0.0
@@ -104,7 +104,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Author(s):     : David Seibel
 Contributor(s) :
 Date Created   : 07/26/2018
-Date Modified  : 11/15/2018
+Date Modified  : 02/06/2019
 
 ## RELATED LINKS
 
