@@ -13,7 +13,8 @@ function Remove-AMObject {
             Skips checking if object is in use.
 
         .INPUTS
-            The following objects can be disabled by this function:
+            The following objects can be removed by this function:
+            Folder
             Workflow
             Task
             Condition
@@ -35,7 +36,7 @@ function Remove-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 02/06/2018
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -234,6 +235,7 @@ function Remove-AMObject {
 New-Alias -Name Remove-AMAgent      -Value Remove-AMObject -Scope Global
 New-Alias -Name Remove-AMAgentGroup -Value Remove-AMObject -Scope Global
 New-Alias -Name Remove-AMCondition  -Value Remove-AMObject -Scope Global
+New-Alias -Name Remove-AMFolder     -Value Remove-AMObject -Scope Global
 New-Alias -Name Remove-AMProcess    -Value Remove-AMObject -Scope Global
 New-Alias -Name Remove-AMTask       -Value Remove-AMObject -Scope Global
 New-Alias -Name Remove-AMUser       -Value Remove-AMObject -Scope Global
