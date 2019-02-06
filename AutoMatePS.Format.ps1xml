@@ -1046,6 +1046,35 @@
             </TableControl>
         </View>
         <View>
+            <Name>CustomRepositoryMapDetail</Name>
+            <ViewSelectedBy>
+                <TypeName>AMRepositoryMapDetail</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <AutoSize />
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>SourceName</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>DestinationName</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>SourceName</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>DestinationName</PropertyName>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
             <Name>CustomUserSession</Name>
             <ViewSelectedBy>
                 <TypeName>CustomUserSession</TypeName>
