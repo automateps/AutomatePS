@@ -14,6 +14,7 @@ function Move-AMObject {
 
         .INPUTS
             The following objects can be moved by this function:
+            Folder
             Workflow
             Task
             Process
@@ -33,7 +34,7 @@ function Move-AMObject {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 02/04/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -51,25 +52,21 @@ function Move-AMObject {
 
     PROCESS {
         foreach ($obj in $InputObject) {
-            if ($Folder.Path -like "\$(([AMTypeDictionary]::($obj.Type)).RootFolderName)*") {
-                if ($obj.ParentID -ne $Folder.ID) {
-                    switch ($obj.Type) {
-                        {$_ -in "Workflow","Task","Condition","Process","Agent","AgentGroup","User","UserGroup"} {
-                            $update = Get-AMObject -ID $obj.ID -Types $obj.Type -Connection $obj.ConnectionAlias
-                        }
-                        default {
-                            Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
-                        }
+            if ($obj.ParentID -ne $Folder.ID) {
+                switch ($obj.Type) {
+                    {$_ -in "Folder","Workflow","Task","Condition","Process","Agent","AgentGroup","User","UserGroup"} {
+                        $update = Get-AMObject -ID $obj.ID -Types $obj.Type -Connection $obj.ConnectionAlias
                     }
-                    $update.Path     = Join-Path -Path $Folder.Path -ChildPath $Folder.Name
-                    $update.ParentID = $Folder.ID
-                    $update | Set-AMObject
-                    Write-Verbose "Moved $($obj.Type) '$($obj.Name)' to folder $(Join-Path -Path $Folder.Path -ChildPath $Folder.Name)."
-                } else {
-                    Write-Verbose "$($obj.Type) '$($obj.Name)' is already in folder $(Join-Path -Path $Folder.Path -ChildPath $Folder.Name)."
+                    default {
+                        Write-Error -Message "Unsupported input type '$($obj.Type)' encountered!" -TargetObject $obj
+                    }
                 }
+                $update.Path     = Join-Path -Path $Folder.Path -ChildPath $Folder.Name
+                $update.ParentID = $Folder.ID
+                $update | Set-AMObject
+                Write-Verbose "Moved $($obj.Type) '$($obj.Name)' to folder $(Join-Path -Path $Folder.Path -ChildPath $Folder.Name)."
             } else {
-                Write-Error -Message "Invalid folder path $(Join-Path -Path $Folder.Path -ChildPath $Folder.Name) for object type '$($obj.Type)'!" -TargetObject $obj
+                Write-Verbose "$($obj.Type) '$($obj.Name)' is already in folder $(Join-Path -Path $Folder.Path -ChildPath $Folder.Name)."
             }
         }
     }
@@ -78,6 +75,7 @@ function Move-AMObject {
 New-Alias -Name Move-AMAgent      -Value Move-AMObject -Scope Global
 New-Alias -Name Move-AMAgentGroup -Value Move-AMObject -Scope Global
 New-Alias -Name Move-AMCondition  -Value Move-AMObject -Scope Global
+New-Alias -Name Move-AMFolder     -Value Move-AMObject -Scope Global
 New-Alias -Name Move-AMProcess    -Value Move-AMObject -Scope Global
 New-Alias -Name Move-AMTask       -Value Move-AMObject -Scope Global
 New-Alias -Name Move-AMUser       -Value Move-AMObject -Scope Global

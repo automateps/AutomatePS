@@ -5,55 +5,88 @@ online version: https://github.com/davidseibel/AutoMatePS
 schema: 2.0.0
 ---
 
-# Remove-AMConstant
+# New-AMRepositoryMap
 
 ## SYNOPSIS
-Removes constants from an AutoMate Enterprise agent property.
+Creates server to server repository mappings
 
 ## SYNTAX
 
 ```
-Remove-AMConstant [-InputObject] <Object> [-Name] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+New-AMRepositoryMap [[-SourceObject] <Object>] [[-DestinationObject] <Object>] [-CreateReverseMapping]
+ [[-FilePath] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Remove-AMConstant removes constants from an agent property.
+New-AMRepositoryMap creates repository mappings between two servers to be supplied to Copy-AMWorkflow.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
-Get-AMAgent "agent01" | Get-AMObjectProperty | Remove-AMConstant -Name test
-```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
-### -InputObject
-The agent property to modify.
+### -SourceObject
+The source object to map
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 1
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Name
-The name of the constant.
+### -DestinationObject
+The destination object to map
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CreateReverseMapping
+Also create the reverse mapping from destination server to source server
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FilePath
+The file path to save repository mappings in, saved in the user profile by default
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: 2
-Default value: None
+Required: False
+Position: 3
+Default value: "$($env:APPDATA)\AutoMatePS\repositorymap.csv"
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -95,16 +128,13 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
-### AgentProperty
 ## OUTPUTS
 
-### None
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
-Date Created   : 07/26/2018
-Date Modified  : 02/06/2019
+Date Created   : 02/01/2019
+Date Modified  : 02/01/2019
 
 ## RELATED LINKS
 

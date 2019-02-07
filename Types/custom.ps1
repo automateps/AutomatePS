@@ -50,6 +50,37 @@ class AMMatchedProperty {
     }
 }
 
+class AMRepositoryMapDetail {
+    $SourceConnection
+    $SourceID
+    $SourceName
+    $SourceType
+    $DestinationConnection
+    $DestinationID
+    $DestinationName
+    $DestinationType
+    AMRepositoryMapDetail($Mapping) {
+        $this.SourceConnection = $Mapping.SourceConnection
+        $this.SourceID = $Mapping.SourceID
+        $this.SourceName = $Mapping.SourceName
+        $this.SourceType = $Mapping.SourceType
+        $this.DestinationConnection = $Mapping.DestinationConnection
+        $this.DestinationID = $Mapping.DestinationID
+        $this.DestinationName = $Mapping.DestinationName
+        $this.DestinationType = $Mapping.DestinationType
+    }
+    AMRepositoryMapDetail($Source, $Destination) {
+        $this.SourceConnection = $Source.ConnectionAlias
+        $this.SourceID = $Source.ID
+        $this.SourceName = $Source.Name
+        $this.SourceType = $Source.Type
+        $this.DestinationConnection = $Destination.ConnectionAlias
+        $this.DestinationID = $Destination.ID
+        $this.DestinationName = $Destination.Name
+        $this.DestinationType = $Destination.Type
+    }
+}
+
 # AutoMate Enterprise creates some system level objects that have a static ID defined (not stored in the DB).
 # These should remain the same across installations on different servers.
 class AMSystemAgent {

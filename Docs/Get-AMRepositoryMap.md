@@ -5,50 +5,37 @@ online version: https://github.com/davidseibel/AutoMatePS
 schema: 2.0.0
 ---
 
-# Add-AMConstant
+# Get-AMRepositoryMap
 
 ## SYNOPSIS
-Adds constants to an AutoMate Enterprise agent property.
+Retrieves server to server repository mappings
 
 ## SYNTAX
 
 ```
-Add-AMConstant -InputObject <Object> [-Name] <String> [-Value] <String> [-Comment <String>]
+Get-AMRepositoryMap [-SourceConnection] <Object> [-DestinationConnection] <Object> [[-FilePath] <String>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add-AMConstant adds constants to an agent property.
+Get-AMRepositoryMap retrieves repository mappings between two servers to be supplied to Copy-AMWorkflow
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
-Get-AMAgent "agent01" | Get-AMObjectProperty | Add-AMConstant -Name test -Value 123 -Comment "Test adding a constant"
-```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
-### -InputObject
-The agent property to modify.
+### -SourceConnection
+The source server connection alias
 
 ```yaml
 Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Name
-The name for the new constant.
-
-```yaml
-Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -59,11 +46,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Value
-The value for the new constant.
+### -DestinationConnection
+The destination server connection alias
 
 ```yaml
-Type: String
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -74,8 +61,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Comment
-The comment for the new constant.
+### -FilePath
+The file path to retrieve repository mappings from, retrieved from the user profile by default
 
 ```yaml
 Type: String
@@ -83,8 +70,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
+Position: 3
+Default value: "$($env:APPDATA)\AutoMatePS\repositorymap.csv"
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -95,16 +82,13 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
-### AgentProperty
 ## OUTPUTS
 
-### None
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
-Date Created   : 07/26/2018
-Date Modified  : 11/15/2018
+Date Created   : 02/01/2019
+Date Modified  : 02/06/2019
 
 ## RELATED LINKS
 

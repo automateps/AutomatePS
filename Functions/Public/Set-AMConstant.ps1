@@ -1,22 +1,22 @@
-function Add-AMConstant {
+function Set-AMConstant {
     <#
         .SYNOPSIS
-            Adds constants to an AutoMate Enterprise agent property.
+            Sets constants on an AutoMate Enterprise agent property.
 
         .DESCRIPTION
-            Add-AMConstant adds constants to an agent property.
+            Set-AMConstant sets constants for an agent.
 
         .PARAMETER InputObject
             The agent property to modify.
 
         .PARAMETER Name
-            The name for the new constant.
+            The name of the constant to modify.
 
         .PARAMETER Value
-            The value for the new constant.
+            The value to set for the constant.
 
         .PARAMETER Comment
-            The comment for the new constant.
+            The comment to set for the constant.
 
         .INPUTS
             The following AutoMate object types can be modified by this function:
@@ -26,12 +26,12 @@ function Add-AMConstant {
             None
 
         .EXAMPLE
-            Get-AMAgent "agent01" | Get-AMObjectProperty | Add-AMConstant -Name test -Value 123 -Comment "Test adding a constant"
+            Get-AMAgent "agent01" | Get-AMObjectProperty | Set-AMConstant -Name test -Value 123 -Comment "Test modifying a constant"
 
         .NOTES
             Author(s):     : David Seibel
             Contributor(s) :
-            Date Created   : 07/26/2018
+            Date Created   : 02/06/2019
             Date Modified  : 02/06/2019
 
         .LINK
@@ -50,6 +50,7 @@ function Add-AMConstant {
         [ValidateNotNullOrEmpty()]
         [string]$Value,
 
+        [AllowEmptyString()]
         [string]$Comment
     )
 
@@ -69,19 +70,14 @@ function Add-AMConstant {
             $updateObject = $parent | Get-AMObjectProperty
             if (($updateObject | Measure-Object).Count -eq 1) {
                 $shouldUpdate = $false
-                if ($updateObject.Constants.Name -notcontains $Name) {
-                    switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
-                        10      { $newConstant = [AMConstantv10]::new($obj.ConnectionAlias) }
-                        11      { $newConstant = [AMConstantv11]::new($obj.ConnectionAlias) }
-                        default { throw "Unsupported server major version: $_!" }
-                    }
-                    $newConstant.ParentID       = $updateObject.ID
-                    $newConstant.Name           = $Name
-                    $newConstant.Value          = $Value
-                    $newConstant.ClearTextValue = $Value
-                    $newConstant.Comment        = $Comment
-                    $newConstant.ConstantUsage  = [AMConstantType]::Constant
-                    $updateObject.Constants += $newConstant
+                $constant = $updateObject.Constants | Where-Object {$_.Name -eq $Name}
+                if ($PSBoundParameters.ContainsKey("Value") -and $constant.Value -ne $Value) {
+                    $constant.Value = $Value
+                    $constant.ClearTextValue = $Value
+                    $shouldUpdate = $true
+                }
+                if ($PSBoundParameters.ContainsKey("Comment") -and $constant.Comment -ne $Comment) {
+                    $constant.Comment = $Comment
                     $shouldUpdate = $true
                 }
                 if ($shouldUpdate) {

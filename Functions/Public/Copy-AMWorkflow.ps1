@@ -37,7 +37,7 @@ function Copy-AMWorkflow {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 01/07/2019
+            Date Modified  : 02/01/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -77,7 +77,7 @@ function Copy-AMWorkflow {
             $conditionFolder = $user | Get-AMFolder -Type CONDITIONS
             $processFolder = $user | Get-AMFolder -Type PROCESSES
 
-            Write-Verbose "Caching workflow IDs for server $($Connection.ConnectionAlias) for ID checking"
+            Write-Verbose "Caching workflow IDs for server $($Connection.Alias) for ID checking"
             $workflowCache = Get-AMWorkflow -Connection $Connection
             $existingIds = @()
             $existingIds += $workflowCache.ID

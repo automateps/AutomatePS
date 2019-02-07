@@ -5,26 +5,26 @@ online version: https://github.com/davidseibel/AutoMatePS
 schema: 2.0.0
 ---
 
-# Add-AMConstant
+# Set-AMConstant
 
 ## SYNOPSIS
-Adds constants to an AutoMate Enterprise agent property.
+Sets constants on an AutoMate Enterprise agent property.
 
 ## SYNTAX
 
 ```
-Add-AMConstant -InputObject <Object> [-Name] <String> [-Value] <String> [-Comment <String>]
+Set-AMConstant -InputObject <Object> [-Name] <String> [-Value] <String> [-Comment <String>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add-AMConstant adds constants to an agent property.
+Set-AMConstant sets constants for an agent.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-AMAgent "agent01" | Get-AMObjectProperty | Add-AMConstant -Name test -Value 123 -Comment "Test adding a constant"
+Get-AMAgent "agent01" | Get-AMObjectProperty | Set-AMConstant -Name test -Value 123 -Comment "Test modifying a constant"
 ```
 
 ## PARAMETERS
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-The name for the new constant.
+The name of the constant to modify.
 
 ```yaml
 Type: String
@@ -60,7 +60,7 @@ Accept wildcard characters: False
 ```
 
 ### -Value
-The value for the new constant.
+The value to set for the constant.
 
 ```yaml
 Type: String
@@ -75,7 +75,7 @@ Accept wildcard characters: False
 ```
 
 ### -Comment
-The comment for the new constant.
+The comment to set for the constant.
 
 ```yaml
 Type: String
@@ -103,8 +103,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## NOTES
 Author(s):     : David Seibel
 Contributor(s) :
-Date Created   : 07/26/2018
-Date Modified  : 11/15/2018
+Date Created   : 02/06/2019
+Date Modified  : 02/06/2019
 
 ## RELATED LINKS
 
