@@ -45,7 +45,7 @@ function Add-AMWorkflowLink {
             Author(s):     : David Seibel
             Contributor(s) :
             Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Date Modified  : 04/22/2019
 
         .LINK
             https://github.com/davidseibel/AutoMatePS
@@ -78,7 +78,7 @@ function Add-AMWorkflowLink {
         [ValidateNotNullOrEmpty()]
         [AMLinkResultType]$ResultType = [AMLinkResultType]::Default,
 
-        [ValidateNotNullOrEmpty()]
+        [ValidateNotNull()]
         $Value = ""
     )
 
