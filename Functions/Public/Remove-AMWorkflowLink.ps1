@@ -9,8 +9,12 @@ function Remove-AMWorkflowLink {
         .PARAMETER InputObject
             The link object to remove.
 
+        .PARAMETER ID
+            The ID of the link to remove (if passing in a workflow).
+
         .INPUTS
             The following AutoMate object types can be modified by this function:
+            Workflow
             WorkflowLink
 
         .OUTPUTS
@@ -18,28 +22,36 @@ function Remove-AMWorkflowLink {
 
         .EXAMPLE
             # Remove all links from workflow "Some Workflow"
-            (Get-AMWorkflow "Some Workflow").Links | Remove-AMWorkflowVariable -Name "emailAddress"
-
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            (Get-AMWorkflow "Some Workflow").Links | Remove-AMWorkflowLink
 
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-        $InputObject
+        $InputObject,
+
+        [Parameter(Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string]$ID
     )
 
     PROCESS {
         :objectloop foreach ($obj in $InputObject) {
             $shouldUpdate = $false
             switch ($obj.Type) {
+                "Workflow" {
+                    $updateObject = Get-AMWorkflow -ID $obj.ID -Connection $obj.ConnectionAlias
+                    if (($updateObject | Measure-Object).Count -eq 1) {
+                        $updateObject.Links = @($updateObject.Links | Where-Object {$_.ID -ne $ID})
+                        $shouldUpdate = $true
+                    } else {
+                        Write-Warning "Multiple workflows found for ID $($obj.ID)! No action will be taken."
+                        continue objectloop
+                    }
+                }
                 "WorkflowLink" {
                     $updateObject = Get-AMObject -ID $obj.WorkflowID -Types Workflow
                     if (($updateObject | Measure-Object).Count -eq 1) {
