@@ -61,7 +61,7 @@ class AMAutomationConstructv10 : AMObjectConstructv10 {
     AMAutomationConstructv10() : Base() {}
     AMAutomationConstructv10([string]$ConnectionAlias) : Base($ConnectionAlias) {}
     AMAutomationConstructv10([string]$Name, [AMFolderv10]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {}
-    AMAutomationConstructv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMAutomationConstructv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.CompletionState    = $PSCustomObject.CompletionState
         $this.CreatedBy          = $PSCustomObject.CreatedBy
         $this.CreatedOn          = $PSCustomObject.CreatedOn.ToLocalTime()
@@ -78,6 +78,11 @@ class AMAutomationConstructv10 : AMObjectConstructv10 {
         $this.StartedOn          = $PSCustomObject.StartedOn.ToLocalTime()
         $this.Version            = $PSCustomObject.Version
         $this.VersionDate        = $PSCustomObject.VersionDate.ToLocalTime()
+
+        $CreatedByUser = $LookupTable | Where-Object {$_.ID -eq $this.CreatedBy}
+        $LockedByUser = $LookupTable | Where-Object {$_.ID -eq $this.LockedBy}
+        $this | Add-Member -MemberType NoteProperty -Name "CreatedByUser" -Value $CreatedByUser.Name
+        $this | Add-Member -MemberType NoteProperty -Name "LockedByUser" -Value $LockedByUser.Name
     }
 
     [AMUserv10]GetCreatedByUser() {
@@ -110,7 +115,7 @@ class AMAgentv10 : AMAutomationConstructv10 {
         $this.__type    = "AgentConstruct:#AutoMate.Constructs.v10"
         $this.Type      = [AMConstructType]::Agent
     }
-    AMAgentv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMAgentv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.__type                       = "AgentConstruct:#AutoMate.Constructs.v10"
         $this.AgentType                    = $PSCustomObject.AgentType
         $this.AgentUpgradeStep             = $PSCustomObject.AgentUpgradeStep
@@ -206,7 +211,8 @@ class AMAgentPropertyv10 : AMAutomationConstructv10 {
     [bool]$UseInterruptHotkey                             = $false
     [bool]$UseLowestCompletionState                       = $false
 
-    AMAgentPropertyv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {$this.AgentPort = $PSCustomObject.AgentPort
+    AMAgentPropertyv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
+        $this.AgentPort                               = $PSCustomObject.AgentPort
         $this.AgentUpgradeTimeout                     = $PSCustomObject.AgentUpgradeTimeout
         $this.ConfigurationConstruct                  = [AMConfigurationConstructv10]::new($PSCustomObject.ConfigurationConstruct,$ConnectionAlias)
         $this.DefaultRunAsDomain                      = $PSCustomObject.DefaultRunAsDomain
@@ -279,10 +285,12 @@ class AMAgentGroupv10 : AMAutomationConstructv10 {
         $this.__type   = "AgentGroupConstruct:#AutoMate.Constructs.v10"
         $this.Type     = [AMConstructType]::AgentGroup
     }
-    AMAgentGroupv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMAgentGroupv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         foreach ($agentID in $PSCustomObject.AgentIDs) {
             $this.AgentIDs.Add($agentID)
         }
+        $AgentNames = $LookupTable | Where-Object {$_.ID -in $this.AgentIDs}
+        $this | Add-Member -MemberType NoteProperty -Name "AgentNames" -Value $AgentNames.Name
     }
     [AMAgentv10[]]GetAgents() {
         $return = $this | Get-AMAgent
@@ -301,7 +309,7 @@ class AMAuditEventv10 : AMObjectConstructv10 {
     [AMEventStatusType]$StatusType
     [string]$UserID
 
-    AMAuditEventv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMAuditEventv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.Data               = $PSCustomObject.Data
         $this.EventDateTime      = $PSCustomObject.EventDateTime.ToLocalTime()
         $this.EventText          = $PSCustomObject.EventText
@@ -444,7 +452,7 @@ class AMExecutionEventv10 : AMObjectConstructv10 {
     [string]$UserID
     [string]$WorkflowInstanceID
 
-    AMExecutionEventv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMExecutionEventv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.AgentID            = $PSCustomObject.AgentID
         $this.ConstructID        = $PSCustomObject.ConstructID
         $this.EndDateTime        = $PSCustomObject.EndDateTime.ToLocalTime()
@@ -490,7 +498,7 @@ class AMFolderv10 : AMAutomationConstructv10 {
         $this.__type = "FolderConstruct:#AutoMate.Constructs.v10"
         $this.Type = [AMConstructType]::Folder
     }
-    AMFolderv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {}
+    AMFolderv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {}
 }
 
 class AMInstancev10 : AMObjectConstructv10 {
@@ -526,7 +534,7 @@ class AMInstancev10 : AMObjectConstructv10 {
     [string]$UserName
     [string]$UserPath
     [string]$WorkflowInstanceID
-    AMInstancev10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMInstancev10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.AgentID                = $PSCustomObject.AgentID
         $this.AgentName              = $PSCustomObject.AgentName
         $this.AgentPath              = $PSCustomObject.AgentPath
@@ -619,7 +627,7 @@ class AMPermissionv10 : AMObjectConstructv10 {
         $this.ConstructID = $Construct.ID
         $this.GroupID     = $Principal.ID
     }
-    AMPermissionv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMPermissionv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.AssignPermission      = $PSCustomObject.AssignPermission
         $this.ConstructID           = $PSCustomObject.ConstructID
         $this.CreatePermission      = $PSCustomObject.CreatePermission
@@ -668,7 +676,7 @@ class AMProcessv10 : AMAutomationConstructv10 {
         $this.__type = "ProcessConstruct:#AutoMate.Constructs.v10"
         $this.Type   = [AMConstructType]::Process
     }
-    AMProcessv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMProcessv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.__type               = "ProcessConstruct:#AutoMate.Constructs.v10"
         $this.CommandLine          = $PSCustomObject.CommandLine
         $this.EnvironmentVariables = $PSCustomObject.EnvironmentVariables
@@ -701,7 +709,7 @@ class AMSystemPermissionv10 : AMObjectConstructv10 {
         $this.__type  = "SystemPermissionsConstruct:#AutoMate.Constructs.v10"
         $this.Type    = [AMConstructType]::SystemPermission
     }
-    AMSystemPermissionv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMSystemPermissionv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.DeployPermission                = $PSCustomObject.DeployPermission
         $this.EditDashboardPermission         = $PSCustomObject.EditDashboardPermission
         $this.EditDefaultPropertiesPermission = $PSCustomObject.EditDefaultPropertiesPermission
@@ -735,7 +743,7 @@ class AMTaskv10 : AMAutomationConstructv10 {
         $this.__type = "TaskConstruct:#AutoMate.Constructs.v10"
         $this.Type   = [AMConstructType]::Task
     }
-    AMTaskv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMTaskv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.__type = "TaskConstruct:#AutoMate.Constructs.v10"
         $this.AML    = $PSCustomObject.AML
         if ($PSCustomObject.PSObject.Properties.Name -contains "DurationInSeconds") {
@@ -777,7 +785,7 @@ class AMTaskPropertyv10 : AMAutomationConstructv10 {
     [int]$TaskTimeout
     [bool]$UseLogonDefault
 
-    AMTaskPropertyv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMTaskPropertyv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.CanStopTask                                = $PSCustomObject.CanStopTask
         $this.ConcurrencyType                            = $PSCustomObject.ConcurrencyType
         $this.ErrorNotificationPropertiesInheritancePath = $PSCustomObject.ErrorNotificationPropertiesInheritancePath
@@ -826,7 +834,7 @@ class AMTriggerv10 : AMAutomationConstructv10 {
     AMTriggerv10([string]$Name, [AMFolderv10]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
         $this.Type = [AMConstructType]::Condition
     }
-    AMTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.Description             = $PSCustomObject.Description
         $this.IgnoreExistingCondition = $PSCustomObject.IgnoreExistingCondition
         $this.Timeout                 = $PSCustomObject.Timeout
@@ -855,7 +863,7 @@ class AMDatabaseTriggerv10 : AMTriggerv10 {
         $this.__type      = "DatabaseTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::Database
     }
-    AMDatabaseTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMDatabaseTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.DatabaseType     = $PSCustomObject.DatabaseType
         $this.Server           = $PSCustomObject.Server
         $this.NotificationPort = $PSCustomObject.NotificationPort
@@ -882,7 +890,7 @@ class AMEventLogTriggerv10 : AMTriggerv10 {
         $this.__type      = "EventLogTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::EventLog
     }
-    AMEventLogTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMEventLogTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.EventCategory    = $PSCustomObject.EventCategory
         $this.EventDescription = $PSCustomObject.EventDescription
         $this.EventSource      = $PSCustomObject.EventSource
@@ -919,7 +927,7 @@ class AMFileSystemTriggerv10 : AMTriggerv10 {
         $this.__type      = "FileTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::FileSystem
     }
-    AMFileSystemTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMFileSystemTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.Domain          = $PSCustomObject.Domain
         $this.Exclude         = $PSCustomObject.Exclude
         $this.FileAdded       = $PSCustomObject.FileAdded
@@ -953,7 +961,7 @@ class AMIdleTriggerv10 : AMTriggerv10 {
         $this.__type      = "IdleTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::Idle
     }
-    AMIdleTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMIdleTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.Delay   = $PSCustomObject.Delay
         $this.Measure = $PSCustomObject.Measure
     }
@@ -971,7 +979,7 @@ class AMKeyboardTriggerv10 : AMTriggerv10 {
         $this.__type      = "KeyTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::Keyboard
     }
-    AMKeyboardTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMKeyboardTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.EraseText   = $PSCustomObject.EraseText
         $this.Foreground  = $PSCustomObject.Foreground
         $this.KeyType     = $PSCustomObject.KeyType
@@ -988,7 +996,7 @@ class AMLogonTriggerv10 : AMTriggerv10 {
         $this.__type      = "StartupTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::Logon
     }
-    AMLogonTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMLogonTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         foreach ($u in $PSCustomObject.User) {
             $this.User.Add($u)
         }
@@ -1012,7 +1020,7 @@ class AMPerformanceTriggerv10 : AMTriggerv10 {
         $this.__type      = "PerformanceTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::Performance
     }
-    AMPerformanceTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMPerformanceTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.Amount                         = $PSCustomObject.Amount
         $this.AnyProcessInApplication        = $PSCustomObject.AnyProcessInApplication
         $this.AnyThreadInProcess             = $PSCustomObject.AnyThreadInProcess
@@ -1034,12 +1042,11 @@ class AMProcessTriggerv10 : AMTriggerv10 {
     [bool]$Started                 = $false
     [bool]$TriggerOnce             = $false
 
-
     AMProcessTriggerv10([string]$Name, [AMFolderv10]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
         $this.__type      = "ProcessTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::Process
     }
-    AMProcessTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMProcessTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.Action      = $PSCustomObject.Action
         $this.Exclude     = $PSCustomObject.Exclude
         $this.ProcessName = $PSCustomObject.ProcessName
@@ -1068,7 +1075,7 @@ class AMScheduleTriggerv10 : AMTriggerv10 {
         $this.__type      = "ScheduleTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::Schedule
     }
-    AMScheduleTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMScheduleTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.End            = $PSCustomObject.End
         $this.Frequency      = $PSCustomObject.Frequency
         $this.LastLaunchDate = $PSCustomObject.LastLaunchDate
@@ -1102,7 +1109,7 @@ class AMServiceTriggerv10 : AMTriggerv10 {
         $this.__type      = "ServiceTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::Service
     }
-    AMServiceTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMServiceTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.Action      = $PSCustomObject.Action
         $this.Exclude     = $PSCustomObject.Exclude
         $this.ServiceName = $PSCustomObject.ServiceName
@@ -1151,7 +1158,7 @@ class AMSharePointTriggerv10 : AMTriggerv10 {
         $this.__type      = "SharePointTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::SharePoint
     }
-    AMSharePointTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMSharePointTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.Domain                = $PSCustomObject.Domain
         $this.EmailReceived         = $PSCustomObject.EmailReceived
         $this.FieldAdded            = $PSCustomObject.FieldAdded
@@ -1207,7 +1214,7 @@ class AMSNMPTriggerv10 : AMTriggerv10 {
         $this.__type      = "SNMPTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::SNMPTrap
     }
-    AMSNMPTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMSNMPTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.AcceptUnathenticatedTrap = $PSCustomObject.AcceptUnathenticatedTrap
         $this.Community                = $PSCustomObject.Community
         $this.Enterprise               = $PSCustomObject.Enterprise
@@ -1269,7 +1276,7 @@ class AMWindowTriggerv10 : AMTriggerv10 {
         $this.__type      = "WindowTriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::Window
     }
-    AMWindowTriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMWindowTriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.Action           = $PSCustomObject.Action
         $this.CheckClass       = $PSCustomObject.CheckClass
         $this.CheckHandle      = $PSCustomObject.CheckHandle
@@ -1341,7 +1348,7 @@ class AMWMITriggerv10 : AMTriggerv10 {
         $this.__type      = "WMITriggerConstruct:#AutoMate.Constructs.v10"
         $this.TriggerType = [AMTriggerType]::WMI
     }
-    AMWMITriggerv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMWMITriggerv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.IntervalInSeconds = $PSCustomObject.IntervalInSeconds
         $this.MachineName       = $PSCustomObject.MachineName
         $this.Namespace         = $PSCustomObject.Namespace
@@ -1366,7 +1373,7 @@ class AMUserv10 : AMAutomationConstructv10 {
         $this.__type = "UserConstruct:#AutoMate.Constructs.v10"
         $this.Type   = [AMConstructType]::User
     }
-    AMUserv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMUserv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.CipherPassword    = $PSCustomObject.CipherPassword
         $this.ConditionFolderID = $PSCustomObject.ConditionFolderID
         $this.LockedOutOn       = $PSCustomObject.LockedOutOn.ToLocalTime()
@@ -1403,10 +1410,12 @@ class AMUserGroupv10 : AMAutomationConstructv10 {
         $this.__type = "UserGroupConstruct:#AutoMate.Constructs.v10"
         $this.Type   = [AMConstructType]::UserGroup
     }
-    AMUserGroupv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMUserGroupv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         foreach ($userID in $PSCustomObject.UserIDs) {
             $this.UserIDs.Add($userID)
         }
+        $UserNames = $LookupTable | Where-Object {$_.ID -in $this.UserIDs}
+        $this | Add-Member -MemberType NoteProperty -Name "UserNames" -Value $UserNames.Name
     }
     [AMUserv10[]]GetUsers() {
         $return = $this | Get-AMUser
@@ -1426,7 +1435,7 @@ class AMWorkflowv10 : AMAutomationConstructv10 {
         $this.__type    = "WorkFlowConstruct:#AutoMate.Constructs.v10"
         $this.Type      = [AMConstructType]::Workflow
     }
-    AMWorkflowv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMWorkflowv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.__type     = "WorkFlowConstruct:#AutoMate.Constructs.v10"
         $this.LinkType   = $PSCustomObject.LinkType
         $this.ZoomFactor = $PSCustomObject.ZoomFactor
@@ -1437,13 +1446,13 @@ class AMWorkflowv10 : AMAutomationConstructv10 {
             $this.Links.Add([AMWorkflowLinkv10]::new($link, $this, $ConnectionAlias))
         }
         foreach ($trigger in $PSCustomObject.Triggers) {
-            $this.Triggers.Add([AMWorkflowTriggerv10]::new($trigger, $this, $ConnectionAlias))
+            $this.Triggers.Add([AMWorkflowTriggerv10]::new($trigger, $this, $LookupTable, $ConnectionAlias))
         }
         foreach ($item in $PSCustomObject.Items) {
             if ($item.___type -like "WorkFlowConditionConstruct*") {
-                $this.Items.Add([AMWorkflowConditionv10]::new($item, $this, $ConnectionAlias))
+                $this.Items.Add([AMWorkflowConditionv10]::new($item, $this, $LookupTable, $ConnectionAlias))
             } else {
-                $this.Items.Add([AMWorkflowItemv10]::new($item, $this, $ConnectionAlias))
+                $this.Items.Add([AMWorkflowItemv10]::new($item, $this, $LookupTable, $ConnectionAlias))
             }
         }
         if ($PSCustomObject.PSObject.Properties.Name -contains "DurationInSeconds") {
@@ -1471,7 +1480,7 @@ class AMWorkflowVariablev10 : AMObjectConstructv10 {
         $this.__type = "VariableConstruct:#AutoMate.Constructs.v10"
         $this.Type   = [AMConstructType]::WorkflowVariable
     }
-    AMWorkflowVariablev10([PSCustomObject]$PSCustomObject, $Workflow, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMWorkflowVariablev10([PSCustomObject]$PSCustomObject, [AMWorkflowv10]$Workflow, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.CurrentValue = $PSCustomObject.CurrentValue
         $this.DataType     = $PSCustomObject.DataType
         $this.Description  = $PSCustomObject.Description
@@ -1483,27 +1492,37 @@ class AMWorkflowVariablev10 : AMObjectConstructv10 {
     }
 }
 
+class AMWorkflowLinkPointv10 {
+    [int]$x
+    [int]$y
+
+    AMWorkflowLinkPointv10($x, $y) {
+        $this.x = $x
+        $this.y = $y
+    }
+}
+
 class AMWorkflowLinkv10 : AMObjectConstructv10 {
-    [string]$DestinationID             = [string]::Empty
-    [PSCustomObject]$DestinationPoint = [PSCustomObject]@{X = 0; Y = 0}
-    [AMLinkType]$LinkType             = [AMLinkType]::Blank
-    [AMLinkResultType]$ResultType     = [AMLinkResultType]::Default
-    [string]$SourceID                 = [string]::Empty
-    [PSCustomObject]$SourcePoint      = [PSCustomObject]@{X = 0; Y = 0}
-    [string]$Value                    = [string]::Empty
-    [string]$WorkflowID               = [string]::Empty
+    [string]$DestinationID                    = [string]::Empty
+    [AMWorkflowLinkPointv10]$DestinationPoint = [AMWorkflowLinkPointv10]::new(0, 0)
+    [AMLinkType]$LinkType                     = [AMLinkType]::Blank
+    [AMLinkResultType]$ResultType             = [AMLinkResultType]::Default
+    [string]$SourceID                         = [string]::Empty
+    [AMWorkflowLinkPointv10]$SourcePoint      = [AMWorkflowLinkPointv10]::new(0, 0)
+    [string]$Value                            = [string]::Empty
+    [string]$WorkflowID                       = [string]::Empty
 
     AMWorkflowLinkv10([string]$ConnectionAlias) : Base($ConnectionAlias) {
         $this.__type = "WorkFlowLinkConstruct:#AutoMate.Constructs.v10"
         $this.Type   = [AMConstructType]::WorkflowLink
     }
-    AMWorkflowLinkv10([PSCustomObject]$PSCustomObject, $Workflow, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMWorkflowLinkv10([PSCustomObject]$PSCustomObject, [AMWorkflowv10]$Workflow, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.DestinationID    = $PSCustomObject.DestinationID
-        $this.DestinationPoint = $PSCustomObject.DestinationPoint
+        $this.DestinationPoint = [AMWorkflowLinkPointv10]::new($PSCustomObject.DestinationPoint.X, $PSCustomObject.DestinationPoint.Y)
         $this.LinkType         = $PSCustomObject.LinkType
         $this.ResultType       = $PSCustomObject.ResultType
         $this.SourceID         = $PSCustomObject.SourceID
-        $this.SourcePoint      = $PSCustomObject.SourcePoint
+        $this.SourcePoint      = [AMWorkflowLinkPointv10]::new($PSCustomObject.SourcePoint.X, $PSCustomObject.SourcePoint.Y)
         $this.Value            = $PSCustomObject.Value
         $this.WorkflowID       = $PSCustomObject.WorkflowID
         $this | Add-Member -Name Workflow -MemberType NoteProperty -Value $Workflow
@@ -1533,7 +1552,7 @@ class AMWorkflowItemv10 : AMObjectConstructv10 {
         $this.__type = "WorkFlowItemConstruct:#AutoMate.Constructs.v10"
         $this.Type   = [AMConstructType]::WorkflowItem
     }
-    AMWorkflowItemv10([PSCustomObject]$PSCustomObject, $Workflow, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMWorkflowItemv10([PSCustomObject]$PSCustomObject, [AMWorkflowv10]$Workflow, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.AgentID       = $PSCustomObject.AgentID
         $this.ConstructID   = $PSCustomObject.ConstructID
         $this.ConstructType = $PSCustomObject.ConstructType
@@ -1546,6 +1565,8 @@ class AMWorkflowItemv10 : AMObjectConstructv10 {
         $this.X             = $PSCustomObject.X
         $this.Y             = $PSCustomObject.Y
         $this | Add-Member -Name Workflow -MemberType NoteProperty -Value $Workflow
+        $AgentName = $LookupTable | Where-Object {$_.ID -eq $this.AgentID}
+        $this | Add-Member -MemberType NoteProperty -Name "AgentName" -Value $AgentName.Name
     }
     [AMAutomationConstructv10]GetAgent() {
         $return = Get-AMObject -ID $this.AgentID -Types Agent,AgentGroup -Connection $this.ConnectionAlias
@@ -1563,7 +1584,7 @@ class AMWorkflowTriggerv10 : AMWorkflowItemv10 {
     AMWorkflowTriggerv10([string]$ConnectionAlias) : Base($ConnectionAlias) {
         $this.__type = "WorkFlowTriggerConstruct:#AutoMate.Constructs.v10"
     }
-    AMWorkflowTriggerv10([PSCustomObject]$PSCustomObject, $Workflow, [string]$ConnectionAlias) : Base($PSCustomObject, $Workflow, $ConnectionAlias) {
+    AMWorkflowTriggerv10([PSCustomObject]$PSCustomObject, [AMWorkflowv10]$Workflow, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $Workflow, $LookupTable, $ConnectionAlias) {
         $this.TriggerType = $PSCustomObject.TriggerType
     }
 }
@@ -1575,7 +1596,7 @@ class AMWorkflowConditionv10 : AMWorkflowItemv10 {
         $this.__type        = "WorkFlowConditionConstruct:#AutoMate.Constructs.v10"
         $this.ConstructType = [AMConstructType]::Evaluation
     }
-    AMWorkflowConditionv10([PSCustomObject]$PSCustomObject, $Workflow, [string]$ConnectionAlias) : Base($PSCustomObject, $Workflow, $ConnectionAlias) {
+    AMWorkflowConditionv10([PSCustomObject]$PSCustomObject, [AMWorkflowv10]$Workflow, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $Workflow, $LookupTable, $ConnectionAlias) {
         $this.Expression = $PSCustomObject.Expression
     }
 }
@@ -1598,7 +1619,7 @@ class AMWorkflowPropertyv10 : AMAutomationConstructv10 {
     [bool]$TimeoutPropertiesSpecified                   = $false
     [AMTimeMeasure]$TimeoutUnit                         = [AMTimeMeasure]::Minutes
 
-    AMWorkflowPropertyv10([PSCustomObject]$PSCustomObject, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+    AMWorkflowPropertyv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.Constants                                  = $PSCustomObject.Constants
         $this.DefaultAgentID                             = $PSCustomObject.DefaultAgentID
         $this.DefaultAgentPropertiesInheritancePath      = $PSCustomObject.DefaultAgentPropertiesInheritancePath
