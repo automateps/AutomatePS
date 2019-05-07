@@ -21,14 +21,8 @@ function Lock-AMObject {
         .EXAMPLE
             Get-AMWorkflow "My Workflow" | Lock-AMObject
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (
@@ -56,7 +50,7 @@ function Lock-AMObject {
     }
 }
 
-New-Alias -Name Lock-AMCondition  -Value Lock-AMObject -Scope Global
-New-Alias -Name Lock-AMProcess    -Value Lock-AMObject -Scope Global
-New-Alias -Name Lock-AMTask       -Value Lock-AMObject -Scope Global
-New-Alias -Name Lock-AMWorkflow   -Value Lock-AMObject -Scope Global
+New-Alias -Name Lock-AMCondition  -Value Lock-AMObject -Scope Global -Force
+New-Alias -Name Lock-AMProcess    -Value Lock-AMObject -Scope Global -Force
+New-Alias -Name Lock-AMTask       -Value Lock-AMObject -Scope Global -Force
+New-Alias -Name Lock-AMWorkflow   -Value Lock-AMObject -Scope Global -Force

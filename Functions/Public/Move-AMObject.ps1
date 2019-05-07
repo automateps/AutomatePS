@@ -30,14 +30,8 @@ function Move-AMObject {
         .EXAMPLE
             Get-AMWorkflow "My Workflow" | Move-AMObject -Folder (Get-AMFolder -Path \WORKFLOWS)
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 02/04/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (
@@ -72,12 +66,12 @@ function Move-AMObject {
     }
 }
 
-New-Alias -Name Move-AMAgent      -Value Move-AMObject -Scope Global
-New-Alias -Name Move-AMAgentGroup -Value Move-AMObject -Scope Global
-New-Alias -Name Move-AMCondition  -Value Move-AMObject -Scope Global
-New-Alias -Name Move-AMFolder     -Value Move-AMObject -Scope Global
-New-Alias -Name Move-AMProcess    -Value Move-AMObject -Scope Global
-New-Alias -Name Move-AMTask       -Value Move-AMObject -Scope Global
-New-Alias -Name Move-AMUser       -Value Move-AMObject -Scope Global
-New-Alias -Name Move-AMUserGroup  -Value Move-AMObject -Scope Global
-New-Alias -Name Move-AMWorkflow   -Value Move-AMObject -Scope Global
+New-Alias -Name Move-AMAgent      -Value Move-AMObject -Scope Global -Force
+New-Alias -Name Move-AMAgentGroup -Value Move-AMObject -Scope Global -Force
+New-Alias -Name Move-AMCondition  -Value Move-AMObject -Scope Global -Force
+New-Alias -Name Move-AMFolder     -Value Move-AMObject -Scope Global -Force
+New-Alias -Name Move-AMProcess    -Value Move-AMObject -Scope Global -Force
+New-Alias -Name Move-AMTask       -Value Move-AMObject -Scope Global -Force
+New-Alias -Name Move-AMUser       -Value Move-AMObject -Scope Global -Force
+New-Alias -Name Move-AMUserGroup  -Value Move-AMObject -Scope Global -Force
+New-Alias -Name Move-AMWorkflow   -Value Move-AMObject -Scope Global -Force

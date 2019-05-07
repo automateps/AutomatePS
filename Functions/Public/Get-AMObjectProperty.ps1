@@ -22,14 +22,8 @@ function Get-AMObjectProperty {
             # Get permissions for workflow "My Workflow"
             Get-AMWorkflow "My Workflow" | Get-AMObjectProperty
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 02/06/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (
@@ -56,6 +50,6 @@ function Get-AMObjectProperty {
     }
 }
 
-New-Alias -Name Get-AMAgentProperty    -Value Get-AMObjectProperty -Scope Global
-New-Alias -Name Get-AMTaskProperty     -Value Get-AMObjectProperty -Scope Global
-New-Alias -Name Get-AMWorkflowProperty -Value Get-AMObjectProperty -Scope Global
+New-Alias -Name Get-AMAgentProperty    -Value Get-AMObjectProperty -Scope Global -Force
+New-Alias -Name Get-AMTaskProperty     -Value Get-AMObjectProperty -Scope Global -Force
+New-Alias -Name Get-AMWorkflowProperty -Value Get-AMObjectProperty -Scope Global -Force

@@ -28,14 +28,8 @@ function Rename-AMObject {
         .EXAMPLE
             Get-AMWorkflow "My Workflow" | Rename-AMObject "My Renamed Workflow"
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 02/06/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (
@@ -83,10 +77,10 @@ function Rename-AMObject {
     }
 }
 
-New-Alias -Name Rename-AMAgentGroup -Value Rename-AMObject -Scope Global
-New-Alias -Name Rename-AMCondition  -Value Rename-AMObject -Scope Global
-New-Alias -Name Rename-AMFolder     -Value Rename-AMObject -Scope Global
-New-Alias -Name Rename-AMProcess    -Value Rename-AMObject -Scope Global
-New-Alias -Name Rename-AMTask       -Value Rename-AMObject -Scope Global
-New-Alias -Name Rename-AMUserGroup  -Value Rename-AMObject -Scope Global
-New-Alias -Name Rename-AMWorkflow   -Value Rename-AMObject -Scope Global
+New-Alias -Name Rename-AMAgentGroup -Value Rename-AMObject -Scope Global -Force
+New-Alias -Name Rename-AMCondition  -Value Rename-AMObject -Scope Global -Force
+New-Alias -Name Rename-AMFolder     -Value Rename-AMObject -Scope Global -Force
+New-Alias -Name Rename-AMProcess    -Value Rename-AMObject -Scope Global -Force
+New-Alias -Name Rename-AMTask       -Value Rename-AMObject -Scope Global -Force
+New-Alias -Name Rename-AMUserGroup  -Value Rename-AMObject -Scope Global -Force
+New-Alias -Name Rename-AMWorkflow   -Value Rename-AMObject -Scope Global -Force
