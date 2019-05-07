@@ -47,6 +47,7 @@ enum AMConstructType {
     ApiPermission     = 66
     SNMPCredential    = 67
     WindowsControl    = 68
+    SystemAgent       = 100 # Used for parameter auto-completion only, not an API type
 }
 
 enum AMTriggerType {
