@@ -16,14 +16,8 @@ function Get-AMServer {
             # Get information about the management server
             Get-AMServer -Type Management
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/29/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (

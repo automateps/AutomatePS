@@ -21,16 +21,8 @@ function Search-ObjectProperty {
         .PARAMETER ParentProperty
             Do not use.  This parameter is used internally when searching recursively to keep track of the full path to a matching property.
 
-        .EXAMPLE
-
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (

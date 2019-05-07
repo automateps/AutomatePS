@@ -29,14 +29,8 @@ function Copy-AMCondition {
             # Copy condition "Daily at 12:00PM" from server1 to server2
             Get-AMCondition "Daily at 12:00PM" -Connection server1 | Copy-AMCondition -Folder (Get-AMFolder CONDITIONS -Connection server2) -Connection server2
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 02/01/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (

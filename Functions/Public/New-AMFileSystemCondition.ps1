@@ -99,14 +99,8 @@ function New-AMFileSystemCondition {
         .EXAMPLE
             New-AMFileSystemCondition -Name "Monitor folder C:\temp" -MonitorFolder "C:\temp" -FileAdded
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 12/03/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

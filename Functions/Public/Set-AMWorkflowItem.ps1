@@ -7,7 +7,7 @@ function Set-AMWorkflowItem {
             Set-AMWorkflowItem can modify an item in a workflow object.
 
         .PARAMETER InputObject
-            The object to modify - a workflow or a workflow variable.
+            The object to modify - a workflow or a workflow item.
 
         .PARAMETER ID
             The ID of the item to modify (if passing in a workflow).
@@ -51,14 +51,8 @@ function Set-AMWorkflowItem {
             # Change the label on an item in a workflow
             Get-AMWorkflow "Some Workflow" | Set-AMWorkflowItem -ID "{1103992f-cbbd-44fd-9177-9de31b1070ab}" -Label "Do something" -UseLabel
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

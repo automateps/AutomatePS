@@ -15,14 +15,8 @@ function Get-AMRepositoryMapDetail {
         .PARAMETER FilePath
             The file path to retrieve repository mappings from, retrieved from the user profile by default
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 02/06/2019
-            Date Modified  : 02/06/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
 
     #>
     [CmdletBinding()]
@@ -38,7 +32,7 @@ function Get-AMRepositoryMapDetail {
                 throw [System.Management.Automation.PSArgumentException]"FilePath '$_' does not exist!"
             }
         })]
-        [string]$FilePath = "$($env:APPDATA)\AutoMatePS\repositorymap.csv"
+        [string]$FilePath = "$($env:APPDATA)\AutomatePS\repositorymap.csv"
     )
 
     $mappings = Import-Csv -Path $FilePath

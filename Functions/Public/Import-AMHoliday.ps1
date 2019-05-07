@@ -12,11 +12,8 @@ function Import-AMHoliday {
         .EXAMPLE
             Import-AMHoliday -Path "C:\ProgramData\AutoMate\Automate Enterprise 11\Holidays.aho"
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 11/13/2018
-            Date Modified  : 11/15/2018
+        .LINK
+            https://github.com/davidseibel/AutoMatePS
     #>
     [CmdletBinding()]
     [OutputType([Hashtable])]

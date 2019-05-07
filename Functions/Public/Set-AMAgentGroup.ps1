@@ -27,14 +27,8 @@ function Set-AMAgentGroup {
             # Empty notes for all agent groups
             Get-AMAgentGroup | Set-AMUserGroup -Notes ""
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

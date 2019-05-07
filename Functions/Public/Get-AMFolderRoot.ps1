@@ -27,14 +27,8 @@ function Get-AMFolderRoot {
             # Get workflows contained in the root of \WORKFLOWS
             Get-AMFolderRoot -Type Workflow | Get-AMWorkflow
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 02/01/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     [OutputType([System.Object[]])]

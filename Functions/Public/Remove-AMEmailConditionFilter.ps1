@@ -22,14 +22,8 @@ function Remove-AMEmailConditionFilter {
         .EXAMPLE
             Get-AMCondition "email" | Remove-AMEmailConditionFilter -ID "{5ccaab49-012a-48db-b186-696061e20a2c}"
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="Default",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

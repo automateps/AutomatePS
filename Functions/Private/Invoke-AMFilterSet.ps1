@@ -20,14 +20,8 @@ function Invoke-AMFilterSet {
             # Filter non-API folder root objects
             Get-AMFolderRoot | Invoke-AMFilterSet -FilterSet @{Property = "Name"; Value = "Task"}
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 01/28/2019
-            Date Modified  : 01/28/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (

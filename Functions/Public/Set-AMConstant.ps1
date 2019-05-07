@@ -28,14 +28,8 @@ function Set-AMConstant {
         .EXAMPLE
             Get-AMAgent "agent01" | Get-AMObjectProperty | Set-AMConstant -Name test -Value 123 -Comment "Test modifying a constant"
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 02/06/2019
-            Date Modified  : 02/06/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (

@@ -62,14 +62,8 @@ function Get-AMAuditEvent {
             # Get audit events using filter sets
             Get-AMAuditEvent -FilterSet @{Property = 'EventText'; Operator = 'contains'; Value = 'connection from IP 10.1.1.10'}
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/30/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([System.Object[]])]

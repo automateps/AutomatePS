@@ -23,14 +23,8 @@ function Add-AMScheduleConditionHoliday {
             # Add a holiday category to schedule "On Specified Dates"
             Get-AMCondition "On Specified Dates" | Add-AMScheduleConditionHoliday -Holiday "United States"
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="Default")]
     param (

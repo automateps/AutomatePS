@@ -26,14 +26,8 @@ function Set-AMCondition {
             # Change notes for a task
             Get-AMCondition "Daily at 8AM" | Set-AMCondition -Notes "Starts every day at 8AM"
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

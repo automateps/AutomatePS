@@ -18,14 +18,8 @@ function Get-AMConnectionStoreItem {
         .EXAMPLE
             Get-AMConnectionStoreItem -Connection server01
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="Default")]
     param (
@@ -44,7 +38,7 @@ function Get-AMConnectionStoreItem {
                 throw [System.Management.Automation.PSArgumentException]"FilePath '$_' does not exist!"
             }
         })]
-        [string]$FilePath = "$($env:APPDATA)\AutoMatePS\connstore.xml"
+        [string]$FilePath = "$($env:APPDATA)\AutomatePS\connstore.xml"
     )
 
     if (Test-Path -Path $FilePath) {
