@@ -83,14 +83,8 @@ function Get-AMFolder {
             # Get folders using filter sets
             Get-AMFolder -FilterSet @{ Property = "Path"; Operator = "contains"; Value = "WORKFLOWS"}
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 01/28/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([System.Object[]])]
@@ -124,7 +118,7 @@ function Get-AMFolder {
         [switch]$Recurse = $false,
 
         # -RecurseCache is a private parameter used only within this function, and should not be used externally.
-        #  This parameter allows the folder cache to be based to subsequent, recursive calls
+        #  This parameter allows the folder cache to be passed to subsequent, recursive calls
         [Parameter(DontShow = $true)]
         [Hashtable]$RecurseCache = @{},
 
@@ -284,6 +278,9 @@ function Get-AMFolder {
         }
         # End workaround
 
+        if (($result | Measure-Object).Count -eq 1) {
+            $result = @($result)
+        }
         if (($result.Count -gt 0) -and $Recurse) {
             $result += $result | Get-AMFolder -Recurse -RecurseCache $folderCache
         }
