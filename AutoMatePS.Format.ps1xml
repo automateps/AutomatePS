@@ -1116,6 +1116,55 @@
             </TableControl>
         </View>
         <View>
+            <Name>CustomWorkflowItem</Name>
+            <ViewSelectedBy>
+                <TypeName>CustomWorkflowItem</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <AutoSize />
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>Workflow</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Construct</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>ConstructType</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Agent</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <ScriptBlock>
+                                    $_.Workflow.Name
+                                </ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>
+                                    $_.Construct.Name
+                                </ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>
+                                    $_.ConstructType
+                                </ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>
+                                    $_.Agent.Name
+                                </ScriptBlock>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
             <Name>CustomWorkflowLink</Name>
             <ViewSelectedBy>
                 <TypeName>CustomWorkflowLink</TypeName>
