@@ -4,7 +4,7 @@ using module AutomatePS  # Expose custom types so PlatyPS can create help
 
 # Update module manifest
 $functions = Get-ChildItem ".\Functions\Public\*.ps1" | Select-Object -ExpandProperty BaseName
-$scripts = Get-ChildItem .\Types | ForEach-Object { "types\$($_.Name)" }
+$scripts = Get-ChildItem .\Types | ForEach-Object { "Types\$($_.Name)" }
 if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
     #Update-ModuleManifest -Path ".\AutomatePS.psd1" -FunctionsToExport $functions
     $manifestSplat = @{
