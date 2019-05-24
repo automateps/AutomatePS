@@ -1,7 +1,7 @@
 ---
-external help file: AutoMatePS-help.xml
-Module Name: AutoMatePS
-online version: https://github.com/davidseibel/AutoMatePS
+external help file: AutomatePS-help.xml
+Module Name: AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
@@ -50,7 +50,7 @@ The construct types to search, all are searched by default.
 Type: AMConstructType[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: Undefined, Folder, Task, Workflow, Condition, RootContainer, UserPreference, Agent, MachineConnection, User, AgentGroup, UserGroup, Evaluation, Comment, AuditEvent, ExecutionEvent, Connection, Wait, Joiner, Exclusion, ServerProperty, WorkflowProperty, AgentProperty, TaskProperty, Constant, Package, AMSystem, Permission, SystemPermission, Process, WorkflowItemProperty, WorkflowItem, WorkflowLink, WorkflowVariable, ExecutionServerProperty, ManagementServerProperty, ManagedTaskProperty, Snapshot, ExclusionPeriod, SnapshotInfo, Notification, Instance, ApiPermission, SNMPCredential, WindowsControl, WorkflowTrigger, WorkflowCondition
+Accepted values: Undefined, Folder, Task, Workflow, Condition, RootContainer, UserPreference, Agent, MachineConnection, User, AgentGroup, UserGroup, Evaluation, Comment, AuditEvent, ExecutionEvent, Connection, Wait, Joiner, Exclusion, ServerProperty, WorkflowProperty, AgentProperty, TaskProperty, Constant, Package, AMSystem, Permission, SystemPermission, Process, WorkflowItemProperty, WorkflowItem, WorkflowLink, WorkflowVariable, ExecutionServerProperty, ManagementServerProperty, ManagedTaskProperty, Snapshot, ExclusionPeriod, SnapshotInfo, Notification, Instance, ApiPermission, SNMPCredential, WindowsControl, SystemAgent, WorkflowTrigger, WorkflowCondition
 
 Required: False
 Position: 2
@@ -84,20 +84,15 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
 ## NOTES
-Author(s):     : David Seibel
-Contributor(s) :
-Date Created   : 07/26/2018
-Date Modified  : 10/04/2018
 
 ## RELATED LINKS
 
-[https://github.com/davidseibel/AutoMatePS](https://github.com/davidseibel/AutoMatePS)
+[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
 

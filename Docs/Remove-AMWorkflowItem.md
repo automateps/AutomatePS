@@ -5,34 +5,33 @@ online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
-# Remove-AMScheduleConditionHoliday
+# Remove-AMWorkflowItem
 
 ## SYNOPSIS
-Removes a holiday from an AutoMate Enterprise schedule condition using the Holidays interval.
+Removes an item from an AutoMate Enterprise workflow
 
 ## SYNTAX
 
 ```
-Remove-AMScheduleConditionHoliday -InputObject <Object> [-Holiday] <String[]> [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Remove-AMWorkflowItem -InputObject <Object> [[-ID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Remove-AMScheduleConditionHoliday removes a holiday from an AutoMate Enterprise schedule condition using the Holidays interval.
+Remove-AMWorkflowItem can remove items from a workflow object.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-# Add a holiday category to schedule "On Specified Dates"
+# Remove all triggers from workflow "Some Workflow"
 ```
 
-Get-AMCondition "On Specified Dates" | Remove-AMScheduleConditionHoliday -Holiday "United States"
+(Get-AMWorkflow "Some Workflow").Triggers | Remove-AMWorkflowItem
 
 ## PARAMETERS
 
 ### -InputObject
-The schedule condition object to remove the holiday from.
+The item object to remove.
 
 ```yaml
 Type: Object
@@ -46,15 +45,15 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Holiday
-The holiday categories to remove from the schedule.
+### -ID
+The ID of the item to remove (if passing in a workflow).
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False
@@ -98,7 +97,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### The following AutoMate object types can be modified by this function:
-### Condition
+### Workflow
+### WorkflowItem
+### WorkflowTrigger
 ## OUTPUTS
 
 ### None

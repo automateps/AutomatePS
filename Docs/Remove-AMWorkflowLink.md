@@ -1,7 +1,7 @@
 ---
-external help file: AutoMatePS-help.xml
-Module Name: AutoMatePS
-online version: https://github.com/davidseibel/AutoMatePS
+external help file: AutomatePS-help.xml
+Module Name: AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
@@ -13,7 +13,7 @@ Removes a link from an AutoMate Enterprise workflow
 ## SYNTAX
 
 ```
-Remove-AMWorkflowLink [-InputObject] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-AMWorkflowLink -InputObject <Object> [[-ID] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ Remove-AMWorkflowLink can remove links from a workflow object.
 # Remove all links from workflow "Some Workflow"
 ```
 
-(Get-AMWorkflow "Some Workflow").Links | Remove-AMWorkflowVariable -Name "emailAddress"
+(Get-AMWorkflow "Some Workflow").Links | Remove-AMWorkflowLink
 
 ## PARAMETERS
 
@@ -39,9 +39,24 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ID
+The ID of the link to remove (if passing in a workflow).
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -77,23 +92,19 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### The following AutoMate object types can be modified by this function:
+### Workflow
 ### WorkflowLink
 ## OUTPUTS
 
 ### None
 ## NOTES
-Author(s):     : David Seibel
-Contributor(s) :
-Date Created   : 07/26/2018
-Date Modified  : 11/15/2018
 
 ## RELATED LINKS
 
-[https://github.com/davidseibel/AutoMatePS](https://github.com/davidseibel/AutoMatePS)
+[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
 

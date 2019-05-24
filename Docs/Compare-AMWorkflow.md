@@ -5,89 +5,88 @@ online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
-# Remove-AMScheduleConditionHoliday
+# Compare-AMWorkflow
 
 ## SYNOPSIS
-Removes a holiday from an AutoMate Enterprise schedule condition using the Holidays interval.
+Compares two workflows.
 
 ## SYNTAX
 
 ```
-Remove-AMScheduleConditionHoliday -InputObject <Object> [-Holiday] <String[]> [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Compare-AMWorkflow [[-ReferenceObject] <Object>] [[-DifferenceObject] <Object>] [-ExcludeDifferent]
+ [-IncludeEqual] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Remove-AMScheduleConditionHoliday removes a holiday from an AutoMate Enterprise schedule condition using the Holidays interval.
+Compare-AMWorkflow compares two workflows and displays the differences.
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
-# Add a holiday category to schedule "On Specified Dates"
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
 
-Get-AMCondition "On Specified Dates" | Remove-AMScheduleConditionHoliday -Holiday "United States"
+{{ Add example description here }}
 
 ## PARAMETERS
 
-### -InputObject
-The schedule condition object to remove the holiday from.
+### -ReferenceObject
+The first object to compare.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Holiday
-The holiday categories to remove from the schedule.
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
+### -DifferenceObject
+The second object to compare.
 
 ```yaml
-Type: SwitchParameter
+Type: Object
 Parameter Sets: (All)
-Aliases: wi
+Aliases:
 
 Required: False
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -ExcludeDifferent
+Exclude differences from the output.
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IncludeEqual
+Include equal items in the input.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -97,11 +96,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
-### Condition
 ## OUTPUTS
 
-### None
 ## NOTES
 
 ## RELATED LINKS

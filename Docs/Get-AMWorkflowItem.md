@@ -5,31 +5,33 @@ online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
-# Rename-AMObject
+# Get-AMWorkflowItem
 
 ## SYNOPSIS
-Renames an AutoMate Enterprise object.
+Gets a list of items within a workflow.
 
 ## SYNTAX
 
 ```
-Rename-AMObject -InputObject <Object> [-Name] <String> [<CommonParameters>]
+Get-AMWorkflowItem [-InputObject] <Object> [[-LinkType] <AMLinkType>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Rename-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and renames the object(s).
+Get-AMWorkflowItem retrieves links for a workflow.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-AMWorkflow "My Workflow" | Rename-AMObject "My Renamed Workflow"
+# Get links in workflow "FTP Files"
 ```
+
+Get-AMWorkflow "FTP Files" | Get-AMWorkflowLink
 
 ## PARAMETERS
 
 ### -InputObject
-The object(s) to be locked.
+The object to retrieve links from.
 
 ```yaml
 Type: Object
@@ -37,22 +39,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Name
-The new name.
+### -LinkType
+Only retrieve variables of a specific link type.
 
 ```yaml
-Type: String
+Type: AMLinkType
 Parameter Sets: (All)
 Aliases:
+Accepted values: Blank, Success, Failure, Result
 
-Required: True
-Position: 1
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -63,17 +66,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following objects can be renamed by this function:
-### Folder
+### The following AutoMate object types can be queried by this function:
 ### Workflow
-### WorkflowVariable
-### Task
-### Process
-### AgentGroup
-### UserGroup
 ## OUTPUTS
 
-### None
 ## NOTES
 
 ## RELATED LINKS
