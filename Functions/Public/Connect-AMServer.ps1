@@ -37,14 +37,8 @@ function Connect-AMServer {
         .EXAMPLE
             Connect-AMServer -Connection "automate01" -Credential (Get-Credential)
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="ByConnectionStore")]
     [OutputType([AMConnection[]])]
@@ -79,7 +73,7 @@ function Connect-AMServer {
                 throw [System.Management.Automation.PSArgumentException]"ConnectionStoreFilePath '$_' does not exist!"
             }
         })]
-        [string]$ConnectionStoreFilePath = "$($env:APPDATA)\AutoMatePS\connstore.xml",
+        [string]$ConnectionStoreFilePath = "$($env:APPDATA)\AutomatePS\connstore.xml",
 
         [switch]$SaveConnection = $false
     )

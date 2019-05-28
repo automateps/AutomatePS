@@ -25,16 +25,10 @@ function Remove-AMUserGroupMember {
 
         .EXAMPLE
             # Remove a user from a user group (using user object)
-            Get-AMUserGroup | Remove-AMUserGroupMember -User (Get-AMUser "David")
-
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
+            Get-AMUserGroup | Remove-AMUserGroupMember -User (Get-AMUser "John")
 
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

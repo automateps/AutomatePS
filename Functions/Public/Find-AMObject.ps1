@@ -25,14 +25,8 @@ function Find-AMObject {
             # Find all tasks that have FTP activities
             Find-AMObject -Pattern "AMFTP" -Type Task
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 10/16/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (

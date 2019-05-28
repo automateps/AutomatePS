@@ -21,7 +21,7 @@ function Add-AMWorkflowLink {
         .PARAMETER DestinationItemID
             The destination workflow item or trigger ID for the link.
 
-        .PARAMETER Type
+        .PARAMETER LinkType
             The type of link to add.
 
         .PARAMETER ResultType
@@ -41,14 +41,8 @@ function Add-AMWorkflowLink {
             # Add a link between "Copy Files" and "Move Files"
             Get-AMWorkflow "FTP Files" | Add-AMWorkflowLink -SourceConstruct (Get-AMTask "Copy Files") -DestinationConstruct (Get-AMTask "Move Files")
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (
@@ -73,12 +67,12 @@ function Add-AMWorkflowLink {
         $DestinationItemID,
 
         [ValidateNotNullOrEmpty()]
-        [AMLinkType]$Type = [AMLinkType]::Success,
+        [AMLinkType]$LinkType = [AMLinkType]::Success,
 
         [ValidateNotNullOrEmpty()]
         [AMLinkResultType]$ResultType = [AMLinkResultType]::Default,
 
-        [ValidateNotNullOrEmpty()]
+        [ValidateNotNull()]
         $Value = ""
     )
 
@@ -87,7 +81,7 @@ function Add-AMWorkflowLink {
             throw "SourceConstruct and DestinationConstruct are not on the same AutoMate Enterprise server!"
         }
         # Don't set ResultType and Value unless the appropriate parameters are supplied
-        if ($Type -ne [AMLinkType]::Result) {
+        if ($LinkType -ne [AMLinkType]::Result) {
             $ResultType = [AMLinkResultType]::Default
             $Value = ""
         } elseif ($ResultType -ne [AMLinkResultType]::Value) {
@@ -132,8 +126,8 @@ function Add-AMWorkflowLink {
                     continue workflowloop
                 }
                 foreach ($link in $updateObject.Links) {
-                    if (($link.SourceID -eq $source.ID) -and ($link.DestinationID -eq $destination.ID)) {
-                        Write-Warning "Workflow $($obj.Name) already has a link between the specified items!"
+                    if (($link.SourceID -eq $source.ID) -and ($link.DestinationID -eq $destination.ID) -and ($link.LinkType -eq $LinkType)) {
+                        Write-Warning "Workflow $($obj.Name) already has a $($LinkType) link between the specified items!"
                         continue workflowloop
                     }
                 }
@@ -145,12 +139,18 @@ function Add-AMWorkflowLink {
                 }
                 $newLink.ParentID           = $updateObject.ID
                 $newLink.DestinationID      = $destination.ID
-                $newLink.DestinationPoint   = [PSCustomObject]@{x = $destination.X; y = $destination.Y}
-                $newLink.LinkType           = $Type
+                $newLink.DestinationPoint.X = $destination.X
+                $newLink.DestinationPoint.Y = $destination.Y
+                $newLink.LinkType           = $LinkType
                 $newLink.ResultType         = $ResultType
                 $newLink.SourceID           = $source.ID
-                $newLink.SourcePoint        = [PSCustomObject]@{x = $source.X; y = $source.Y}
-                $newLink.Value              = $Value
+                $newLink.SourcePoint.x      = $source.X
+                $newLink.SourcePoint.y      = $source.Y
+                if ($ResultType -eq [AMLinkResultType]::Value) {
+                    $newLink.Value          = $Value
+                } else {
+                    $newLink.Value          = $ResultType.ToString()
+                }
                 $newLink.WorkflowID         = $updateObject.ID
                 $updateObject.Links += $newLink
                 Set-AMWorkflow -Instance $updateObject

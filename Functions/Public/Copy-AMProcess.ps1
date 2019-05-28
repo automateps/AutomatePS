@@ -33,14 +33,8 @@ function Copy-AMProcess {
             # Copy process "Start Service" with new name "Restart Service"
             Get-AMProcess "Start Service" | Copy-AMProcess -Name "Restart Service"
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 01/07/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (

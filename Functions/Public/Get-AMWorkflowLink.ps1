@@ -20,14 +20,8 @@ function Get-AMWorkflowLink {
             # Get links in workflow "FTP Files"
             Get-AMWorkflow "FTP Files" | Get-AMWorkflowLink
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (
@@ -54,7 +48,7 @@ function Get-AMWorkflowLink {
                 if ($PSBoundParameters.ContainsKey("LinkType")) {
                     $links = $links | Where-Object {$_.LinkType -eq $LinkType}
                 }
-                $allItems = $obj.Items + $obj.Triggers
+                $allItems = @($obj.Triggers) + @($obj.Items)
                 foreach ($link in $links) {
                     $sourceItem = $allItems | Where-Object {$_.ID -eq $link.SourceID}
                     $destItem   = $allItems | Where-Object {$_.ID -eq $link.DestinationID}
@@ -63,7 +57,7 @@ function Get-AMWorkflowLink {
                     if (($link | Get-Member -Name SourceObject | Measure-Object).Count -eq 0) {
                         if (-not [string]::IsNullOrEmpty($sourceItem.ConstructID)) {
                             if ($constructCache[$obj.ConnectionAlias].ID -notcontains $sourceItem.ConstructID) {
-                                $constructCache[$obj.ConnectionAlias] += Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::($sourceItem.ConstructType)).RestResource)/$($sourceItem.ConstructID)/get" -Connection $obj.ConnectionAlias
+                                $constructCache[$obj.ConnectionAlias] += Get-AMObject -ID $sourceItem.ConstructID -Types $sourceItem.ConstructType -Connection $obj.ConnectionAlias
                             }
                             $sourceObj = $constructCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $sourceItem.ConstructID}
                         }
@@ -72,7 +66,7 @@ function Get-AMWorkflowLink {
                     if (($link | Get-Member -Name DestinationObject | Measure-Object).Count -eq 0) {
                         if (-not [string]::IsNullOrEmpty($destItem.ConstructID)) {
                             if ($constructCache[$obj.ConnectionAlias].ID -notcontains $destItem.ConstructID) {
-                                $constructCache[$obj.ConnectionAlias] += Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::($destItem.ConstructType)).RestResource)/$($destItem.ConstructID)/get" -Connection $obj.ConnectionAlias
+                                $constructCache[$obj.ConnectionAlias] += Get-AMObject -ID $destItem.ConstructID -Types $destItem.ConstructType -Connection $obj.ConnectionAlias
                             }
                             $destObj = $constructCache[$obj.ConnectionAlias] | Where-Object {$_.ID -eq $destItem.ConstructID}
                         }

@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
-Module Name: AutoMatePS
-online version: https://github.com/davidseibel/AutoMatePS
+Module Name: AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
@@ -86,7 +86,7 @@ Aliases:
 
 Required: False
 Position: 3
-Default value: "$($env:APPDATA)\AutoMatePS\repositorymap.csv"
+Default value: "$($env:APPDATA)\AutomatePS\repositorymap.csv"
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -123,20 +123,15 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
 ## NOTES
-Author(s):     : David Seibel
-Contributor(s) :
-Date Created   : 02/01/2019
-Date Modified  : 02/01/2019
 
 ## RELATED LINKS
 
-[https://github.com/davidseibel/AutoMatePS](https://github.com/davidseibel/AutoMatePS)
+[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
 

@@ -27,16 +27,18 @@ function Enable-AMObject {
         .EXAMPLE
             Get-AMAgent "agent01" | Enable-AMObject
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [Alias("Enable-AMAgent")]
+    [Alias("Enable-AMAgentGroup")]
+    [Alias("Enable-AMCondition")]
+    [Alias("Enable-AMProcess")]
+    [Alias("Enable-AMTask")]
+    [Alias("Enable-AMUser")]
+    [Alias("Enable-AMUserGroup")]
+    [Alias("Enable-AMWorkflow")]
     param (
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -60,12 +62,3 @@ function Enable-AMObject {
         }
     }
 }
-
-New-Alias -Name Enable-AMAgent      -Value Enable-AMObject -Scope Global
-New-Alias -Name Enable-AMAgentGroup -Value Enable-AMObject -Scope Global
-New-Alias -Name Enable-AMCondition  -Value Enable-AMObject -Scope Global
-New-Alias -Name Enable-AMProcess    -Value Enable-AMObject -Scope Global
-New-Alias -Name Enable-AMTask       -Value Enable-AMObject -Scope Global
-New-Alias -Name Enable-AMUser       -Value Enable-AMObject -Scope Global
-New-Alias -Name Enable-AMUserGroup  -Value Enable-AMObject -Scope Global
-New-Alias -Name Enable-AMWorkflow   -Value Enable-AMObject -Scope Global

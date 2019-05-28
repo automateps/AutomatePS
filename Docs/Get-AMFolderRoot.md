@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/davidseibel/AutoMatePS
+online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
@@ -54,7 +54,9 @@ Accept wildcard characters: False
 ```
 
 ### -FilterSet
-{{Fill FilterSet Description}}
+The parameters to filter the search on. 
+Supply hashtable(s) with the following properties: Property, Operator, Value.
+Valid values for the Operator are: =, !=, \<, \>, contains (default - no need to supply Operator when using 'contains')
 
 ```yaml
 Type: Hashtable[]
@@ -69,7 +71,7 @@ Accept wildcard characters: False
 ```
 
 ### -FilterSetMode
-{{Fill FilterSetMode Description}}
+If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
 
 ```yaml
 Type: String
@@ -99,8 +101,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -108,12 +109,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ### System.Object[]
 ## NOTES
-Author(s):     : David Seibel
-Contributor(s) :
-Date Created   : 07/26/2018
-Date Modified  : 01/28/2019
 
 ## RELATED LINKS
 
-[https://github.com/davidseibel/AutoMatePS](https://github.com/davidseibel/AutoMatePS)
+[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
 

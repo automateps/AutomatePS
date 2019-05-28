@@ -40,14 +40,8 @@ function Get-AMMetric {
             # Get completed metrics over a 24 hour interval for the past week
             Get-AMMetric -Type Completed -Interval 86400 -StartDate (Get-Date).AddDays(-7)
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 01/24/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (

@@ -18,14 +18,8 @@ function Get-AMObject {
         .EXAMPLE
             Get-AMObject -ID "{1525ea3b-45cc-4ee1-9b34-8ea855c3b299}"
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (
@@ -62,9 +56,13 @@ function Get-AMObject {
     $filterSet = @{Property = "ID"; Operator = "="; Value = $ID}
     foreach ($type in $Types) {
         foreach ($c in $Connection) {
-            $resource = Format-AMUri -Path "$(([AMTypeDictionary]::($type)).RestResource)/index" -FilterSet $filterSet
-            if (Invoke-AMRestMethod -Resource $resource -Connection $c) {
-                Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::($type)).RestResource)/$ID/get" -Connection $c
+            if ($type -eq "SystemAgent") {
+                Get-AMSystemAgent -ID $ID -Connection $c
+            } else {
+                $resource = Format-AMUri -Path "$(([AMTypeDictionary]::($type)).RestResource)/index" -FilterSet $filterSet
+                if (Invoke-AMRestMethod -Resource $resource -Connection $c) {
+                    Invoke-AMRestMethod -Resource "$(([AMTypeDictionary]::($type)).RestResource)/$ID/get" -Connection $c
+                }
             }
         }
     }

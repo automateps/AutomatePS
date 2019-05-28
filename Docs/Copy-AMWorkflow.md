@@ -1,7 +1,7 @@
 ---
-external help file: AutoMatePS-help.xml
-Module Name: AutoMatePS
-online version: https://github.com/davidseibel/AutoMatePS
+external help file: AutomatePS-help.xml
+Module Name: AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
@@ -14,7 +14,8 @@ Copies an AutoMate Enterprise workflow.
 
 ```
 Copy-AMWorkflow [-InputObject] <Object> [[-Name] <String>] [[-Folder] <Object>] [[-ConflictAction] <String>]
- [[-IdSubstitutions] <Hashtable>] [[-Connection] <Object>] [<CommonParameters>]
+ [[-IdSubstitutions] <Hashtable>] [-IgnoreServerVersionDifference] [[-Connection] <Object>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -108,6 +109,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -IgnoreServerVersionDifference
+Ignore server version differences when copying between servers. 
+If a task needs to be copied from the source server to the destination server, Copy-AMTask will still fail.
+This could result in an incomplete migration. 
+To avoid this, first use the export/import options in the Server Management Console for any tasks in the workflow(s) to be copied.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Connection
 The server to copy the object to.
 
@@ -124,8 +143,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -134,12 +152,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## OUTPUTS
 
 ## NOTES
-Author(s):     : David Seibel
-Contributor(s) :
-Date Created   : 07/26/2018
-Date Modified  : 01/07/2019
 
 ## RELATED LINKS
 
-[https://github.com/davidseibel/AutoMatePS](https://github.com/davidseibel/AutoMatePS)
+[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
 

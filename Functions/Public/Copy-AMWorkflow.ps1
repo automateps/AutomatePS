@@ -22,6 +22,10 @@ function Copy-AMWorkflow {
             A hashtable containing ID mappings between the source and destination server.  The ID from the source server object is the key, the destination server is the value.
             Use this to define mappings of agents/agent groups/folders, or repository objects where the default mapping actions taken by this workflow are not sufficient.
 
+        .PARAMETER IgnoreServerVersionDifference
+            Ignore server version differences when copying between servers.  If a task needs to be copied from the source server to the destination server, Copy-AMTask will still fail.
+            This could result in an incomplete migration.  To avoid this, first use the export/import options in the Server Management Console for any tasks in the workflow(s) to be copied.
+
         .PARAMETER Connection
             The server to copy the object to.
 
@@ -33,14 +37,8 @@ function Copy-AMWorkflow {
             # Copy workflow "FTP Files to Company A" to "FTP Files to Company B"
             Get-AMWorkflow "FTP Files to Company A" | Copy-AMWorkflow -Name "FTP Files to Company B" -Folder (Get-AMFolder WORKFLOWS)
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 02/01/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (
@@ -59,6 +57,8 @@ function Copy-AMWorkflow {
 
         [ValidateNotNullOrEmpty()]
         [Hashtable]$IdSubstitutions = [Hashtable]::new(),
+
+        [switch]$IgnoreServerVersionDifference,
 
         [ValidateNotNullOrEmpty()]
         $Connection
@@ -97,7 +97,11 @@ function Copy-AMWorkflow {
                     # Copy from one AutoMate server to another
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
                         if ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major -ne $Connection.Version.Major) {
-                            throw "Source server and destination server are different versions! This module does not support changing task versions."
+                            if ($IgnoreServerVersionDifference.IsPresent) {
+                                Write-Warning "Server versions do not match, but this is being ignored.  This could result in an incomplete migration if tasks fail to migrate!"
+                            } else {
+                                throw "Source server and destination server are different versions! This module does not support changing task versions."
+                            }
                         }
                         if ($PSBoundParameters.ContainsKey("Folder")) {
                             # If folder was specified, validate that it is on the destination server
@@ -131,16 +135,18 @@ function Copy-AMWorkflow {
                     11      { $copyObject = [AMWorkflowv11]::new($Name, $Folder, $Connection.Alias) }
                     default { throw "Unsupported server major version: $_!" }
                 }
-
-                if ($obj.ConnectionAlias -ne $Connection.Alias) {
-                    # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
-                    if ($obj.ID -notin $existingIds) {
-                        $copyObject.ID = $obj.ID
-                    }
+                # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
+                if ($obj.ID -notin $existingIds) {
+                    $copyObject.ID = $obj.ID
                 }
 
                 # Copy properties of the source workflow to the new workflow
-                $currentObject = Get-AMWorkflow -ID $obj.ID -Connection $obj.ConnectionAlias
+                try {
+                    $currentObject = Get-AMWorkflow -ID $obj.ID -Connection $obj.ConnectionAlias
+                } catch {
+                    Write-Verbose "Could not find workflow with ID $($obj.ID), assuming this is a workflow that was deleted from the server."
+                    $currentObject = $obj.PSObject.Copy()
+                }
                 $copyObject.CreatedBy       = $user.ID
                 $copyObject.CompletionState = $currentObject.CompletionState
                 $copyObject.Enabled         = $currentObject.Enabled
@@ -178,15 +184,11 @@ function Copy-AMWorkflow {
                                 default { throw "Unsupported server major version: $_!" }
                             }
                             # Workflows don't use an agent, so there's no reason to set it
-                            if ($item.Type -ne "Workflow") {
+                            if ($item.ConstructType -ne "Workflow") {
                                 $newItem.AgentID = $item.AgentID
                             }
                             # If copying to another server
                             if ($obj.ConnectionAlias -ne $Connection.Alias) {
-                                # Retain the item ID if it does not already exist
-                                if ($item.ID -notin $existingIds) {
-                                    $newItem.ID = $item.ID
-                                }
                                 # Look for any specified substitions for the agent, use if provided
                                 if ($substitions.ContainsKey($item.AgentID)) {
                                     $newItem.AgentID = $substitions[$item.AgentID]
@@ -344,6 +346,10 @@ function Copy-AMWorkflow {
                             $newItem.ConstructType = $item.ConstructType
                         }
                     }
+                    # Retain the item ID if it does not already exist
+                    if ($item.ID -notin $existingIds) {
+                        $newItem.ID = $item.ID
+                    }
                     $newItem.Enabled    = $item.Enabled
                     $newItem.Height     = $item.Height
                     $newItem.Label      = $item.Label
@@ -367,10 +373,6 @@ function Copy-AMWorkflow {
                     }
                     # If copying to another server
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
-                        # Retain the item ID if it does not already exist
-                        if ($trigger.ID -notin $existingIds) {
-                            $newTrigger.ID = $trigger.ID
-                        }
                         # Look for any specified substitions for the agent, use if provided
                         if ($substitions.ContainsKey($trigger.AgentID)) {
                             $newTrigger.AgentID = $substitions[$trigger.AgentID]
@@ -424,6 +426,10 @@ function Copy-AMWorkflow {
                     } else {
                         $newTrigger.ConstructID = $trigger.ConstructID
                     }
+                    # Retain the item ID if it does not already exist
+                    if ($trigger.ID -notin $existingIds) {
+                        $newTrigger.ID = $trigger.ID
+                    }
                     $newTrigger.TriggerType   = $trigger.TriggerType
                     $newTrigger.ConstructType = $trigger.ConstructType
                     $newTrigger.Enabled       = $trigger.Enabled
@@ -443,12 +449,9 @@ function Copy-AMWorkflow {
                         11      { $newLink = [AMWorkflowLinkv11]::new($Connection.Alias) }
                         default { throw "Unsupported server major version: $_!" }
                     }
-                    # If copying to another server
-                    if ($obj.ConnectionAlias -ne $Connection.Alias) {
-                        # Retain the link ID if it does not already exist
-                        if ($link.ID -notin $existingIds) {
-                            $newLink.ID = $link.ID
-                        }
+                    # Retain the link ID if it does not already exist
+                    if ($link.ID -notin $existingIds) {
+                        $newLink.ID = $link.ID
                     }
                     $newLink.DestinationID    = $substitions[$link.DestinationID]
                     $newLink.DestinationPoint = [PSCustomObject]@{x = $link.DestinationPoint.X; y = $link.DestinationPoint.Y}
@@ -466,12 +469,9 @@ function Copy-AMWorkflow {
                         11      { $newVariable = [AMWorkflowVariablev11]::new($Connection.Alias) }
                         default { throw "Unsupported server major version: $_!" }
                     }
-                    # If copying to another server
-                    if ($obj.ConnectionAlias -ne $Connection.Alias) {
-                        # Retain the variable ID if it does not already exist
-                        if ($variable.ID -notin $existingIds) {
-                            $newVariable.ID = $variable.ID
-                        }
+                    # Retain the variable ID if it does not already exist
+                    if ($variable.ID -notin $existingIds) {
+                        $newVariable.ID = $variable.ID
                     }
                     $newVariable.Name         = $variable.Name
                     $newVariable.ParentID     = $copyObject.ID

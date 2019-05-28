@@ -18,14 +18,8 @@ function New-AMRepositoryMap {
         .PARAMETER FilePath
             The file path to save repository mappings in, saved in the user profile by default
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 02/01/2019
-            Date Modified  : 02/01/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (
@@ -35,7 +29,7 @@ function New-AMRepositoryMap {
 
         [switch]$CreateReverseMapping = $false,
 
-        [string]$FilePath = "$($env:APPDATA)\AutoMatePS\repositorymap.csv"
+        [string]$FilePath = "$($env:APPDATA)\AutomatePS\repositorymap.csv"
     )
 
     $mappingAdded = $false

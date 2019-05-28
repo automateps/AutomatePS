@@ -1,7 +1,7 @@
 ---
-external help file: AutoMatePS-help.xml
-Module Name: AutoMatePS
-online version: https://github.com/davidseibel/AutoMatePS
+external help file: AutomatePS-help.xml
+Module Name: AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
@@ -14,20 +14,20 @@ Adds an item to an AutoMate Enterprise workflow
 
 ### ByConstruct
 ```
-Add-AMWorkflowItem -InputObject <Object> -Item <Object> [-Agent <Object>] [-X <Int32>] [-Y <Int32>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Add-AMWorkflowItem -InputObject <Object> -Item <Object> [-Agent <Object>] [-UseLabel] [-Label <String>]
+ [-X <Int32>] [-Y <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByEvaluation
 ```
-Add-AMWorkflowItem -InputObject <Object> -Expression <String> [-X <Int32>] [-Y <Int32>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Add-AMWorkflowItem -InputObject <Object> -Expression <String> [-UseLabel] [-Label <String>] [-X <Int32>]
+ [-Y <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByWait
 ```
-Add-AMWorkflowItem -InputObject <Object> [-Wait] [-X <Int32>] [-Y <Int32>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Add-AMWorkflowItem -InputObject <Object> [-Wait] [-UseLabel] [-Label <String>] [-X <Int32>] [-Y <Int32>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -119,6 +119,36 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -UseLabel
+If the item should use the configured label or not.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Label
+The label to place on the item (specify -UseLabel) to show the label in the workflow designer.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -X
 The X (horizontal) location of the new item.
 
@@ -181,8 +211,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -192,12 +221,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ### None
 ## NOTES
-Author(s):     : David Seibel
-Contributor(s) :
-Date Created   : 07/26/2018
-Date Modified  : 11/14/2018
 
 ## RELATED LINKS
 
-[https://github.com/davidseibel/AutoMatePS](https://github.com/davidseibel/AutoMatePS)
+[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
 

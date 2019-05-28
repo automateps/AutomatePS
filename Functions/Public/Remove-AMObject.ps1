@@ -32,16 +32,19 @@ function Remove-AMObject {
             # Deletes agent "agent01"
             Get-AMAgent "agent01" | Remove-AMObject
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 02/06/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="High")]
+    [Alias("Remove-AMAgent")]
+    [Alias("Remove-AMAgentGroup")]
+    [Alias("Remove-AMCondition")]
+    [Alias("Remove-AMFolder")]
+    [Alias("Remove-AMProcess")]
+    [Alias("Remove-AMTask")]
+    [Alias("Remove-AMUser")]
+    [Alias("Remove-AMUserGroup")]
+    [Alias("Remove-AMWorkflow")]
     param (
         [Parameter(ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -231,13 +234,3 @@ function Remove-AMObject {
         }
     }
 }
-
-New-Alias -Name Remove-AMAgent      -Value Remove-AMObject -Scope Global
-New-Alias -Name Remove-AMAgentGroup -Value Remove-AMObject -Scope Global
-New-Alias -Name Remove-AMCondition  -Value Remove-AMObject -Scope Global
-New-Alias -Name Remove-AMFolder     -Value Remove-AMObject -Scope Global
-New-Alias -Name Remove-AMProcess    -Value Remove-AMObject -Scope Global
-New-Alias -Name Remove-AMTask       -Value Remove-AMObject -Scope Global
-New-Alias -Name Remove-AMUser       -Value Remove-AMObject -Scope Global
-New-Alias -Name Remove-AMUserGroup  -Value Remove-AMObject -Scope Global
-New-Alias -Name Remove-AMWorkflow   -Value Remove-AMObject -Scope Global

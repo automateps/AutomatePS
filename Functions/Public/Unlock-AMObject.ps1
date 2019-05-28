@@ -18,16 +18,14 @@ function Unlock-AMObject {
         .EXAMPLE
             Get-AMWorkflow "My Workflow" | Unlock-AMObject
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [Alias("Unlock-AMCondition")]
+    [Alias("Unlock-AMProcess")]
+    [Alias("Unlock-AMTask")]
+    [Alias("Unlock-AMWorkflow")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -48,8 +46,3 @@ function Unlock-AMObject {
         }
     }
 }
-
-New-Alias -Name Unlock-AMCondition  -Value Unlock-AMObject -Scope Global
-New-Alias -Name Unlock-AMProcess    -Value Unlock-AMObject -Scope Global
-New-Alias -Name Unlock-AMTask       -Value Unlock-AMObject -Scope Global
-New-Alias -Name Unlock-AMWorkflow   -Value Unlock-AMObject -Scope Global

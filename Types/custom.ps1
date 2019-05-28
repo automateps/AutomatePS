@@ -115,3 +115,23 @@ class AMTypeDictionary {
     static [PSCustomObject]$Workflow     = [PSCustomObject]@{ RestResource = "workflows"   ; RootFolderPath = "\" ; RootFolderName = "WORKFLOWS"    ; RootFolderID = "{589D12C2-1282-4466-B7E3-FE547509AF31}" }
     static [PSCustomObject]$Folder       = [PSCustomObject]@{ RestResource = "folders"     ; RootFolderPath = ""  ; RootFolderName = ""             ; RootFolderID = ""                                       }
 }
+
+enum AMComparisonResult {
+    Equal    = 0
+    NotEqual = 1
+    MissingFromReferenceObject = 2
+    MissingFromDifferenceObject = 3
+}
+
+class AMComparison {
+    $ReferenceObject
+    $DifferenceObject
+    $Property
+    [AMComparisonResult]$Result
+    AMComparison($ReferenceObject, $DifferenceObject, $Property, [AMComparisonResult]$Result) {
+        $this.ReferenceObject = $ReferenceObject
+        $this.DifferenceObject = $DifferenceObject
+        $this.Property = $Property
+        $this.Result = $Result
+    }
+}

@@ -21,6 +21,12 @@ function Add-AMWorkflowItem {
         .PARAMETER Wait
             Adds a wait object.
 
+        .PARAMETER UseLabel
+            If the item should use the configured label or not.
+
+        .PARAMETER Label
+            The label to place on the item (specify -UseLabel) to show the label in the workflow designer.
+
         .PARAMETER X
             The X (horizontal) location of the new item.
 
@@ -38,14 +44,8 @@ function Add-AMWorkflowItem {
             # Add task "Copy Files" to workflow "FTP Files"
             Get-AMWorkflow "FTP Files" | Add-AMWorkflowItem -Item (Get-AMTask "Copy Files")
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 11/15/2018
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (
@@ -80,6 +80,12 @@ function Add-AMWorkflowItem {
         [Parameter(Mandatory = $true, ParameterSetName = "ByWait")]
         [switch]$Wait,
 
+        [ValidateNotNullOrEmpty()]
+        [switch]$UseLabel,
+
+        [ValidateNotNull()]
+        [string]$Label,
+
         [int]$X,
 
         [int]$Y
@@ -94,7 +100,7 @@ function Add-AMWorkflowItem {
                 if (-not $PSBoundParameters.ContainsKey("X")) {
                     if (($allItems | Measure-Object).Count -gt 0) {
                         $maxX = ($allItems | Measure-Object -Property X -Maximum).Maximum
-                        $X = $maxX
+                        $X = $maxX + 50
                     } else {
                         $X = 10
                     }
@@ -102,7 +108,7 @@ function Add-AMWorkflowItem {
                 if (-not $PSBoundParameters.ContainsKey("Y")) {
                     if (($allItems | Measure-Object).Count -gt 0) {
                         $maxY = ($allItems | Measure-Object -Property Y -Maximum).Maximum
-                        $Y = $maxY + 50
+                        $Y = $maxY
                     } else {
                         $Y = 10
                     }
@@ -154,6 +160,8 @@ function Add-AMWorkflowItem {
                     }
                 }
                 $newItem.WorkflowID = $obj.ID
+                $newItem.UseLabel = $UseLabel.ToBool()
+                $newItem.Label = $Label
                 $newItem.X = $X
                 $newItem.Y = $Y
 

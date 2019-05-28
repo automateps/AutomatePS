@@ -33,14 +33,8 @@ function Copy-AMTask {
             # Copy task "Start Service" with new name "Restart Service"
             Get-AMTask "Start Service" | Copy-AMTask -Name "Restart Service"
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 01/07/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
     param (

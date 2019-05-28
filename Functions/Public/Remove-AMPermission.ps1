@@ -19,14 +19,8 @@ function Remove-AMPermission {
             # Remove system permissions for user "MyUsername"
             Get-AMFolder "FTP Workflows" | Get-AMPermission | Remove-AMPermission
 
-        .NOTES
-            Author(s):     : David Seibel
-            Contributor(s) :
-            Date Created   : 07/26/2018
-            Date Modified  : 01/21/2019
-
         .LINK
-            https://github.com/davidseibel/AutoMatePS
+            https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

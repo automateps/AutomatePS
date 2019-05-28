@@ -1,18 +1,33 @@
-using module AutoMatePS  # Expose custom types so PlatyPS can create help
+using module AutomatePS  # Expose custom types so PlatyPS can create help
 [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")] param ()
 #requires -Modules PlatyPS
 
 # Update module manifest
 $functions = Get-ChildItem ".\Functions\Public\*.ps1" | Select-Object -ExpandProperty BaseName
+$scripts = Get-ChildItem .\Types | ForEach-Object { "Types\$($_.Name)" }
 if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
-    Update-ModuleManifest -Path ".\AutoMatePS.psd1" -FunctionsToExport $functions
+    #Update-ModuleManifest -Path ".\AutomatePS.psd1" -FunctionsToExport $functions
+    $manifestSplat = @{
+        Guid = "410dd814-d087-4645-a62e-0388a22798c0"
+        Path = ".\AutomatePS.psd1"
+        Author = "AutomatePS"
+        Description = "AutomatePS provides PowerShell integration with HelpSystems AutoMate Enterprise"
+        RootModule = "AutomatePS"
+        PowerShellVersion = "5.0"
+        FormatsToProcess = "AutomatePS.Format.ps1xml"
+        ScriptsToProcess = $scripts
+        FunctionsToExport = $functions
+        HelpInfoUri = "https://github.com/AutomatePS/AutomatePS"
+        ProjectUri = "https://github.com/AutomatePS/AutomatePS"
+        ModuleVersion = "4.0.0"
+    }
+    New-ModuleManifest @manifestSplat
 }
 
 # Re-import module to update help
-Remove-Module -Name "AutoMatePS" -Force
-Import-Module -Name "AutoMatePS" -Force
+Remove-Module -Name "AutomatePS" -Force
+Import-Module -Name ".\AutomatePS.psd1" -Force
 
-# Validate parameter help
 # Validate parameter help
 $helps = $functions | ForEach-Object {
     if (Get-Command -Name $_ -ErrorAction SilentlyContinue) {
