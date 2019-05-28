@@ -34,6 +34,15 @@ function Move-AMObject {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [Alias("Move-AMAgent")]
+    [Alias("Move-AMAgentGroup")]
+    [Alias("Move-AMCondition")]
+    [Alias("Move-AMFolder")]
+    [Alias("Move-AMProcess")]
+    [Alias("Move-AMTask")]
+    [Alias("Move-AMUser")]
+    [Alias("Move-AMUserGroup")]
+    [Alias("Move-AMWorkflow")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -65,13 +74,3 @@ function Move-AMObject {
         }
     }
 }
-
-New-Alias -Name Move-AMAgent      -Value Move-AMObject -Scope Global -Force
-New-Alias -Name Move-AMAgentGroup -Value Move-AMObject -Scope Global -Force
-New-Alias -Name Move-AMCondition  -Value Move-AMObject -Scope Global -Force
-New-Alias -Name Move-AMFolder     -Value Move-AMObject -Scope Global -Force
-New-Alias -Name Move-AMProcess    -Value Move-AMObject -Scope Global -Force
-New-Alias -Name Move-AMTask       -Value Move-AMObject -Scope Global -Force
-New-Alias -Name Move-AMUser       -Value Move-AMObject -Scope Global -Force
-New-Alias -Name Move-AMUserGroup  -Value Move-AMObject -Scope Global -Force
-New-Alias -Name Move-AMWorkflow   -Value Move-AMObject -Scope Global -Force

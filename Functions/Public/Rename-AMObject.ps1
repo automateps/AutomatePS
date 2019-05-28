@@ -32,6 +32,13 @@ function Rename-AMObject {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [Alias("Rename-AMAgentGroup")]
+    [Alias("Rename-AMCondition")]
+    [Alias("Rename-AMFolder")]
+    [Alias("Rename-AMProcess")]
+    [Alias("Rename-AMTask")]
+    [Alias("Rename-AMUserGroup")]
+    [Alias("Rename-AMWorkflow")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -76,11 +83,3 @@ function Rename-AMObject {
         }
     }
 }
-
-New-Alias -Name Rename-AMAgentGroup -Value Rename-AMObject -Scope Global -Force
-New-Alias -Name Rename-AMCondition  -Value Rename-AMObject -Scope Global -Force
-New-Alias -Name Rename-AMFolder     -Value Rename-AMObject -Scope Global -Force
-New-Alias -Name Rename-AMProcess    -Value Rename-AMObject -Scope Global -Force
-New-Alias -Name Rename-AMTask       -Value Rename-AMObject -Scope Global -Force
-New-Alias -Name Rename-AMUserGroup  -Value Rename-AMObject -Scope Global -Force
-New-Alias -Name Rename-AMWorkflow   -Value Rename-AMObject -Scope Global -Force

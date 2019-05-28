@@ -31,6 +31,14 @@ function Disable-AMObject {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [Alias("Disable-AMAgent")]
+    [Alias("Disable-AMAgentGroup")]
+    [Alias("Disable-AMCondition")]
+    [Alias("Disable-AMProcess")]
+    [Alias("Disable-AMTask")]
+    [Alias("Disable-AMUser")]
+    [Alias("Disable-AMUserGroup")]
+    [Alias("Disable-AMWorkflow")]
     param (
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -53,12 +61,3 @@ function Disable-AMObject {
         }
     }
 }
-
-New-Alias -Name Disable-AMAgent      -Value Disable-AMObject -Scope Global -Force
-New-Alias -Name Disable-AMAgentGroup -Value Disable-AMObject -Scope Global -Force
-New-Alias -Name Disable-AMCondition  -Value Disable-AMObject -Scope Global -Force
-New-Alias -Name Disable-AMProcess    -Value Disable-AMObject -Scope Global -Force
-New-Alias -Name Disable-AMTask       -Value Disable-AMObject -Scope Global -Force
-New-Alias -Name Disable-AMUser       -Value Disable-AMObject -Scope Global -Force
-New-Alias -Name Disable-AMUserGroup  -Value Disable-AMObject -Scope Global -Force
-New-Alias -Name Disable-AMWorkflow   -Value Disable-AMObject -Scope Global -Force

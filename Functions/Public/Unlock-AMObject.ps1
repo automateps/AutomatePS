@@ -22,6 +22,10 @@ function Unlock-AMObject {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [Alias("Unlock-AMCondition")]
+    [Alias("Unlock-AMProcess")]
+    [Alias("Unlock-AMTask")]
+    [Alias("Unlock-AMWorkflow")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -42,8 +46,3 @@ function Unlock-AMObject {
         }
     }
 }
-
-New-Alias -Name Unlock-AMCondition  -Value Unlock-AMObject -Scope Global -Force
-New-Alias -Name Unlock-AMProcess    -Value Unlock-AMObject -Scope Global -Force
-New-Alias -Name Unlock-AMTask       -Value Unlock-AMObject -Scope Global -Force
-New-Alias -Name Unlock-AMWorkflow   -Value Unlock-AMObject -Scope Global -Force

@@ -1,7 +1,7 @@
 ﻿# Load module functions
 Get-ChildItem -Path "$PSScriptRoot\Functions\Public\*.ps1" | ForEach-Object {
     . $_.FullName
-    Export-ModuleMember -Function $_.BaseName
+    Export-ModuleMember -Function $_.BaseName -Alias *
 }
 # Load supporting functions
 Get-ChildItem -Path "$PSScriptRoot\Functions\Private\*.ps1" | ForEach-Object {

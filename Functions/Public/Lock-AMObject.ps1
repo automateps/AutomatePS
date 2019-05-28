@@ -25,6 +25,10 @@ function Lock-AMObject {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [Alias("Lock-AMCondition")]
+    [Alias("Lock-AMProcess")]
+    [Alias("Lock-AMTask")]
+    [Alias("Lock-AMWorkflow")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -49,8 +53,3 @@ function Lock-AMObject {
         }
     }
 }
-
-New-Alias -Name Lock-AMCondition  -Value Lock-AMObject -Scope Global -Force
-New-Alias -Name Lock-AMProcess    -Value Lock-AMObject -Scope Global -Force
-New-Alias -Name Lock-AMTask       -Value Lock-AMObject -Scope Global -Force
-New-Alias -Name Lock-AMWorkflow   -Value Lock-AMObject -Scope Global -Force

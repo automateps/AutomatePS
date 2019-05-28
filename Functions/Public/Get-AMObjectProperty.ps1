@@ -26,6 +26,9 @@ function Get-AMObjectProperty {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [Alias("Get-AMAgentProperty")]
+    [Alias("Get-AMTaskProperty")]
+    [Alias("Get-AMWorkflowProperty")]
     param (
         [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -49,7 +52,3 @@ function Get-AMObjectProperty {
         }
     }
 }
-
-New-Alias -Name Get-AMAgentProperty    -Value Get-AMObjectProperty -Scope Global -Force
-New-Alias -Name Get-AMTaskProperty     -Value Get-AMObjectProperty -Scope Global -Force
-New-Alias -Name Get-AMWorkflowProperty -Value Get-AMObjectProperty -Scope Global -Force
