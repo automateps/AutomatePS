@@ -61,13 +61,11 @@ function Remove-AMUserGroupMember {
                     }
                     if ($update.UserIDs -contains $u.ID) {
                         $update.UserIDs = @($update.UserIDs | Where-Object {$_ -ne $u.ID})
+                        $shouldUpdate = $true
                         Write-Verbose "Removing user '$($u.Name)' from user group '$($obj.Name)'."
                     } else {
                         Write-Verbose "User '$($u.Name)' not present in user group '$($obj.Name)'."
                     }
-                }
-                if (($update.UserIDs | Measure-Object).Count -eq 0) {
-                    $update.UserIDs = @()
                 }
                 if ($shouldUpdate) {
                     $update | Set-AMObject
