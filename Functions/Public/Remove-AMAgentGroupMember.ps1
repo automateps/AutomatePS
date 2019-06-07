@@ -60,15 +60,12 @@ function Remove-AMAgentGroupMember {
                         }
                     }
                     if ($update.AgentIDs -contains $a.ID) {
-                        $update.AgentIDs = $update.AgentIDs | Where-Object {$_ -ne $a.ID}
+                        $update.AgentIDs = @($update.AgentIDs | Where-Object {$_ -ne $a.ID})
                         $shouldUpdate = $true
                         Write-Verbose "Removing agent '$($a.Name)' from agent group '$($obj.Name)'."
                     } else {
                         Write-Verbose "Agent '$($a.Name)' not present in agent group '$($obj.Name)'."
                     }
-                }
-                if (($update.AgentIDs | Measure-Object).Count -eq 0) {
-                    $update.AgentIDs = @()
                 }
                 if ($shouldUpdate) {
                     $update | Set-AMObject
