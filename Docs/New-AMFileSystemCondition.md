@@ -14,12 +14,12 @@ Creates a new AutoMate Enterprise file system condition.
 
 ```
 New-AMFileSystemCondition [-Name] <String> [-MonitorFolder] <String> [-Subfolders] [-WaitForAccess]
- [-FileAdded] [-FileRemoved] [-FileRenamed] [-FileModified] [-FolderAdded] [-FolderRemoved] [-FolderRenamed]
- [-FolderModified] [-FileCount <Int32>] [-FolderCount <Int32>] [-FileSize <Int32>] [-FolderSize <Int32>]
- [-Include <String>] [-Exclude <String>] [-UserMode <AMConditionUserMode>] [-UserName <String>]
- [-Domain <String>] [-Wait] [-Timeout <Int32>] [-TimeoutUnit <AMTimeMeasure>] [-TriggerAfter <Int32>]
- [-IgnoreExistingCondition] [-Notes <String>] [-Folder <Object>] [-Connection <Object>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-UsePollingMode] [-FileAdded] [-FileRemoved] [-FileRenamed] [-FileModified] [-FolderAdded] [-FolderRemoved]
+ [-FolderRenamed] [-FolderModified] [-FileCount <Int32>] [-FolderCount <Int32>] [-FileSize <Int32>]
+ [-FolderSize <Int32>] [-Include <String>] [-Exclude <String>] [-UserMode <AMConditionUserMode>]
+ [-UserName <String>] [-Domain <String>] [-Wait] [-Timeout <Int32>] [-TimeoutUnit <AMTimeMeasure>]
+ [-TriggerAfter <Int32>] [-IgnoreExistingCondition] [-Notes <String>] [-Folder <Object>] [-Connection <Object>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,6 +81,21 @@ Accept wildcard characters: False
 
 ### -WaitForAccess
 No action is taken until a file is no longer in use and fully accessible.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UsePollingMode
+Use polling mode with a 5 second interval.
 
 ```yaml
 Type: SwitchParameter
@@ -503,7 +518,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
