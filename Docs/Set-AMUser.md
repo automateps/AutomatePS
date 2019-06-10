@@ -12,8 +12,16 @@ Sets properties of an AutoMate Enterprise user.
 
 ## SYNTAX
 
+### AutomatePassword
 ```
-Set-AMUser [-InputObject] <Object> [-Notes] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-AMUser -InputObject <Object> -Password <SecureString> [-Notes <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### ActiveDirectoryPassword
+```
+Set-AMUser -InputObject <Object> [-UseActiveDirectory] [-Notes <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,10 +31,10 @@ Set-AMUser can change properties of a user object.
 
 ### EXAMPLE 1
 ```
-# Change notes for a user
+# Change password for a user that authenticates against Automate
 ```
 
-Get-AMUser -Name John | Set-AMUser -Notes "Email address: John@example.com"
+Get-AMUser -Name John | Set-AMUser -Password (Read-Host -Prompt "Enter password" -AsSecureString)
 
 ## PARAMETERS
 
@@ -39,9 +47,40 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Password
+The password for the user.
+
+```yaml
+Type: SecureString
+Parameter Sets: AutomatePassword
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UseActiveDirectory
+Authenticate against Active Directory. 
+If not specified, Automate authentication is used.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: ActiveDirectoryPassword
+Aliases:
+
+Required: True
+Position: Named
+Default value: False
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -53,8 +92,8 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: 2
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -92,13 +131,16 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
 ## NOTES
+The API requires that the password be passed in on every update call. 
+Therefore, it is required to either specify the -Password parameter or -UseActiveDirectory whenever calling this function, even if only updating the Notes property for the user.
 
 ## RELATED LINKS
 

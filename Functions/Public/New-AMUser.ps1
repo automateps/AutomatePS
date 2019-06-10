@@ -9,6 +9,12 @@ function New-AMUser {
         .PARAMETER Name
             The name/username of the new object.
 
+        .PARAMETER Password
+            The password for the user.
+
+        .PARAMETER UseActiveDirectory
+            Authenticate against Active Directory.  If not specified, Automate authentication is used.
+
         .PARAMETER Notes
             The new notes to set on the object.
 
@@ -19,8 +25,12 @@ function New-AMUser {
             The server to create the object on.
 
         .EXAMPLE
-            # Create new user
-            New-AMUser -Name John
+            # Create new user that authenticates against Active Directory
+            New-AMUser -Name John -AuthenticationProvider ActiveDirectory
+
+        .EXAMPLE
+            # Create new user that authenticates against Automate (prompts for password)
+            New-AMUser -Name John -Password (Read-Host -Prompt "Enter password" -AsSecureString)
 
         .LINK
             https://github.com/AutomatePS/AutomatePS
@@ -31,7 +41,12 @@ function New-AMUser {
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
-        <#[string]$Password, API BUG: does not support setting user password via REST call #>
+        [Parameter(Mandatory = $true, ParameterSetName = "AutomatePassword")]
+        [ValidateNotNullOrEmpty()]
+        [Security.SecureString]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = "ActiveDirectoryPassword")]
+        [switch]$UseActiveDirectory,
 
         [string]$Notes = "",
 
@@ -50,7 +65,7 @@ function New-AMUser {
     switch (($Connection | Measure-Object).Count) {
         1 {
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-            if (-not $Folder) { $Folder = Get-AMFolder -Name USERS -Connection $Connection } # Place the user in the root users folder
+            if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "USERS" -Connection $Connection } # Place the user in the root users folder
             switch ($Connection.Version.Major) {
                 10      { $newObject = [AMUserv10]::new($Name, $Folder, $Connection.Alias) }
                 11      { $newObject = [AMUserv11]::new($Name, $Folder, $Connection.Alias) }
@@ -59,7 +74,11 @@ function New-AMUser {
             $newObject.CreatedBy = $user.ID
             $newObject.Notes     = $Notes
             $newObject.Username  = $Name
-            #$newObject.Password  = $Password # Not yet supported by the API
+            if ($UseActiveDirectory.IsPresent) {
+                $newObject.Password = "<!*!>"
+            } else {
+                $newObject.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
+            }
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
