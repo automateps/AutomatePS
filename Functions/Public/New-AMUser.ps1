@@ -26,7 +26,7 @@ function New-AMUser {
 
         .EXAMPLE
             # Create new user that authenticates against Active Directory
-            New-AMUser -Name John -AuthenticationProvider ActiveDirectory
+            New-AMUser -Name John -UseActiveDirectory
 
         .EXAMPLE
             # Create new user that authenticates against Automate (prompts for password)
