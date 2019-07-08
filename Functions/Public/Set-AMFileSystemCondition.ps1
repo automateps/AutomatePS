@@ -18,6 +18,9 @@ function Set-AMFileSystemCondition {
         .PARAMETER WaitForAccess
             No action is taken until a file is no longer in use and fully accessible.
 
+        .PARAMETER UsePollingMode
+            Use polling mode with a 5 second interval.
+
         .PARAMETER FileAdded
             Monitor for files added to the folder.
 
@@ -107,6 +110,7 @@ function Set-AMFileSystemCondition {
 
         [switch]$Subfolders,
         [switch]$WaitForAccess,
+        [switch]$UsePollingMode,
         [switch]$FileAdded,
         [switch]$FileRemoved,
         [switch]$FileRenamed,
@@ -172,6 +176,20 @@ function Set-AMFileSystemCondition {
 
                     # Translate properties that have an argument name different from the API name
                     if ($property -eq "MonitorFolder") { $property = "Folder" }
+
+                    if ($property -eq "UsePollingMode") {
+                        if ((Get-AMConnection $updateObject.ConnectionAlias).Version -ge [Version]"11.1.20") {
+                            if ($UsePollingMode.IsPresent) {
+                                $property = "PollingInterval"
+                                $value = 11
+                            } else {
+                                $property = "PollingInterval"
+                                $value = 10
+                            }
+                        } else {
+                            Write-Warning "Parameter -UsePollingMode is only supported on version 11.1.20 and later!"
+                        }
+                    }
 
                     # Handle special property types
                     if ($value -is [System.Management.Automation.SwitchParameter]) { $value = $value.ToBool() }
