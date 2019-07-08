@@ -65,10 +65,10 @@ function New-AMAgent {
             if (-not $Folder) {
                 switch ($Type) {
                     "TaskAgent" {
-                        $Folder = Get-AMFolder -Name TASKAGENTS -Connection $Connection
+                        $Folder = Get-AMFolder -Path "\" -Name "TASKAGENTS" -Connection $Connection
                     }
                     "ProcessAgent" {
-                        $Folder = Get-AMFolder -Name PROCESSAGENTS -Connection $Connection
+                        $Folder = Get-AMFolder -Path "\" -Name "PROCESSAGENTS" -Connection $Connection
                     }
                 }
             }

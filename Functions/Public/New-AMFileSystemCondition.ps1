@@ -18,6 +18,9 @@ function New-AMFileSystemCondition {
         .PARAMETER WaitForAccess
             No action is taken until a file is no longer in use and fully accessible.
 
+        .PARAMETER UsePollingMode
+            Use polling mode with a 5 second interval.
+
         .PARAMETER FileAdded
             Monitor for files added to the folder.
 
@@ -118,6 +121,9 @@ function New-AMFileSystemCondition {
         [switch]$WaitForAccess = $false,
 
         [ValidateNotNullOrEmpty()]
+        [switch]$UsePollingMode = $false,
+
+        [ValidateNotNullOrEmpty()]
         [switch]$FileAdded = $false,
 
         [ValidateNotNullOrEmpty()]
@@ -195,16 +201,16 @@ function New-AMFileSystemCondition {
             $newObject.CreatedBy       = $user.ID
             $newObject.Notes           = $Notes
             $newObject.Folder          = $MonitorFolder
-            $newObject.SubFolders      = $Subfolders.ToBool()
-            $newObject.WaitForAccess   = $WaitForAccess.ToBool()
-            $newObject.FileAdded       = $FileAdded.ToBool()
-            $newObject.FileRemoved     = $FileRemoved.ToBool()
-            $newObject.FileRenamed     = $FileRenamed.ToBool()
-            $newObject.FileModified    = $FileModified.ToBool()
-            $newObject.FolderAdded     = $FolderAdded.ToBool()
-            $newObject.FolderRemoved   = $FolderRemoved.ToBool()
-            $newObject.FolderRenamed   = $FolderRenamed.ToBool()
-            $newObject.FolderModified  = $FolderModified.ToBool()
+            $newObject.SubFolders      = $Subfolders.IsPresent
+            $newObject.WaitForAccess   = $WaitForAccess.IsPresent
+            $newObject.FileAdded       = $FileAdded.IsPresent
+            $newObject.FileRemoved     = $FileRemoved.IsPresent
+            $newObject.FileRenamed     = $FileRenamed.IsPresent
+            $newObject.FileModified    = $FileModified.IsPresent
+            $newObject.FolderAdded     = $FolderAdded.IsPresent
+            $newObject.FolderRemoved   = $FolderRemoved.IsPresent
+            $newObject.FolderRenamed   = $FolderRenamed.IsPresent
+            $newObject.FolderModified  = $FolderModified.IsPresent
             $newObject.FileCount       = $FileCount
             $newObject.FileSize        = $FileSize
             $newObject.FolderCount     = $FolderCount
@@ -212,7 +218,14 @@ function New-AMFileSystemCondition {
             $newObject.Include         = $Include
             $newObject.Exclude         = $Exclude
             $newObject.UserMode        = $UserMode
-            $newObject.Wait            = $Wait.ToBool()
+            $newObject.Wait            = $Wait.IsPresent
+            if ($UsePollingMode.IsPresent) {
+                if ($Connection.Version -ge [Version]"11.1.20") {
+                    $newObject.PollingInterval = 11
+                } else {
+                    Write-Warning "Parameter -UsePollingMode is only supported on version 11.1.20 and later!"
+                }
+            }
             if ($newObject.UserMode -eq [AMConditionUserMode]::SpecifiedUser) {
                 $newObject.UserName = $UserName
                 #$newObject.Password = $Password
@@ -222,7 +235,7 @@ function New-AMFileSystemCondition {
                 $newObject.Timeout                 = $Timeout
                 $newObject.TimeoutUnit             = $TimeoutUnit
                 $newObject.TriggerAfter            = $TriggerAfter
-                $newObject.IgnoreExistingCondition = $IgnoreExistingCondition.ToBool()
+                $newObject.IgnoreExistingCondition = $IgnoreExistingCondition.IsPresent
             }
             $newObject | New-AMObject -Connection $Connection
         }

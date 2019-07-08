@@ -3,8 +3,9 @@ using module AutomatePS  # Expose custom types so PlatyPS can create help
 #requires -Modules PlatyPS
 
 # Update module manifest
-$functions = Get-ChildItem ".\Functions\Public\*.ps1" | Select-Object -ExpandProperty BaseName
+$functions = (Get-ChildItem ".\Functions\Public\*.ps1").BaseName
 $scripts = Get-ChildItem .\Types | ForEach-Object { "Types\$($_.Name)" }
+$aliases = (Get-Alias | Where-Object {$_.ModuleName -eq "AutomatePS"}).Name
 if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
     #Update-ModuleManifest -Path ".\AutomatePS.psd1" -FunctionsToExport $functions
     $manifestSplat = @{
@@ -12,14 +13,16 @@ if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
         Path = ".\AutomatePS.psd1"
         Author = "AutomatePS"
         Description = "AutomatePS provides PowerShell integration with HelpSystems AutoMate Enterprise"
-        RootModule = "AutomatePS"
+        RootModule = "AutomatePS.psm1"
         PowerShellVersion = "5.0"
         FormatsToProcess = "AutomatePS.Format.ps1xml"
         ScriptsToProcess = $scripts
         FunctionsToExport = $functions
+        AliasesToExport = $aliases
+        DscResourcesToExport = $dscResources
         HelpInfoUri = "https://github.com/AutomatePS/AutomatePS"
         ProjectUri = "https://github.com/AutomatePS/AutomatePS"
-        ModuleVersion = "4.0.0"
+        ModuleVersion = "4.1.0"
     }
     New-ModuleManifest @manifestSplat
 }

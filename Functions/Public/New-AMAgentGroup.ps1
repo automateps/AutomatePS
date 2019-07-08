@@ -48,7 +48,7 @@ function New-AMAgentGroup {
     switch (($Connection | Measure-Object).Count) {
         1 {
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-            if (-not $Folder) { $Folder = Get-AMFolder -Name AGENTGROUPS -Connection $Connection } # Place the agent group in the root agent groups folder
+            if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "AGENTGROUPS" -Connection $Connection } # Place the agent group in the root agent groups folder
             switch ($Connection.Version.Major) {
                 10      { $newObject = [AMAgentGroupv10]::new($Name, $Folder, $Connection.Alias) }
                 11      { $newObject = [AMAgentGroupv11]::new($Name, $Folder, $Connection.Alias) }

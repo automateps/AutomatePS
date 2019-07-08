@@ -9,12 +9,21 @@ function Set-AMUser {
         .PARAMETER InputObject
             The object to modify.
 
+        .PARAMETER Password
+            The password for the user.
+
+        .PARAMETER UseActiveDirectory
+            Authenticate against Active Directory.  If not specified, Automate authentication is used.
+
         .PARAMETER Notes
             The new notes to set on the object.
 
         .EXAMPLE
-            # Change notes for a user
-            Get-AMUser -Name John | Set-AMUser -Notes "Email address: John@example.com"
+            # Change password for a user that authenticates against Automate
+            Get-AMUser -Name John | Set-AMUser -Password (Read-Host -Prompt "Enter password" -AsSecureString)
+
+        .NOTES
+            The API requires that the password be passed in on every update call.  Therefore, it is required to either specify the -Password parameter or -UseActiveDirectory whenever calling this function, even if only updating the Notes property for the user.
 
         .LINK
             https://github.com/AutomatePS/AutomatePS
@@ -25,7 +34,13 @@ function Set-AMUser {
         [ValidateNotNullOrEmpty()]
         $InputObject,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = "AutomatePassword")]
+        [ValidateNotNullOrEmpty()]
+        [Security.SecureString]$Password,
+
+        [Parameter(Mandatory = $true, ParameterSetName = "ActiveDirectoryPassword")]
+        [switch]$UseActiveDirectory,
+
         [AllowEmptyString()]
         [string]$Notes
     )
@@ -39,6 +54,13 @@ function Set-AMUser {
                         $updateObject.Notes = $Notes
                         $shouldUpdate = $true
                     }
+                }
+                if ($UseActiveDirectory.IsPresent) {
+                    $updateObject.Password = "<!*!>"
+                    $shouldUpdate = $true
+                } else {
+                    $updateObject.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
+                    $shouldUpdate = $true
                 }
                 if ($shouldUpdate) {
                     $updateObject | Set-AMObject

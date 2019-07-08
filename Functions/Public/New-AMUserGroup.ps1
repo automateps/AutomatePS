@@ -48,7 +48,7 @@ function New-AMUserGroup {
     switch (($Connection | Measure-Object).Count) {
         1 {
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-            if (-not $Folder) { $Folder = Get-AMFolder -Name USERGROUPS -Connection $Connection } # Place the user group in the root user groups folder
+            if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "USERGROUPS" -Connection $Connection } # Place the user group in the root user groups folder
             switch ($Connection.Version.Major) {
                 10      { $newObject = [AMUserGroupv10]::new($Name, $Folder, $Connection.Alias) }
                 11      { $newObject = [AMUserGroupv11]::new($Name, $Folder, $Connection.Alias) }

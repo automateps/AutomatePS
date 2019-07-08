@@ -12,9 +12,16 @@ Creates a new AutoMate Enterprise user.
 
 ## SYNTAX
 
+### AutomatePassword
 ```
-New-AMUser [-Name] <String> [-Notes <String>] [-Folder <Object>] [-Connection <Object>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+New-AMUser [-Name] <String> -Password <SecureString> [-Notes <String>] [-Folder <Object>]
+ [-Connection <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ActiveDirectoryPassword
+```
+New-AMUser [-Name] <String> [-UseActiveDirectory] [-Notes <String>] [-Folder <Object>] [-Connection <Object>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -24,10 +31,17 @@ New-AMUser creates a new user object.
 
 ### EXAMPLE 1
 ```
-# Create new user
+# Create new user that authenticates against Active Directory
 ```
 
-New-AMUser -Name John
+New-AMUser -Name John -UseActiveDirectory
+
+### EXAMPLE 2
+```
+# Create new user that authenticates against Automate (prompts for password)
+```
+
+New-AMUser -Name John -Password (Read-Host -Prompt "Enter password" -AsSecureString)
 
 ## PARAMETERS
 
@@ -42,6 +56,37 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Password
+The password for the user.
+
+```yaml
+Type: SecureString
+Parameter Sets: AutomatePassword
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UseActiveDirectory
+Authenticate against Active Directory. 
+If not specified, Automate authentication is used.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: ActiveDirectoryPassword
+Aliases:
+
+Required: True
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
