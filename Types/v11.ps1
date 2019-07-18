@@ -534,7 +534,7 @@ class AMInstancev11 : AMObjectConstructv11 {
     [string]$UserName
     [string]$UserPath
     [string]$WorkflowInstanceID
-    AMInstancev11([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
+    AMInstancev11([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
         $this.AgentID                = $PSCustomObject.AgentID
         $this.AgentName              = $PSCustomObject.AgentName
         $this.AgentPath              = $PSCustomObject.AgentPath
