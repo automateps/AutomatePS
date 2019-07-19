@@ -436,6 +436,7 @@ enum AMRunResult {
     Failure = 2
     Aborted = 3
     Stopped = 4
+    NotAvailable = 14
 }
 
 enum AMCompletionState {

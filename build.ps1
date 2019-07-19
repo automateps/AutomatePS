@@ -22,7 +22,7 @@ if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
         DscResourcesToExport = $dscResources
         HelpInfoUri = "https://github.com/AutomatePS/AutomatePS"
         ProjectUri = "https://github.com/AutomatePS/AutomatePS"
-        ModuleVersion = "4.1.0"
+        ModuleVersion = "4.1.1"
     }
     New-ModuleManifest @manifestSplat
 }
