@@ -453,14 +453,16 @@ function Copy-AMWorkflow {
                     if ($link.ID -notin $existingIds) {
                         $newLink.ID = $link.ID
                     }
-                    $newLink.DestinationID    = $substitions[$link.DestinationID]
-                    $newLink.DestinationPoint = [PSCustomObject]@{x = $link.DestinationPoint.X; y = $link.DestinationPoint.Y}
-                    $newLink.LinkType         = $link.LinkType
-                    $newLink.ResultType       = $link.ResultType
-                    $newLink.SourceID         = $substitions[$link.SourceID]
-                    $newLink.SourcePoint      = [PSCustomObject]@{x = $link.SourcePoint.X; y = $link.SourcePoint.Y}
-                    $newLink.Value            = $link.Value
-                    $newLink.WorkflowID       = $copyObject.ID
+                    $newLink.DestinationID      = $substitions[$link.DestinationID]
+                    $newLink.DestinationPoint.X = $link.DestinationPoint.X
+                    $newLink.DestinationPoint.Y = $link.DestinationPoint.Y
+                    $newLink.LinkType           = $link.LinkType
+                    $newLink.ResultType         = $link.ResultType
+                    $newLink.SourceID           = $substitions[$link.SourceID]
+                    $newLink.SourcePoint.X      = $link.SourcePoint.X
+                    $newLink.SourcePoint.Y      = $link.SourcePoint.X
+                    $newLink.Value              = $link.Value
+                    $newLink.WorkflowID         = $copyObject.ID
                     $copyObject.Links += $newLink
                 }
                 foreach ($variable in $currentObject.Variables) {
