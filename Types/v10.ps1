@@ -319,6 +319,11 @@ class AMAuditEventv10 : AMObjectConstructv10 {
         $this.SessionID          = $PSCustomObject.SessionID
         $this.StatusType         = $PSCustomObject.StatusType
         $this.UserID             = $PSCustomObject.UserID
+        if ($null -ne $PSCustomObject.Data) {
+            $detail = @{}
+            $PSCustomObject.Data.Split("|") | ForEach-Object {$key,$value = $_.Split(":");$detail.Add($key,$value)}
+            $this | Add-Member -Name "Detail" -MemberType NoteProperty -Value $detail
+        }
     }
 
     [AMAutomationConstructv10]GetConstruct() {
