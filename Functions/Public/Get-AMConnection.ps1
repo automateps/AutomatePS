@@ -31,28 +31,21 @@ function Get-AMConnection {
     #>
     [CmdletBinding(DefaultParameterSetName="AllConnections")]
     param (
+        [Alias("ConnectionAlias")]
         [Parameter(ParameterSetName = "ByConnection")]
+        [ArgumentCompleter([AMConnectionCompleter])]
         [ValidateNotNullOrEmpty()]
         $Connection
     )
 
-    DynamicParam {
-        New-DynamicParam -Name "ConnectionAlias" -ValidateSet $global:AMConnections.Alias -ParameterSetName "ByAlias" -Type ([string[]])
-    }
     Process {
         switch ($PSCmdlet.ParameterSetName) {
             "AllConnections" {
                 $connections = $global:AMConnections
             }
-            "ByAlias" {
-                $connections = @()
-                foreach ($alias in $PSBoundParameters["ConnectionAlias"]) {
-                    $connections += $global:AMConnections | Where-Object {$_.Alias -eq $alias}
-                }
-            }
             "ByConnection" {
                 if ($Connection -is [string]) {
-                    $connections = Get-AMConnection -ConnectionAlias $Connection
+                    $connections = $global:AMConnections | Where-Object {$_.Alias -eq $Connection}
                 } elseif ($Connection -is [AMConnection]) {
                     $connections = $Connection
                 } elseif ($Connection -is [array]) {
