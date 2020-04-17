@@ -61,8 +61,8 @@ function New-AMSystemPermission {
 			Allow or deny permission to view server level settings, such as Data Store, Load Management, SQL Connections and more.
 
         .EXAMPLE
-            # Denies user 'John' access to task 'Test'
-            Get-AMTask -Name "Test" | New-AMPermission -Principal "John"
+            # Gives user 'John' full control
+            Get-AMUser -Name "John" | New-AMSystemPermission -FullControl
 
         .LINK
             https://github.com/AutomatePS/AutomatePS
