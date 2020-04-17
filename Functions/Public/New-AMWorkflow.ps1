@@ -37,6 +37,7 @@ function New-AMWorkflow {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

@@ -98,6 +98,7 @@ function Get-AMAuditEvent {
         [switch]$AuditUserActivity = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

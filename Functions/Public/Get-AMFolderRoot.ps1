@@ -43,6 +43,7 @@ function Get-AMFolderRoot {
         [string]$FilterSetMode = "And",
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
     if ($PSBoundParameters.ContainsKey("Connection")) {

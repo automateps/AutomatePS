@@ -19,6 +19,7 @@ function Disconnect-AMServer {
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByConnection", Position = 0)]
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

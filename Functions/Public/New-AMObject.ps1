@@ -34,6 +34,7 @@ function New-AMObject {
 
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

@@ -45,6 +45,7 @@ function Copy-AMCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

@@ -45,6 +45,7 @@ function Invoke-AMRestMethod {
 
         [Parameter(ParameterSetName = "SpecificConnection")]
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
     Write-Verbose "$(Get-Date -f G) - Invoke-AMRestMethod started"
@@ -54,16 +55,19 @@ function Invoke-AMRestMethod {
         if (-not (Get-AMConnection)) {
             throw "No servers are currently connected!"
         } else {
-            $Connection = Get-AMConnection
+            $Connections = Get-AMConnection
         }
         if ($RestMethod -ne "Get") {
             throw "Server must be specified when performing updates!"
         }
     } else {
-        $Connection = Get-AMConnection -Connection $Connection
+        $Connections = Get-AMConnection -Connection $Connection
+        if (($Connections | Measure-Object).Count -eq 0) {
+            throw "Connection not found!"
+        }
     }
 
-    foreach ($c in $Connection) {
+    foreach ($c in $Connections) {
         if ((Get-AMConnection).Name -notcontains $c.Name) {
             throw "No longer connected to $($c.Name)!  Please reconnect first."
         }

@@ -84,6 +84,7 @@ function New-AMSnmpCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

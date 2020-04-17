@@ -58,6 +58,7 @@ function New-AMProcess {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

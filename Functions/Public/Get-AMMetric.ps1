@@ -67,6 +67,7 @@ function Get-AMMetric {
         [string]$DeviationDirection,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
     if ($PSBoundParameters.ContainsKey("Connection")) {

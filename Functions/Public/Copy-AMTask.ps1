@@ -49,6 +49,7 @@ function Copy-AMTask {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

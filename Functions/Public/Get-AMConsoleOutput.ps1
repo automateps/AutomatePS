@@ -50,6 +50,7 @@ function Get-AMConsoleOutput {
         [ConsoleColor]$FailureBackgroundColor,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

@@ -122,6 +122,7 @@ function New-AMDatabaseCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
     if ($PSBoundParameters.ContainsKey("Connection")) {

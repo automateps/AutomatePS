@@ -20,6 +20,7 @@ function Get-AMSession {
     [CmdletBinding()]
     param (
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
     if ($PSBoundParameters.ContainsKey("Connection")) {

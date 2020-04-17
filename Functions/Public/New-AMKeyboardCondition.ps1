@@ -66,6 +66,7 @@ function New-AMKeyboardCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

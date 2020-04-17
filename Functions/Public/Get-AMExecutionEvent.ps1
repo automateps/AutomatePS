@@ -80,6 +80,7 @@ function Get-AMExecutionEvent {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

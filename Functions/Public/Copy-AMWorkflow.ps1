@@ -61,6 +61,7 @@ function Copy-AMWorkflow {
         [switch]$IgnoreServerVersionDifference,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

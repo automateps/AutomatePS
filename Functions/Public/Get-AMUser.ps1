@@ -83,6 +83,7 @@ function Get-AMUser {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

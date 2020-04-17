@@ -38,6 +38,7 @@ function Get-AMSystemAgent {
         [string]$Type,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

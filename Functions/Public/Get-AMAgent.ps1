@@ -98,6 +98,7 @@ function Get-AMAgent {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

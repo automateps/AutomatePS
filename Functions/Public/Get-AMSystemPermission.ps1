@@ -71,6 +71,7 @@ function Get-AMSystemPermission {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

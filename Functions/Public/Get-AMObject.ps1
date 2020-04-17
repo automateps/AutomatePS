@@ -40,6 +40,7 @@ function Get-AMObject {
                                       ),
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

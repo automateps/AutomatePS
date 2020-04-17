@@ -119,6 +119,7 @@ function Get-AMInstance {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

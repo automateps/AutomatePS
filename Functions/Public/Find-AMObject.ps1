@@ -42,6 +42,7 @@ function Find-AMObject {
         [int]$SearchDepth = 3,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

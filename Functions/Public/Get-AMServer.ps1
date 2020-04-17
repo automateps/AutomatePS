@@ -26,6 +26,7 @@ function Get-AMServer {
         [string]$Type = "Server",
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
