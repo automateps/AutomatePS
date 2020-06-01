@@ -48,7 +48,7 @@ function Invoke-AMRestMethod {
         [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
-    Write-Verbose "$(Get-Date -f G) - Invoke-AMRestMethod started"
+    Write-Verbose "$(Get-Date -Format G) - Invoke-AMRestMethod started"
     $ProgressPreference = "SilentlyContinue"
 
     if ($PSCmdlet.ParameterSetName -eq "AllConnections") {
@@ -85,14 +85,14 @@ function Invoke-AMRestMethod {
             }
             Write-Debug $Body
         }
-        Write-Verbose "$(Get-Date -f G) - Calling API (server: $($c.Server))"
+        Write-Verbose "$(Get-Date -Format G) - Calling API (server: $($c.Server))"
         try {
             $response = Invoke-WebRequest @splat -ErrorAction Stop
         } catch {
             throw $_
         }
         if ($null -ne $response.Content) {
-            Write-Verbose "$(Get-Date -f G) - Converting from JSON (server: $($c.Server))"
+            Write-Verbose "$(Get-Date -Format G) - Converting from JSON (server: $($c.Server))"
             $content = $response.Content.Replace('"__type":', '"___type":') # ConvertFrom-Json will discard the __type property, rename it so it is retained
             $tempResult = $content | ConvertFrom-Json
         }
@@ -100,13 +100,13 @@ function Invoke-AMRestMethod {
             throw "$($tempResult.Result) : $($tempResult.Info)"
         }
         if ($PSBoundParameters.ContainsKey("FilterScript")) {
-            Write-Verbose "$(Get-Date -f G) - Filtering with filter script: $FilterScript (server: $($c.Server))"
+            Write-Verbose "$(Get-Date -Format G) - Filtering with filter script: $FilterScript (server: $($c.Server))"
             $objects = $tempResult.Data | Where-Object -FilterScript $FilterScript
         } else {
             $objects = $tempResult.Data
         }
         if ($objects -notin $null,@()) {
-            Write-Verbose "$(Get-Date -f G) - Casting objects to correct type (server: $($c.Server))"
+            Write-Verbose "$(Get-Date -Format G) - Casting objects to correct type (server: $($c.Server))"
             $lookupTable = $tempResult.LookupTable
         }
         foreach ($object in $objects) {
@@ -210,5 +210,5 @@ function Invoke-AMRestMethod {
             }
         }
     }
-    Write-Verbose "$(Get-Date -f G) - Invoke-AMRestMethod finished"
+    Write-Verbose "$(Get-Date -Format G) - Invoke-AMRestMethod finished"
 }
