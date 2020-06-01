@@ -86,6 +86,9 @@ function Copy-AMWorkflow {
             $existingIds += $workflowCache.Triggers.ID
             $existingIds += $workflowCache.Links.ID
             $existingIds += $workflowCache.Variables.ID
+            $copyToAnotherServer = $true
+        } else {
+            $copyToAnotherServer = $false
         }
 
         $substitions = $IdSubstitutions.PSObject.Copy()
@@ -94,7 +97,7 @@ function Copy-AMWorkflow {
     PROCESS {
         foreach ($obj in $InputObject) {
             if ($obj.Type -eq "Workflow") {
-                if ($PSBoundParameters.ContainsKey("Connection")) {
+                if ($copyToAnotherServer) {
                     # Copy from one Automate server to another
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
                         if ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major -ne $Connection.Version.Major) {
@@ -137,10 +140,9 @@ function Copy-AMWorkflow {
                     default { throw "Unsupported server major version: $_!" }
                 }
                 # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
-                if ($obj.ID -notin $existingIds) {
+                if ($copyToAnotherServer -and $obj.ID -notin $existingIds) {
                     $copyObject.ID = $obj.ID
                 }
-
                 # Copy properties of the source workflow to the new workflow
                 try {
                     $currentObject = Get-AMWorkflow -ID $obj.ID -Connection $obj.ConnectionAlias
@@ -348,7 +350,7 @@ function Copy-AMWorkflow {
                         }
                     }
                     # Retain the item ID if it does not already exist
-                    if ($item.ID -notin $existingIds) {
+                    if ($copyToAnotherServer -and $item.ID -notin $existingIds) {
                         $newItem.ID = $item.ID
                     }
                     $newItem.Enabled    = $item.Enabled
@@ -428,7 +430,7 @@ function Copy-AMWorkflow {
                         $newTrigger.ConstructID = $trigger.ConstructID
                     }
                     # Retain the item ID if it does not already exist
-                    if ($trigger.ID -notin $existingIds) {
+                    if ($copyToAnotherServer -and $trigger.ID -notin $existingIds) {
                         $newTrigger.ID = $trigger.ID
                     }
                     $newTrigger.TriggerType   = $trigger.TriggerType
@@ -451,7 +453,7 @@ function Copy-AMWorkflow {
                         default { throw "Unsupported server major version: $_!" }
                     }
                     # Retain the link ID if it does not already exist
-                    if ($link.ID -notin $existingIds) {
+                    if ($copyToAnotherServer -and $link.ID -notin $existingIds) {
                         $newLink.ID = $link.ID
                     }
                     $newLink.DestinationID      = $substitions[$link.DestinationID]
@@ -473,7 +475,7 @@ function Copy-AMWorkflow {
                         default { throw "Unsupported server major version: $_!" }
                     }
                     # Retain the variable ID if it does not already exist
-                    if ($variable.ID -notin $existingIds) {
+                    if ($copyToAnotherServer -and $variable.ID -notin $existingIds) {
                         $newVariable.ID = $variable.ID
                     }
                     $newVariable.Name         = $variable.Name
