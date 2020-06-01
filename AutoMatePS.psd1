@@ -30,7 +30,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) AutomatePS. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'AutomatePS provides PowerShell integration with HelpSystems AutoMate Enterprise'
+Description = 'AutomatePS provides PowerShell integration with HelpSystems Automate Enterprise'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.0'
@@ -57,7 +57,7 @@ PowerShellVersion = '5.0'
 # RequiredAssemblies = @()
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
-ScriptsToProcess = 'Types\custom.ps1', 'Types\enums.ps1', 'Types\v10.ps1', 'Types\v11.ps1'
+ScriptsToProcess = 'Types\AutomatePS.classes.ps1', 'Types\Automate.enums.ps1', 'Types\Automate.classes.v10.ps1', 'Types\Automate.classes.v11.ps1'
 
 # Type files (.ps1xml) to be loaded when importing this module
 # TypesToProcess = @()

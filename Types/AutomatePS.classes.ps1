@@ -39,17 +39,6 @@ class AMConnection {
     }
 }
 
-class AMMatchedProperty {
-    $Property
-    $Value
-    $Result
-    AMMatchedProperty($Property,$Value) {
-        $this.Property = $Property
-        $this.Value = $Value
-        $this.Result = "$Property = $Value"
-    }
-}
-
 class AMRepositoryMapDetail {
     $SourceConnection
     $SourceID
