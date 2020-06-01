@@ -1034,7 +1034,11 @@
                             </TableColumnItem>
                             <TableColumnItem>
                                 <ScriptBlock>
-                                    $_.MatchedProperty.Result
+                                    $output = @()
+                                    foreach ($key in $_.MatchedProperty.Keys) {
+                                        $output += "$key = $($_.MatchedProperty[$key])"
+                                    }
+                                    $output -join ", "
                                 </ScriptBlock>
                             </TableColumnItem>
                             <TableColumnItem>
