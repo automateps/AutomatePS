@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMWindowConditionControl
 
 ## SYNOPSIS
-Adds a control to an AutoMate Enterprise window condition.
+Adds a control to an Automate window condition.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Add-AMWindowConditionControl [-InputObject] <Object> [[-Class] <Object>] [[-Name
 ```
 
 ## DESCRIPTION
-Add-AMWindowConditionControl adds a control to an AutoMate Enterprise window condition.
+Add-AMWindowConditionControl adds a control to an Automate window condition.
 
 ## EXAMPLES
 
@@ -139,7 +139,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

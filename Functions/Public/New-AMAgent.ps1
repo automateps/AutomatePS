@@ -1,7 +1,7 @@
 function New-AMAgent {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise agent.
+            Creates a new Automate agent.
 
         .DESCRIPTION
             New-AMAgent creates a new agent object.
@@ -84,6 +84,6 @@ function New-AMAgent {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new agent on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new agent on!" }
     }
 }

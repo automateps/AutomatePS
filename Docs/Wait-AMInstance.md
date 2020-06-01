@@ -8,7 +8,7 @@ schema: 2.0.0
 # Wait-AMInstance
 
 ## SYNOPSIS
-Waits for AutoMate Enterprise workflow and task instances to complete.
+Waits for Automate workflow and task instances to complete.
 
 ## SYNTAX
 
@@ -30,9 +30,8 @@ Wait-AMInstance waits for running workflow and task instances to complete.
 ### EXAMPLE 1
 ```
 # Suspend all currently running instances
-```
-
 Get-AMInstance -Status Running | Wait-AMInstance
+```
 
 ## PARAMETERS
 

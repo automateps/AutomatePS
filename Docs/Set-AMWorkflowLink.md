@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMWorkflowLink
 
 ## SYNOPSIS
-Sets a link in a AutoMate Enterprise workflow
+Sets a link in a Automate workflow
 
 ## SYNTAX
 
@@ -25,9 +25,8 @@ Set-AMWorkflowLink can modify a link in a workflow object.
 ### EXAMPLE 1
 ```
 # Change the label on an item in a workflow
-```
-
 Get-AMWorkflow "Some Workflow" | Set-AMWorkflowLink -ID "{1103992f-cbbd-44fd-9177-9de31b1070ab}" -Value "123"
+```
 
 ## PARAMETERS
 
@@ -144,7 +143,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ### WorkflowLink
 ## OUTPUTS

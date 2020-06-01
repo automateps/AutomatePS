@@ -1,10 +1,10 @@
 function Add-AMSnmpConditionCredential {
     <#
         .SYNOPSIS
-            Adds a credential to an AutoMate Enterprise SNMP condition.
+            Adds a credential to an Automate SNMP condition.
 
         .DESCRIPTION
-            Add-AMSnmpConditionCredential adds a credential to an AutoMate Enterprise SNMP condition.
+            Add-AMSnmpConditionCredential adds a credential to an Automate SNMP condition.
 
         .PARAMETER InputObject
             The SNMP condition object to add the credential to.
@@ -22,7 +22,7 @@ function Add-AMSnmpConditionCredential {
             The encryption password.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS

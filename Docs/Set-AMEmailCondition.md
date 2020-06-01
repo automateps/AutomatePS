@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMEmailCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise Email condition.
+Sets properties of an Automate Email condition.
 
 ## SYNTAX
 

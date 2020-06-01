@@ -1,7 +1,7 @@
 function New-AMAgentGroup {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise agent group.
+            Creates a new Automate agent group.
 
         .DESCRIPTION
             New-AMAgentGroup creates an agent group object.
@@ -60,6 +60,6 @@ function New-AMAgentGroup {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new agent group on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new agent group on!" }
     }
 }

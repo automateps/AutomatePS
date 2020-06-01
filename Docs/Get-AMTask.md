@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMTask
 
 ## SYNOPSIS
-Gets AutoMate Enterprise tasks.
+Gets Automate tasks.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ Get-AMTask [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-Filter
 ```
 
 ## DESCRIPTION
-Get-AMTask gets task objects from AutoMate Enterprise. 
+Get-AMTask gets task objects from Automate. 
 Get-AMTask can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -39,30 +39,26 @@ Get-AMTask can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 # Get task "My Task"
-```
-
 Get-AMTask "My Task"
+```
 
 ### EXAMPLE 2
 ```
 # Get tasks in workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMTask
+```
 
 ### EXAMPLE 3
 ```
 # Get tasks in folder "My Folder"
-```
-
 Get-AMFolder "My Folder" -Type TASKS | Get-AMTask
+```
 
 ### EXAMPLE 4
 ```
 # Get tasks using multiple filter sets
-```
-
 Get-AMTask -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "Files"},@{ Property = "AML"; Operator = "contains"; Value = "FTP"}
+```
 
 ## PARAMETERS
 
@@ -180,7 +176,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

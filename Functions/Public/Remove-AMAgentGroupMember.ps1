@@ -1,7 +1,7 @@
 function Remove-AMAgentGroupMember {
     <#
         .SYNOPSIS
-            Removes agents from an AutoMate Enterprise agent group.
+            Removes agents from an Automate agent group.
 
         .DESCRIPTION
             Remove-AMAgentGroupMember can remove agents from an agent group.
@@ -13,7 +13,7 @@ function Remove-AMAgentGroupMember {
             The agent(s) to remove to the agent group.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             AgentGroup
 
         .OUTPUTS

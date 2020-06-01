@@ -1,10 +1,10 @@
 function Add-AMScheduleConditionHoliday {
     <#
         .SYNOPSIS
-            Adds a holiday to an AutoMate Enterprise schedule condition using the Holidays interval.
+            Adds a holiday to an Automate schedule condition using the Holidays interval.
 
         .DESCRIPTION
-            Add-AMScheduleConditionHoliday adds a holiday to an AutoMate Enterprise schedule condition using the Holidays interval.
+            Add-AMScheduleConditionHoliday adds a holiday to an Automate schedule condition using the Holidays interval.
 
         .PARAMETER InputObject
             The schedule condition object to add the holiday to.
@@ -13,7 +13,7 @@ function Add-AMScheduleConditionHoliday {
             The holiday categories to add to the schedule.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS

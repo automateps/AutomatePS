@@ -1,10 +1,10 @@
 ﻿function Remove-AMWindowConditionControl {
     <#
         .SYNOPSIS
-            Removes a control from an AutoMate Enterprise window condition.
+            Removes a control from an Automate window condition.
 
         .DESCRIPTION
-            Remove-AMWindowConditionControl removes a control from an AutoMate Enterprise window condition.
+            Remove-AMWindowConditionControl removes a control from an Automate window condition.
 
         .PARAMETER InputObject
             The window condition object to remove the control from.
@@ -13,7 +13,7 @@
             The ID of the window control.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS

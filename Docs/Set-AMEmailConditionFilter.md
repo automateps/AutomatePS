@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMEmailConditionFilter
 
 ## SYNOPSIS
-Modifies an AutoMate Enterprise Email condition filter.
+Modifies an Automate Email condition filter.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Set-AMEmailConditionFilter [-InputObject] <Object> [-ID] <Object> [-WhatIf] [-Co
 ```
 
 ## DESCRIPTION
-Set-AMEmailConditionFilter modifies a filter in an AutoMate Enterprise Email condition.
+Set-AMEmailConditionFilter modifies a filter in an Automate Email condition.
 
 ## EXAMPLES
 

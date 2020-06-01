@@ -1,10 +1,10 @@
 function Add-AMScheduleConditionCustomDate {
     <#
         .SYNOPSIS
-            Adds a custom date to an AutoMate Enterprise schedule condition using the Custom interval.
+            Adds a custom date to an Automate schedule condition using the Custom interval.
 
         .DESCRIPTION
-            Add-AMScheduleConditionCustomDate adds a custom date to an AutoMate Enterprise schedule condition using the Custom interval.
+            Add-AMScheduleConditionCustomDate adds a custom date to an Automate schedule condition using the Custom interval.
 
         .PARAMETER InputObject
             The schedule condition object to add the custom date to.
@@ -13,7 +13,7 @@ function Add-AMScheduleConditionCustomDate {
             The dates to add to the schedule.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS

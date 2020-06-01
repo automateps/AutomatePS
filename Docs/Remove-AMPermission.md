@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMPermission
 
 ## SYNOPSIS
-Removes AutoMate Enterprise permissions.
+Removes Automate permissions.
 
 ## SYNTAX
 
@@ -24,9 +24,8 @@ Remove-AMPermission removes the provided permissions.
 ### EXAMPLE 1
 ```
 # Remove system permissions for user "MyUsername"
-```
-
 Get-AMFolder "FTP Workflows" | Get-AMPermission | Remove-AMPermission
+```
 
 ## PARAMETERS
 

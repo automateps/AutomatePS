@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMSharePointCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise SharePoint condition.
+Creates a new Automate SharePoint condition.
 
 ## SYNTAX
 

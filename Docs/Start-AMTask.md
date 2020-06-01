@@ -8,7 +8,7 @@ schema: 2.0.0
 # Start-AMTask
 
 ## SYNOPSIS
-Starts AutoMate Enterprise tasks.
+Starts Automate tasks.
 
 ## SYNTAX
 
@@ -30,9 +30,8 @@ Start-AMTask starts tasks.
 ### EXAMPLE 1
 ```
 # Starts task "My Task" on agent "agent01"
-```
-
 Get-AMTask "My Task" | Start-AMTask -Agent "agent01"
+```
 
 ## PARAMETERS
 

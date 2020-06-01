@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMObjectProperty
 
 ## SYNOPSIS
-Gets AutoMate Enterprise workflow/task/agent properties if non-inherited values are used. 
+Gets Automate workflow/task/agent properties if non-inherited values are used. 
 If the inherited values are used, nothing will be returned.
 
 ## SYNTAX
@@ -25,9 +25,8 @@ Get-AMObjectProperty gets properties for objects.
 ### EXAMPLE 1
 ```
 # Get permissions for workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMObjectProperty
+```
 
 ## PARAMETERS
 

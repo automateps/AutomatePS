@@ -1,7 +1,7 @@
 function Set-AMEventLogCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise event log condition.
+            Sets properties of an Automate event log condition.
 
         .DESCRIPTION
             Set-AMEventLogCondition modifies an existing event log condition.

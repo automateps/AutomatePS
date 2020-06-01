@@ -1,7 +1,7 @@
 function Set-AMSharePointCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise SharePoint condition.
+            Sets properties of an Automate SharePoint condition.
 
         .DESCRIPTION
             Set-AMIdleCondition modifies an existing SharePoint condition.

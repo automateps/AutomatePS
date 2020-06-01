@@ -1,10 +1,10 @@
 function Add-AMEmailConditionFilter {
     <#
         .SYNOPSIS
-            Adds a filter to an AutoMate Enterprise Email condition.
+            Adds a filter to an Automate Email condition.
 
         .DESCRIPTION
-            Add-AMEmailConditionFilter adds a filter to an AutoMate Enterprise Email condition.
+            Add-AMEmailConditionFilter adds a filter to an Automate Email condition.
 
         .PARAMETER InputObject
             The Email condition object to add the filter to.
@@ -19,7 +19,7 @@ function Add-AMEmailConditionFilter {
             The value for the filter.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS

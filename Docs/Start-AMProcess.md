@@ -8,7 +8,7 @@ schema: 2.0.0
 # Start-AMProcess
 
 ## SYNOPSIS
-Starts AutoMate Enterprise processes.
+Starts Automate processes.
 
 ## SYNTAX
 
@@ -30,9 +30,8 @@ Start-AMProcess starts processes.
 ### EXAMPLE 1
 ```
 # Starts process "My Process" on agent "agent01"
-```
-
 Get-AMProcess "My Process" | Start-AMProcess -Agent "agent01"
+```
 
 ## PARAMETERS
 

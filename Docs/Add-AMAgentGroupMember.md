@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMAgentGroupMember
 
 ## SYNOPSIS
-Adds agents to an AutoMate Enterprise agent group.
+Adds agents to an Automate agent group.
 
 ## SYNTAX
 
@@ -68,7 +68,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### AgentGroup
 ## OUTPUTS
 

@@ -1,7 +1,7 @@
 function Remove-AMWorkflowLink {
     <#
         .SYNOPSIS
-            Removes a link from an AutoMate Enterprise workflow
+            Removes a link from an Automate workflow
 
         .DESCRIPTION
             Remove-AMWorkflowLink can remove links from a workflow object.
@@ -13,7 +13,7 @@ function Remove-AMWorkflowLink {
             The ID of the link to remove (if passing in a workflow).
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
             WorkflowLink
 

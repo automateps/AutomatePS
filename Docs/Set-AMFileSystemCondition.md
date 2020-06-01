@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMFileSystemCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise file system condition.
+Sets properties of an Automate file system condition.
 
 ## SYNTAX
 

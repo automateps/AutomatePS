@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMCalendar
 
 ## SYNOPSIS
-Gets AutoMate Enterprise calendar events.
+Gets Automate calendar events.
 
 ## SYNTAX
 
@@ -34,23 +34,20 @@ Get-AMCalendar gets events from the calendar.
 ### EXAMPLE 1
 ```
 # Get calendar events for the next 7 days
-```
-
 Get-AMCalendar -EndDate (Get-Date).AddDays(7)
+```
 
 ### EXAMPLE 2
 ```
 # Get calendar events for workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMCalendar
+```
 
 ### EXAMPLE 3
 ```
 # Get calendar events using filter sets
-```
-
 Get-AMCalendar -FilterSet @{Property = 'ScheduleDescription'; Operator = 'contains'; Value = 'hour(s)'}
+```
 
 ## PARAMETERS
 
@@ -184,7 +181,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

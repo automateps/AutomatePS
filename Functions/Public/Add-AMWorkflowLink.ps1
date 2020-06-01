@@ -1,10 +1,10 @@
 function Add-AMWorkflowLink {
     <#
         .SYNOPSIS
-            Adds a link between two objects in an AutoMate Enterprise workflow
+            Adds a link between two objects in an Automate workflow
 
         .DESCRIPTION
-            Add-AMWorkflowLink can add a link between two objects in an AutoMate Enterprise workflow
+            Add-AMWorkflowLink can add a link between two objects in an Automate workflow
 
         .PARAMETER InputObject
             The workflow to add the link to.
@@ -31,7 +31,7 @@ function Add-AMWorkflowLink {
             If a Value result type is used, the value to set.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
 
         .OUTPUTS
@@ -78,7 +78,7 @@ function Add-AMWorkflowLink {
 
     BEGIN {
         if ($SourceConstruct.ConnectionAlias -ne $DestinationConstruct.ConnectionAlias) {
-            throw "SourceConstruct and DestinationConstruct are not on the same AutoMate Enterprise server!"
+            throw "SourceConstruct and DestinationConstruct are not on the same Automate server!"
         }
         # Don't set ResultType and Value unless the appropriate parameters are supplied
         if ($LinkType -ne [AMLinkType]::Result) {

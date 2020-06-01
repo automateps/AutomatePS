@@ -1,7 +1,7 @@
 function Get-AMFolderRoot {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise root folders.
+            Gets Automate root folders.
 
         .DESCRIPTION
             Get-AMFolderRoot returns a list of root folders and their IDs.
@@ -17,7 +17,7 @@ function Get-AMFolderRoot {
             If multiple filter sets are provided, FilterSetMode determines if the filter sets should be evaluated with an AND or an OR
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .EXAMPLE
             # Get the default system agent

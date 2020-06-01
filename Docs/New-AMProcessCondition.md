@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMProcessCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise process condition.
+Creates a new Automate process condition.
 
 ## SYNTAX
 

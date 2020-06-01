@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMObject
 
 ## SYNOPSIS
-Removes an AutoMate Enterprise object.
+Removes an Automate object.
 
 ## SYNTAX
 
@@ -17,16 +17,15 @@ Remove-AMObject [[-InputObject] <Object>] [-SkipUsageCheck] [-WhatIf] [-Confirm]
 ```
 
 ## DESCRIPTION
-Remove-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and deletes the object(s).
+Remove-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and deletes the object(s).
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 # Deletes agent "agent01"
-```
-
 Get-AMAgent "agent01" | Remove-AMObject
+```
 
 ## PARAMETERS
 

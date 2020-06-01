@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMSnmpConditionCredential
 
 ## SYNOPSIS
-Removes a credential from an AutoMate Enterprise SNMP condition.
+Removes a credential from an Automate SNMP condition.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Remove-AMSnmpConditionCredential [-InputObject] <Object> [-ID] <Object> [-WhatIf
 ```
 
 ## DESCRIPTION
-Remove-AMSnmpConditionCredential removes a credential from an AutoMate Enterprise SNMP condition.
+Remove-AMSnmpConditionCredential removes a credential from an Automate SNMP condition.
 
 ## EXAMPLES
 
@@ -95,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

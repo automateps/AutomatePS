@@ -1,4 +1,4 @@
-﻿using module AutoMatePS
+﻿using module AutomatePS
 Import-Module AutomatePS -Force
 Add-Type -AssemblyName PresentationFramework
 
@@ -211,7 +211,7 @@ function Execute-Workflow {
 <Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Name="Window" Title="AutoMate Parameterized Launcher" WindowStartupLocation="CenterScreen" Width="1020" Height="650" ShowInTaskbar="True">
+    x:Name="Window" Title="Automate Parameterized Launcher" WindowStartupLocation="CenterScreen" Width="1020" Height="650" ShowInTaskbar="True">
     <Grid Margin="10,10,10,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -232,8 +232,8 @@ function Execute-Workflow {
          
         <Button x:Name="Poshv5PrerequisiteButton" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
         <Label x:Name="Poshv5PrerequisiteLabel" Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="6" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
-        <Button x:Name="AutoMatePSPrerequisiteButton" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
-        <Label x:Name="AutoMatePSPrerequisiteLabel" Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="6" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
+        <Button x:Name="AutomatePSPrerequisiteButton" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
+        <Label x:Name="AutomatePSPrerequisiteLabel" Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="6" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
 
         <Label x:Name="RepositoryLabel" Content="Repository:" Grid.Column="0" Grid.Row="1" IsEnabled="false" />
         <TreeView x:Name="RepositoryTreeView" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,5,0" IsEnabled="false" />
@@ -261,8 +261,8 @@ $script:connected = $false
 $prerequisiteControls = @{}
 $prerequisiteControls.Add("Poshv5PrerequisiteLabel"     ,$window.FindName("Poshv5PrerequisiteLabel"))
 $prerequisiteControls.Add("Poshv5PrerequisiteButton"    ,$window.FindName("Poshv5PrerequisiteButton"))
-$prerequisiteControls.Add("AutoMatePSPrerequisiteLabel" ,$window.FindName("AutoMatePSPrerequisiteLabel"))
-$prerequisiteControls.Add("AutoMatePSPrerequisiteButton",$window.FindName("AutoMatePSPrerequisiteButton"))
+$prerequisiteControls.Add("AutomatePSPrerequisiteLabel" ,$window.FindName("AutomatePSPrerequisiteLabel"))
+$prerequisiteControls.Add("AutomatePSPrerequisiteButton",$window.FindName("AutomatePSPrerequisiteButton"))
 
 $connectionControls = @{}
 $connectionControls.Add("AMServerTextBox"    ,$window.FindName("AMServerTextBox"))
@@ -288,22 +288,22 @@ if ($PSVersionTable.PSVersion.Major -lt 5) {
     $prerequisiteControls["Poshv5PrerequisiteLabel"].Visibility = "Visible"
     $prerequisiteControls["Poshv5PrerequisiteButton"].Visibility = "Visible"
     $prerequisiteControls["Poshv5PrerequisiteButton"].Add_Click({ [Diagnostics.Process]::Start("https://www.microsoft.com/en-us/download/details.aspx?id=54616") })
-} elseif ($null -eq (Get-Module AutoMatePS -ListAvailable)) {
-    $prerequisiteControls["AutoMatePSPrerequisiteLabel"].Content = "AutoMatePS is not installed!"
-    $prerequisiteControls["AutoMatePSPrerequisiteButton"].Content = "Install"
-    $prerequisiteControls["AutoMatePSPrerequisiteLabel"].Foreground = "Red"
-    $prerequisiteControls["AutoMatePSPrerequisiteLabel"].Visibility = "Visible"
-    $prerequisiteControls["AutoMatePSPrerequisiteButton"].Visibility = "Visible"
-    $prerequisiteControls["AutoMatePSPrerequisiteButton"].Add_Click({
-        Write-Host "Installing AutoMatePS..." -ForegroundColor Green -NoNewline
-        Install-Module AutoMatePS -Scope CurrentUser -Repository PSGallery -Force
+} elseif ($null -eq (Get-Module AutomatePS -ListAvailable)) {
+    $prerequisiteControls["AutomatePSPrerequisiteLabel"].Content = "AutomatePS is not installed!"
+    $prerequisiteControls["AutomatePSPrerequisiteButton"].Content = "Install"
+    $prerequisiteControls["AutomatePSPrerequisiteLabel"].Foreground = "Red"
+    $prerequisiteControls["AutomatePSPrerequisiteLabel"].Visibility = "Visible"
+    $prerequisiteControls["AutomatePSPrerequisiteButton"].Visibility = "Visible"
+    $prerequisiteControls["AutomatePSPrerequisiteButton"].Add_Click({
+        Write-Host "Installing AutomatePS..." -ForegroundColor Green -NoNewline
+        Install-Module AutomatePS -Scope CurrentUser -Repository PSGallery -Force
         Write-Host " Done!" -ForegroundColor Green
-        $prerequisiteControls["AutoMatePSPrerequisiteLabel"].Content = "Please close and reopen!"
-        $prerequisiteControls["AutoMatePSPrerequisiteLabel"].Foreground = "Orange"
-        $prerequisiteControls["AutoMatePSPrerequisiteButton"].Visibility = "Hidden"
+        $prerequisiteControls["AutomatePSPrerequisiteLabel"].Content = "Please close and reopen!"
+        $prerequisiteControls["AutomatePSPrerequisiteLabel"].Foreground = "Orange"
+        $prerequisiteControls["AutomatePSPrerequisiteButton"].Visibility = "Hidden"
     })
 } else {
-	Import-Module AutoMatePS
+	Import-Module AutomatePS
     foreach ($key in $connectionControls.Keys) {
         $connectionControls[$key].IsEnabled = $true
     }

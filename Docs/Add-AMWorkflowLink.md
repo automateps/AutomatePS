@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMWorkflowLink
 
 ## SYNOPSIS
-Adds a link between two objects in an AutoMate Enterprise workflow
+Adds a link between two objects in an Automate workflow
 
 ## SYNTAX
 
@@ -27,16 +27,15 @@ Add-AMWorkflowLink -InputObject <Object> -SourceItemID <Object> -DestinationItem
 ```
 
 ## DESCRIPTION
-Add-AMWorkflowLink can add a link between two objects in an AutoMate Enterprise workflow
+Add-AMWorkflowLink can add a link between two objects in an Automate workflow
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 # Add a link between "Copy Files" and "Move Files"
-```
-
 Get-AMWorkflow "FTP Files" | Add-AMWorkflowLink -SourceConstruct (Get-AMTask "Copy Files") -DestinationConstruct (Get-AMTask "Move Files")
+```
 
 ## PARAMETERS
 
@@ -200,7 +199,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ## OUTPUTS
 

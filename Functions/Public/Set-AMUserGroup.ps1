@@ -1,7 +1,7 @@
 function Set-AMUserGroup {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise user group.
+            Sets properties of an Automate user group.
 
         .DESCRIPTION
             Set-AMUserGroup can change properties of a user group object.
@@ -13,7 +13,7 @@ function Set-AMUserGroup {
             The new notes to set on the object.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             UserGroup
 
         .EXAMPLE

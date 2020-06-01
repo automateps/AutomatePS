@@ -1,7 +1,7 @@
 function New-AMEventLogCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise event log condition.
+            Creates a new Automate event log condition.
 
         .DESCRIPTION
             New-AMEventLogCondition creates a new event log condition.
@@ -115,6 +115,6 @@ function New-AMEventLogCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

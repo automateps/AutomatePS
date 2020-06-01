@@ -1,7 +1,7 @@
 function Switch-AMWorkflowItem {
     <#
         .SYNOPSIS
-            Replaces items in a AutoMate Enterprise workflow
+            Replaces items in a Automate workflow
 
         .DESCRIPTION
             Switch-AMWorkflowItem can replace items in a workflow object.
@@ -16,7 +16,7 @@ function Switch-AMWorkflowItem {
             The new item to replace the current item with.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
 
         .EXAMPLE
@@ -50,7 +50,7 @@ function Switch-AMWorkflowItem {
                 throw "CurrentItem and NewItem are not the same type!"
             }
         } else {
-            throw "CurrentItem and NewItem are not on the same AutoMate Enterprise server!"
+            throw "CurrentItem and NewItem are not on the same Automate server!"
         }
     }
 

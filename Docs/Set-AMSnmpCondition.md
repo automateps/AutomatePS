@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMSnmpCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise SNMP condition.
+Sets properties of an Automate SNMP condition.
 
 ## SYNTAX
 

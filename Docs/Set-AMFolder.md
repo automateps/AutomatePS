@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMFolder
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise folder.
+Sets properties of an Automate folder.
 
 ## SYNTAX
 
@@ -24,9 +24,8 @@ Set-AMFolder can change properties of a folder object.
 ### EXAMPLE 1
 ```
 # Modify folder notes
-```
-
 Get-AMFolder Test | Set-AMFolder -Notes "This folder contains test workflows"
+```
 
 ## PARAMETERS
 

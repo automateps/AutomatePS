@@ -1,7 +1,7 @@
 function Get-AMExecutionEvent {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise execution events.
+            Gets Automate execution events.
 
         .DESCRIPTION
             Get-AMExecutionEvent gets execution events for workflows and tasks.
@@ -29,7 +29,7 @@ function Get-AMExecutionEvent {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Execution events for the following objects can be retrieved by this function:

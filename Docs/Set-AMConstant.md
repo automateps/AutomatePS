@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMConstant
 
 ## SYNOPSIS
-Sets constants on an AutoMate Enterprise agent property.
+Sets constants on an Automate agent property.
 
 ## SYNTAX
 
@@ -94,7 +94,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### AgentProperty
 ## OUTPUTS
 

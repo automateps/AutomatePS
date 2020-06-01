@@ -1,7 +1,7 @@
 function Remove-AMConstant {
     <#
         .SYNOPSIS
-            Removes constants from an AutoMate Enterprise agent property.
+            Removes constants from an Automate agent property.
 
         .DESCRIPTION
             Remove-AMConstant removes constants from an agent property.
@@ -13,7 +13,7 @@ function Remove-AMConstant {
             The name of the constant.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             AgentProperty
 
         .OUTPUTS

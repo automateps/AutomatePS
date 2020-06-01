@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMWorkflowItem
 
 ## SYNOPSIS
-Adds an item to an AutoMate Enterprise workflow
+Adds an item to an Automate workflow
 
 ## SYNTAX
 
@@ -31,16 +31,15 @@ Add-AMWorkflowItem -InputObject <Object> [-Wait] [-UseLabel] [-Label <String>] [
 ```
 
 ## DESCRIPTION
-Add-AMWorkflowItem can add an item to an AutoMate Enterprise workflow
+Add-AMWorkflowItem can add an item to an Automate workflow
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 # Add task "Copy Files" to workflow "FTP Files"
-```
-
 Get-AMWorkflow "FTP Files" | Add-AMWorkflowItem -Item (Get-AMTask "Copy Files")
+```
 
 ## PARAMETERS
 
@@ -215,7 +214,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ## OUTPUTS
 

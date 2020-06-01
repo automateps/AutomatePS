@@ -1,7 +1,7 @@
 function Get-AMServer {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise server information.
+            Gets Automate server information.
 
         .DESCRIPTION
             Get-AMServer gets information about the server.
@@ -10,7 +10,7 @@ function Get-AMServer {
             The type of server information to retrieve.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .EXAMPLE
             # Get information about the management server

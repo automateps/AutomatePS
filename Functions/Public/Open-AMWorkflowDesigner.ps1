@@ -10,10 +10,10 @@ function Open-AMWorkflowDesigner {
             The workflow to launch the designer for.
 
         .PARAMETER InstallationPath
-            If the AutoMate Developer Tools are not installed in the default location, specify the path to the tools here.
+            If the Automate Developer Tools are not installed in the default location, specify the path to the tools here.
 
         .INPUTS
-            The following AutoMate object types can be processed by this function:
+            The following Automate object types can be processed by this function:
             Workflow
 
         .OUTPUTS
@@ -65,11 +65,11 @@ function Open-AMWorkflowDesigner {
                 } elseif (Test-Path -Path "$(${env:ProgramFiles(x86)})\$programFolder") {
                     $InstallationPath = "$(${env:ProgramFiles(x86)})\$programFolder"
                 } else {
-                    throw "Could not find the installation path for AutoMate!"
+                    throw "Could not find the installation path for Automate!"
                 }
             }
             if (-not (Test-Path -Path "$InstallationPath\$designerEXE") -or -not(Test-Path -Path "$InstallationPath\$utilityDLL")) {
-                throw "Specified InstallationPath '$InstallationPath' does not contain the required AutoMate binaries!"
+                throw "Specified InstallationPath '$InstallationPath' does not contain the required Automate binaries!"
             }
             Add-Type -Path "$InstallationPath\$utilityDLL"
             switch ($connection.Version.Major) {

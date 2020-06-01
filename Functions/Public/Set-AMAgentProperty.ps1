@@ -1,7 +1,7 @@
 ﻿function Set-AMAgentProperty {
     <#
         .SYNOPSIS
-            Sets the properties of an AutoMate Enterprise agent.
+            Sets the properties of an Automate agent.
 
         .DESCRIPTION
             Set-AMAgentProperty modifies agent properties.

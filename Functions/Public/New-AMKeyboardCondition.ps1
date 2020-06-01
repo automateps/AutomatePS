@@ -1,7 +1,7 @@
 function New-AMKeyboardCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise keyboard condition.
+            Creates a new Automate keyboard condition.
 
         .DESCRIPTION
             New-AMKeyboardCondition creates a new keyboard condition.
@@ -103,6 +103,6 @@ function New-AMKeyboardCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

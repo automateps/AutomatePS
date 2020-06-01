@@ -1,10 +1,10 @@
 function Get-AMFolder {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise folders.
+            Gets Automate folders.
 
         .DESCRIPTION
-            Get-AMFolder gets folders objects from AutoMate Enterprise.  Get-AMFolder can receive items on the pipeline and return related objects.
+            Get-AMFolder gets folders objects from Automate.  Get-AMFolder can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) to use in search for folders.
@@ -42,7 +42,7 @@ function Get-AMFolder {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Agents related to the following objects can be retrieved by this function:

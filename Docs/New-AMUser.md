@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMUser
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise user.
+Creates a new Automate user.
 
 ## SYNTAX
 
@@ -32,16 +32,14 @@ New-AMUser creates a new user object.
 ### EXAMPLE 1
 ```
 # Create new user that authenticates against Active Directory
-```
-
 New-AMUser -Name John -UseActiveDirectory
+```
 
 ### EXAMPLE 2
 ```
 # Create new user that authenticates against Automate (prompts for password)
-```
-
 New-AMUser -Name John -Password (Read-Host -Prompt "Enter password" -AsSecureString)
+```
 
 ## PARAMETERS
 

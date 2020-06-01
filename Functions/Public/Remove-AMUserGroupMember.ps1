@@ -1,7 +1,7 @@
 function Remove-AMUserGroupMember {
     <#
         .SYNOPSIS
-            Removes users from an AutoMate Enterprise user group.
+            Removes users from an Automate user group.
 
         .DESCRIPTION
             Remove-AMUserGroupMember can remove users from a user group.
@@ -13,7 +13,7 @@ function Remove-AMUserGroupMember {
             The users(s) to remove from the user group.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             UserGroup
 
         .OUTPUTS

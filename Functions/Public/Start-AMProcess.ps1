@@ -1,7 +1,7 @@
 ﻿function Start-AMProcess {
     <#
         .SYNOPSIS
-            Starts AutoMate Enterprise processes.
+            Starts Automate processes.
 
         .DESCRIPTION
             Start-AMProcess starts processes.

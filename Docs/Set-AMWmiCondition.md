@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMWmiCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise WMI condition.
+Sets properties of an Automate WMI condition.
 
 ## SYNTAX
 

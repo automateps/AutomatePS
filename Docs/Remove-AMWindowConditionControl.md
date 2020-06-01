@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMWindowConditionControl
 
 ## SYNOPSIS
-Removes a control from an AutoMate Enterprise window condition.
+Removes a control from an Automate window condition.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Remove-AMWindowConditionControl [-InputObject] <Object> [-ID] <Object> [-WhatIf]
 ```
 
 ## DESCRIPTION
-Remove-AMWindowConditionControl removes a control from an AutoMate Enterprise window condition.
+Remove-AMWindowConditionControl removes a control from an Automate window condition.
 
 ## EXAMPLES
 
@@ -95,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

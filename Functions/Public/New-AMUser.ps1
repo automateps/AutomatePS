@@ -1,7 +1,7 @@
 function New-AMUser {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise user.
+            Creates a new Automate user.
 
         .DESCRIPTION
             New-AMUser creates a new user object.
@@ -83,6 +83,6 @@ function New-AMUser {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new user on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new user on!" }
     }
 }

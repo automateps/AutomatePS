@@ -1,7 +1,7 @@
 function Resume-AMInstance {
     <#
         .SYNOPSIS
-            Resumes AutoMate Enterprise workflow and task instances.
+            Resumes Automate workflow and task instances.
 
         .DESCRIPTION
             Resume-AMInstance resumes paused workflow and task instances.

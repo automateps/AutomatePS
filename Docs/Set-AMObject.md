@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMObject
 
 ## SYNOPSIS
-Modifies an AutoMate Enterprise object.
+Modifies an Automate object.
 
 ## SYNTAX
 
@@ -17,17 +17,16 @@ Set-AMObject [-InputObject] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Set-AMObject receives modified AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and applies the modifications.
+Set-AMObject receives modified Automate object(s) on the pipeline, or via the parameter $InputObject, and applies the modifications.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 $obj = Get-AMWorkflow "My Workflow"
-```
-
 $obj.Notes = "New Notes"
 $obj | Set-AMObject
+```
 
 ## PARAMETERS
 

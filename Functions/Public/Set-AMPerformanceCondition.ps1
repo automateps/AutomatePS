@@ -1,7 +1,7 @@
 function Set-AMPerformanceCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise performance condition.
+            Sets properties of an Automate performance condition.
 
         .DESCRIPTION
             Set-AMPerformanceCondition modifies an existing performance condition.

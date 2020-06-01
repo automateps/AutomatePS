@@ -13,7 +13,7 @@ function Get-AMWorkflowLink {
             Only retrieve variables of a specific link type.
 
         .INPUTS
-            The following AutoMate object types can be queried by this function:
+            The following Automate object types can be queried by this function:
             Workflow
 
         .EXAMPLE

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMWorkflowLink
 
 ## SYNOPSIS
-Removes a link from an AutoMate Enterprise workflow
+Removes a link from an Automate workflow
 
 ## SYNTAX
 
@@ -24,9 +24,8 @@ Remove-AMWorkflowLink can remove links from a workflow object.
 ### EXAMPLE 1
 ```
 # Remove all links from workflow "Some Workflow"
-```
-
 (Get-AMWorkflow "Some Workflow").Links | Remove-AMWorkflowLink
+```
 
 ## PARAMETERS
 
@@ -96,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ### WorkflowLink
 ## OUTPUTS

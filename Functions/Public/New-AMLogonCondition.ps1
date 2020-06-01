@@ -1,7 +1,7 @@
 function New-AMLogonCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise logon condition.
+            Creates a new Automate logon condition.
 
         .DESCRIPTION
             New-AMLogonCondition creates a new idle condition.
@@ -96,6 +96,6 @@ function New-AMLogonCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

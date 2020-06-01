@@ -1,10 +1,10 @@
 function Rename-AMObject {
     <#
         .SYNOPSIS
-            Renames an AutoMate Enterprise object.
+            Renames an Automate object.
 
         .DESCRIPTION
-            Rename-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and renames the object(s).
+            Rename-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and renames the object(s).
 
         .PARAMETER InputObject
             The object(s) to be locked.

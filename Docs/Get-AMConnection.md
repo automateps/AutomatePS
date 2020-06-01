@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMConnection
 
 ## SYNOPSIS
-Gets current AutoMate Enterprise connections.
+Gets current Automate connections.
 
 ## SYNTAX
 
@@ -22,29 +22,22 @@ Get-AMConnection [<CommonParameters>]
 Get-AMConnection [-Connection <Object>] [<CommonParameters>]
 ```
 
-### ByAlias
-```
-Get-AMConnection [-ConnectionAlias <String[]>] [<CommonParameters>]
-```
-
 ## DESCRIPTION
-Get-AMConnection gets a list of current connections to AutoMate Enterprise.
+Get-AMConnection gets a list of current connections to Automate.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 $connection = Connect-AMServer "automate01"
-```
-
 Get-AMConnection -Connection $connection
+```
 
 ### EXAMPLE 2
 ```
 Connect-AMServer "automate01" -ConnectionAlias "prod"
-```
-
 Get-AMConnection -Connection "prod"
+```
 
 ## PARAMETERS
 
@@ -54,22 +47,7 @@ The connection name(s) or object(s).
 ```yaml
 Type: Object
 Parameter Sets: ByConnection
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ConnectionAlias
-{{ Fill ConnectionAlias Description }}
-
-```yaml
-Type: String[]
-Parameter Sets: ByAlias
-Aliases:
+Aliases: ConnectionAlias
 
 Required: False
 Position: Named

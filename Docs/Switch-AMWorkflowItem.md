@@ -8,7 +8,7 @@ schema: 2.0.0
 # Switch-AMWorkflowItem
 
 ## SYNOPSIS
-Replaces items in a AutoMate Enterprise workflow
+Replaces items in a Automate workflow
 
 ## SYNTAX
 
@@ -25,9 +25,8 @@ Switch-AMWorkflowItem can replace items in a workflow object.
 ### EXAMPLE 1
 ```
 # Replace instances of the "Copy Files" task with "Move Files" in workflow "FTP Files"
-```
-
 Get-AMWorkflow "FTP Files" | Switch-AMWorkflowItem -CurrentItem (Get-AMTask "Copy Files") -NewItem (Get-AMTask "Move Files")
+```
 
 ## PARAMETERS
 
@@ -112,7 +111,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ## OUTPUTS
 

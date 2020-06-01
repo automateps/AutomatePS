@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMSnmpConditionCredential
 
 ## SYNOPSIS
-Modifies an AutoMate Enterprise SNMP condition credential.
+Modifies an Automate SNMP condition credential.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Set-AMSnmpConditionCredential [-InputObject] <Object> [-ID] <Object> [[-User] <O
 ```
 
 ## DESCRIPTION
-Set-AMSnmpConditionCredential modifies a credential in an AutoMate Enterprise SNMP condition.
+Set-AMSnmpConditionCredential modifies a credential in an Automate SNMP condition.
 
 ## EXAMPLES
 

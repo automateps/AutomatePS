@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMLogonCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise logon condition.
+Sets properties of an Automate logon condition.
 
 ## SYNTAX
 

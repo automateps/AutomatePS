@@ -1,7 +1,7 @@
 function Set-AMAgentGroup {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise agent group.
+            Sets properties of an Automate agent group.
 
         .DESCRIPTION
             Set-AMAgentGroup can change properties of an agent group object.
@@ -13,7 +13,7 @@ function Set-AMAgentGroup {
             The new notes to set on the object.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             AgentGroup
 
         .OUTPUTS

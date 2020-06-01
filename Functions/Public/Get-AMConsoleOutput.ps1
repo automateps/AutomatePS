@@ -1,7 +1,7 @@
 function Get-AMConsoleOutput {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise console output.
+            Gets Automate console output.
 
         .DESCRIPTION
             Get-AMConsoleOutput gets the console output.
@@ -25,7 +25,7 @@ function Get-AMConsoleOutput {
             The background color to output failure messages.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .EXAMPLE
             # Get console output from server "AM01"

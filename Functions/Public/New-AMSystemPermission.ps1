@@ -1,10 +1,10 @@
 function New-AMSystemPermission {
     <#
         .SYNOPSIS
-            Assigns security to an AutoMate Enterprise system.
+            Assigns security to an Automate system.
 
         .DESCRIPTION
-            New-AMPermission assigns security to the AutoMate Enterprise server.
+            New-AMPermission assigns security to the Automate server.
 
         .PARAMETER InputObject
             The user or group to assign security to.

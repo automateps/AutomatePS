@@ -1,7 +1,7 @@
 function Set-AMConstant {
     <#
         .SYNOPSIS
-            Sets constants on an AutoMate Enterprise agent property.
+            Sets constants on an Automate agent property.
 
         .DESCRIPTION
             Set-AMConstant sets constants for an agent.
@@ -19,7 +19,7 @@ function Set-AMConstant {
             The comment to set for the constant.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             AgentProperty
 
         .OUTPUTS

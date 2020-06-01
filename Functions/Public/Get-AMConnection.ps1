@@ -1,10 +1,10 @@
 function Get-AMConnection {
     <#
         .SYNOPSIS
-            Gets current AutoMate Enterprise connections.
+            Gets current Automate connections.
 
         .DESCRIPTION
-            Get-AMConnection gets a list of current connections to AutoMate Enterprise.
+            Get-AMConnection gets a list of current connections to Automate.
 
         .PARAMETER Connection
             The connection name(s) or object(s).

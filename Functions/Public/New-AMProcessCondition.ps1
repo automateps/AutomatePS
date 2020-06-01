@@ -1,7 +1,7 @@
 function New-AMProcessCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise process condition.
+            Creates a new Automate process condition.
 
         .DESCRIPTION
             New-AMProcessCondition creates a new process condition.
@@ -113,6 +113,6 @@ function New-AMProcessCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

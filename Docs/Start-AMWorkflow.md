@@ -8,12 +8,12 @@ schema: 2.0.0
 # Start-AMWorkflow
 
 ## SYNOPSIS
-Starts AutoMate Enterprise workflows.
+Starts Automate workflows.
 
 ## SYNTAX
 
 ```
-Start-AMWorkflow [-InputObject] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Start-AMWorkflow [-InputObject] <Object> [[-Parameters] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -24,9 +24,15 @@ Start-AMWorkflow starts workflows.
 ### EXAMPLE 1
 ```
 # Starts workflow "My Workflow"
+Get-AMWorkflow "My Workflow" | Start-AMWorkflow
 ```
 
-Get-AMWorkflow "My Workflow" | Start-AMWorkflow
+### EXAMPLE 2
+```
+# Starts workflow "My Workflow" with parameters
+$parameters = @{ varName = "test" }
+Get-AMWorkflow "My Workflow" | Start-AMWorkflow -Parameters $parameters
+```
 
 ## PARAMETERS
 
@@ -42,6 +48,21 @@ Required: True
 Position: 1
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Parameters
+A hashtable containing shared variable name/value pairs to update the workflow with prior to execution.
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

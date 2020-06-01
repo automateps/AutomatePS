@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMExecutionEvent
 
 ## SYNOPSIS
-Gets AutoMate Enterprise execution events.
+Gets Automate execution events.
 
 ## SYNTAX
 
@@ -34,16 +34,14 @@ Get-AMExecutionEvent gets execution events for workflows and tasks.
 ### EXAMPLE 1
 ```
 # Get events for workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMExecutionEvent
+```
 
 ### EXAMPLE 2
 ```
 # Get events using filter sets
-```
-
 Get-AMExecutionEvent -Connection AMprd -FilterSet @{Property = 'ResultText'; Operator = 'contains'; Value = 'Agent01'}
+```
 
 ## PARAMETERS
 
@@ -157,7 +155,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

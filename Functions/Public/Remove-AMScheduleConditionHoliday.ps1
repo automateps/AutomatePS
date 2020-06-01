@@ -1,10 +1,10 @@
 ﻿function Remove-AMScheduleConditionHoliday {
     <#
         .SYNOPSIS
-            Removes a holiday from an AutoMate Enterprise schedule condition using the Holidays interval.
+            Removes a holiday from an Automate schedule condition using the Holidays interval.
 
         .DESCRIPTION
-            Remove-AMScheduleConditionHoliday removes a holiday from an AutoMate Enterprise schedule condition using the Holidays interval.
+            Remove-AMScheduleConditionHoliday removes a holiday from an Automate schedule condition using the Holidays interval.
 
         .PARAMETER InputObject
             The schedule condition object to remove the holiday from.
@@ -13,7 +13,7 @@
             The holiday categories to remove from the schedule.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS

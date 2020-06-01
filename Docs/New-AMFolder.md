@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMFolder
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise folder.
+Creates a new Automate folder.
 
 ## SYNTAX
 
@@ -25,9 +25,8 @@ New-AMFolder creates a new folder object.
 ### EXAMPLE 1
 ```
 # Create a new folder
-```
-
 Get-AMFolder ParentFolder | New-AMFolder -Name "FTP Workflows"
+```
 
 ## PARAMETERS
 

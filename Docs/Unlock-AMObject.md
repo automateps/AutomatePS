@@ -8,7 +8,7 @@ schema: 2.0.0
 # Unlock-AMObject
 
 ## SYNOPSIS
-Unlocks an AutoMate Enterprise object.
+Unlocks an Automate object.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Unlock-AMObject [-InputObject] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Unlock-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and unlocks the object(s).
+Unlock-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and unlocks the object(s).
 
 ## EXAMPLES
 

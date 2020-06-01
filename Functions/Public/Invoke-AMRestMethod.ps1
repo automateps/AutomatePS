@@ -1,7 +1,7 @@
 function Invoke-AMRestMethod {
     <#
         .SYNOPSIS
-            Invokes a command against the AutoMate Enterprise management API.
+            Invokes a command against the Automate management API.
 
         .DESCRIPTION
             Invoke-AMRestMethod makes calls against the REST API and returns results.
@@ -19,7 +19,7 @@ function Invoke-AMRestMethod {
             Applies the specified filter to the results from the API prior to property addition and date conversion to improve performance.  When passing dates in the filter, they must be in UTC.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .EXAMPLE
             # Call the API to get server information

@@ -1,7 +1,7 @@
 function Set-AMEmailCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise Email condition.
+            Sets properties of an Automate Email condition.
 
         .DESCRIPTION
             Set-AMEmailCondition modifies an existing Email condition.

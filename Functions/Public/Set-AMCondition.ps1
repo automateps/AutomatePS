@@ -1,7 +1,7 @@
 function Set-AMCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise condition.
+            Sets properties of an Automate condition.
 
         .DESCRIPTION
             Set-AMCondition can change properties of a condition object.
@@ -19,7 +19,7 @@ function Set-AMCondition {
             The completion state (staging level) to set on the object.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Task
 
         .EXAMPLE

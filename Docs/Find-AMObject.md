@@ -8,7 +8,7 @@ schema: 2.0.0
 # Find-AMObject
 
 ## SYNOPSIS
-Finds objects in AutoMate Enterprise.
+Finds objects in Automate.
 
 ## SYNTAX
 
@@ -18,16 +18,15 @@ Find-AMObject [-Pattern] <String> [-Regex] [-Type <String[]>] [-SearchDepth <Int
 ```
 
 ## DESCRIPTION
-Find-AMObject searches AutoMate Enterprise for objects based on a search query.
+Find-AMObject searches Automate for objects based on a search query.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 # Find all tasks that have FTP activities
-```
-
 Find-AMObject -Pattern "AMFTP" -Type Task
+```
 
 ## PARAMETERS
 

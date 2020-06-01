@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMUserGroup
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise user group.
+Creates a new Automate user group.
 
 ## SYNTAX
 
@@ -25,9 +25,8 @@ New-AMUserGroup creates a user group object.
 ### EXAMPLE 1
 ```
 # Create a user group
-```
-
 New-AMUserGroup -Name "All Users" -Notes "Group containing all users"
+```
 
 ## PARAMETERS
 

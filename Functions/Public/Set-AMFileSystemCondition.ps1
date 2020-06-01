@@ -1,7 +1,7 @@
 function Set-AMFileSystemCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise file system condition.
+            Sets properties of an Automate file system condition.
 
         .DESCRIPTION
             Set-AMFileSystemCondition modifies an existing file system condition.

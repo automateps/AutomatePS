@@ -1,7 +1,7 @@
 function Wait-AMInstance {
     <#
         .SYNOPSIS
-            Waits for AutoMate Enterprise workflow and task instances to complete.
+            Waits for Automate workflow and task instances to complete.
 
         .DESCRIPTION
             Wait-AMInstance waits for running workflow and task instances to complete.

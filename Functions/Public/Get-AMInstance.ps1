@@ -1,10 +1,10 @@
 function Get-AMInstance {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise workflow and task instances.
+            Gets Automate workflow and task instances.
 
         .DESCRIPTION
-            Get-AMInstance gets instance objects from AutoMate Enterprise.  Get-AMInstance can receive items on the pipeline and return related objects.
+            Get-AMInstance gets instance objects from Automate.  Get-AMInstance can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) to use in search for instances.
@@ -51,7 +51,7 @@ function Get-AMInstance {
             If instance is searched for using the -ID parameter, or when a workflow, task or process is piped in, related instances are also returned.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Instances of the following objects can be retrieved by this function:

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMPermission
 
 ## SYNOPSIS
-Gets AutoMate Enterprise permissions.
+Gets Automate permissions.
 
 ## SYNTAX
 
@@ -24,9 +24,8 @@ Get-AMPermission gets permissions for objects.
 ### EXAMPLE 1
 ```
 # Get permissions for workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMPermission
+```
 
 ## PARAMETERS
 

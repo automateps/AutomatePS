@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMScheduleCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise schedule condition.
+Sets properties of an Automate schedule condition.
 
 ## SYNTAX
 
@@ -28,9 +28,8 @@ Sets-AMScheduleCondition modifies an existing schedule condition.
 ### EXAMPLE 1
 ```
 # Set schedule "Daily at 8PM" to disable the trigger when late
-```
-
 Get-AMCondition "Daily at 8PM" | Set-AMScheduleCondition -ScheduleType Day -OnTaskLate DisableTrigger
+```
 
 ## PARAMETERS
 

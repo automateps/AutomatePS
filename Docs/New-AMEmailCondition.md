@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMEmailCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise Email condition.
+Creates a new Automate Email condition.
 
 ## SYNTAX
 

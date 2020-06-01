@@ -1,10 +1,10 @@
 ﻿function Set-AMWindowConditionControl {
     <#
         .SYNOPSIS
-            Modifies an AutoMate Enterprise window condition control.
+            Modifies an Automate window condition control.
 
         .DESCRIPTION
-            Set-AMWindowConditionControl modifies a control in an AutoMate Enterprise window condition.
+            Set-AMWindowConditionControl modifies a control in an Automate window condition.
 
         .PARAMETER InputObject
             The window condition object to add the control to.

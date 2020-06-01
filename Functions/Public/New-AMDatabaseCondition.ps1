@@ -1,7 +1,7 @@
 function New-AMDatabaseCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise database condition.
+            Creates a new Automate database condition.
 
         .DESCRIPTION
             New-AMDatabaseCondition creates a new database condition.
@@ -163,6 +163,6 @@ function New-AMDatabaseCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

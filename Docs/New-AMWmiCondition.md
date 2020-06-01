@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMWmiCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise WMI condition.
+Creates a new Automate WMI condition.
 
 ## SYNTAX
 

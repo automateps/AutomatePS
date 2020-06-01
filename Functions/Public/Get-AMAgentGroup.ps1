@@ -1,10 +1,10 @@
 function Get-AMAgentGroup {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise agent groups.
+            Gets Automate agent groups.
 
         .DESCRIPTION
-            Get-AMAgentGroup gets agent group objects from AutoMate Enterprise.  Get-AMAgentGroup can receive items on the pipeline and return related objects.
+            Get-AMAgentGroup gets agent group objects from Automate.  Get-AMAgentGroup can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) to use in search for agent groups.
@@ -30,7 +30,7 @@ function Get-AMAgentGroup {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Agent groups related to the following objects can be retrieved by this function:

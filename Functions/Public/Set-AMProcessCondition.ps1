@@ -1,7 +1,7 @@
 function Set-AMProcessCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise process condition.
+            Sets properties of an Automate process condition.
 
         .DESCRIPTION
             Set-AMProcessCondition modifies an existing process condition.

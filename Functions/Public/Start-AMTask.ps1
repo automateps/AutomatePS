@@ -1,7 +1,7 @@
 ﻿function Start-AMTask {
     <#
         .SYNOPSIS
-            Starts AutoMate Enterprise tasks.
+            Starts Automate tasks.
 
         .DESCRIPTION
             Start-AMTask starts tasks.

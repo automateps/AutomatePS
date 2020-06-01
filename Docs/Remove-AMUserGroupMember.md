@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMUserGroupMember
 
 ## SYNOPSIS
-Removes users from an AutoMate Enterprise user group.
+Removes users from an Automate user group.
 
 ## SYNTAX
 
@@ -24,16 +24,14 @@ Remove-AMUserGroupMember can remove users from a user group.
 ### EXAMPLE 1
 ```
 # Remove all users from a user group
-```
-
 Get-AMUserGroup "All Users" | Remove-AMUserGroupMember -User *
+```
 
 ### EXAMPLE 2
 ```
 # Remove a user from a user group (using user object)
-```
-
 Get-AMUserGroup | Remove-AMUserGroupMember -User (Get-AMUser "John")
+```
 
 ## PARAMETERS
 
@@ -103,7 +101,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### UserGroup
 ## OUTPUTS
 

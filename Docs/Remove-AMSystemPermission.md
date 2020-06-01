@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMSystemPermission
 
 ## SYNOPSIS
-Removes AutoMate Enterprise system permissions.
+Removes Automate system permissions.
 
 ## SYNTAX
 
@@ -24,9 +24,8 @@ Remove-AMSystemPermission removes the provided system permissions.
 ### EXAMPLE 1
 ```
 # Remove system permissions for user "MyUsername"
-```
-
 Get-AMUser "MyUsername" | Get-AMSystemPermission | Remove-AMSystemPermission
+```
 
 ## PARAMETERS
 

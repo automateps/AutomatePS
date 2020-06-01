@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMAgentProperty
 
 ## SYNOPSIS
-Sets the properties of an AutoMate Enterprise agent.
+Sets the properties of an Automate agent.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ Set-AMAgentProperty [-InputObject] <Object> [-DefaultUserPropertiesSpecified]
  [[-EmailVersion] <AMEmailVersion>] [[-EmailProxyType] <AMProxyType>] [[-EmailProxyServer] <String>]
  [[-EmailProxyPort] <Int32>] [[-EmailProxyUsername] <String>] [[-EmailProxyPassword] <String>]
  [-SystemPropertiesSpecified] [[-AgentPort] <Int32>] [[-TaskCacheFilePath] <String>]
- [[-EventMonitorAutoMateStartMode] <AMEventMonitorAutoStartModeType>] [-DisableForegroundTimeout]
+ [[-EventMonitorAutoStartMode] <AMEventMonitorAutoStartModeType>] [-DisableForegroundTimeout]
  [[-EventMonitorUser] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -905,7 +905,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -EventMonitorAutoMateStartMode
+### -EventMonitorAutoStartMode
 The event monitor user context.
 
 ```yaml

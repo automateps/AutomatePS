@@ -1,7 +1,7 @@
 function Set-AMWorkflowVariable {
     <#
         .SYNOPSIS
-            Sets a shared variable in a AutoMate Enterprise workflow
+            Sets a shared variable in a Automate workflow
 
         .DESCRIPTION
             Set-AMWorkflowVariable can set the initial value and description of shared variables in a workflow object.
@@ -28,7 +28,7 @@ function Set-AMWorkflowVariable {
             If specified, the variable will be configured to pass the value from this workflow to the parent workflow.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
             WorkflowVariable
 

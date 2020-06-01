@@ -8,7 +8,7 @@ schema: 2.0.0
 # Resume-AMInstance
 
 ## SYNOPSIS
-Resumes AutoMate Enterprise workflow and task instances.
+Resumes Automate workflow and task instances.
 
 ## SYNTAX
 
@@ -30,16 +30,14 @@ Resume-AMInstance resumes paused workflow and task instances.
 ### EXAMPLE 1
 ```
 # Resumes all currently paused instances
-```
-
 Get-AMInstance -Status Paused | Resume-AMInstance
+```
 
 ### EXAMPLE 2
 ```
 # Resumes all currently paused instances of workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMInstance -Status Paused | Resume-AMInstance
+```
 
 ## PARAMETERS
 

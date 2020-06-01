@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMSystemPermission
 
 ## SYNOPSIS
-Assigns security to an AutoMate Enterprise system.
+Assigns security to an Automate system.
 
 ## SYNTAX
 
@@ -21,16 +21,15 @@ New-AMSystemPermission [-InputObject] <Object> [-FullControl] [-Deploy] [-EditDa
 ```
 
 ## DESCRIPTION
-New-AMPermission assigns security to the AutoMate Enterprise server.
+New-AMPermission assigns security to the Automate server.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-# Denies user 'John' access to task 'Test'
+# Gives user 'John' full control
+Get-AMUser -Name "John" | New-AMSystemPermission -FullControl
 ```
-
-Get-AMTask -Name "Test" | New-AMPermission -Principal "John"
 
 ## PARAMETERS
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMTaskProperty
 
 ## SYNOPSIS
-Sets the task properties of an AutoMate Enterprise task.
+Sets the task properties of an Automate task.
 
 ## SYNTAX
 

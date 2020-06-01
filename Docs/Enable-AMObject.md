@@ -8,7 +8,7 @@ schema: 2.0.0
 # Enable-AMObject
 
 ## SYNOPSIS
-Enables an AutoMate Enterprise object.
+Enables an Automate object.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Enable-AMObject [-InputObject] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Enable-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and enables the object(s).
+Enable-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and enables the object(s).
 
 ## EXAMPLES
 

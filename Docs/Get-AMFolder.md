@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMFolder
 
 ## SYNOPSIS
-Gets AutoMate Enterprise folders.
+Gets Automate folders.
 
 ## SYNTAX
 
@@ -34,7 +34,7 @@ Get-AMFolder [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-Filt
 ```
 
 ## DESCRIPTION
-Get-AMFolder gets folders objects from AutoMate Enterprise. 
+Get-AMFolder gets folders objects from Automate. 
 Get-AMFolder can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -42,44 +42,38 @@ Get-AMFolder can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 # Get folder "My Folder"
-```
-
 Get-AMFolder "My Folder"
+```
 
 ### EXAMPLE 2
 ```
 # Get folder containing workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMFolder
+```
 
 ### EXAMPLE 3
 ```
 # Get workflows in "My Folder"
-```
-
 Get-AMFolder "My Folder" -Type WORKFLOWS | Get-AMWorkflow
+```
 
 ### EXAMPLE 4
 ```
 # Get folder "My Folder" by path
-```
-
 Get-AMFolder -Path "\PROCESSES" -Name "My Folder"
+```
 
 ### EXAMPLE 5
 ```
 # Get subfolders of "My Folder"
-```
-
 Get-AMFolder "My Folder" -Type PROCESSES | Get-AMFolder
+```
 
 ### EXAMPLE 6
 ```
 # Get folders using filter sets
-```
-
 Get-AMFolder -FilterSet @{ Property = "Path"; Operator = "contains"; Value = "WORKFLOWS"}
+```
 
 ## PARAMETERS
 
@@ -274,7 +268,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

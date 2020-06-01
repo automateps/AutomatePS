@@ -8,7 +8,7 @@ schema: 2.0.0
 # Copy-AMProcess
 
 ## SYNOPSIS
-Copies an AutoMate Enterprise process.
+Copies an Automate process.
 
 ## SYNTAX
 
@@ -25,16 +25,14 @@ Copy-AMProcess can copy a process object within, or between servers.
 ### EXAMPLE 1
 ```
 # Copy process "Start Service" from server1 to server2
-```
-
 Get-AMProcess "Start Service" -Connection server1 | Copy-AMProcess -Folder (Get-AMFolder PROCESSES -Connection server2) -Connection server2
+```
 
 ### EXAMPLE 2
 ```
 # Copy process "Start Service" with new name "Restart Service"
-```
-
 Get-AMProcess "Start Service" | Copy-AMProcess -Name "Restart Service"
+```
 
 ## PARAMETERS
 
@@ -103,7 +101,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Process
 ## OUTPUTS
 

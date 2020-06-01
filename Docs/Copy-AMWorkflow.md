@@ -8,7 +8,7 @@ schema: 2.0.0
 # Copy-AMWorkflow
 
 ## SYNOPSIS
-Copies an AutoMate Enterprise workflow.
+Copies an Automate workflow.
 
 ## SYNTAX
 
@@ -26,9 +26,8 @@ Copy-AMWorkflow can copy a workflow within a server.
 ### EXAMPLE 1
 ```
 # Copy workflow "FTP Files to Company A" to "FTP Files to Company B"
-```
-
 Get-AMWorkflow "FTP Files to Company A" | Copy-AMWorkflow -Name "FTP Files to Company B" -Folder (Get-AMFolder WORKFLOWS)
+```
 
 ## PARAMETERS
 
@@ -147,7 +146,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ## OUTPUTS
 

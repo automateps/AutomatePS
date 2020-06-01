@@ -1,10 +1,10 @@
 function Get-AMMetric {
     <#
         .SYNOPSIS
-            Gets metrics from AutoMate Enterprise.
+            Gets metrics from Automate.
 
         .DESCRIPTION
-            Get-AMMetric gets metrics from AutoMate Enterprise.
+            Get-AMMetric gets metrics from Automate.
 
         .PARAMETER Type
             The type of metrics to query: Running, Completed, Queued, Deviations.
@@ -28,7 +28,7 @@ function Get-AMMetric {
             The deviation direction when querying deviation metrics.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Folder

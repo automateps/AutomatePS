@@ -8,7 +8,7 @@ schema: 2.0.0
 # Connect-AMServer
 
 ## SYNOPSIS
-Connect to an AutoMate Enterprise management server
+Connect to an Automate management server
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-UserName <String>] [-Pas
 ```
 
 ## DESCRIPTION
-Connect-AMServer gathers connection information for AutoMate Enterprise, and tests authentication.
+Connect-AMServer gathers connection information for Automate, and tests authentication.
 This module supports connecting to multiple servers at once.
 
 ## EXAMPLES
@@ -44,7 +44,7 @@ Connect-AMServer -Connection "automate01" -Credential (Get-Credential)
 ## PARAMETERS
 
 ### -Server
-The AutoMate Enterprise management server. 
+The Automate management server. 
 One or more can be provided. 
 The same credentials are used for all servers.
 

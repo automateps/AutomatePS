@@ -1,7 +1,7 @@
-AutoMatePS PowerShell Module
+AutomatePS PowerShell Module
 ===================
 
-AutoMatePS provides a PowerShell interface with Help Systems' AutoMate Enterprise.
+AutomatePS provides a PowerShell interface with Help Systems' Automate Enterprise.
 
 ----------
 Installing the Module
@@ -9,14 +9,14 @@ Installing the Module
 
 Install this module from the PSGallery using:
 ```PowerShell
-Install-Module AutoMatePS
+Install-Module AutomatePS
 ```
 
 ----------
 Using the Module
 -------------
-### Connecting to a AutoMate Enterprise server
-To connect to AutoMate Enterprise Server:
+### Connecting to a Automate Enterprise/Plus/Ultimate server
+To connect to an Automate Server:
 ```PowerShell
 $myCredential = Get-Credential
 Connect-AMServer "AMserver01" -Credential $myCredential
@@ -33,7 +33,7 @@ Disconnect-AMServer
 ----------
 
 ### Getting Objects
-AutoMatePS supports retrieving a majority of AutoMate Enterprise object types using these functions:
+AutomatePS supports retrieving a majority of Automate object types using these functions:
 ```PowerShell
 # Retrieve common objects from AM
 Get-AMAgent
@@ -134,7 +134,7 @@ Get-AMWorkflow -FilterSet $filterSet -FilterSetMode Or # OR's the filter sets to
 
 ----------
 ### Enabling, Disabling, Locking, Unlocking, Moving, Removing and Renaming Objects
-AutoMatePS supports modifying a majority of object types using these functions:
+AutomatePS supports modifying a majority of object types using these functions:
 ```PowerShell
 Enable-AMObject
 Disable-AMObject
@@ -211,7 +211,7 @@ $instance | Resume-AMInstance
 ----------
 
 ### Create New Objects
-AutoMatePS supports creating new objects using the following functions:
+AutomatePS supports creating new objects using the following functions:
 ```PowerShell
 New-AMAgent
 New-AMAgentGroup
@@ -242,7 +242,7 @@ New-AMWorkflow
 ----------
 
 ### Modify Existing Objects
-AutoMatePS supports modifying existing objects using the following functions:
+AutomatePS supports modifying existing objects using the following functions:
 ```PowerShell
 Set-AMAgent
 Set-AMAgentGroup
@@ -274,7 +274,7 @@ Set-AMWorkflowVariable
 ----------
 
 ### Manage workflows
-AutoMatePS supports modifying workflow design with the following functions:
+AutomatePS supports modifying workflow design with the following functions:
 ```PowerShell
 Add-AMWorkflowItem
 Add-AMWorkflowLink
@@ -287,7 +287,7 @@ Set-AMWorkflowVariable
 ----------
 
 ### Add User/Agent Group Members
-AutoMatePS supports adding and removing group members with the following functions:
+AutomatePS supports adding and removing group members with the following functions:
 ```PowerShell
 Add-AMAgentGroupMember
 Add-AMUserGroupMember
@@ -297,7 +297,7 @@ Remove-AMUserGroupMember
 ----------
 
 ### Working with Multiple Servers
-AutoMatePS supports working with multiple AutoMate Enterprise servers.
+AutomatePS supports working with multiple Automate servers.
 For example:
 ```PowerShell
 
@@ -322,7 +322,7 @@ Agent2             True   True server1:9708
 Agent3             True   True server2:9708
 Agent4             True   True server2:9708
 ```
-Objects retrieved from AutoMate Enterprise know which server they belong to - each has a property called **ConnectionAlias** that indicate which connection they were retrieved from.  Therefore, any actions taken against those objects are routed to the correct server.
+Objects retrieved from Automate know which server they belong to - each has a property called **ConnectionAlias** that indicate which connection they were retrieved from.  Therefore, any actions taken against those objects are routed to the correct server.
 
 When connecting to a server, the -ConnectionAlias parameter can be used to provide a shorthand alias for the connection.  For example:
 

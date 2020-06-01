@@ -8,7 +8,7 @@ schema: 2.0.0
 # Copy-AMCondition
 
 ## SYNOPSIS
-Copies an AutoMate Enterprise condition.
+Copies an Automate condition.
 
 ## SYNTAX
 
@@ -25,9 +25,8 @@ Copy-AMCondition can copy a condition object within, or between servers.
 ### EXAMPLE 1
 ```
 # Copy condition "Daily at 12:00PM" from server1 to server2
-```
-
 Get-AMCondition "Daily at 12:00PM" -Connection server1 | Copy-AMCondition -Folder (Get-AMFolder CONDITIONS -Connection server2) -Connection server2
+```
 
 ## PARAMETERS
 
@@ -96,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMWorkflowItem
 
 ## SYNOPSIS
-Sets an item in a AutoMate Enterprise workflow
+Sets an item in a Automate workflow
 
 ## SYNTAX
 
@@ -26,9 +26,8 @@ Set-AMWorkflowItem can modify an item in a workflow object.
 ### EXAMPLE 1
 ```
 # Change the label on an item in a workflow
-```
-
 Get-AMWorkflow "Some Workflow" | Set-AMWorkflowItem -ID "{1103992f-cbbd-44fd-9177-9de31b1070ab}" -Label "Do something" -UseLabel
+```
 
 ## PARAMETERS
 
@@ -248,7 +247,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ### WorkflowItem
 ## OUTPUTS

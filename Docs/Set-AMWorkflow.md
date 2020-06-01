@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMWorkflow
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise workflow.
+Sets properties of an Automate workflow.
 
 ## SYNTAX
 
@@ -31,16 +31,14 @@ Set-AMWorkflow can change properties of a workflow object.
 ### EXAMPLE 1
 ```
 # Change notes for a workflow
-```
-
 Get-AMWorkflow "Some Workflow" | Set-AMWorkflow -Notes "Does something important"
+```
 
 ### EXAMPLE 2
 ```
 # Modify a workflow
-```
-
 Set-AMWorkflow -Instance $modifiedWorkflow
+```
 
 ## PARAMETERS
 
@@ -142,7 +140,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ## OUTPUTS
 

@@ -1,7 +1,7 @@
 function Remove-AMWorkflowVariable {
     <#
         .SYNOPSIS
-            Removes a shared variable from an AutoMate Enterprise workflow
+            Removes a shared variable from an Automate workflow
 
         .DESCRIPTION
             Remove-AMWorkflowVariable can remove shared variables from a workflow object.
@@ -13,7 +13,7 @@ function Remove-AMWorkflowVariable {
             The name of the variable to remove.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
             WorkflowVariable
 

@@ -1,7 +1,7 @@
 function Set-AMSnmpCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise SNMP condition.
+            Sets properties of an Automate SNMP condition.
 
         .DESCRIPTION
             Set-AMSnmpCondition modifies an existing SNMP condition.

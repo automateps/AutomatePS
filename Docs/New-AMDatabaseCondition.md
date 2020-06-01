@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMDatabaseCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise database condition.
+Creates a new Automate database condition.
 
 ## SYNTAX
 

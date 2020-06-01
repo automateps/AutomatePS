@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMWorkflowItem
 
 ## SYNOPSIS
-Removes an item from an AutoMate Enterprise workflow
+Removes an item from an Automate workflow
 
 ## SYNTAX
 
@@ -24,9 +24,8 @@ Remove-AMWorkflowItem can remove items from a workflow object.
 ### EXAMPLE 1
 ```
 # Remove all triggers from workflow "Some Workflow"
-```
-
 (Get-AMWorkflow "Some Workflow").Triggers | Remove-AMWorkflowItem
+```
 
 ## PARAMETERS
 
@@ -96,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ### WorkflowItem
 ### WorkflowTrigger

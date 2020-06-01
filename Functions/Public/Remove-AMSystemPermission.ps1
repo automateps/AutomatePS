@@ -1,7 +1,7 @@
 function Remove-AMSystemPermission {
     <#
         .SYNOPSIS
-            Removes AutoMate Enterprise system permissions.
+            Removes Automate system permissions.
 
         .DESCRIPTION
             Remove-AMSystemPermission removes the provided system permissions.

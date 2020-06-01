@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMAuditEvent
 
 ## SYNOPSIS
-Gets AutoMate Enterprise audit events.
+Gets Automate audit events.
 
 ## SYNTAX
 
@@ -27,23 +27,21 @@ Get-AMAuditEvent [[-InputObject] <Object>] [-StartDate <DateTime>] [-EndDate <Da
 ```
 
 ## DESCRIPTION
-Get-AMAuditEvent gets audit events for AutoMate Enterprise objects.
+Get-AMAuditEvent gets audit events for Automate objects.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 # Get events for workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMAuditEvent
+```
 
 ### EXAMPLE 2
 ```
 # Get audit events using filter sets
-```
-
 Get-AMAuditEvent -FilterSet @{Property = 'EventText'; Operator = 'contains'; Value = 'connection from IP 10.1.1.10'}
+```
 
 ## PARAMETERS
 
@@ -191,7 +189,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

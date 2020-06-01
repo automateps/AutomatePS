@@ -1,7 +1,7 @@
 function Wait-AMAgent {
     <#
         .SYNOPSIS
-            Waits for AutoMate Enterprise agent to go online or offline.
+            Waits for Automate agent to go online or offline.
 
         .DESCRIPTION
             Wait-AMAgent waits for an agent to online or offline.

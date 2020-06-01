@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMWindowConditionControl
 
 ## SYNOPSIS
-Modifies an AutoMate Enterprise window condition control.
+Modifies an Automate window condition control.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Set-AMWindowConditionControl [-InputObject] <Object> [-ID] <Object> [[-Class] <O
 ```
 
 ## DESCRIPTION
-Set-AMWindowConditionControl modifies a control in an AutoMate Enterprise window condition.
+Set-AMWindowConditionControl modifies a control in an Automate window condition.
 
 ## EXAMPLES
 

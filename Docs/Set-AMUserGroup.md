@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMUserGroup
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise user group.
+Sets properties of an Automate user group.
 
 ## SYNTAX
 
@@ -24,16 +24,14 @@ Set-AMUserGroup can change properties of a user group object.
 ### EXAMPLE 1
 ```
 # Changes notes for a single user group
-```
-
 Get-AMUserGroup "Users" | Set-AMUserGroup -Notes "Group containing all users"
+```
 
 ### EXAMPLE 2
 ```
 # Empty notes for all user groups
-```
-
 Get-AMUserGroup | Set-AMUserGroup -Notes ""
+```
 
 ## PARAMETERS
 
@@ -103,7 +101,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### UserGroup
 ## OUTPUTS
 

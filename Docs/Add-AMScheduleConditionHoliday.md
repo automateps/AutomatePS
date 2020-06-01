@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMScheduleConditionHoliday
 
 ## SYNOPSIS
-Adds a holiday to an AutoMate Enterprise schedule condition using the Holidays interval.
+Adds a holiday to an Automate schedule condition using the Holidays interval.
 
 ## SYNTAX
 
@@ -17,16 +17,15 @@ Add-AMScheduleConditionHoliday -InputObject <Object> [-Holiday] <String[]> [<Com
 ```
 
 ## DESCRIPTION
-Add-AMScheduleConditionHoliday adds a holiday to an AutoMate Enterprise schedule condition using the Holidays interval.
+Add-AMScheduleConditionHoliday adds a holiday to an Automate schedule condition using the Holidays interval.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 # Add a holiday category to schedule "On Specified Dates"
-```
-
 Get-AMCondition "On Specified Dates" | Add-AMScheduleConditionHoliday -Holiday "United States"
+```
 
 ## PARAMETERS
 
@@ -65,7 +64,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

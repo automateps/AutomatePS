@@ -1,7 +1,7 @@
 function Add-AMUserGroupMember {
     <#
         .SYNOPSIS
-            Adds users to an AutoMate Enterprise user group.
+            Adds users to an Automate user group.
 
         .DESCRIPTION
             Add-AMUserGroupMember can add users to a user group.
@@ -13,7 +13,7 @@ function Add-AMUserGroupMember {
             The user name(s), or object(s) to add to the user group.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             UserGroup
 
         .OUTPUTS

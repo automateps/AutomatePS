@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise condition.
+Sets properties of an Automate condition.
 
 ## SYNTAX
 
@@ -31,9 +31,8 @@ Set-AMCondition can change properties of a condition object.
 ### EXAMPLE 1
 ```
 # Change notes for a task
-```
-
 Get-AMCondition "Daily at 8AM" | Set-AMCondition -Notes "Starts every day at 8AM"
+```
 
 ## PARAMETERS
 
@@ -135,7 +134,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Task
 ## OUTPUTS
 

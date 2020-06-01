@@ -1,7 +1,7 @@
 function Set-AMWorkflowLink {
     <#
         .SYNOPSIS
-            Sets a link in a AutoMate Enterprise workflow
+            Sets a link in a Automate workflow
 
         .DESCRIPTION
             Set-AMWorkflowLink can modify a link in a workflow object.
@@ -22,7 +22,7 @@ function Set-AMWorkflowLink {
             If a Value result type is used, the value to set.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
             WorkflowLink
 

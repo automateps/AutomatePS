@@ -22,7 +22,7 @@ function Get-AMWorkflowVariable {
             Filter on the type of variable.
 
         .INPUTS
-            The following AutoMate object types can be queried by this function:
+            The following Automate object types can be queried by this function:
             Workflow
 
         .OUTPUTS

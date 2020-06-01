@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMAgentGroupMember
 
 ## SYNOPSIS
-Removes agents from an AutoMate Enterprise agent group.
+Removes agents from an Automate agent group.
 
 ## SYNTAX
 
@@ -24,16 +24,14 @@ Remove-AMAgentGroupMember can remove agents from an agent group.
 ### EXAMPLE 1
 ```
 # Remove all agents from an agent group
-```
-
 Get-AMAgentGroup "All Agents" | Remove-AMAgentGroupMember -Agent *
+```
 
 ### EXAMPLE 2
 ```
 # Remove an agent from an agent group (using agent object)
-```
-
 Get-AMAgentGroup | Remove-AMAgentGroupMember -Agent (Get-AMAgent "Agent1")
+```
 
 ## PARAMETERS
 
@@ -103,7 +101,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### AgentGroup
 ## OUTPUTS
 

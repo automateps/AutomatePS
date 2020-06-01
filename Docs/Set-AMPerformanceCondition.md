@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMPerformanceCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise performance condition.
+Sets properties of an Automate performance condition.
 
 ## SYNTAX
 

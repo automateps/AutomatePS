@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMAgent
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise agent.
+Creates a new Automate agent.
 
 ## SYNTAX
 
@@ -25,16 +25,14 @@ New-AMAgent creates a new agent object.
 ### EXAMPLE 1
 ```
 # Create new task agent
-```
-
 New-AMAgent -Name Task_Agent1 -Type TaskAgent
+```
 
 ### EXAMPLE 2
 ```
 # Create new process agent
-```
-
 New-AMAgent -Name Proc_Agent1 -Type ProcessAgent
+```
 
 ## PARAMETERS
 

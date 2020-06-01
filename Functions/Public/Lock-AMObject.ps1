@@ -1,10 +1,10 @@
 function Lock-AMObject {
     <#
         .SYNOPSIS
-            Locks an AutoMate Enterprise object.
+            Locks an Automate object.
 
         .DESCRIPTION
-            Lock-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and locks the object(s).
+            Lock-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and locks the object(s).
 
         .PARAMETER InputObject
             The object(s) to be locked.

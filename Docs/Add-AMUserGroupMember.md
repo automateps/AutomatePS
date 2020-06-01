@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMUserGroupMember
 
 ## SYNOPSIS
-Adds users to an AutoMate Enterprise user group.
+Adds users to an Automate user group.
 
 ## SYNTAX
 
@@ -24,16 +24,14 @@ Add-AMUserGroupMember can add users to a user group.
 ### EXAMPLE 1
 ```
 # Add all users to a user group
-```
-
 Get-AMUserGroup "All Users" | Add-AMUserGroupMember -User *
+```
 
 ### EXAMPLE 2
 ```
 # Add a user to a user group (using user object)
-```
-
 Get-AMUserGroup | Add-AMUserGroupMember -User (Get-AMUser "John")
+```
 
 ## PARAMETERS
 
@@ -72,7 +70,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### UserGroup
 ## OUTPUTS
 

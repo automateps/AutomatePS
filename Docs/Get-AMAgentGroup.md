@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMAgentGroup
 
 ## SYNOPSIS
-Gets AutoMate Enterprise agent groups.
+Gets Automate agent groups.
 
 ## SYNTAX
 
@@ -32,7 +32,7 @@ Get-AMAgentGroup [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-
 ```
 
 ## DESCRIPTION
-Get-AMAgentGroup gets agent group objects from AutoMate Enterprise. 
+Get-AMAgentGroup gets agent group objects from Automate. 
 Get-AMAgentGroup can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -40,23 +40,20 @@ Get-AMAgentGroup can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 # Get agent group "group01"
-```
-
 Get-AMAgentGroup "group01"
+```
 
 ### EXAMPLE 2
 ```
 # Get agent groups configured within any workflow for the task "My Task"
-```
-
 Get-AMTask "My Task" | Get-AMAgentGroup
+```
 
 ### EXAMPLE 3
 ```
 # Get tasks using multiple filter sets
-```
-
 Get-AMAgentGroup -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "FTP"}
+```
 
 ## PARAMETERS
 
@@ -174,7 +171,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

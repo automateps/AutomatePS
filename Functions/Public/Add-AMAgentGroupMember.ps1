@@ -1,7 +1,7 @@
 function Add-AMAgentGroupMember {
     <#
         .SYNOPSIS
-            Adds agents to an AutoMate Enterprise agent group.
+            Adds agents to an Automate agent group.
 
         .DESCRIPTION
             Add-AMAgentGroupMember adds agents to an agent group.
@@ -13,7 +13,7 @@ function Add-AMAgentGroupMember {
             The agent name(s), or object(s) to add to the agent group.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             AgentGroup
 
         .OUTPUTS

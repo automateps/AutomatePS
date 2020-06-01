@@ -8,7 +8,7 @@ schema: 2.0.0
 # Invoke-AMRestMethod
 
 ## SYNOPSIS
-Invokes a command against the AutoMate Enterprise management API.
+Invokes a command against the Automate management API.
 
 ## SYNTAX
 
@@ -32,9 +32,8 @@ Invoke-AMRestMethod makes calls against the REST API and returns results.
 ### EXAMPLE 1
 ```
 # Call the API to get server information
-```
-
 Invoke-AMRestMethod -Resource "info/get" -RestMethod Get
+```
 
 ## PARAMETERS
 
@@ -100,7 +99,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

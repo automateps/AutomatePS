@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMServer
 
 ## SYNOPSIS
-Gets AutoMate Enterprise server information.
+Gets Automate server information.
 
 ## SYNTAX
 
@@ -24,9 +24,8 @@ Get-AMServer gets information about the server.
 ### EXAMPLE 1
 ```
 # Get information about the management server
-```
-
 Get-AMServer -Type Management
+```
 
 ## PARAMETERS
 
@@ -46,7 +45,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

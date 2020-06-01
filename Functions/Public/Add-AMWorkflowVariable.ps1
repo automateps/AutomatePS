@@ -1,7 +1,7 @@
 function Add-AMWorkflowVariable {
     <#
         .SYNOPSIS
-            Adds a shared variable to an AutoMate Enterprise workflow
+            Adds a shared variable to an Automate workflow
 
         .DESCRIPTION
             Add-AMWorkflowVariable can add shared variables to a workflow object.
@@ -31,7 +31,7 @@ function Add-AMWorkflowVariable {
             If specified, the variable will be configured to pass the value from this workflow to the parent workflow.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
 
         .OUTPUTS

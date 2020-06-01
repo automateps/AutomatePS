@@ -1,7 +1,7 @@
 function Copy-AMWorkflow {
     <#
         .SYNOPSIS
-            Copies an AutoMate Enterprise workflow.
+            Copies an Automate workflow.
 
         .DESCRIPTION
             Copy-AMWorkflow can copy a workflow within a server.
@@ -30,7 +30,7 @@ function Copy-AMWorkflow {
             The server to copy the object to.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
 
         .EXAMPLE
@@ -69,9 +69,9 @@ function Copy-AMWorkflow {
         if ($PSBoundParameters.ContainsKey("Connection")) {
             $Connection = Get-AMConnection -Connection $Connection
             if (($Connection | Measure-Object).Count -eq 0) {
-                throw "No AutoMate server specified!"
+                throw "No Automate server specified!"
             } elseif (($Connection | Measure-Object).Count -gt 1) {
-                throw "Multiple AutoMate servers specified, please specify one server to copy the workflow to!"
+                throw "Multiple Automate servers specified, please specify one server to copy the workflow to!"
             }
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
             $taskFolder = $user | Get-AMFolder -Type TASKS
@@ -95,7 +95,7 @@ function Copy-AMWorkflow {
         foreach ($obj in $InputObject) {
             if ($obj.Type -eq "Workflow") {
                 if ($PSBoundParameters.ContainsKey("Connection")) {
-                    # Copy from one AutoMate server to another
+                    # Copy from one Automate server to another
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
                         if ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major -ne $Connection.Version.Major) {
                             if ($IgnoreServerVersionDifference.IsPresent) {

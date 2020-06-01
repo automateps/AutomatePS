@@ -8,7 +8,7 @@ schema: 2.0.0
 # Suspend-AMInstance
 
 ## SYNOPSIS
-Pauses AutoMate Enterprise workflow and task instances.
+Pauses Automate workflow and task instances.
 
 ## SYNTAX
 
@@ -30,9 +30,8 @@ Suspend-AMInstance suspends running workflow and task instances.
 ### EXAMPLE 1
 ```
 # Suspend all currently running instances
-```
-
 Get-AMInstance -Status Running | Suspend-AMInstance
+```
 
 ## PARAMETERS
 

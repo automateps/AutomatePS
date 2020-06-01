@@ -1,10 +1,10 @@
 function Remove-AMObject {
     <#
         .SYNOPSIS
-            Removes an AutoMate Enterprise object.
+            Removes an Automate object.
 
         .DESCRIPTION
-            Remove-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and deletes the object(s).
+            Remove-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and deletes the object(s).
 
         .PARAMETER InputObject
             The object(s) to be deleted.

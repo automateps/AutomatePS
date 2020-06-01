@@ -1,10 +1,10 @@
 function Disable-AMObject {
     <#
         .SYNOPSIS
-            Disables an AutoMate Enterprise object.
+            Disables an Automate object.
 
         .DESCRIPTION
-            Disable-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and disables the object(s).
+            Disable-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and disables the object(s).
 
         .PARAMETER InputObject
             The object(s) to be disabled.

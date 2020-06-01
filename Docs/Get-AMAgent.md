@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMAgent
 
 ## SYNOPSIS
-Gets AutoMate Enterprise agents.
+Gets Automate agents.
 
 ## SYNTAX
 
@@ -33,7 +33,7 @@ Get-AMAgent [[-Name] <String>] [-ID <String>] [-Type <AMAgentType>] [-FilterSet 
 ```
 
 ## DESCRIPTION
-Get-AMAgent gets agent objects from AutoMate Enterprise. 
+Get-AMAgent gets agent objects from Automate. 
 Get-AMAgent can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -41,30 +41,26 @@ Get-AMAgent can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 # Get agent "agent01"
-```
-
 Get-AMAgent "agent01"
+```
 
 ### EXAMPLE 2
 ```
 # Get agents in agent group "group01"
-```
-
 Get-AMAgentGroup "group01" | Get-AMAgent
+```
 
 ### EXAMPLE 3
 ```
 # Get agents configured within any workflow for the condition "My Condition"
-```
-
 Get-AMCondition "My Condition" | Get-AMAgent
+```
 
 ### EXAMPLE 4
 ```
 # Get agents using filter sets
-```
-
 Get-AMAgent -FilterSet @{ Property = "Enabled"; Operator = "="; Value = "true"}
+```
 
 ## PARAMETERS
 
@@ -198,7 +194,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

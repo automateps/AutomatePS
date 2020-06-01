@@ -1,7 +1,7 @@
 function Get-AMPermission {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise permissions.
+            Gets Automate permissions.
 
         .DESCRIPTION
             Get-AMPermission gets permissions for objects.

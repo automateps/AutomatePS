@@ -1,7 +1,7 @@
 function Set-AMFolder {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise folder.
+            Sets properties of an Automate folder.
 
         .DESCRIPTION
             Set-AMFolder can change properties of a folder object.

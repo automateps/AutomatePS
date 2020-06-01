@@ -1,7 +1,7 @@
 function Stop-AMInstance {
     <#
         .SYNOPSIS
-            Stops AutoMate Enterprise workflow and task instances.
+            Stops Automate workflow and task instances.
 
         .DESCRIPTION
             Stop-AMInstance stops running workflow and task instances.

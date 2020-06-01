@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMUser
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise user.
+Sets properties of an Automate user.
 
 ## SYNTAX
 
@@ -32,9 +32,8 @@ Set-AMUser can change properties of a user object.
 ### EXAMPLE 1
 ```
 # Change password for a user that authenticates against Automate
-```
-
 Get-AMUser -Name John | Set-AMUser -Password (Read-Host -Prompt "Enter password" -AsSecureString)
+```
 
 ## PARAMETERS
 

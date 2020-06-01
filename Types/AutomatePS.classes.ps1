@@ -70,7 +70,7 @@ class AMRepositoryMapDetail {
     }
 }
 
-# AutoMate Enterprise creates some system level objects that have a static ID defined (not stored in the DB).
+# Automate creates some system level objects that have a static ID defined (not stored in the DB).
 # These should remain the same across installations on different servers.
 class AMSystemAgent {
     static [string] $Condition = "{2C046FDD-97A9-4a79-B34F-0C7A97E9CE69}"

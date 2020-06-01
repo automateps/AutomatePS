@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMSnmpCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise SNMP condition.
+Creates a new Automate SNMP condition.
 
 ## SYNTAX
 

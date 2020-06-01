@@ -1,10 +1,10 @@
 function Get-AMAgent {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise agents.
+            Gets Automate agents.
 
         .DESCRIPTION
-            Get-AMAgent gets agent objects from AutoMate Enterprise.  Get-AMAgent can receive items on the pipeline and return related objects.
+            Get-AMAgent gets agent objects from Automate.  Get-AMAgent can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) to use in search for agents.
@@ -33,7 +33,7 @@ function Get-AMAgent {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Agents related to the following objects can be retrieved by this function:

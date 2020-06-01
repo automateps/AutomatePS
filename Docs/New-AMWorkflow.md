@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMWorkflow
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise workflow.
+Creates a new Automate workflow.
 
 ## SYNTAX
 
@@ -25,9 +25,8 @@ New-AMWorkflow creates a new workflow object.
 ### EXAMPLE 1
 ```
 # Create a new workflow
-```
-
 New-AMWorkflow -Name "Test Workflow"
+```
 
 ## PARAMETERS
 

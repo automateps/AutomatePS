@@ -1,7 +1,7 @@
 function Set-AMAgent {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise agent.
+            Sets properties of an Automate agent.
 
         .DESCRIPTION
             Set-AMAgent can change properties of an agent object.
@@ -13,7 +13,7 @@ function Set-AMAgent {
             The new notes to set on the object.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             TaskAgent
             ProcessAgent
 

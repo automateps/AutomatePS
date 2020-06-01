@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMServiceCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise service condition.
+Sets properties of an Automate service condition.
 
 ## SYNTAX
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMKeyboardCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise keyboard condition.
+Creates a new Automate keyboard condition.
 
 ## SYNTAX
 

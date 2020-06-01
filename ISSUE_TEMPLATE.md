@@ -12,6 +12,6 @@
 
 ## Specifications
 
-  - AutoMatePS Version:
+  - AutomatePS Version:
   - PowerShell Version:
-  - AutoMate Enterprise Version:
+  - Automate Version:
