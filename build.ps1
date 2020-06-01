@@ -1,10 +1,13 @@
 using module AutomatePS  # Expose custom types so PlatyPS can create help
-[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")] param ()
+[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
+param (
+    [switch]$RebuildDocs = $false
+)
 #requires -Modules PlatyPS
 
 # Update module manifest
 $functions = (Get-ChildItem ".\Functions\Public\*.ps1").BaseName
-$scripts = Get-ChildItem .\Types | ForEach-Object { "Types\$($_.Name)" }
+$scripts = 'Types\AutomatePS.classes.ps1', 'Types\Automate.enums.ps1', 'Types\Automate.classes.v10.ps1', 'Types\Automate.classes.v11.ps1'
 $aliases = (Get-Alias | Where-Object {$_.ModuleName -eq "AutomatePS"}).Name
 if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
     #Update-ModuleManifest -Path ".\AutomatePS.psd1" -FunctionsToExport $functions
@@ -12,7 +15,7 @@ if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
         Guid = "410dd814-d087-4645-a62e-0388a22798c0"
         Path = ".\AutomatePS.psd1"
         Author = "AutomatePS"
-        Description = "AutomatePS provides PowerShell integration with HelpSystems AutoMate Enterprise"
+        Description = "AutomatePS provides PowerShell integration with HelpSystems Automate Enterprise"
         RootModule = "AutomatePS.psm1"
         PowerShellVersion = "5.0"
         FormatsToProcess = "AutomatePS.Format.ps1xml"
@@ -59,4 +62,7 @@ foreach ($synopsisGroup in ($helps | Group-Object Synopsis | Where-Object {$_.Co
 }
 foreach ($descriptionGroup in ($helps | Group-Object @{Expression={$_.Description.Text}} | Where-Object {$_.Count -gt 1})) {
     Write-Warning "The following functions have the same Description: $($descriptionGroup.Group.Name -join ", ")"
+}
+if ($RebuildDocs.IsPresent) {
+    New-MarkdownHelp -Module AutomatePS -OutputFolder .\Docs -Force
 }
