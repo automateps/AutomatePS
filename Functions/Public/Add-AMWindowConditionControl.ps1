@@ -48,19 +48,19 @@ function Add-AMWindowConditionControl {
 
         [ValidateNotNullOrEmpty()]
         $Class,
-        
+
         [ValidateNotNullOrEmpty()]
         $Name,
-        
+
         [ValidateNotNullOrEmpty()]
         $Type,
-        
+
         [ValidateNotNullOrEmpty()]
         $Value,
-        
+
         [ValidateNotNullOrEmpty()]
         $XPosition,
-        
+
         [ValidateNotNullOrEmpty()]
         $YPosition
     )

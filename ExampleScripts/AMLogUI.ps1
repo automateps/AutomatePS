@@ -58,7 +58,7 @@ function Load-Repository {
         $rootFolders += Get-AMFolderRoot -Type Process -Connection $connection.Alias
         $rootFolders += Get-AMFolderRoot -Type TaskAgent -Connection $connection.Alias
         $rootFolders += Get-AMFolderRoot -Type ProcessAgent -Connection $connection.Alias
-        
+
         $connectionTreeViewItem = New-Object System.Windows.Controls.TreeViewItem
         $connectionTreeViewItem.Header = $connection.Alias
         $connectionTreeViewItem.Tag    = $connection

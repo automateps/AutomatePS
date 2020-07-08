@@ -31,7 +31,7 @@ function Set-AMConstant {
         .LINK
             https://github.com/AutomatePS/AutomatePS
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         $InputObject,
@@ -75,14 +75,16 @@ function Set-AMConstant {
                     $shouldUpdate = $true
                 }
                 if ($shouldUpdate) {
-                    $splat = @{
-                        Resource = "agents/$($obj.ParentID)/properties/update"
-                        RestMethod = "Post"
-                        Body = $updateObject.ToJson()
-                        Connection = $updateObject.ConnectionAlias
+                    if ($PSCmdlet.ShouldProcess($obj.ConnectionAlias, "Modifying $($obj.Type) for $($parent.Type): $(Join-Path -Path $parent.Path -ChildPath $parent.Name).")) {
+                        $splat = @{
+                            Resource = "agents/$($obj.ParentID)/properties/update"
+                            RestMethod = "Post"
+                            Body = $updateObject.ToJson()
+                            Connection = $updateObject.ConnectionAlias
+                        }
+                        Invoke-AMRestMethod @splat | Out-Null
+                        Write-Verbose "Modified $($obj.Type) for $($parent.Type): $(Join-Path -Path $parent.Path -ChildPath $parent.Name)."
                     }
-                    Invoke-AMRestMethod @splat | Out-Null
-                    Write-Verbose "Modified $($obj.Type) for $($parent.Type): $(Join-Path -Path $parent.Path -ChildPath $parent.Name)."
                 } else {
                     Write-Verbose "$($obj.Type) for $($parent.Type) '$($parent.Name)' already contains the specified values."
                 }

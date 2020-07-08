@@ -56,6 +56,6 @@ function Compare-AMCondition {
                 Write-Warning "$($property.Name) is an unhandled type."
             }
         }
-    }    
+    }
     return $result
 }

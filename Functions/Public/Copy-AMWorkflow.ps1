@@ -56,7 +56,7 @@ function Copy-AMWorkflow {
         [string]$ConflictAction,
 
         [ValidateNotNullOrEmpty()]
-        [Hashtable]$IdSubstitutions = [Hashtable]::new(),
+        [Hashtable]$IdSubstitutions = @{},
 
         [switch]$IgnoreServerVersionDifference,
 

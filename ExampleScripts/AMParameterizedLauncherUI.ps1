@@ -59,7 +59,7 @@ function Load-Repository {
     foreach ($connection in Get-AMConnection) {
         $rootFolders = @()
         $rootFolders += Get-AMFolderRoot -Type Workflow -Connection $connection.Alias
-        
+
         $connectionTreeViewItem = New-Object System.Windows.Controls.TreeViewItem
         $connectionTreeViewItem.Header = $connection.Alias
         $connectionTreeViewItem.Tag    = $connection
@@ -229,7 +229,7 @@ function Execute-Workflow {
         <Label x:Name="AMServerLabel" Content="Server:" Grid.Column="0" Grid.Row="0" Margin="0,5,5,5" IsEnabled="false" />
         <TextBox x:Name="AMServerTextBox" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" IsEnabled="false" ToolTip="Specify the server name, or server:port (for a non-standard port)" />
         <Button x:Name="ToggleConnectButton" Content="Connect" Grid.Column="2" Grid.Row="0" Margin="5,5,5,5" IsEnabled="false" />
-         
+
         <Button x:Name="Poshv5PrerequisiteButton" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
         <Label x:Name="Poshv5PrerequisiteLabel" Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="6" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
         <Button x:Name="AutomatePSPrerequisiteButton" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Margin="5,5,0,5" Visibility="Hidden" IsEnabled="false" />
@@ -237,14 +237,14 @@ function Execute-Workflow {
 
         <Label x:Name="RepositoryLabel" Content="Repository:" Grid.Column="0" Grid.Row="1" IsEnabled="false" />
         <TreeView x:Name="RepositoryTreeView" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,5,0" IsEnabled="false" />
-               
+
         <ScrollViewer Grid.Column="3" Grid.Row="2" HorizontalScrollBarVisibility="Auto">
             <StackPanel>
                 <Label x:Name="WorkflowNameLabel" />
                 <StackPanel x:Name="FieldStackView" Grid.Column="3" Grid.Row="2" Margin="5,5,0,0">
                 </StackPanel>
             </StackPanel>
-        </ScrollViewer> 
+        </ScrollViewer>
         <DockPanel Grid.Column="3" Grid.Row="4">
             <CheckBox x:Name="SaveValuesCheckBox" Visibility="Hidden" IsChecked="true" IsEnabled="false" Margin="0,0,5,0">Save Original Values</CheckBox>
             <Button x:Name="ExecuteButton" Content="Execute" Visibility="Hidden" IsEnabled="false" />

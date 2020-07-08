@@ -54,13 +54,13 @@ function New-AMProcessCondition {
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$ProcessName,
-    
+
         [ValidateNotNullOrEmpty()]
         [AMProcessTriggerState]$Action = [AMProcessTriggerState]::StoppedResponding,
-    
+
         [ValidateNotNullOrEmpty()]
         [switch]$TriggerOnce = $false,
-    
+
         [ValidateNotNullOrEmpty()]
         [switch]$Started = $false,
 

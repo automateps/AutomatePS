@@ -127,10 +127,10 @@ class AMComparison {
 
 class AMConnectionCompleter : System.Management.Automation.IArgumentCompleter {
     [System.Collections.Generic.IEnumerable[System.Management.Automation.CompletionResult]]CompleteArgument(
-    [string]$CommandName, 
-    [string]$ParameterName, 
-    [string]$WordToComplete, 
-    [System.Management.Automation.Language.CommandAst]$CommandAst, 
+    [string]$CommandName,
+    [string]$ParameterName,
+    [string]$WordToComplete,
+    [System.Management.Automation.Language.CommandAst]$CommandAst,
     [System.Collections.IDictionary]$FakeBoundParameters
     )
     {

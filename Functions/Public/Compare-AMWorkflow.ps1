@@ -200,10 +200,9 @@ function Compare-AMWorkflow {
                 $foundMatch = $true
             }
         }
-        if (-not $foundMatch) {            
+        if (-not $foundMatch) {
             $result += [AMComparison]::new($null, $differenceVariable, "Variables", [AMComparisonResult]::MissingFromReferenceObject)
         }
     }
-    
     return $result
 }

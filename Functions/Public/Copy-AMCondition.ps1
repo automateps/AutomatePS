@@ -59,7 +59,7 @@ function Copy-AMCondition {
             }
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
         }
-        
+
         Write-Verbose "Caching condition IDs for server $($Connection.Alias) for ID checking"
         $conditionCache = Get-AMCondition -Connection $Connection
         $existingIds = @()

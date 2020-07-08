@@ -37,11 +37,11 @@ function Add-AMEmailConditionFilter {
         [Parameter(Mandatory = $true)]
         [ValidateSet("From","To","CC","Subject","Body","Date","Time","AttachmentName","AttachmentExtension","AttachmentSize","AttachmentCount")]
         [string]$FieldName,
-        
+
         [Parameter(Mandatory = $true)]
         [ValidateSet("Equal","NotEqual","Less","LessOrEqual","Greater","GreaterOrEqual","Contains","NotContains")]
         [string]$Operator,
-        
+
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$FieldValue

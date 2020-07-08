@@ -34,6 +34,7 @@ function Get-AMConsoleOutput {
         .LINK
             https://github.com/AutomatePS/AutomatePS
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWriteHost", "")]
     [CmdletBinding()]
     param (
         [ValidateNotNullOrEmpty()]
