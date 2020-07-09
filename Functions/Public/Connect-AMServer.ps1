@@ -41,7 +41,7 @@ function Connect-AMServer {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="ByConnectionStore")]
-    [OutputType([AMConnection[]])]
+    [OutputType([AMConnection])]
     param (
         [Parameter(Position = 0, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]

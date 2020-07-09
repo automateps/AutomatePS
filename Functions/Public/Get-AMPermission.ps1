@@ -35,7 +35,7 @@ function Get-AMPermission {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
-    [OutputType([System.Object[]])]
+    [OutputType([AMPermissionv10],[AMPermissionv11])]
     param (
         [Parameter(Position = 0, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

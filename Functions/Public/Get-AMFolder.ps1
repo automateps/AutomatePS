@@ -87,7 +87,7 @@ function Get-AMFolder {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMFolderv10],[AMFolderv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

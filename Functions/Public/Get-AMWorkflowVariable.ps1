@@ -36,6 +36,7 @@ function Get-AMWorkflowVariable {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [OutputType([AMWorkflowVariablev10],[AMWorkflowVariablev11])]
     param (
         [Parameter(ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

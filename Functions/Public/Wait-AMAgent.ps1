@@ -29,7 +29,7 @@ function Wait-AMAgent {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMAgentv10],[AMAgentv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

@@ -24,6 +24,7 @@ function Get-AMWorkflowItem {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [OutputType([AMWorkflowItemv10],[AMWorkflowItemv11])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

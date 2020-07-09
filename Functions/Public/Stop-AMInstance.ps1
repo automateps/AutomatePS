@@ -20,7 +20,7 @@ function Stop-AMInstance {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMInstancev10],[AMInstancev11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

@@ -64,7 +64,6 @@ function Get-AMCalendar {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
     param (
         [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

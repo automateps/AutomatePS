@@ -60,7 +60,7 @@ function Get-AMTask {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMTaskv10],[AMTaskv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

@@ -56,7 +56,7 @@ function Get-AMUserGroup {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMUserGroupv10],[AMUserGroupv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

@@ -22,6 +22,7 @@ function Get-AMObject {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [OutputType([AMAutomationConstructv10],[AMAutomationConstructv11])]
     param (
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]

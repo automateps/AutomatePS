@@ -30,6 +30,7 @@ function Get-AMConnection {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="AllConnections")]
+    [OutputType([AMConnection])]
     param (
         [Alias("ConnectionAlias")]
         [Parameter(ParameterSetName = "ByConnection")]

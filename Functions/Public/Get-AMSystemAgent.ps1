@@ -27,7 +27,6 @@ function Get-AMSystemAgent {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
     param (
         [Parameter(ParameterSetName="ByID")]
         [ValidateNotNullOrEmpty()]

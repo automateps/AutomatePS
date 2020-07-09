@@ -24,6 +24,7 @@ function Get-AMWorkflowLink {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [OutputType([AMWorkflowLinkv10],[AMWorkflowLinkv11])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

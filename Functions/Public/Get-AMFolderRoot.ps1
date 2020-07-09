@@ -31,7 +31,7 @@ function Get-AMFolderRoot {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
-    [OutputType([System.Object[]])]
+    [OutputType([AMFolderv10],[AMFolderv11])]
     param (
         [ValidateSet("AgentGroup","Condition","Process","ProcessAgent","Task","TaskAgent","User","UserGroup","Workflow")]
         [string]$Type,

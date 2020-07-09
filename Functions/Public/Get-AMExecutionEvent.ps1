@@ -55,7 +55,7 @@ function Get-AMExecutionEvent {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMExecutionEventv10],[AMExecutionEventv11])]
     param (
         [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
