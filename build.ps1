@@ -1,6 +1,10 @@
 using module AutomatePS  # Expose custom types so PlatyPS can create help
 [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
 param (
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
+    [Version]$Version,
+
     [switch]$RebuildDocs = $false
 )
 #requires -Modules PlatyPS
@@ -26,7 +30,7 @@ if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
         DscResourcesToExport = $dscResources
         HelpInfoUri = "https://github.com/AutomatePS/AutomatePS"
         ProjectUri = "https://github.com/AutomatePS/AutomatePS"
-        ModuleVersion = "4.1.1"
+        ModuleVersion = $Version
     }
     New-ModuleManifest @manifestSplat
 }
