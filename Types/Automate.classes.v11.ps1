@@ -1,5 +1,5 @@
 class AMObjectConstructv11 {
-    [string]$__type         = [string]::Empty
+    hidden [string]$__type  = [string]::Empty
     [string]$ID             = "{$((New-Guid).Guid)}"
     [string]$Name           = [string]::Empty
     [string]$ParentID       = [string]::Empty
@@ -104,7 +104,7 @@ class AMAutomationConstructv11 : AMObjectConstructv11 {
 }
 
 class AMAgentv11 : AMAutomationConstructv11 {
-    [string]$__type                       = "AgentConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                = "AgentConstruct:#AutoMate.Constructs.v11"
     [AMAgentType]$AgentType               = [AMAgentType]::Unknown
     [AMAgentUpgradeStep]$AgentUpgradeStep = [AMAgentUpgradeStep]::Unknown
     [bool]$Blocked                        = $false
@@ -281,7 +281,7 @@ class AMAgentPropertyv11 : AMAutomationConstructv11 {
 }
 
 class AMAgentGroupv11 : AMAutomationConstructv11 {
-    [string]$__type                         = "AgentGroupConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                  = "AgentGroupConstruct:#AutoMate.Constructs.v11"
     [System.Collections.ArrayList]$AgentIDs = [System.Collections.ArrayList]::new()
 
     AMAgentGroupv11([string]$Name, [AMFolderv11]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
@@ -368,7 +368,7 @@ class AMConfigurationConstructv11 {
 }
 
 class AMConstantv11 : AMObjectConstructv11 {
-    [string]$__type                = "ConstantConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type         = "ConstantConstruct:#AutoMate.Constructs.v11"
     [string]$ClearTextValue        = [string]::Empty
     [string]$Comment               = [string]::Empty
     [AMConstantType]$ConstantUsage = [AMConstantType]::Constant
@@ -497,7 +497,7 @@ class AMExecutionEventv11 : AMObjectConstructv11 {
 }
 
 class AMFolderv11 : AMAutomationConstructv11 {
-    [string]$__type = "FolderConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type = "FolderConstruct:#AutoMate.Constructs.v11"
 
     AMFolderv11([string]$ConnectionAlias) : Base($ConnectionAlias) {
         $this.Type = [AMConstructType]::Folder
@@ -607,7 +607,7 @@ class AMInstancev11 : AMObjectConstructv11 {
 }
 
 class AMPermissionv11 : AMObjectConstructv11 {
-    [string]$__type                                = "ItemPermissionsConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                         = "ItemPermissionsConstruct:#AutoMate.Constructs.v11"
     [bool]$AssignPermission                        = $false
     [string]$ConstructID                           = [string]::Empty
     [bool]$CreatePermission                        = $false
@@ -684,7 +684,7 @@ class AMPermissionv11 : AMObjectConstructv11 {
 }
 
 class AMProcessv11 : AMAutomationConstructv11 {
-    [string]$__type               = "ProcessConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type        = "ProcessConstruct:#AutoMate.Constructs.v11"
     [string]$CommandLine          = [string]::Empty
     [string]$EnvironmentVariables = [string]::Empty
     [AMRunProcessAs]$RunProcessAs = [AMRunProcessAs]::Default
@@ -705,7 +705,7 @@ class AMProcessv11 : AMAutomationConstructv11 {
 }
 
 class AMSystemPermissionv11 : AMObjectConstructv11 {
-    [string]$__type                         = "SystemPermissionsConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                  = "SystemPermissionsConstruct:#AutoMate.Constructs.v11"
     [bool]$DeployPermission                 = $false
     [bool]$EditDashboardPermission          = $false
     [bool]$EditDefaultPropertiesPermission  = $false
@@ -757,8 +757,8 @@ class AMSystemPermissionv11 : AMObjectConstructv11 {
 }
 
 class AMTaskv11 : AMAutomationConstructv11 {
-    [string]$__type = "TaskConstruct:#AutoMate.Constructs.v11"
-    [string]$AML    = [string]::Empty
+    hidden [string]$__type = "TaskConstruct:#AutoMate.Constructs.v11"
+    [string]$AML           = [string]::Empty
 
     AMTaskv11([string]$Name, [AMFolderv11]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
         $this.Type = [AMConstructType]::Task
@@ -865,7 +865,7 @@ class AMTriggerv11 : AMAutomationConstructv11 {
 }
 
 class AMDatabaseTriggerv11 : AMTriggerv11 {
-    [string]$__type                      = "DatabaseTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type               = "DatabaseTriggerConstruct:#AutoMate.Constructs.v11"
     [AMDatabaseTriggerType]$DatabaseType = [AMDatabaseTriggerType]::SQL
     [string]$Server                      = [string]::Empty
     [int]$NotificationPort               = -1
@@ -899,7 +899,7 @@ class AMDatabaseTriggerv11 : AMTriggerv11 {
 }
 
 class AMEmailTriggerv11 : AMTriggerv11 {
-    [string]$__type                               = "EmailTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                        = "EmailTriggerConstruct:#AutoMate.Constructs.v11"
     [bool]$AllowRedirection                       = $false
     [string]$AuthType                             = "Auto"
     [string]$AuthenticationType                   = "Auto"
@@ -991,7 +991,7 @@ class AMEmailTriggerv11 : AMTriggerv11 {
 }
 
 class AMEmailFilterv11 {
-    [string]$__type         = "EmailFilter:#AutoMate.Constructs.v11"
+    hidden [string]$__type  = "EmailFilter:#AutoMate.Constructs.v11"
     [string]$ID             = [string]::Empty
     [string]$EmailTriggerID = [string]::Empty
     [string]$FieldName      = [string]::Empty
@@ -1018,7 +1018,7 @@ class AMEmailFilterv11 {
 }
 
 class AMEventLogTriggerv11 : AMTriggerv11 {
-    [string]$__type                        = "EventLogTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                 = "EventLogTriggerConstruct:#AutoMate.Constructs.v11"
     [string]$EventCategory                 = [string]::Empty
     [string]$EventDescription              = [string]::Empty
     [string]$EventSource                   = [string]::Empty
@@ -1038,29 +1038,29 @@ class AMEventLogTriggerv11 : AMTriggerv11 {
 }
 
 class AMFileSystemTriggerv11 : AMTriggerv11 {
-    [string]$__type       = "FileTriggerConstruct:#AutoMate.Constructs.v11"
-    [string]$Domain       = [string]::Empty
-    [string]$Exclude      = [string]::Empty
-    [bool]$FileAdded      = $true
-    [int]$FileCount       = -1
-    [bool]$FileModified   = $false
-    [bool]$FileRemoved    = $false
-    [bool]$FileRenamed    = $false
-    [int]$FileSize        = -1
-    [string]$Folder       = [string]::Empty
-    [bool]$FolderAdded    = $false
-    [int]$FolderCount     = -1
-    [bool]$FolderModified = $false
-    [bool]$FolderRemoved  = $false
-    [bool]$FolderRenamed  = $false
-    [int]$FolderSize      = -1
-    [string]$Include      = [string]::Empty
-    [string]$Password     = [string]::Empty
-    [int]$PollingInterval = 10
-    [bool]$SubFolders     = $false
+    hidden [string]$__type = "FileTriggerConstruct:#AutoMate.Constructs.v11"
+    [string]$Domain        = [string]::Empty
+    [string]$Exclude       = [string]::Empty
+    [bool]$FileAdded       = $true
+    [int]$FileCount        = -1
+    [bool]$FileModified    = $false
+    [bool]$FileRemoved     = $false
+    [bool]$FileRenamed     = $false
+    [int]$FileSize         = -1
+    [string]$Folder        = [string]::Empty
+    [bool]$FolderAdded     = $false
+    [int]$FolderCount      = -1
+    [bool]$FolderModified  = $false
+    [bool]$FolderRemoved   = $false
+    [bool]$FolderRenamed   = $false
+    [int]$FolderSize       = -1
+    [string]$Include       = [string]::Empty
+    [string]$Password      = [string]::Empty
+    [int]$PollingInterval  = 10
+    [bool]$SubFolders      = $false
     [AMConditionUserMode]$UserMode = [AMConditionUserMode]::NoUser
-    [string]$UserName     = [string]::Empty
-    [bool]$WaitForAccess  = $false
+    [string]$UserName      = [string]::Empty
+    [bool]$WaitForAccess   = $false
 
     AMFileSystemTriggerv11([string]$Name, [AMFolderv11]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
         $this.TriggerType = [AMTriggerType]::FileSystem
@@ -1092,7 +1092,7 @@ class AMFileSystemTriggerv11 : AMTriggerv11 {
 }
 
 class AMIdleTriggerv11 : AMTriggerv11 {
-    [string]$__type         = "IdleTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type  = "IdleTriggerConstruct:#AutoMate.Constructs.v11"
     [int]$Delay             = 1
     [AMTimeMeasure]$Measure = [AMTimeMeasure]::Minutes
 
@@ -1106,7 +1106,7 @@ class AMIdleTriggerv11 : AMTriggerv11 {
 }
 
 class AMKeyboardTriggerv11 : AMTriggerv11 {
-    [string]$__type                      = "KeyTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type               = "KeyTriggerConstruct:#AutoMate.Constructs.v11"
     [bool]$EraseText                     = $false
     [bool]$Foreground                    = $false
     [AMKeyboardConditionKeyType]$KeyType = [AMKeyboardConditionKeyType]::Hotkey
@@ -1128,7 +1128,7 @@ class AMKeyboardTriggerv11 : AMTriggerv11 {
 }
 
 class AMLogonTriggerv11 : AMTriggerv11 {
-    [string]$__type                     = "StartupTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type              = "StartupTriggerConstruct:#AutoMate.Constructs.v11"
     [System.Collections.ArrayList]$User = [System.Collections.ArrayList]::new()
 
     AMLogonTriggerv11([string]$Name, [AMFolderv11]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
@@ -1142,7 +1142,7 @@ class AMLogonTriggerv11 : AMTriggerv11 {
 }
 
 class AMPerformanceTriggerv11 : AMTriggerv11 {
-    [string]$__type                       = "PerformanceTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                = "PerformanceTriggerConstruct:#AutoMate.Constructs.v11"
     [long]$Amount                         = 10
     [bool]$AnyProcessInApplication        = $true
     [bool]$AnyThreadInProcess             = $true
@@ -1174,7 +1174,7 @@ class AMPerformanceTriggerv11 : AMTriggerv11 {
 }
 
 class AMProcessTriggerv11 : AMTriggerv11 {
-    [string]$__type                = "ProcessTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type         = "ProcessTriggerConstruct:#AutoMate.Constructs.v11"
     [AMProcessTriggerState]$Action = [AMProcessTriggerState]::StoppedResponding
     [string]$Exclude               = [string]::Empty
     [string]$ProcessName           = "*"
@@ -1194,7 +1194,7 @@ class AMProcessTriggerv11 : AMTriggerv11 {
 }
 
 class AMScheduleTriggerv11 : AMTriggerv11 {
-    [string]$__type                            = "ScheduleTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                     = "ScheduleTriggerConstruct:#AutoMate.Constructs.v11"
     [System.Collections.ArrayList]$Day         = [System.Collections.ArrayList]::new()
     [string]$End                               = [string]::Empty
     [string]$Frequency                         = "1"
@@ -1238,7 +1238,7 @@ class AMScheduleTriggerv11 : AMTriggerv11 {
 }
 
 class AMServiceTriggerv11 : AMTriggerv11 {
-    [string]$__type                = "ServiceTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type         = "ServiceTriggerConstruct:#AutoMate.Constructs.v11"
     [AMServiceTriggerState]$Action = [AMServiceTriggerState]::StoppedResponding
     [string]$Exclude               = [string]::Empty
     [string]$ServiceName           = [string]::Empty
@@ -1256,7 +1256,7 @@ class AMServiceTriggerv11 : AMTriggerv11 {
 }
 
 class AMSharePointTriggerv11 : AMTriggerv11 {
-    [string]$__type                = "SharePointTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type         = "SharePointTriggerConstruct:#AutoMate.Constructs.v11"
     [string]$Domain                = [string]::Empty
     [bool]$EmailReceived           = $false
     [bool]$FieldAdded              = $false
@@ -1336,7 +1336,7 @@ class AMSharePointTriggerv11 : AMTriggerv11 {
 }
 
 class AMSNMPTriggerv11 : AMTriggerv11 {
-    [string]$__type                            = "SNMPTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                     = "SNMPTriggerConstruct:#AutoMate.Constructs.v11"
     [bool]$AcceptUnathenticatedTrap            = $false
     [string]$Community                         = "Any"
     [System.Collections.ArrayList]$Credentials = [System.Collections.ArrayList]::new()
@@ -1369,7 +1369,7 @@ class AMSNMPTriggerv11 : AMTriggerv11 {
 }
 
 class AMSNMPTriggerCredentialv11 {
-    [string]$__type                             = "SNMPCredential:#AutoMate.Constructs.v11"
+    hidden [string]$__type                      = "SNMPCredential:#AutoMate.Constructs.v11"
     [string]$ID                                 = [string]::Empty
     [string]$AuthenticationPassword             = [string]::Empty
     [AMEncryptionAlgorithm]$EncryptionAlgorithm = [AMEncryptionAlgorithm]::NoEncryption
@@ -1392,7 +1392,7 @@ class AMSNMPTriggerCredentialv11 {
 }
 
 class AMWindowTriggerv11 : AMTriggerv11 {
-    [string]$__type         = "WindowTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type  = "WindowTriggerConstruct:#AutoMate.Constructs.v11"
     [AMWindowAction]$Action = [AMWindowAction]::Open
     [bool]$CheckClass       = $false
     [bool]$CheckHandle      = $false
@@ -1434,19 +1434,19 @@ class AMWindowTriggerv11 : AMTriggerv11 {
 }
 
 class AMWindowTriggerControlv11 {
-    [string]$__type      = "WindowControl:#AutoMate.Constructs.v11"
-    [string]$ID          = [string]::Empty
-    [string]$Name        = [string]::Empty
-    [string]$Class       = [string]::Empty
-    [string]$Value       = [string]::Empty
-    [string]$Type        = [string]::Empty
-    [string]$Xpos        = [string]::Empty
-    [string]$Ypos        = [string]::Empty
-    [bool]$CheckName     = $false
-    [bool]$CheckClass    = $false
-    [bool]$CheckValue    = $false
-    [bool]$CheckType     = $false
-    [bool]$CheckPosition = $false
+    hidden [string]$__type = "WindowControl:#AutoMate.Constructs.v11"
+    [string]$ID            = [string]::Empty
+    [string]$Name          = [string]::Empty
+    [string]$Class         = [string]::Empty
+    [string]$Value         = [string]::Empty
+    [string]$Type          = [string]::Empty
+    [string]$Xpos          = [string]::Empty
+    [string]$Ypos          = [string]::Empty
+    [bool]$CheckName       = $false
+    [bool]$CheckClass      = $false
+    [bool]$CheckValue      = $false
+    [bool]$CheckType       = $false
+    [bool]$CheckPosition   = $false
     AMWindowTriggerControlv11() {
         $this.ID = "{$((New-Guid).Guid)}"
     }
@@ -1471,7 +1471,7 @@ class AMWindowTriggerControlv11 {
 }
 
 class AMWMITriggerv11 : AMTriggerv11 {
-    [string]$__type         = "WMITriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type  = "WMITriggerConstruct:#AutoMate.Constructs.v11"
     [int]$IntervalInSeconds = 1
     [string]$MachineName    = [string]::Empty
     [string]$Namespace      = [string]::Empty
@@ -1493,7 +1493,7 @@ class AMWMITriggerv11 : AMTriggerv11 {
 }
 
 class AMUserv11 : AMAutomationConstructv11 {
-    [string]$__type            = "UserConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type     = "UserConstruct:#AutoMate.Constructs.v11"
     [string]$CipherPassword    = [string]::Empty
     [string]$ConditionFolderID = [string]::Empty
     [DateTime]$LockedOutOn     = (New-Object DateTime 1900, 1, 1, 0, 0, 0, ([DateTimeKind]::Utc))
@@ -1538,7 +1538,7 @@ class AMUserv11 : AMAutomationConstructv11 {
 }
 
 class AMUserGroupv11 : AMAutomationConstructv11 {
-    [string]$__type                        = "UserGroupConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                 = "UserGroupConstruct:#AutoMate.Constructs.v11"
     [System.Collections.ArrayList]$UserIDs = [System.Collections.ArrayList]::new()
 
     AMUserGroupv11([string]$Name, [AMFolderv11]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
@@ -1558,7 +1558,7 @@ class AMUserGroupv11 : AMAutomationConstructv11 {
 }
 
 class AMWorkflowv11 : AMAutomationConstructv11 {
-    [string]$__type                          = "WorkFlowConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                   = "WorkFlowConstruct:#AutoMate.Constructs.v11"
     [System.Collections.ArrayList]$Items     = [System.Collections.ArrayList]::new()
     [System.Collections.ArrayList]$Links     = [System.Collections.ArrayList]::new()
     [AMLinkLayout]$LinkType                  = [AMLinkLayout]::Elbow
@@ -1601,7 +1601,7 @@ class AMWorkflowv11 : AMAutomationConstructv11 {
 }
 
 class AMWorkflowVariablev11 : AMObjectConstructv11 {
-    [string]$__type                  = "VariableConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type           = "VariableConstruct:#AutoMate.Constructs.v11"
     [string]$CurrentValue            = [string]::Empty
     [AMWorkflowVarDataType]$DataType = [AMWorkflowVarDataType]::Variable
     [string]$Description             = [string]::Empty
@@ -1636,7 +1636,7 @@ class AMWorkflowLinkPointv11 {
 }
 
 class AMWorkflowLinkv11 : AMObjectConstructv11 {
-    [string]$__type                           = "WorkFlowLinkConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type                    = "WorkFlowLinkConstruct:#AutoMate.Constructs.v11"
     [string]$DestinationID                    = [string]::Empty
     [AMWorkflowLinkPointv11]$DestinationPoint = [AMWorkflowLinkPointv11]::new(0, 0)
     [AMLinkType]$LinkType                     = [AMLinkType]::Blank
@@ -1669,7 +1669,7 @@ class AMWorkflowLinkv11 : AMObjectConstructv11 {
 }
 
 class AMWorkflowItemv11 : AMObjectConstructv11 {
-    [string]$__type                 = "WorkFlowItemConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type          = "WorkFlowItemConstruct:#AutoMate.Constructs.v11"
     [string]$AgentID                = [string]::Empty
     [string]$ConstructID            = [string]::Empty
     [AMConstructType]$ConstructType = [AMConstructType]::Undefined
@@ -1712,7 +1712,7 @@ class AMWorkflowItemv11 : AMObjectConstructv11 {
 }
 
 class AMWorkflowTriggerv11 : AMWorkflowItemv11 {
-    [string]$__type = "WorkFlowTriggerConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type = "WorkFlowTriggerConstruct:#AutoMate.Constructs.v11"
     [AMTriggerType]$TriggerType
 
     AMWorkflowTriggerv11([string]$ConnectionAlias) : Base($ConnectionAlias) {}
@@ -1722,7 +1722,7 @@ class AMWorkflowTriggerv11 : AMWorkflowItemv11 {
 }
 
 class AMWorkflowConditionv11 : AMWorkflowItemv11 {
-    [string]$__type = "WorkFlowConditionConstruct:#AutoMate.Constructs.v11"
+    hidden [string]$__type = "WorkFlowConditionConstruct:#AutoMate.Constructs.v11"
     [string]$Expression
 
     AMWorkflowConditionv11([string]$ConnectionAlias) : Base($ConnectionAlias) {
