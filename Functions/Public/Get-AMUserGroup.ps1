@@ -1,10 +1,10 @@
 function Get-AMUserGroup {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise user groups.
+            Gets Automate user groups.
 
         .DESCRIPTION
-            Get-AMUserGroup gets user group objects from AutoMate Enterprise.  Get-AMUserGroup can receive items on the pipeline and return related objects.
+            Get-AMUserGroup gets user group objects from Automate.  Get-AMUserGroup can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) to use in search for user groups.
@@ -30,7 +30,7 @@ function Get-AMUserGroup {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Agents related to the following objects can be retrieved by this function:
@@ -56,7 +56,7 @@ function Get-AMUserGroup {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMUserGroupv10],[AMUserGroupv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
@@ -83,6 +83,7 @@ function Get-AMUserGroup {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

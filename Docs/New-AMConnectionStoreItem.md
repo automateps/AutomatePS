@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMConnectionStoreItem
 
 ## SYNOPSIS
-Save the connection for the specified AutoMate Enterprise server
+Save the connection for the specified Automate server
 
 ## SYNTAX
 
@@ -37,7 +37,7 @@ New-AMConnectionStoreItem -Connection server01 -Credential (Get-Credential)
 ## PARAMETERS
 
 ### -Server
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: String

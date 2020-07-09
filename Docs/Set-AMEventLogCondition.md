@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMEventLogCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise event log condition.
+Sets properties of an Automate event log condition.
 
 ## SYNTAX
 

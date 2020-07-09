@@ -1,10 +1,10 @@
 function Get-AMProcess {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise processes.
+            Gets Automate processes.
 
         .DESCRIPTION
-            Get-AMProccess gets process objects from AutoMate Enterprise.  Get-AMProcess can receive items on the pipeline and return related objects.
+            Get-AMProccess gets process objects from Automate.  Get-AMProcess can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) to use in search for processes.
@@ -30,7 +30,7 @@ function Get-AMProcess {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Processes related to the following objects can be retrieved by this function:
@@ -60,7 +60,7 @@ function Get-AMProcess {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMProcessv10],[AMProcessv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
@@ -87,6 +87,7 @@ function Get-AMProcess {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

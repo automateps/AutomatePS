@@ -1,7 +1,7 @@
 function New-AMServiceCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise service condition.
+            Creates a new Automate service condition.
 
         .DESCRIPTION
             New-AMServiceCondition creates a new service condition.
@@ -64,6 +64,7 @@ function New-AMServiceCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -94,6 +95,6 @@ function New-AMServiceCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

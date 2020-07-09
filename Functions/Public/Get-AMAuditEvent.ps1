@@ -1,10 +1,10 @@
 function Get-AMAuditEvent {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise audit events.
+            Gets Automate audit events.
 
         .DESCRIPTION
-            Get-AMAuditEvent gets audit events for AutoMate Enterprise objects.
+            Get-AMAuditEvent gets audit events for Automate objects.
 
         .PARAMETER InputObject
             The object(s) to retrieve audit events for.
@@ -36,7 +36,7 @@ function Get-AMAuditEvent {
                 audit events related to the user object are returned.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Audit events for the following objects can be retrieved by this function:
@@ -66,7 +66,7 @@ function Get-AMAuditEvent {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMAuditEventv10],[AMAuditEventv11])]
     param (
         [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -98,6 +98,7 @@ function Get-AMAuditEvent {
         [switch]$AuditUserActivity = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

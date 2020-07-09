@@ -24,9 +24,8 @@ Get-AMWorkflowLink retrieves links for a workflow.
 ### EXAMPLE 1
 ```
 # Get links in workflow "FTP Files"
-```
-
 Get-AMWorkflow "FTP Files" | Get-AMWorkflowLink
+```
 
 ## PARAMETERS
 
@@ -66,7 +65,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be queried by this function:
+### The following Automate object types can be queried by this function:
 ### Workflow
 ## OUTPUTS
 

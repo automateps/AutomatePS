@@ -1,7 +1,7 @@
 function Set-AMUser {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise user.
+            Sets properties of an Automate user.
 
         .DESCRIPTION
             Set-AMUser can change properties of a user object.

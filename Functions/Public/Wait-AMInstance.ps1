@@ -1,7 +1,7 @@
 function Wait-AMInstance {
     <#
         .SYNOPSIS
-            Waits for AutoMate Enterprise workflow and task instances to complete.
+            Waits for Automate workflow and task instances to complete.
 
         .DESCRIPTION
             Wait-AMInstance waits for running workflow and task instances to complete.
@@ -23,7 +23,7 @@ function Wait-AMInstance {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMInstancev10],[AMInstancev11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

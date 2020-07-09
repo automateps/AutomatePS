@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMConnectionStoreItem
 
 ## SYNOPSIS
-Retrieves connections for the specified AutoMate Enterprise server
+Retrieves connections for the specified Automate server
 
 ## SYNTAX
 
@@ -35,7 +35,7 @@ Get-AMConnectionStoreItem -Connection server01
 ## PARAMETERS
 
 ### -Server
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: String

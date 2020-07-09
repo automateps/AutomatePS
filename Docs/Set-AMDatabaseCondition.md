@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMDatabaseCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise database condition.
+Sets properties of an Automate database condition.
 
 ## SYNTAX
 

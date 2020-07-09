@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMScheduleCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise schedule condition.
+Creates a new Automate schedule condition.
 
 ## SYNTAX
 
@@ -28,16 +28,14 @@ New-AMScheduleCondition creates a new schedule condition.
 ### EXAMPLE 1
 ```
 # Create a new schedule to run every day at 8AM
-```
-
 New-AMScheduleCondition -Name "Daily at 8AM" -DayInterval -NextLaunchDate (Get-Date "8:00AM")
+```
 
 ### EXAMPLE 2
 ```
 # Create a new schedule to run every other month on the third Wednesday at 9PM
-```
-
 New-AMScheduleCondition -Name "Third Wednesday" -MonthInterval -Measure Wednesday -DayOfMonth third -Frequency 2 -NextLaunchDate (Get-Date "9:00PM")
+```
 
 ## PARAMETERS
 

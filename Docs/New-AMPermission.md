@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMPermission
 
 ## SYNOPSIS
-Assigns security to an AutoMate Enterprise object.
+Assigns security to an Automate object.
 
 ## SYNTAX
 
@@ -28,9 +28,8 @@ New-AMPermission assigns security to an object.
 ### EXAMPLE 1
 ```
 # Denies user 'John' access to task 'Test'
-```
-
 Get-AMTask -Name "Test" | New-AMPermission -Principal "John"
+```
 
 ## PARAMETERS
 

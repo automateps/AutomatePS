@@ -1,7 +1,7 @@
 function Copy-AMTask {
     <#
         .SYNOPSIS
-            Copies an AutoMate Enterprise task.
+            Copies an Automate task.
 
         .DESCRIPTION
             Copy-AMTask can copy a task object within, or between servers.
@@ -19,7 +19,7 @@ function Copy-AMTask {
             The server to copy the object to.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Task
 
         .OUTPUTS
@@ -49,6 +49,7 @@ function Copy-AMTask {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -56,9 +57,9 @@ function Copy-AMTask {
         if ($PSBoundParameters.ContainsKey("Connection")) {
             $Connection = Get-AMConnection -Connection $Connection
             if (($Connection | Measure-Object).Count -eq 0) {
-                throw "No AutoMate server specified!"
+                throw "No Automate server specified!"
             } elseif (($Connection | Measure-Object).Count -gt 1) {
-                throw "Multiple AutoMate servers specified, please specify one server to copy the task to!"
+                throw "Multiple Automate servers specified, please specify one server to copy the task to!"
             }
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
         }
@@ -68,7 +69,7 @@ function Copy-AMTask {
         foreach ($obj in $InputObject) {
             if ($obj.Type -eq "Task") {
                 if ($PSBoundParameters.ContainsKey("Connection")) {
-                    # Copy from one AutoMate server to another
+                    # Copy from one Automate server to another
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
                         if ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major -ne $Connection.Version.Major) {
                             throw "Source server and destination server are different versions! This module does not support changing task versions."

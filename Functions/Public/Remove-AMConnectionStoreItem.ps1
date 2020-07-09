@@ -1,7 +1,7 @@
 function Remove-AMConnectionStoreItem {
     <#
         .SYNOPSIS
-            Removes connection for the specified AutoMate Enterprise server from the connection store.
+            Removes connection for the specified Automate server from the connection store.
 
         .DESCRIPTION
             Remove-AMConnectionStoreItem removes connection objects from the connection store file.

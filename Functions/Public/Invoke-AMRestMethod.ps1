@@ -1,7 +1,7 @@
 function Invoke-AMRestMethod {
     <#
         .SYNOPSIS
-            Invokes a command against the AutoMate Enterprise management API.
+            Invokes a command against the Automate management API.
 
         .DESCRIPTION
             Invoke-AMRestMethod makes calls against the REST API and returns results.
@@ -19,7 +19,7 @@ function Invoke-AMRestMethod {
             Applies the specified filter to the results from the API prior to property addition and date conversion to improve performance.  When passing dates in the filter, they must be in UTC.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .EXAMPLE
             # Call the API to get server information
@@ -45,25 +45,29 @@ function Invoke-AMRestMethod {
 
         [Parameter(ParameterSetName = "SpecificConnection")]
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
-    Write-Verbose "$(Get-Date -f G) - Invoke-AMRestMethod started"
+    Write-Verbose "$(Get-Date -Format G) - Invoke-AMRestMethod started"
     $ProgressPreference = "SilentlyContinue"
 
     if ($PSCmdlet.ParameterSetName -eq "AllConnections") {
         if (-not (Get-AMConnection)) {
             throw "No servers are currently connected!"
         } else {
-            $Connection = Get-AMConnection
+            $Connections = Get-AMConnection
         }
         if ($RestMethod -ne "Get") {
             throw "Server must be specified when performing updates!"
         }
     } else {
-        $Connection = Get-AMConnection -Connection $Connection
+        $Connections = Get-AMConnection -Connection $Connection
+        if (($Connections | Measure-Object).Count -eq 0) {
+            throw "Connection not found!"
+        }
     }
 
-    foreach ($c in $Connection) {
+    foreach ($c in $Connections) {
         if ((Get-AMConnection).Name -notcontains $c.Name) {
             throw "No longer connected to $($c.Name)!  Please reconnect first."
         }
@@ -81,14 +85,14 @@ function Invoke-AMRestMethod {
             }
             Write-Debug $Body
         }
-        Write-Verbose "$(Get-Date -f G) - Calling API (server: $($c.Server))"
+        Write-Verbose "$(Get-Date -Format G) - Calling API (server: $($c.Server))"
         try {
             $response = Invoke-WebRequest @splat -ErrorAction Stop
         } catch {
             throw $_
         }
         if ($null -ne $response.Content) {
-            Write-Verbose "$(Get-Date -f G) - Converting from JSON (server: $($c.Server))"
+            Write-Verbose "$(Get-Date -Format G) - Converting from JSON (server: $($c.Server))"
             $content = $response.Content.Replace('"__type":', '"___type":') # ConvertFrom-Json will discard the __type property, rename it so it is retained
             $tempResult = $content | ConvertFrom-Json
         }
@@ -96,13 +100,13 @@ function Invoke-AMRestMethod {
             throw "$($tempResult.Result) : $($tempResult.Info)"
         }
         if ($PSBoundParameters.ContainsKey("FilterScript")) {
-            Write-Verbose "$(Get-Date -f G) - Filtering with filter script: $FilterScript (server: $($c.Server))"
+            Write-Verbose "$(Get-Date -Format G) - Filtering with filter script: $FilterScript (server: $($c.Server))"
             $objects = $tempResult.Data | Where-Object -FilterScript $FilterScript
         } else {
             $objects = $tempResult.Data
         }
         if ($objects -notin $null,@()) {
-            Write-Verbose "$(Get-Date -f G) - Casting objects to correct type (server: $($c.Server))"
+            Write-Verbose "$(Get-Date -Format G) - Casting objects to correct type (server: $($c.Server))"
             $lookupTable = $tempResult.LookupTable
         }
         foreach ($object in $objects) {
@@ -206,5 +210,5 @@ function Invoke-AMRestMethod {
             }
         }
     }
-    Write-Verbose "$(Get-Date -f G) - Invoke-AMRestMethod finished"
+    Write-Verbose "$(Get-Date -Format G) - Invoke-AMRestMethod finished"
 }

@@ -1,10 +1,10 @@
 function Add-AMWindowConditionControl {
     <#
         .SYNOPSIS
-            Adds a control to an AutoMate Enterprise window condition.
+            Adds a control to an Automate window condition.
 
         .DESCRIPTION
-            Add-AMWindowConditionControl adds a control to an AutoMate Enterprise window condition.
+            Add-AMWindowConditionControl adds a control to an Automate window condition.
 
         .PARAMETER InputObject
             The window condition object to add the control to.
@@ -28,7 +28,7 @@ function Add-AMWindowConditionControl {
             The Y position of the control on screen.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS
@@ -48,19 +48,19 @@ function Add-AMWindowConditionControl {
 
         [ValidateNotNullOrEmpty()]
         $Class,
-        
+
         [ValidateNotNullOrEmpty()]
         $Name,
-        
+
         [ValidateNotNullOrEmpty()]
         $Type,
-        
+
         [ValidateNotNullOrEmpty()]
         $Value,
-        
+
         [ValidateNotNullOrEmpty()]
         $XPosition,
-        
+
         [ValidateNotNullOrEmpty()]
         $YPosition
     )

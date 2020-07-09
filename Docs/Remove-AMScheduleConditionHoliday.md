@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMScheduleConditionHoliday
 
 ## SYNOPSIS
-Removes a holiday from an AutoMate Enterprise schedule condition using the Holidays interval.
+Removes a holiday from an Automate schedule condition using the Holidays interval.
 
 ## SYNTAX
 
@@ -18,16 +18,15 @@ Remove-AMScheduleConditionHoliday -InputObject <Object> [-Holiday] <String[]> [-
 ```
 
 ## DESCRIPTION
-Remove-AMScheduleConditionHoliday removes a holiday from an AutoMate Enterprise schedule condition using the Holidays interval.
+Remove-AMScheduleConditionHoliday removes a holiday from an Automate schedule condition using the Holidays interval.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 # Add a holiday category to schedule "On Specified Dates"
-```
-
 Get-AMCondition "On Specified Dates" | Remove-AMScheduleConditionHoliday -Holiday "United States"
+```
 
 ## PARAMETERS
 
@@ -97,7 +96,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

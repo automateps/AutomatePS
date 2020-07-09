@@ -8,7 +8,7 @@ schema: 2.0.0
 # Lock-AMObject
 
 ## SYNOPSIS
-Locks an AutoMate Enterprise object.
+Locks an Automate object.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Lock-AMObject [-InputObject] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Lock-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and locks the object(s).
+Lock-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and locks the object(s).
 
 ## EXAMPLES
 

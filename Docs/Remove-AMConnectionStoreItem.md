@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMConnectionStoreItem
 
 ## SYNOPSIS
-Removes connection for the specified AutoMate Enterprise server from the connection store.
+Removes connection for the specified Automate server from the connection store.
 
 ## SYNTAX
 

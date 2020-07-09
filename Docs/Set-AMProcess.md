@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMProcess
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise process.
+Sets properties of an Automate process.
 
 ## SYNTAX
 
@@ -32,16 +32,14 @@ Set-AMProcess can change properties of a process object.
 ### EXAMPLE 1
 ```
 # Change command for a process
-```
-
 Get-AMProcess "Start Service" | Set-AMProcess -Notes "Starts a service"
+```
 
 ### EXAMPLE 2
 ```
 # Empty notes for all agent groups
-```
-
 Get-AMProcess | Set-AMProcess -RunningContext Bash
+```
 
 ## PARAMETERS
 
@@ -204,7 +202,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Process
 ## OUTPUTS
 

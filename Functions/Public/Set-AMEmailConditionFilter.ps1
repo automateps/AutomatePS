@@ -1,10 +1,10 @@
 function Set-AMEmailConditionFilter {
     <#
         .SYNOPSIS
-            Modifies an AutoMate Enterprise Email condition filter.
+            Modifies an Automate Email condition filter.
 
         .DESCRIPTION
-            Set-AMEmailConditionFilter modifies a filter in an AutoMate Enterprise Email condition.
+            Set-AMEmailConditionFilter modifies a filter in an Automate Email condition.
 
         .PARAMETER InputObject
             The SNMP condition object to add the credential to.

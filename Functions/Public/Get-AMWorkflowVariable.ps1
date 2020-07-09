@@ -22,7 +22,7 @@ function Get-AMWorkflowVariable {
             Filter on the type of variable.
 
         .INPUTS
-            The following AutoMate object types can be queried by this function:
+            The following Automate object types can be queried by this function:
             Workflow
 
         .OUTPUTS
@@ -36,6 +36,7 @@ function Get-AMWorkflowVariable {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [OutputType([AMWorkflowVariablev10],[AMWorkflowVariablev11])]
     param (
         [Parameter(ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

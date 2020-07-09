@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMSession
 
 ## SYNOPSIS
-Gets AutoMate Enterprise user sessions.
+Gets Automate user sessions.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Get-AMSession [[-Connection] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Get-AMSession returns open SMC sessions from AutoMate Enterprise. 
+Get-AMSession returns open SMC sessions from Automate. 
 This function uses the audit event log to determine which sessions are open.
 The results of this function could be inaccurate if a session wasn't closed property, or if audit events have aged out since the last server start.
 
@@ -26,14 +26,13 @@ The results of this function could be inaccurate if a session wasn't closed prop
 ### EXAMPLE 1
 ```
 # Gets all user sessions
-```
-
 Get-AMSession
+```
 
 ## PARAMETERS
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

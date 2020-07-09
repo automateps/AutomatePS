@@ -8,7 +8,7 @@ schema: 2.0.0
 # Disconnect-AMServer
 
 ## SYNOPSIS
-Disconnect from an AutoMate Enterprise management server
+Disconnect from an Automate management server
 
 ## SYNTAX
 
@@ -35,7 +35,7 @@ Disonnect-AMServer -Connection "AM01" -Credential (Get-Credential)
 ## PARAMETERS
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 If the server isn't specified, all servers are removed.
 
 ```yaml

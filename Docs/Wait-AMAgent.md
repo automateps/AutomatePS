@@ -8,7 +8,7 @@ schema: 2.0.0
 # Wait-AMAgent
 
 ## SYNOPSIS
-Waits for AutoMate Enterprise agent to go online or offline.
+Waits for Automate agent to go online or offline.
 
 ## SYNTAX
 
@@ -30,9 +30,8 @@ Wait-AMAgent waits for an agent to online or offline.
 ### EXAMPLE 1
 ```
 # Wait for all offline agents to come online
-```
-
 Get-AMAgent | Where-Object {-not $_.Online} | Wait-AMAgent
+```
 
 # Wait for agent 'agent01' to go offline
 Get-AMAgent -Name agent01 | Wait-AMAgent -Online:$false

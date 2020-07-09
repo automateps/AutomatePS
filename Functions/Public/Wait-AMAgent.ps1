@@ -1,7 +1,7 @@
 function Wait-AMAgent {
     <#
         .SYNOPSIS
-            Waits for AutoMate Enterprise agent to go online or offline.
+            Waits for Automate agent to go online or offline.
 
         .DESCRIPTION
             Wait-AMAgent waits for an agent to online or offline.
@@ -29,7 +29,7 @@ function Wait-AMAgent {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMAgentv10],[AMAgentv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

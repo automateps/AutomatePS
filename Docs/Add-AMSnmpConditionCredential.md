@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMSnmpConditionCredential
 
 ## SYNOPSIS
-Adds a credential to an AutoMate Enterprise SNMP condition.
+Adds a credential to an Automate SNMP condition.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Add-AMSnmpConditionCredential [-InputObject] <Object> [[-User] <Object>]
 ```
 
 ## DESCRIPTION
-Add-AMSnmpConditionCredential adds a credential to an AutoMate Enterprise SNMP condition.
+Add-AMSnmpConditionCredential adds a credential to an Automate SNMP condition.
 
 ## EXAMPLES
 
@@ -80,7 +80,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

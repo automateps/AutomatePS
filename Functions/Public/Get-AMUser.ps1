@@ -1,10 +1,10 @@
 function Get-AMUser {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise users.
+            Gets Automate users.
 
         .DESCRIPTION
-            Get-AMUser gets user objects from AutoMate Enterprise.  Get-AMUser can receive items on the pipeline and return related objects.
+            Get-AMUser gets user objects from Automate.  Get-AMUser can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) to use in search for users.
@@ -30,7 +30,7 @@ function Get-AMUser {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Users related to the following objects can be retrieved by this function:
@@ -56,7 +56,7 @@ function Get-AMUser {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMUserv10],[AMUserv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
@@ -83,6 +83,7 @@ function Get-AMUser {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

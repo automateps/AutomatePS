@@ -1,7 +1,7 @@
 function Set-AMWorkflowItem {
     <#
         .SYNOPSIS
-            Sets an item in a AutoMate Enterprise workflow
+            Sets an item in a Automate workflow
 
         .DESCRIPTION
             Set-AMWorkflowItem can modify an item in a workflow object.
@@ -43,7 +43,7 @@ function Set-AMWorkflowItem {
             The expression to set on the evaluation object.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
             WorkflowItem
 

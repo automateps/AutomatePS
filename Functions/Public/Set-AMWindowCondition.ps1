@@ -1,7 +1,7 @@
 function Set-AMWindowCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise window condition.
+            Sets properties of an Automate window condition.
 
         .DESCRIPTION
             Set-AMWindowCondition modifies an existing window condition.

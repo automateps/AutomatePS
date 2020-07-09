@@ -1,7 +1,7 @@
 function Remove-AMWorkflowItem {
     <#
         .SYNOPSIS
-            Removes an item from an AutoMate Enterprise workflow
+            Removes an item from an Automate workflow
 
         .DESCRIPTION
             Remove-AMWorkflowItem can remove items from a workflow object.
@@ -13,7 +13,7 @@ function Remove-AMWorkflowItem {
             The ID of the item to remove (if passing in a workflow).
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
             WorkflowItem
             WorkflowTrigger

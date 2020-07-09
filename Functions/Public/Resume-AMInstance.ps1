@@ -1,7 +1,7 @@
 function Resume-AMInstance {
     <#
         .SYNOPSIS
-            Resumes AutoMate Enterprise workflow and task instances.
+            Resumes Automate workflow and task instances.
 
         .DESCRIPTION
             Resume-AMInstance resumes paused workflow and task instances.
@@ -27,7 +27,7 @@ function Resume-AMInstance {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMInstancev10],[AMInstancev11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

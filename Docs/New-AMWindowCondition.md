@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMWindowCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise window condition.
+Creates a new Automate window condition.
 
 ## SYNTAX
 

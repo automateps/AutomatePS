@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMConsoleOutput
 
 ## SYNOPSIS
-Gets AutoMate Enterprise console output.
+Gets Automate console output.
 
 ## SYNTAX
 
@@ -26,9 +26,8 @@ Get-AMConsoleOutput gets the console output.
 ### EXAMPLE 1
 ```
 # Get console output from server "AM01"
-```
-
 Get-AMConsoleOutput -Connection "AM01"
+```
 
 ## PARAMETERS
 
@@ -128,7 +127,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

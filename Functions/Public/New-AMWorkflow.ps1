@@ -1,7 +1,7 @@
 function New-AMWorkflow {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise workflow.
+            Creates a new Automate workflow.
 
         .DESCRIPTION
             New-AMWorkflow creates a new workflow object.
@@ -37,6 +37,7 @@ function New-AMWorkflow {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -59,6 +60,6 @@ function New-AMWorkflow {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new workflow on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new workflow on!" }
     }
 }

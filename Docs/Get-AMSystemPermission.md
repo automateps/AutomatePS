@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMSystemPermission
 
 ## SYNOPSIS
-Gets AutoMate Enterprise system permissions.
+Gets Automate system permissions.
 
 ## SYNTAX
 
@@ -38,16 +38,14 @@ Get-AMSystemPermission gets system permissions.
 ### EXAMPLE 1
 ```
 # Get permissions for user "MyUsername"
-```
-
 Get-AMUser "MyUsername" | Get-AMSystemPermission
+```
 
 ### EXAMPLE 2
 ```
 # Get permissions using filter sets
-```
-
 Get-AMSystemPermission -FilterSet @{Property = 'EditDefaultPropertiesPermission'; Operator = '='; Value = 'true'}
+```
 
 ## PARAMETERS
 
@@ -146,7 +144,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

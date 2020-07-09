@@ -1,7 +1,7 @@
 function New-AMUserGroup {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise user group.
+            Creates a new Automate user group.
 
         .DESCRIPTION
             New-AMUserGroup creates a user group object.
@@ -37,6 +37,7 @@ function New-AMUserGroup {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -59,6 +60,6 @@ function New-AMUserGroup {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new user group on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new user group on!" }
     }
 }

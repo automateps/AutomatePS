@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-AMEmailConditionFilter
 
 ## SYNOPSIS
-Removes an email filter from an AutoMate Enterprise Email condition.
+Removes an email filter from an Automate Email condition.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Remove-AMEmailConditionFilter [-InputObject] <Object> [-ID] <Object> [-WhatIf] [
 ```
 
 ## DESCRIPTION
-Remove-AMEmailConditionFilter removes an email filter from an AutoMate Enterprise Email condition.
+Remove-AMEmailConditionFilter removes an email filter from an Automate Email condition.
 
 ## EXAMPLES
 
@@ -94,7 +94,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

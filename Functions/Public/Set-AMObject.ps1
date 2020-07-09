@@ -1,10 +1,10 @@
 function Set-AMObject {
     <#
         .SYNOPSIS
-            Modifies an AutoMate Enterprise object.
+            Modifies an Automate object.
 
         .DESCRIPTION
-            Set-AMObject receives modified AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and applies the modifications.
+            Set-AMObject receives modified Automate object(s) on the pipeline, or via the parameter $InputObject, and applies the modifications.
 
         .PARAMETER InputObject
             The object(s) to be modified.

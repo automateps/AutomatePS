@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMAgentGroup
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise agent group.
+Creates a new Automate agent group.
 
 ## SYNTAX
 
@@ -25,9 +25,8 @@ New-AMAgentGroup creates an agent group object.
 ### EXAMPLE 1
 ```
 # Create an agent group
-```
-
 New-AMAgentGroup -Name "All Agents" -Notes "Group containing all agents"
+```
 
 ## PARAMETERS
 

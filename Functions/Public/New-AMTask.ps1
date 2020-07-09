@@ -1,7 +1,7 @@
 function New-AMTask {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise task.
+            Creates a new Automate task.
 
         .DESCRIPTION
             New-AMTask creates a new task object.
@@ -10,7 +10,7 @@ function New-AMTask {
             The name of the new object.
 
         .PARAMETER AML
-            The AutoMate Markup Language (AML) to set on the object.
+            The Automate Markup Language (AML) to set on the object.
 
         .PARAMETER Notes
             The notes to set on the object.
@@ -42,6 +42,7 @@ function New-AMTask {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -85,6 +86,6 @@ function New-AMTask {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new task on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new task on!" }
     }
 }

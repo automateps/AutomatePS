@@ -1,7 +1,7 @@
 function Set-AMDatabaseCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise database condition.
+            Sets properties of an Automate database condition.
 
         .DESCRIPTION
             Set-AMDatabaseCondition modifies an existing database condition.

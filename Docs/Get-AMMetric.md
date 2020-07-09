@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMMetric
 
 ## SYNOPSIS
-Gets metrics from AutoMate Enterprise.
+Gets metrics from Automate.
 
 ## SYNTAX
 
@@ -19,16 +19,15 @@ Get-AMMetric [[-Type] <Object>] [[-Folder] <Object>] [[-StartDate] <DateTime>] [
 ```
 
 ## DESCRIPTION
-Get-AMMetric gets metrics from AutoMate Enterprise.
+Get-AMMetric gets metrics from Automate.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 # Get completed metrics over a 24 hour interval for the past week
-```
-
 Get-AMMetric -Type Completed -Interval 86400 -StartDate (Get-Date).AddDays(-7)
+```
 
 ## PARAMETERS
 
@@ -138,7 +137,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

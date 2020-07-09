@@ -1,7 +1,7 @@
 function Suspend-AMInstance {
     <#
         .SYNOPSIS
-            Pauses AutoMate Enterprise workflow and task instances.
+            Pauses Automate workflow and task instances.
 
         .DESCRIPTION
             Suspend-AMInstance suspends running workflow and task instances.

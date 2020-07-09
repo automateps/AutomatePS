@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMServiceCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise service condition.
+Creates a new Automate service condition.
 
 ## SYNTAX
 

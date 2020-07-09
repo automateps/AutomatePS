@@ -1,10 +1,10 @@
 function Get-AMTask {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise tasks.
+            Gets Automate tasks.
 
         .DESCRIPTION
-            Get-AMTask gets task objects from AutoMate Enterprise.  Get-AMTask can receive items on the pipeline and return related objects.
+            Get-AMTask gets task objects from Automate.  Get-AMTask can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) use in search for tasks.
@@ -30,7 +30,7 @@ function Get-AMTask {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Tasks related to the following objects can be retrieved by this function:
@@ -60,7 +60,7 @@ function Get-AMTask {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMTaskv10],[AMTaskv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
@@ -87,6 +87,7 @@ function Get-AMTask {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

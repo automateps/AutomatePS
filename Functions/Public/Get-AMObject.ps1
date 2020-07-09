@@ -1,10 +1,10 @@
 function Get-AMObject {
     <#
         .SYNOPSIS
-            Retrieves any AutoMate Enterprise object by ID.
+            Retrieves any Automate object by ID.
 
         .DESCRIPTION
-            Get-AMObject allows search for any AutoMate Enterprise object by its ID when the construct type is not known.
+            Get-AMObject allows search for any Automate object by its ID when the construct type is not known.
 
         .PARAMETER ID
             The ID to search for.
@@ -22,6 +22,7 @@ function Get-AMObject {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [OutputType([AMAutomationConstructv10],[AMAutomationConstructv11])]
     param (
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -40,6 +41,7 @@ function Get-AMObject {
                                       ),
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMProcess
 
 ## SYNOPSIS
-Gets AutoMate Enterprise processes.
+Gets Automate processes.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ Get-AMProcess [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-Fil
 ```
 
 ## DESCRIPTION
-Get-AMProccess gets process objects from AutoMate Enterprise. 
+Get-AMProccess gets process objects from Automate. 
 Get-AMProcess can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -39,30 +39,26 @@ Get-AMProcess can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 # Get process "My Process"
-```
-
 Get-AMProcess "My Process"
+```
 
 ### EXAMPLE 2
 ```
 # Get processes in folder "My Folder"
-```
-
 Get-AMFolder "My Folder" | Get-AMProcess
+```
 
 ### EXAMPLE 3
 ```
 # Get processes in workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMProcess
+```
 
 ### EXAMPLE 4
 ```
 # Get processes using filter sets
-```
-
 Get-AMProcess -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "CMD"},@{ Property = "Enabled"; Operator = "="; Value = "false"}
+```
 
 ## PARAMETERS
 
@@ -180,7 +176,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

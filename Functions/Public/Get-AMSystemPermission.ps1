@@ -1,7 +1,7 @@
 function Get-AMSystemPermission {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise system permissions.
+            Gets Automate system permissions.
 
         .DESCRIPTION
             Get-AMSystemPermission gets system permissions.
@@ -23,7 +23,7 @@ function Get-AMSystemPermission {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .PARAMETER ID
             The ID of the system permission object.
@@ -48,7 +48,7 @@ function Get-AMSystemPermission {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMSystemPermissionv10],[AMSystemPermissionv11])]
     param (
         [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -71,6 +71,7 @@ function Get-AMSystemPermission {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

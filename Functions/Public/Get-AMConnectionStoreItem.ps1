@@ -1,13 +1,13 @@
 function Get-AMConnectionStoreItem {
     <#
         .SYNOPSIS
-            Retrieves connections for the specified AutoMate Enterprise server
+            Retrieves connections for the specified Automate server
 
         .DESCRIPTION
             Get-AMConnectionStoreItem stores a server and connection object together in a connection store file.
 
         .PARAMETER Server
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .PARAMETER Port
             The TCP port for the management API.

@@ -13,7 +13,7 @@ function Get-AMWorkflowItem {
             Only retrieve variables of a specific link type.
 
         .INPUTS
-            The following AutoMate object types can be queried by this function:
+            The following Automate object types can be queried by this function:
             Workflow
 
         .EXAMPLE
@@ -24,6 +24,7 @@ function Get-AMWorkflowItem {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
+    [OutputType([AMWorkflowItemv10],[AMWorkflowItemv11])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

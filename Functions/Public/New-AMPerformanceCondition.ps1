@@ -1,7 +1,7 @@
 function New-AMPerformanceCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise performance condition.
+            Creates a new Automate performance condition.
 
         .DESCRIPTION
             New-AMPerformanceCondition creates a new performance condition.
@@ -101,6 +101,7 @@ function New-AMPerformanceCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -137,6 +138,6 @@ function New-AMPerformanceCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

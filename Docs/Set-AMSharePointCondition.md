@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMSharePointCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise SharePoint condition.
+Sets properties of an Automate SharePoint condition.
 
 ## SYNTAX
 

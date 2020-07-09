@@ -25,9 +25,8 @@ Get-AMWorkflowVariable retrieves variables for a workflow.
 ### EXAMPLE 1
 ```
 # Get variables in workflow "FTP Files"
-```
-
 Get-AMWorkflow "FTP Files" | Get-AMWorkflowVariable
+```
 
 ## PARAMETERS
 
@@ -115,7 +114,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be queried by this function:
+### The following Automate object types can be queried by this function:
 ### Workflow
 ## OUTPUTS
 

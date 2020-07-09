@@ -39,17 +39,6 @@ class AMConnection {
     }
 }
 
-class AMMatchedProperty {
-    $Property
-    $Value
-    $Result
-    AMMatchedProperty($Property,$Value) {
-        $this.Property = $Property
-        $this.Value = $Value
-        $this.Result = "$Property = $Value"
-    }
-}
-
 class AMRepositoryMapDetail {
     $SourceConnection
     $SourceID
@@ -81,7 +70,7 @@ class AMRepositoryMapDetail {
     }
 }
 
-# AutoMate Enterprise creates some system level objects that have a static ID defined (not stored in the DB).
+# Automate creates some system level objects that have a static ID defined (not stored in the DB).
 # These should remain the same across installations on different servers.
 class AMSystemAgent {
     static [string] $Condition = "{2C046FDD-97A9-4a79-B34F-0C7A97E9CE69}"
@@ -133,5 +122,24 @@ class AMComparison {
         $this.DifferenceObject = $DifferenceObject
         $this.Property = $Property
         $this.Result = $Result
+    }
+}
+
+class AMConnectionCompleter : System.Management.Automation.IArgumentCompleter {
+    [System.Collections.Generic.IEnumerable[System.Management.Automation.CompletionResult]]CompleteArgument(
+    [string]$CommandName,
+    [string]$ParameterName,
+    [string]$WordToComplete,
+    [System.Management.Automation.Language.CommandAst]$CommandAst,
+    [System.Collections.IDictionary]$FakeBoundParameters
+    )
+    {
+        $CompletionResults = [System.Collections.Generic.List[System.Management.Automation.CompletionResult]]::new()
+        foreach ($alias in $global:AMConnections.Alias) {
+            if ($alias -like "$WordToComplete*") {
+                $CompletionResults.Add([System.Management.Automation.CompletionResult]::new($alias))
+            }
+        }
+        return $CompletionResults
     }
 }

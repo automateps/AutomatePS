@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMWindowCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise window condition.
+Sets properties of an Automate window condition.
 
 ## SYNTAX
 

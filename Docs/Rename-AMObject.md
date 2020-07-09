@@ -8,7 +8,7 @@ schema: 2.0.0
 # Rename-AMObject
 
 ## SYNOPSIS
-Renames an AutoMate Enterprise object.
+Renames an Automate object.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Rename-AMObject -InputObject <Object> [-Name] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Rename-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and renames the object(s).
+Rename-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and renames the object(s).
 
 ## EXAMPLES
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMFolderRoot
 
 ## SYNOPSIS
-Gets AutoMate Enterprise root folders.
+Gets Automate root folders.
 
 ## SYNTAX
 
@@ -25,16 +25,14 @@ Get-AMFolderRoot returns a list of root folders and their IDs.
 ### EXAMPLE 1
 ```
 # Get the default system agent
-```
-
 Get-AMFolderRoot -Type Task
+```
 
 ### EXAMPLE 2
 ```
 # Get workflows contained in the root of \WORKFLOWS
-```
-
 Get-AMFolderRoot -Type Workflow | Get-AMWorkflow
+```
 
 ## PARAMETERS
 
@@ -86,7 +84,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

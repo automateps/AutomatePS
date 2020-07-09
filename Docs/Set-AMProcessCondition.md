@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMProcessCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise process condition.
+Sets properties of an Automate process condition.
 
 ## SYNTAX
 

@@ -1,10 +1,10 @@
 ﻿function Set-AMSnmpConditionCredential {
     <#
         .SYNOPSIS
-            Modifies an AutoMate Enterprise SNMP condition credential.
+            Modifies an Automate SNMP condition credential.
 
         .DESCRIPTION
-            Set-AMSnmpConditionCredential modifies a credential in an AutoMate Enterprise SNMP condition.
+            Set-AMSnmpConditionCredential modifies a credential in an Automate SNMP condition.
 
         .PARAMETER InputObject
             The SNMP condition object to add the credential to.

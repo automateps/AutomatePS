@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMEmailConditionFilter
 
 ## SYNOPSIS
-Adds a filter to an AutoMate Enterprise Email condition.
+Adds a filter to an Automate Email condition.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Add-AMEmailConditionFilter [-InputObject] <Object> [-FieldName] <String> [-Opera
 ```
 
 ## DESCRIPTION
-Add-AMEmailConditionFilter adds a filter to an AutoMate Enterprise Email condition.
+Add-AMEmailConditionFilter adds a filter to an Automate Email condition.
 
 ## EXAMPLES
 
@@ -96,7 +96,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

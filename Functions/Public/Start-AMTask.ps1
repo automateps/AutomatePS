@@ -1,7 +1,7 @@
 ﻿function Start-AMTask {
     <#
         .SYNOPSIS
-            Starts AutoMate Enterprise tasks.
+            Starts Automate tasks.
 
         .DESCRIPTION
             Start-AMTask starts tasks.
@@ -26,7 +26,7 @@
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMInstancev10],[AMInstancev11])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

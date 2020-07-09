@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMProcess
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise process.
+Creates a new Automate process.
 
 ## SYNTAX
 
@@ -26,9 +26,8 @@ New-AMProcess creates a new process object.
 ### EXAMPLE 1
 ```
 # Change command for a process
+New-AMProcess -Name "Test Process" -CommandLine "dir.exe > %TEMP%\dir.txt" -EnvironmentVariables "TEMP"
 ```
-
-New-AMProcess -Name "Test Process" -CommandLine "dir.exe \> %TEMP%\dir.txt" -EnvironmentVariables "TEMP"
 
 ## PARAMETERS
 

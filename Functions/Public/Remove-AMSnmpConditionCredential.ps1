@@ -1,10 +1,10 @@
 function Remove-AMSnmpConditionCredential {
     <#
         .SYNOPSIS
-            Removes a credential from an AutoMate Enterprise SNMP condition.
+            Removes a credential from an Automate SNMP condition.
 
         .DESCRIPTION
-            Remove-AMSnmpConditionCredential removes a credential from an AutoMate Enterprise SNMP condition.
+            Remove-AMSnmpConditionCredential removes a credential from an Automate SNMP condition.
 
         .PARAMETER InputObject
             The SNMP condition object to remove the credential from.
@@ -13,7 +13,7 @@ function Remove-AMSnmpConditionCredential {
             The ID of the credential.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS

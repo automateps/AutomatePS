@@ -1,7 +1,7 @@
 function Set-AMScheduleCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise schedule condition.
+            Sets properties of an Automate schedule condition.
 
         .DESCRIPTION
             Sets-AMScheduleCondition modifies an existing schedule condition.

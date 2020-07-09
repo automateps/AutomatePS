@@ -1,7 +1,7 @@
 function Set-AMTaskProperty {
     <#
         .SYNOPSIS
-            Sets the task properties of an AutoMate Enterprise task.
+            Sets the task properties of an Automate task.
 
         .DESCRIPTION
             Set-AMTaskProperty modifies task properties.

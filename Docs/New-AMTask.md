@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMTask
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise task.
+Creates a new Automate task.
 
 ## SYNTAX
 
@@ -25,9 +25,8 @@ New-AMTask creates a new task object.
 ### EXAMPLE 1
 ```
 # Create a new task
-```
-
 New-AMTask -Name "Test Task"
+```
 
 ## PARAMETERS
 
@@ -47,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -AML
-The AutoMate Markup Language (AML) to set on the object.
+The Automate Markup Language (AML) to set on the object.
 
 ```yaml
 Type: String

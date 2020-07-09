@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMCondition
 
 ## SYNOPSIS
-Gets AutoMate Enterprise conditions.
+Gets Automate conditions.
 
 ## SYNTAX
 
@@ -33,7 +33,7 @@ Get-AMCondition [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-F
 ```
 
 ## DESCRIPTION
-Get-AMCondition gets condition objects from AutoMate Enterprise. 
+Get-AMCondition gets condition objects from Automate. 
 Get-AMCondition can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -41,16 +41,14 @@ Get-AMCondition can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 Get-AMCondition "My Condition"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMCondition
+```
 
 ### EXAMPLE 2
 ```
 # Get conditions that have "Daily" in the name and are not enabled, using filter sets
-```
-
 Get-AMCondition -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "Daily"},@{ Property = "Enabled"; Operator = "="; Value = "false"}
+```
 
 ## PARAMETERS
 
@@ -199,7 +197,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

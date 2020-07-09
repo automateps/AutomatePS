@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMWorkflow
 
 ## SYNOPSIS
-Gets AutoMate Enterprise workflows.
+Gets Automate workflows.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ Get-AMWorkflow [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-Fi
 ```
 
 ## DESCRIPTION
-Get-AMWorkflow gets workflow objects from AutoMate Enterprise. 
+Get-AMWorkflow gets workflow objects from Automate. 
 Get-AMWorkflow can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -39,37 +39,32 @@ Get-AMWorkflow can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 # Get workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow"
+```
 
 ### EXAMPLE 2
 ```
 # Get sub-workflows in workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMWorkflow
+```
 
 ### EXAMPLE 3
 ```
 # Get workflows in folder "My Folder"
-```
-
 Get-AMFolder "My Folder" -Type TASKS | Get-AMWorkflow
+```
 
 ### EXAMPLE 4
 ```
 # Get workflows using a filter set
-```
-
 Get-AMWorkflow -FilterSet @{ Property = "Name"; Value = "FTP"}
+```
 
 ### EXAMPLE 5
 ```
 # Get workflows that have started in the last hour
+Get-AMWorkflow -FilterSet @{Property = "StartedOn"; Operator = ">"; Value = (Get-Date).AddHours(-1)}
 ```
-
-Get-AMWorkflow -FilterSet @{Property = "StartedOn"; Operator = "\>"; Value = (Get-Date).AddHours(-1)}
 
 ## PARAMETERS
 
@@ -203,7 +198,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

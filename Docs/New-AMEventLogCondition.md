@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMEventLogCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise event log condition.
+Creates a new Automate event log condition.
 
 ## SYNTAX
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMSystemAgent
 
 ## SYNOPSIS
-Gets AutoMate Enterprise system agent types.
+Gets Automate system agent types.
 
 ## SYNTAX
 
@@ -35,16 +35,14 @@ Get-AMSystemAgent returns a list of system agent types and their IDs.
 ### EXAMPLE 1
 ```
 # Get the default system agent
-```
-
 Get-AMSystemAgent -Type Default
+```
 
 ### EXAMPLE 2
 ```
 # Get workflows that use "Previous Agent"
-```
-
 Get-AMSystemAgent -Type Previous | Get-AMWorkflow
+```
 
 ## PARAMETERS
 
@@ -79,7 +77,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

@@ -1,14 +1,14 @@
 function Connect-AMServer {
     <#
         .SYNOPSIS
-            Connect to an AutoMate Enterprise management server
+            Connect to an Automate management server
 
         .DESCRIPTION
-            Connect-AMServer gathers connection information for AutoMate Enterprise, and tests authentication.
+            Connect-AMServer gathers connection information for Automate, and tests authentication.
             This module supports connecting to multiple servers at once.
 
         .PARAMETER Server
-            The AutoMate Enterprise management server.  One or more can be provided.  The same credentials are used for all servers.
+            The Automate management server.  One or more can be provided.  The same credentials are used for all servers.
 
         .PARAMETER Port
             The TCP port for the management API.
@@ -41,7 +41,7 @@ function Connect-AMServer {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="ByConnectionStore")]
-    [OutputType([AMConnection[]])]
+    [OutputType([AMConnection])]
     param (
         [Parameter(Position = 0, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -94,7 +94,7 @@ function Connect-AMServer {
             }
             # If no connections are found in the store, prompt for credential, otherwise connect
             if (($storedConnection | Measure-Object).Count -eq 0) {
-                $Credential = Get-Credential -Message "Enter credentials for AutoMate server '$s'"
+                $Credential = Get-Credential -Message "Enter credentials for Automate server '$s'"
                 if ($null -ne $Credential)  {
                     if ($PSBoundParameters.ContainsKey("ConnectionAlias")) {
                         Connect-AMServer -Server $s -Port $Port -Credential $Credential -ConnectionAlias $ConnectionAlias -SaveConnection:$SaveConnection.ToBool()

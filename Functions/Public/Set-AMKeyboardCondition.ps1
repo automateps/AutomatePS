@@ -1,7 +1,7 @@
 function Set-AMKeyboardCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise keyboard condition.
+            Sets properties of an Automate keyboard condition.
 
         .DESCRIPTION
             Set-AMKeyboardCondition modifies an existing keyboard condition.

@@ -1,7 +1,7 @@
 function New-AMWmiCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise WMI condition.
+            Creates a new Automate WMI condition.
 
         .DESCRIPTION
             New-AMWmiCondition creates a new WMI condition.
@@ -76,6 +76,7 @@ function New-AMWmiCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -110,6 +111,6 @@ function New-AMWmiCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

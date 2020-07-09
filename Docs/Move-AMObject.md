@@ -8,7 +8,7 @@ schema: 2.0.0
 # Move-AMObject
 
 ## SYNOPSIS
-Moves an AutoMate Enterprise object.
+Moves an Automate object.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Move-AMObject -InputObject <Object> [-Folder] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Move-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and moves the object(s) to the specified folder.
+Move-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and moves the object(s) to the specified folder.
 
 ## EXAMPLES
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMPerformanceCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise performance condition.
+Creates a new Automate performance condition.
 
 ## SYNTAX
 

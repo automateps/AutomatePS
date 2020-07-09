@@ -1,7 +1,7 @@
 function Copy-AMWorkflow {
     <#
         .SYNOPSIS
-            Copies an AutoMate Enterprise workflow.
+            Copies an Automate workflow.
 
         .DESCRIPTION
             Copy-AMWorkflow can copy a workflow within a server.
@@ -30,7 +30,7 @@ function Copy-AMWorkflow {
             The server to copy the object to.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
 
         .EXAMPLE
@@ -56,11 +56,12 @@ function Copy-AMWorkflow {
         [string]$ConflictAction,
 
         [ValidateNotNullOrEmpty()]
-        [Hashtable]$IdSubstitutions = [Hashtable]::new(),
+        [Hashtable]$IdSubstitutions = @{},
 
         [switch]$IgnoreServerVersionDifference,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -68,9 +69,9 @@ function Copy-AMWorkflow {
         if ($PSBoundParameters.ContainsKey("Connection")) {
             $Connection = Get-AMConnection -Connection $Connection
             if (($Connection | Measure-Object).Count -eq 0) {
-                throw "No AutoMate server specified!"
+                throw "No Automate server specified!"
             } elseif (($Connection | Measure-Object).Count -gt 1) {
-                throw "Multiple AutoMate servers specified, please specify one server to copy the workflow to!"
+                throw "Multiple Automate servers specified, please specify one server to copy the workflow to!"
             }
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
             $taskFolder = $user | Get-AMFolder -Type TASKS
@@ -85,6 +86,9 @@ function Copy-AMWorkflow {
             $existingIds += $workflowCache.Triggers.ID
             $existingIds += $workflowCache.Links.ID
             $existingIds += $workflowCache.Variables.ID
+            $copyToAnotherServer = $true
+        } else {
+            $copyToAnotherServer = $false
         }
 
         $substitions = $IdSubstitutions.PSObject.Copy()
@@ -93,8 +97,8 @@ function Copy-AMWorkflow {
     PROCESS {
         foreach ($obj in $InputObject) {
             if ($obj.Type -eq "Workflow") {
-                if ($PSBoundParameters.ContainsKey("Connection")) {
-                    # Copy from one AutoMate server to another
+                if ($copyToAnotherServer) {
+                    # Copy from one Automate server to another
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
                         if ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major -ne $Connection.Version.Major) {
                             if ($IgnoreServerVersionDifference.IsPresent) {
@@ -136,10 +140,9 @@ function Copy-AMWorkflow {
                     default { throw "Unsupported server major version: $_!" }
                 }
                 # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
-                if ($obj.ID -notin $existingIds) {
+                if ($copyToAnotherServer -and $obj.ID -notin $existingIds) {
                     $copyObject.ID = $obj.ID
                 }
-
                 # Copy properties of the source workflow to the new workflow
                 try {
                     $currentObject = Get-AMWorkflow -ID $obj.ID -Connection $obj.ConnectionAlias
@@ -347,7 +350,7 @@ function Copy-AMWorkflow {
                         }
                     }
                     # Retain the item ID if it does not already exist
-                    if ($item.ID -notin $existingIds) {
+                    if ($copyToAnotherServer -and $item.ID -notin $existingIds) {
                         $newItem.ID = $item.ID
                     }
                     $newItem.Enabled    = $item.Enabled
@@ -427,7 +430,7 @@ function Copy-AMWorkflow {
                         $newTrigger.ConstructID = $trigger.ConstructID
                     }
                     # Retain the item ID if it does not already exist
-                    if ($trigger.ID -notin $existingIds) {
+                    if ($copyToAnotherServer -and $trigger.ID -notin $existingIds) {
                         $newTrigger.ID = $trigger.ID
                     }
                     $newTrigger.TriggerType   = $trigger.TriggerType
@@ -450,17 +453,19 @@ function Copy-AMWorkflow {
                         default { throw "Unsupported server major version: $_!" }
                     }
                     # Retain the link ID if it does not already exist
-                    if ($link.ID -notin $existingIds) {
+                    if ($copyToAnotherServer -and $link.ID -notin $existingIds) {
                         $newLink.ID = $link.ID
                     }
-                    $newLink.DestinationID    = $substitions[$link.DestinationID]
-                    $newLink.DestinationPoint = [PSCustomObject]@{x = $link.DestinationPoint.X; y = $link.DestinationPoint.Y}
-                    $newLink.LinkType         = $link.LinkType
-                    $newLink.ResultType       = $link.ResultType
-                    $newLink.SourceID         = $substitions[$link.SourceID]
-                    $newLink.SourcePoint      = [PSCustomObject]@{x = $link.SourcePoint.X; y = $link.SourcePoint.Y}
-                    $newLink.Value            = $link.Value
-                    $newLink.WorkflowID       = $copyObject.ID
+                    $newLink.DestinationID      = $substitions[$link.DestinationID]
+                    $newLink.DestinationPoint.X = $link.DestinationPoint.X
+                    $newLink.DestinationPoint.Y = $link.DestinationPoint.Y
+                    $newLink.LinkType           = $link.LinkType
+                    $newLink.ResultType         = $link.ResultType
+                    $newLink.SourceID           = $substitions[$link.SourceID]
+                    $newLink.SourcePoint.X      = $link.SourcePoint.X
+                    $newLink.SourcePoint.Y      = $link.SourcePoint.X
+                    $newLink.Value              = $link.Value
+                    $newLink.WorkflowID         = $copyObject.ID
                     $copyObject.Links += $newLink
                 }
                 foreach ($variable in $currentObject.Variables) {
@@ -470,7 +475,7 @@ function Copy-AMWorkflow {
                         default { throw "Unsupported server major version: $_!" }
                     }
                     # Retain the variable ID if it does not already exist
-                    if ($variable.ID -notin $existingIds) {
+                    if ($copyToAnotherServer -and $variable.ID -notin $existingIds) {
                         $newVariable.ID = $variable.ID
                     }
                     $newVariable.Name         = $variable.Name

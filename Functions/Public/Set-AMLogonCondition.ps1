@@ -1,7 +1,7 @@
 function Set-AMLogonCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise logon condition.
+            Sets properties of an Automate logon condition.
 
         .DESCRIPTION
             Set-AMLogonCondition modifies an existing logon condition.

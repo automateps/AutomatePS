@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMWorkflowProperty
 
 ## SYNOPSIS
-Sets the properties of an AutoMate Enterprise workflow.
+Sets the properties of an Automate workflow.
 
 ## SYNTAX
 

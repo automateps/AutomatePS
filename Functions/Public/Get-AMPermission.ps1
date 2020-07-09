@@ -1,7 +1,7 @@
 function Get-AMPermission {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise permissions.
+            Gets Automate permissions.
 
         .DESCRIPTION
             Get-AMPermission gets permissions for objects.
@@ -35,7 +35,7 @@ function Get-AMPermission {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding()]
-    [OutputType([System.Object[]])]
+    [OutputType([AMPermissionv10],[AMPermissionv11])]
     param (
         [Parameter(Position = 0, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]

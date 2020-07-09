@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMInstance
 
 ## SYNOPSIS
-Gets AutoMate Enterprise workflow and task instances.
+Gets Automate workflow and task instances.
 
 ## SYNTAX
 
@@ -41,7 +41,7 @@ Get-AMInstance [-TransactionID <String>] [-StartDate <DateTime>] [-EndDate <Date
 ```
 
 ## DESCRIPTION
-Get-AMInstance gets instance objects from AutoMate Enterprise. 
+Get-AMInstance gets instance objects from Automate. 
 Get-AMInstance can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -49,23 +49,20 @@ Get-AMInstance can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 # Get currently running instances
-```
-
 Get-AMInstance -Status Running
+```
 
 ### EXAMPLE 2
 ```
 # Get failed instances of workflow "My Workflow"
-```
-
 Get-AMWorkflow "My Workflow" | Get-AMInstance -Status Failed
+```
 
 ### EXAMPLE 3
 ```
 # Get instances using filter sets
-```
-
 Get-AMInstance -FilterSet @{ Property = "ResultText"; Operator = "contains"; Value = "FTP Workflow"}
+```
 
 ## PARAMETERS
 
@@ -250,7 +247,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

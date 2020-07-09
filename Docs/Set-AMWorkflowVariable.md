@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMWorkflowVariable
 
 ## SYNOPSIS
-Sets a shared variable in a AutoMate Enterprise workflow
+Sets a shared variable in a Automate workflow
 
 ## SYNTAX
 
@@ -26,9 +26,8 @@ Set-AMWorkflowVariable can set the initial value and description of shared varia
 ### EXAMPLE 1
 ```
 # Modify variable 'emailAddress' for workflow 'Some Workflow'
-```
-
 Get-AMWorkflow "Some Workflow" | Set-AMWorkflowVariable -Name "emailAddress" -InitialValue "person@example.com" -PassValueFromParent -PassValueToParent:$false
+```
 
 ## PARAMETERS
 
@@ -174,7 +173,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ### WorkflowVariable
 ## OUTPUTS

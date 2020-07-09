@@ -1,10 +1,10 @@
 function Get-AMConnection {
     <#
         .SYNOPSIS
-            Gets current AutoMate Enterprise connections.
+            Gets current Automate connections.
 
         .DESCRIPTION
-            Get-AMConnection gets a list of current connections to AutoMate Enterprise.
+            Get-AMConnection gets a list of current connections to Automate.
 
         .PARAMETER Connection
             The connection name(s) or object(s).
@@ -30,29 +30,23 @@ function Get-AMConnection {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="AllConnections")]
+    [OutputType([AMConnection])]
     param (
+        [Alias("ConnectionAlias")]
         [Parameter(ParameterSetName = "ByConnection")]
+        [ArgumentCompleter([AMConnectionCompleter])]
         [ValidateNotNullOrEmpty()]
         $Connection
     )
 
-    DynamicParam {
-        New-DynamicParam -Name "ConnectionAlias" -ValidateSet $global:AMConnections.Alias -ParameterSetName "ByAlias" -Type ([string[]])
-    }
     Process {
         switch ($PSCmdlet.ParameterSetName) {
             "AllConnections" {
                 $connections = $global:AMConnections
             }
-            "ByAlias" {
-                $connections = @()
-                foreach ($alias in $PSBoundParameters["ConnectionAlias"]) {
-                    $connections += $global:AMConnections | Where-Object {$_.Alias -eq $alias}
-                }
-            }
             "ByConnection" {
                 if ($Connection -is [string]) {
-                    $connections = Get-AMConnection -ConnectionAlias $Connection
+                    $connections = $global:AMConnections | Where-Object {$_.Alias -eq $Connection}
                 } elseif ($Connection -is [AMConnection]) {
                     $connections = $Connection
                 } elseif ($Connection -is [array]) {

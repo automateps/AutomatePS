@@ -8,7 +8,7 @@ schema: 2.0.0
 # Copy-AMTask
 
 ## SYNOPSIS
-Copies an AutoMate Enterprise task.
+Copies an Automate task.
 
 ## SYNTAX
 
@@ -25,16 +25,14 @@ Copy-AMTask can copy a task object within, or between servers.
 ### EXAMPLE 1
 ```
 # Copy task "Start Service" from server1 to server2
-```
-
 Get-AMTask "Start Service" -Connection server1 | Copy-AMTask -Folder (Get-AMFolder TASKS -Connection server2) -Connection server2
+```
 
 ### EXAMPLE 2
 ```
 # Copy task "Start Service" with new name "Restart Service"
-```
-
 Get-AMTask "Start Service" | Copy-AMTask -Name "Restart Service"
+```
 
 ## PARAMETERS
 
@@ -103,7 +101,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Task
 ## OUTPUTS
 

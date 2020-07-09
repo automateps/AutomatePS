@@ -1,10 +1,10 @@
 function Remove-AMEmailConditionFilter {
     <#
         .SYNOPSIS
-            Removes an email filter from an AutoMate Enterprise Email condition.
+            Removes an email filter from an Automate Email condition.
 
         .DESCRIPTION
-            Remove-AMEmailConditionFilter removes an email filter from an AutoMate Enterprise Email condition.
+            Remove-AMEmailConditionFilter removes an email filter from an Automate Email condition.
 
         .PARAMETER InputObject
             The Email condition object to remove the filter from.
@@ -13,7 +13,7 @@ function Remove-AMEmailConditionFilter {
             The ID of the email filter.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS

@@ -1,10 +1,10 @@
 function Get-AMCondition {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise conditions.
+            Gets Automate conditions.
 
         .DESCRIPTION
-            Get-AMCondition gets condition objects from AutoMate Enterprise.  Get-AMCondition can receive items on the pipeline and return related objects.
+            Get-AMCondition gets condition objects from Automate.  Get-AMCondition can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) use in search for conditions.
@@ -51,7 +51,7 @@ function Get-AMCondition {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Conditions related to the following objects can be retrieved by this function:
@@ -71,7 +71,7 @@ function Get-AMCondition {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMTriggerv10],[AMTriggerv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
@@ -101,6 +101,7 @@ function Get-AMCondition {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

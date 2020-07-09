@@ -1,7 +1,7 @@
 function New-AMScheduleCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise schedule condition.
+            Creates a new Automate schedule condition.
 
         .DESCRIPTION
             New-AMScheduleCondition creates a new schedule condition.
@@ -101,6 +101,7 @@ function New-AMScheduleCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -143,6 +144,6 @@ function New-AMScheduleCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

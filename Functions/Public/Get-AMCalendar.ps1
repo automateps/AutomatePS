@@ -1,7 +1,7 @@
 function Get-AMCalendar {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise calendar events.
+            Gets Automate calendar events.
 
         .DESCRIPTION
             Get-AMCalendar gets events from the calendar.
@@ -37,7 +37,7 @@ function Get-AMCalendar {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Calendar events related to the following objects can be retrieved by this function:
@@ -64,7 +64,6 @@ function Get-AMCalendar {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
     param (
         [Parameter(Position = 0, ParameterSetName = "ByPipeline", ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -92,6 +91,7 @@ function Get-AMCalendar {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

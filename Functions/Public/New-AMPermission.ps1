@@ -1,7 +1,7 @@
 function New-AMPermission {
     <#
         .SYNOPSIS
-            Assigns security to an AutoMate Enterprise object.
+            Assigns security to an Automate object.
 
         .DESCRIPTION
             New-AMPermission assigns security to an object.

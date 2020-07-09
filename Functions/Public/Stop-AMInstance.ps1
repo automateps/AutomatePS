@@ -1,7 +1,7 @@
 function Stop-AMInstance {
     <#
         .SYNOPSIS
-            Stops AutoMate Enterprise workflow and task instances.
+            Stops Automate workflow and task instances.
 
         .DESCRIPTION
             Stop-AMInstance stops running workflow and task instances.
@@ -20,7 +20,7 @@ function Stop-AMInstance {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMInstancev10],[AMInstancev11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

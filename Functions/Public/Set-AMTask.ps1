@@ -1,7 +1,7 @@
 function Set-AMTask {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise task.
+            Sets properties of an Automate task.
 
         .DESCRIPTION
             Set-AMTask can change properties of a task object.
@@ -16,13 +16,13 @@ function Set-AMTask {
             The new notes to set on the object.
 
         .PARAMETER AML
-            The new AutoMate Markup Language (AML) to set on the object.
+            The new Automate Markup Language (AML) to set on the object.
 
         .PARAMETER CompletionState
             The completion state (staging level) to set on the object.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Task
 
         .EXAMPLE

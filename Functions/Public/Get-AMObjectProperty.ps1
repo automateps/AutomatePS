@@ -1,7 +1,7 @@
 function Get-AMObjectProperty {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise workflow/task/agent properties if non-inherited values are used.  If the inherited values are used, nothing will be returned.
+            Gets Automate workflow/task/agent properties if non-inherited values are used.  If the inherited values are used, nothing will be returned.
 
         .DESCRIPTION
             Get-AMObjectProperty gets properties for objects.

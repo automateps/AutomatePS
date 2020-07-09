@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMUserGroup
 
 ## SYNOPSIS
-Gets AutoMate Enterprise user groups.
+Gets Automate user groups.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ Get-AMUserGroup [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-F
 ```
 
 ## DESCRIPTION
-Get-AMUserGroup gets user group objects from AutoMate Enterprise. 
+Get-AMUserGroup gets user group objects from Automate. 
 Get-AMUserGroup can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -39,23 +39,20 @@ Get-AMUserGroup can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 # Get user group "group01"
-```
-
 Get-AMUserGroup "group01"
+```
 
 ### EXAMPLE 2
 ```
 # Get group membership for user "MyUsername"
-```
-
 Get-AMUser "MyUsername" | Get-AMUserGroup
+```
 
 ### EXAMPLE 3
 ```
 # Get folders using filter sets
-```
-
 Get-AMUserGroup -FilterSet @{ Property = "Name"; Value = "admin"}
+```
 
 ## PARAMETERS
 
@@ -173,7 +170,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

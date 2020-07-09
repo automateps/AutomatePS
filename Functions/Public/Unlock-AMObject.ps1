@@ -1,10 +1,10 @@
 function Unlock-AMObject {
     <#
         .SYNOPSIS
-            Unlocks an AutoMate Enterprise object.
+            Unlocks an Automate object.
 
         .DESCRIPTION
-            Unlock-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and unlocks the object(s).
+            Unlock-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and unlocks the object(s).
 
         .PARAMETER InputObject
             The object(s) to be unlocked.

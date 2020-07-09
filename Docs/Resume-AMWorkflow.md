@@ -8,7 +8,7 @@ schema: 2.0.0
 # Resume-AMWorkflow
 
 ## SYNOPSIS
-Resumes a failed AutoMate Enterprise workflow.
+Resumes a failed Automate workflow.
 
 ## SYNTAX
 
@@ -30,9 +30,8 @@ Resume-AMWorkflow resumes paused workflow and task instances.
 ### EXAMPLE 1
 ```
 # Resumes a workflow
-```
-
 Get-AMWorkflow "Failed workflow" | Resume-AMWorkflow
+```
 
 ## PARAMETERS
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMObject
 
 ## SYNOPSIS
-Retrieves any AutoMate Enterprise object by ID.
+Retrieves any Automate object by ID.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Get-AMObject [-ID] <Object> [[-Types] <AMConstructType[]>] [[-Connection] <Objec
 ```
 
 ## DESCRIPTION
-Get-AMObject allows search for any AutoMate Enterprise object by its ID when the construct type is not known.
+Get-AMObject allows search for any Automate object by its ID when the construct type is not known.
 
 ## EXAMPLES
 

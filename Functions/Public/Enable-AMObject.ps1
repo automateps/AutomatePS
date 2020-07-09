@@ -1,10 +1,10 @@
 function Enable-AMObject {
     <#
         .SYNOPSIS
-            Enables an AutoMate Enterprise object.
+            Enables an Automate object.
 
         .DESCRIPTION
-            Enable-AMObject receives AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and enables the object(s).
+            Enable-AMObject receives Automate object(s) on the pipeline, or via the parameter $InputObject, and enables the object(s).
 
         .PARAMETER InputObject
             The object(s) to be disabled.

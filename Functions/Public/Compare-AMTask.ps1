@@ -41,6 +41,6 @@ function Compare-AMTask {
         } elseif ($IncludeEqual.IsPresent) {
             $result += [AMComparison]::new($ReferenceObject, $DifferenceObject, $property, [AMComparisonResult]::Equal)
         }
-    }    
+    }
     return $result
 }

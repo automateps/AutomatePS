@@ -44,6 +44,7 @@ function Search-ObjectProperty {
     )
     BEGIN {
         $result = @()
+        $index = 0
         if ($Regex.ToBool()) {
             try {
                 [regex]::new($Pattern)
@@ -59,33 +60,34 @@ function Search-ObjectProperty {
     PROCESS {
         foreach ($obj in $InputObject) {
             $found = $false
-            $matchedProps = @()
+            $matchedProps = @{}
 
-            foreach ($property in ($obj | Get-Member -MemberType Property | Where-Object {$_.Name -notin "__type","MatchedProperty"}).Name) {
-                if ($obj."$property" -isnot [string]) {
-                    if ($obj."$property".GetType().FullName -like "AM*") {
-                        if ($CurrentDepth -le $Depth) {
-                            Write-Verbose "Searching sub-object $ParentProperty.$property"
-                            $subProperties = $obj."$property" | Search-ObjectProperty -Pattern $Pattern -ParentProperty "$ParentProperty.$property" -Regex:$Regex -Depth $Depth -CurrentDepth ($CurrentDepth + 1)
-                            if ($subProperties) {
-                                $matchedProps += $subProperties.MatchedProperty
-                                $found = $true
-                            }
+            foreach ($property in ($obj | Get-Member -MemberType Property | Where-Object {$_.Name -notin "MatchedProperty"}).Name) {
+                if ($ParentProperty -eq "") {
+                    $propertyChain = ".$property"
+                } else {
+                    $propertyChain = "$ParentProperty[$index].$property"
+                }
+                if ($obj."$property" -is [System.Collections.IEnumerable] -and $obj."$property" -isnot [string]) {
+                    if ($CurrentDepth -le $Depth) {
+                        #Write-Verbose "Searching sub-object $ParentProperty.$property"
+                        $subProperties = $obj."$property" | Search-ObjectProperty -Pattern $Pattern -ParentProperty $propertyChain -Regex:$Regex -Depth $Depth -CurrentDepth ($CurrentDepth + 1)
+                        foreach ($subProperty in $subProperties) {
+                            $matchedProps += $subProperty.MatchedProperty
+                            $found = $true
                         }
                     }
                 } else {
+                    $matched = $false
                     if ($Regex.ToBool()) {
-                        if ($obj."$property" -match $Pattern) {
-                            Write-Verbose "Found '$Pattern' in $ParentProperty.$property"
-                            $matchedProps += [AMMatchedProperty]::new("$ParentProperty.$property", $obj."$property")
-                            $found = $true
-                        }
+                        $matched = $obj."$property" -match $Pattern
                     } else {
-                        if ($obj."$property" -like $Pattern) {
-                            Write-Verbose "Found '$Pattern' in $ParentProperty.$property"
-                            $matchedProps += [AMMatchedProperty]::new("$ParentProperty.$property", $obj."$property")
-                            $found = $true
-                        }
+                        $matched = $obj."$property" -like $Pattern
+                    }
+                    if ($matched) {
+                        Write-Verbose "Found '$Pattern' in $propertyChain"
+                        $matchedProps.Add("$propertyChain", $obj."$property") | Out-Null
+                        $found = $true
                     }
                 }
             }
@@ -97,6 +99,7 @@ function Search-ObjectProperty {
                 }
                 $result += $obj
             }
+            $index += 1
         }
     }
 

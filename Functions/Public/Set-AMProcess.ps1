@@ -1,7 +1,7 @@
 function Set-AMProcess {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise process.
+            Sets properties of an Automate process.
 
         .DESCRIPTION
             Set-AMProcess can change properties of a process object.
@@ -31,7 +31,7 @@ function Set-AMProcess {
             The completion state (staging level) to set on the object.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Process
 
         .EXAMPLE

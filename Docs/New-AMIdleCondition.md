@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMIdleCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise idle condition.
+Creates a new Automate idle condition.
 
 ## SYNTAX
 

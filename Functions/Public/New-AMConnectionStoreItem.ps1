@@ -1,13 +1,13 @@
 function New-AMConnectionStoreItem {
     <#
         .SYNOPSIS
-            Save the connection for the specified AutoMate Enterprise server
+            Save the connection for the specified Automate server
 
         .DESCRIPTION
             New-AMConnectionStoreItem stores a server and credential object together in a credential store file.
 
         .PARAMETER Server
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .PARAMETER Port
             The TCP port for the management API.

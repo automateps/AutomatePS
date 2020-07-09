@@ -1,7 +1,7 @@
 function Remove-AMPermission {
     <#
         .SYNOPSIS
-            Removes AutoMate Enterprise permissions.
+            Removes Automate permissions.
 
         .DESCRIPTION
             Remove-AMPermission removes the provided permissions.

@@ -20,6 +20,7 @@ function Get-AMRepositoryMap {
 
     #>
     [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
     param (
         [Parameter(Mandatory = $true)]
         $SourceConnection,

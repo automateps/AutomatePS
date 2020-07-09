@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMObject
 
 ## SYNOPSIS
-Creates an AutoMate Enterprise object.
+Creates an Automate object.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ New-AMObject [-InputObject] <Object> [-Connection] <Object> [-WhatIf] [-Confirm]
 ```
 
 ## DESCRIPTION
-New-AMObject receives new AutoMate Enterprise object(s) on the pipeline, or via the parameter $InputObject, and creates the objects.
+New-AMObject receives new Automate object(s) on the pipeline, or via the parameter $InputObject, and creates the objects.
 
 ## EXAMPLES
 

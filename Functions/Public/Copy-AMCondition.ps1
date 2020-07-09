@@ -1,7 +1,7 @@
 function Copy-AMCondition {
     <#
         .SYNOPSIS
-            Copies an AutoMate Enterprise condition.
+            Copies an Automate condition.
 
         .DESCRIPTION
             Copy-AMCondition can copy a condition object within, or between servers.
@@ -19,7 +19,7 @@ function Copy-AMCondition {
             The server to copy the object to.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Condition
 
         .OUTPUTS
@@ -45,6 +45,7 @@ function Copy-AMCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -52,13 +53,13 @@ function Copy-AMCondition {
         if ($PSBoundParameters.ContainsKey("Connection")) {
             $Connection = Get-AMConnection -Connection $Connection
             if (($Connection | Measure-Object).Count -eq 0) {
-                throw "No AutoMate server specified!"
+                throw "No Automate server specified!"
             } elseif (($Connection | Measure-Object).Count -gt 1) {
-                throw "Multiple AutoMate servers specified, please specify one server to copy the condition to!"
+                throw "Multiple Automate servers specified, please specify one server to copy the condition to!"
             }
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
         }
-        
+
         Write-Verbose "Caching condition IDs for server $($Connection.Alias) for ID checking"
         $conditionCache = Get-AMCondition -Connection $Connection
         $existingIds = @()
@@ -71,7 +72,7 @@ function Copy-AMCondition {
         foreach ($obj in $InputObject) {
             if ($obj.Type -eq "Condition") {
                 if ($PSBoundParameters.ContainsKey("Connection")) {
-                    # Copy from one AutoMate server to another
+                    # Copy from one Automate server to another
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
                         if ($PSBoundParameters.ContainsKey("Folder")) {
                             if ($Folder.ConnectionAlias -ne $Connection.Alias) {

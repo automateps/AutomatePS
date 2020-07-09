@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMFileSystemCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise file system condition.
+Creates a new Automate file system condition.
 
 ## SYNTAX
 

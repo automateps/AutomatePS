@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMTask
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise task.
+Sets properties of an Automate task.
 
 ## SYNTAX
 
@@ -31,16 +31,14 @@ Set-AMTask can change properties of a task object.
 ### EXAMPLE 1
 ```
 # Change notes for a task
-```
-
 Get-AMTask "Delete Log Files" | Set-AMTask -Notes "Deletes old log files"
+```
 
 ### EXAMPLE 2
 ```
 # Change AML for a task
-```
-
 Get-AMTask "Some Task" | Set-AMTask -AML (Get-AMTask "Some Other Task").AML
+```
 
 ## PARAMETERS
 
@@ -91,7 +89,7 @@ Accept wildcard characters: False
 ```
 
 ### -AML
-The new AutoMate Markup Language (AML) to set on the object.
+The new Automate Markup Language (AML) to set on the object.
 
 ```yaml
 Type: String
@@ -157,7 +155,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Task
 ## OUTPUTS
 

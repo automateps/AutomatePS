@@ -1,10 +1,10 @@
 function Find-AMObject {
     <#
         .SYNOPSIS
-            Finds objects in AutoMate Enterprise.
+            Finds objects in Automate.
 
         .DESCRIPTION
-            Find-AMObject searches AutoMate Enterprise for objects based on a search query.
+            Find-AMObject searches Automate for objects based on a search query.
 
         .PARAMETER Pattern
             The pattern to use when searching.  Regular expressions are supported.
@@ -42,6 +42,7 @@ function Find-AMObject {
         [int]$SearchDepth = 3,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

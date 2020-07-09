@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMKeyboardCondition
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise keyboard condition.
+Sets properties of an Automate keyboard condition.
 
 ## SYNTAX
 

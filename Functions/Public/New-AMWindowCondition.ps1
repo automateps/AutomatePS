@@ -1,7 +1,7 @@
 function New-AMWindowCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise window condition.
+            Creates a new Automate window condition.
 
         .DESCRIPTION
             New-AMWindowCondition creates a new window condition.
@@ -84,6 +84,7 @@ function New-AMWindowCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -120,6 +121,6 @@ function New-AMWindowCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

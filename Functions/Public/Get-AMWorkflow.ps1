@@ -1,10 +1,10 @@
 function Get-AMWorkflow {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise workflows.
+            Gets Automate workflows.
 
         .DESCRIPTION
-            Get-AMWorkflow gets workflow objects from AutoMate Enterprise.  Get-AMWorkflow can receive items on the pipeline and return related objects.
+            Get-AMWorkflow gets workflow objects from Automate.  Get-AMWorkflow can receive items on the pipeline and return related objects.
 
         .PARAMETER InputObject
             The object(s) use in search for workflows.
@@ -33,7 +33,7 @@ function Get-AMWorkflow {
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .INPUTS
             Workflows related to the following objects can be retrieved by this function:
@@ -72,7 +72,7 @@ function Get-AMWorkflow {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
+    [OutputType([AMWorkflowv10],[AMWorkflowv11])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]
@@ -102,6 +102,7 @@ function Get-AMWorkflow {
         [switch]$SortDescending = $false,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

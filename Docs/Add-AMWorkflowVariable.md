@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMWorkflowVariable
 
 ## SYNOPSIS
-Adds a shared variable to an AutoMate Enterprise workflow
+Adds a shared variable to an Automate workflow
 
 ## SYNTAX
 
@@ -26,9 +26,8 @@ Add-AMWorkflowVariable can add shared variables to a workflow object.
 ### EXAMPLE 1
 ```
 # Add variable 'emailAddress' to workflow 'Some Workflow'
-```
-
 Get-AMWorkflow "Some Workflow" | Add-AMWorkflowVariable -Name "emailAddress" -InitialValue "person@example.com" -Description "Email this user when the job fails"
+```
 
 ## PARAMETERS
 
@@ -190,7 +189,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Workflow
 ## OUTPUTS
 

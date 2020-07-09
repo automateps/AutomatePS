@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-AMLogonCondition
 
 ## SYNOPSIS
-Creates a new AutoMate Enterprise logon condition.
+Creates a new Automate logon condition.
 
 ## SYNTAX
 

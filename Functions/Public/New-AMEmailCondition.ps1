@@ -1,7 +1,7 @@
 function New-AMEmailCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise Email condition.
+            Creates a new Automate Email condition.
 
         .DESCRIPTION
             New-AMEmailCondition creates a new Email condition.
@@ -198,6 +198,7 @@ function New-AMEmailCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -264,6 +265,6 @@ function New-AMEmailCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

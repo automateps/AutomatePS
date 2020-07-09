@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AMScheduleConditionCustomDate
 
 ## SYNOPSIS
-Adds a custom date to an AutoMate Enterprise schedule condition using the Custom interval.
+Adds a custom date to an Automate schedule condition using the Custom interval.
 
 ## SYNTAX
 
@@ -17,16 +17,15 @@ Add-AMScheduleConditionCustomDate -InputObject <Object> [-CustomLaunchDates] <Da
 ```
 
 ## DESCRIPTION
-Add-AMScheduleConditionCustomDate adds a custom date to an AutoMate Enterprise schedule condition using the Custom interval.
+Add-AMScheduleConditionCustomDate adds a custom date to an Automate schedule condition using the Custom interval.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 # Add a custom run time of 1 hour from now to schedule "On Specified Dates"
-```
-
 Get-AMCondition "On Specified Dates" | Add-AMScheduleConditionCustomDate -CustomLaunchDates (Get-Date).AddHours(1)
+```
 
 ## PARAMETERS
 
@@ -65,7 +64,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### Condition
 ## OUTPUTS
 

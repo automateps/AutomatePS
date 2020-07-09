@@ -1,7 +1,7 @@
 function Set-AMWorkflowProperty {
     <#
         .SYNOPSIS
-            Sets the properties of an AutoMate Enterprise workflow.
+            Sets the properties of an Automate workflow.
 
         .DESCRIPTION
             Set-AMWorkflowProperty modifies workflow properties.

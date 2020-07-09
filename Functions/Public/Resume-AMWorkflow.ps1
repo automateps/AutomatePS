@@ -1,7 +1,7 @@
 function Resume-AMWorkflow {
     <#
         .SYNOPSIS
-            Resumes a failed AutoMate Enterprise workflow.
+            Resumes a failed Automate workflow.
 
         .DESCRIPTION
             Resume-AMWorkflow resumes paused workflow and task instances.

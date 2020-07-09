@@ -1,7 +1,7 @@
 function New-AMFileSystemCondition {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise file system condition.
+            Creates a new Automate file system condition.
 
         .DESCRIPTION
             New-AMFileSystemCondition creates a new file system condition.
@@ -181,6 +181,7 @@ function New-AMFileSystemCondition {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -240,6 +241,6 @@ function New-AMFileSystemCondition {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new condition on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new condition on!" }
     }
 }

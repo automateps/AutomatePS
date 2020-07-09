@@ -5,78 +5,73 @@ online version: https://github.com/AutomatePS/AutomatePS
 schema: 2.0.0
 ---
 
-# Stop-AMInstance
+# ConvertTo-AMJson
 
 ## SYNOPSIS
-Stops Automate workflow and task instances.
+Converts Automate objects to JSON.
 
 ## SYNTAX
 
-### All (Default)
 ```
-Stop-AMInstance [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### ByPipeline
-```
-Stop-AMInstance [-InputObject <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ConvertTo-AMJson [[-InputObject] <Object>] [[-Depth] <Int32>] [-Compress] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Stop-AMInstance stops running workflow and task instances.
+ConvertTo-AMJson converts Automate objects to JSON. 
+In PowerShell versions 6 and above, special handling is required to properly serialize date objects.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
-# Stops all currently running instances
-Get-AMInstance -Status Running | Stop-AMInstance
-```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -InputObject
-The instances to stop.
+The object to serialize to JSON.
 
 ```yaml
 Type: Object
-Parameter Sets: ByPipeline
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -Depth
+Specifies how many levels of contained objects are included in the JSON representation.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: 1024
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Compress
+Omits white space and indented formatting in the output string.
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -86,10 +81,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Instances can be supplied on the pipeline to this function.
 ## OUTPUTS
 
-### System.Object[]
 ## NOTES
 
 ## RELATED LINKS

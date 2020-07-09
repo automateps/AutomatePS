@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-AMAgent
 
 ## SYNOPSIS
-Sets properties of an AutoMate Enterprise agent.
+Sets properties of an Automate agent.
 
 ## SYNTAX
 
@@ -24,9 +24,8 @@ Set-AMAgent can change properties of an agent object.
 ### EXAMPLE 1
 ```
 # Change notes for an agent
-```
-
 Get-AMAgent "Agent1" | Set-AMAgent -Notes "Site 1 Agent"
+```
 
 ## PARAMETERS
 
@@ -96,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be modified by this function:
+### The following Automate object types can be modified by this function:
 ### TaskAgent
 ### ProcessAgent
 ## OUTPUTS

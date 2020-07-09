@@ -1,7 +1,7 @@
 function Get-AMSystemAgent {
     <#
         .SYNOPSIS
-            Gets AutoMate Enterprise system agent types.
+            Gets Automate system agent types.
 
         .DESCRIPTION
             Get-AMSystemAgent returns a list of system agent types and their IDs.
@@ -13,7 +13,7 @@ function Get-AMSystemAgent {
             The type of system agent to return.
 
         .PARAMETER Connection
-            The AutoMate Enterprise management server.
+            The Automate management server.
 
         .EXAMPLE
             # Get the default system agent
@@ -27,7 +27,6 @@ function Get-AMSystemAgent {
             https://github.com/AutomatePS/AutomatePS
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([System.Object[]])]
     param (
         [Parameter(ParameterSetName="ByID")]
         [ValidateNotNullOrEmpty()]
@@ -38,6 +37,7 @@ function Get-AMSystemAgent {
         [string]$Type,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 

@@ -1,7 +1,7 @@
 function Add-AMConstant {
     <#
         .SYNOPSIS
-            Adds constants to an AutoMate Enterprise agent property.
+            Adds constants to an Automate agent property.
 
         .DESCRIPTION
             Add-AMConstant adds constants to an agent property.
@@ -19,7 +19,7 @@ function Add-AMConstant {
             The comment for the new constant.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             AgentProperty
 
         .OUTPUTS

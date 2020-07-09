@@ -1,7 +1,7 @@
 function New-AMProcess {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise process.
+            Creates a new Automate process.
 
         .DESCRIPTION
             New-AMProcess creates a new process object.
@@ -58,6 +58,7 @@ function New-AMProcess {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -84,6 +85,6 @@ function New-AMProcess {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new process on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new process on!" }
     }
 }

@@ -1,10 +1,10 @@
 function Add-AMWorkflowItem {
     <#
         .SYNOPSIS
-            Adds an item to an AutoMate Enterprise workflow
+            Adds an item to an Automate workflow
 
         .DESCRIPTION
-            Add-AMWorkflowItem can add an item to an AutoMate Enterprise workflow
+            Add-AMWorkflowItem can add an item to an Automate workflow
 
         .PARAMETER InputObject
             The workflow to add the item to.
@@ -34,7 +34,7 @@ function Add-AMWorkflowItem {
             The Y (vertical) location of the new item.
 
         .INPUTS
-            The following AutoMate object types can be modified by this function:
+            The following Automate object types can be modified by this function:
             Workflow
 
         .OUTPUTS

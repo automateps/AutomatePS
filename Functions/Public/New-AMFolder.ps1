@@ -1,7 +1,7 @@
 function New-AMFolder {
     <#
         .SYNOPSIS
-            Creates a new AutoMate Enterprise folder.
+            Creates a new Automate folder.
 
         .DESCRIPTION
             New-AMFolder creates a new folder object.
@@ -38,6 +38,7 @@ function New-AMFolder {
         $Folder,
 
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter([AMConnectionCompleter])]
         $Connection
     )
 
@@ -59,6 +60,6 @@ function New-AMFolder {
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }
-        default { throw "Multiple AutoMate servers are connected, please specify which server to create the new folder on!" }
+        default { throw "Multiple Automate servers are connected, please specify which server to create the new folder on!" }
     }
 }

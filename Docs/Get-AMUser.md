@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AMUser
 
 ## SYNOPSIS
-Gets AutoMate Enterprise users.
+Gets Automate users.
 
 ## SYNTAX
 
@@ -31,7 +31,7 @@ Get-AMUser [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-Filter
 ```
 
 ## DESCRIPTION
-Get-AMUser gets user objects from AutoMate Enterprise. 
+Get-AMUser gets user objects from Automate. 
 Get-AMUser can receive items on the pipeline and return related objects.
 
 ## EXAMPLES
@@ -39,23 +39,20 @@ Get-AMUser can receive items on the pipeline and return related objects.
 ### EXAMPLE 1
 ```
 # Get user "MyUsername"
-```
-
 Get-AMUser "MyUsername"
+```
 
 ### EXAMPLE 2
 ```
 # Get users in user group "group01"
-```
-
 Get-AMUserGroup "group01" | Get-AMUser
+```
 
 ### EXAMPLE 3
 ```
 # Get users using filter sets
-```
-
 Get-AMAgent -FilterSet @{ Property = "Enabled"; Operator = "="; Value = "true"}
+```
 
 ## PARAMETERS
 
@@ -173,7 +170,7 @@ Accept wildcard characters: False
 ```
 
 ### -Connection
-The AutoMate Enterprise management server.
+The Automate management server.
 
 ```yaml
 Type: Object

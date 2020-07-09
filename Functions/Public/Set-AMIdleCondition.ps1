@@ -1,7 +1,7 @@
 function Set-AMIdleCondition {
     <#
         .SYNOPSIS
-            Sets properties of an AutoMate Enterprise idle condition.
+            Sets properties of an Automate idle condition.
 
         .DESCRIPTION
             Set-AMIdleCondition modifies an existing idle condition.
