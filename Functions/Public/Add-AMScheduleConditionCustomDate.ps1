@@ -61,7 +61,9 @@ function Add-AMScheduleConditionCustomDate {
                         $update.NextLaunchDate = $nextLaunchDate.ToString($AMScheduleDateFormat)
                         # Cleanup old launch dates
                         if ($RemovePreviousDates.IsPresent) {
-                            $update.Day = $update.Day | Where-Object {(Get-Date $_) -gt $now}
+                            foreach ($day in $update.Day | Where-Object {(Get-Date $_) -le $now}) {
+                                $update.Day.Remove($day)
+                            }
                         }
                         $shouldUpdate = $true
                     } else {
