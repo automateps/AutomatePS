@@ -21,6 +21,7 @@ if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
         FormatsToProcess = "AutomatePS.Format.ps1xml"
         ScriptsToProcess = $scripts
         FunctionsToExport = $functions
+        CmdletsToExport = @()
         AliasesToExport = $aliases
         DscResourcesToExport = $dscResources
         HelpInfoUri = "https://github.com/AutomatePS/AutomatePS"
