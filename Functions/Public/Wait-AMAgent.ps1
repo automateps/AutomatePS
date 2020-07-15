@@ -26,7 +26,7 @@ function Wait-AMAgent {
             Get-AMAgent -Name agent01 | Wait-AMAgent -Online:$false
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Wait-AMAgent.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMAgentv10],[AMAgentv11])]

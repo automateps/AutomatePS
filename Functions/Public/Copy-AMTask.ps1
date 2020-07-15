@@ -34,7 +34,7 @@ function Copy-AMTask {
             Get-AMTask "Start Service" | Copy-AMTask -Name "Restart Service"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Copy-AMTask.md
     #>
     [CmdletBinding()]
     param (

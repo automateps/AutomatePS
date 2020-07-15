@@ -19,7 +19,7 @@ function New-AMRepositoryMap {
             The file path to save repository mappings in, saved in the user profile by default
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMRepositoryMap.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

@@ -52,7 +52,7 @@ function Set-AMWorkflowItem {
             Get-AMWorkflow "Some Workflow" | Set-AMWorkflowItem -ID "{1103992f-cbbd-44fd-9177-9de31b1070ab}" -Label "Do something" -UseLabel
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMWorkflowItem.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

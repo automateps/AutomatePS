@@ -1,4 +1,4 @@
-﻿function Set-AMWindowConditionControl {
+function Set-AMWindowConditionControl {
     <#
         .SYNOPSIS
             Modifies an Automate window condition control.
@@ -34,7 +34,7 @@
             Get-AMCondition "window" | Set-AMWindowConditionControl -ID "{0cee39da-1f6c-424b-a9bd-eeaf17cbd1f2}" -Class ConsoleWindowClass -Name Close -Type PushButton
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMWindowConditionControl.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

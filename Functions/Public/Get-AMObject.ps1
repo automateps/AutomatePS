@@ -19,7 +19,7 @@ function Get-AMObject {
             Get-AMObject -ID "{1525ea3b-45cc-4ee1-9b34-8ea855c3b299}"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMObject.md
     #>
     [CmdletBinding()]
     [OutputType([AMAutomationConstructv10],[AMAutomationConstructv11])]

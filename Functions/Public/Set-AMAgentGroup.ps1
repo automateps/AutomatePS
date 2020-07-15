@@ -28,7 +28,7 @@ function Set-AMAgentGroup {
             Get-AMAgentGroup | Set-AMUserGroup -Notes ""
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMAgentGroup.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

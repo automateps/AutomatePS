@@ -21,7 +21,7 @@ function Get-AMWorkflowItem {
             Get-AMWorkflow "FTP Files" | Get-AMWorkflowLink
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMWorkflowItem.md
     #>
     [CmdletBinding()]
     [OutputType([AMWorkflowItemv10],[AMWorkflowItemv11])]

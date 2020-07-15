@@ -136,7 +136,7 @@ function Set-AMEmailCondition {
             The completion state (staging level) to set on the object.
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMEmailCondition.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

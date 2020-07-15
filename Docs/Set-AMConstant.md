@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMConstant.md
 schema: 2.0.0
 ---
 
@@ -13,8 +13,8 @@ Sets constants on an Automate agent property.
 ## SYNTAX
 
 ```
-Set-AMConstant -InputObject <Object> [-Name] <String> [-Value] <String> [-Comment <String>]
- [<CommonParameters>]
+Set-AMConstant -InputObject <Object> [-Name] <String> [-Value] <String> [-Comment <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -89,6 +89,37 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
@@ -103,5 +134,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMConstant.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMConstant.md)
 

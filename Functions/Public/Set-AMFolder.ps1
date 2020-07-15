@@ -17,7 +17,7 @@ function Set-AMFolder {
             Get-AMFolder Test | Set-AMFolder -Notes "This folder contains test workflows"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMFolder.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

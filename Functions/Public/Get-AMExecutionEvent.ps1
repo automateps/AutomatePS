@@ -52,7 +52,7 @@ function Get-AMExecutionEvent {
             Get-AMExecutionEvent -Connection AMprd -FilterSet @{Property = 'ResultText'; Operator = 'contains'; Value = 'Agent01'}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMExecutionEvent.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMExecutionEventv10],[AMExecutionEventv11])]

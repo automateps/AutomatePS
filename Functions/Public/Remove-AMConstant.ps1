@@ -23,7 +23,7 @@ function Remove-AMConstant {
             Get-AMAgent "agent01" | Get-AMObjectProperty | Remove-AMConstant -Name test
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMConstant.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

@@ -25,7 +25,7 @@ function Remove-AMWorkflowLink {
             (Get-AMWorkflow "Some Workflow").Links | Remove-AMWorkflowLink
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMWorkflowLink.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

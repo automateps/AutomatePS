@@ -19,7 +19,7 @@ function Get-AMConnectionStoreItem {
             Get-AMConnectionStoreItem -Connection server01
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMConnectionStoreItem.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default")]
     param (

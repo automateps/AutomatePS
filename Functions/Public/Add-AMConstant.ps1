@@ -29,7 +29,7 @@ function Add-AMConstant {
             Get-AMAgent "agent01" | Get-AMObjectProperty | Add-AMConstant -Name test -Value 123 -Comment "Test adding a constant"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMConstant.md
     #>
     [CmdletBinding()]
     param (

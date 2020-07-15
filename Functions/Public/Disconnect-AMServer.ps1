@@ -13,7 +13,7 @@ function Disconnect-AMServer {
             Disonnect-AMServer -Connection "AM01" -Credential (Get-Credential)
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Disconnect-AMServer.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     param (

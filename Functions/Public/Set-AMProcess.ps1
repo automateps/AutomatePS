@@ -43,7 +43,7 @@ function Set-AMProcess {
             Get-AMProcess | Set-AMProcess -RunningContext Bash
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMProcess.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

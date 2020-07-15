@@ -28,7 +28,7 @@ function Get-AMFolderRoot {
             Get-AMFolderRoot -Type Workflow | Get-AMWorkflow
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMFolderRoot.md
     #>
     [CmdletBinding()]
     [OutputType([AMFolderv10],[AMFolderv11])]

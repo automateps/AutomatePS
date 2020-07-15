@@ -26,6 +26,9 @@ function Invoke-AMRestMethod {
             Invoke-AMRestMethod -Resource "info/get" -RestMethod Get
 
         .LINK
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Invoke-AMRestMethod.md
+
+        .LINK
             http://cloud.networkautomation.com/installs/Automate/v10/10.5.0.56/BPA_RESTful_API.html
     #>
     [CmdletBinding(DefaultParameterSetName="AllConnections")]

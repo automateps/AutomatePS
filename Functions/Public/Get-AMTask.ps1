@@ -57,7 +57,7 @@ function Get-AMTask {
             Get-AMTask -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "Files"},@{ Property = "AML"; Operator = "contains"; Value = "FTP"}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMTask.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMTaskv10],[AMTaskv11])]

@@ -25,7 +25,7 @@ function Set-AMUserGroup {
             Get-AMUserGroup | Set-AMUserGroup -Notes ""
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMUserGroup.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

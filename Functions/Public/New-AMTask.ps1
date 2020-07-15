@@ -26,7 +26,7 @@ function New-AMTask {
             New-AMTask -Name "Test Task"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMTask.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

@@ -31,7 +31,7 @@ function Move-AMObject {
             Get-AMWorkflow "My Workflow" | Move-AMObject -Folder (Get-AMFolder -Path \WORKFLOWS)
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Move-AMObject.md
     #>
     [CmdletBinding()]
     [Alias("Move-AMAgent")]

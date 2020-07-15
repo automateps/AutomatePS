@@ -1,4 +1,4 @@
-﻿function Remove-AMWindowConditionControl {
+function Remove-AMWindowConditionControl {
     <#
         .SYNOPSIS
             Removes a control from an Automate window condition.
@@ -23,7 +23,7 @@
             Get-AMCondition "window" | Remove-AMWindowConditionControl -ID "{5ccaab49-012a-48db-b186-696061e20a2c}"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMWindowConditionControl.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

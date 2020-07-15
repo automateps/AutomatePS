@@ -57,7 +57,7 @@ function Get-AMAgentGroup {
             Get-AMAgentGroup -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "FTP"}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMAgentGroup.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMAgentGroupv10],[AMAgentGroupv11])]

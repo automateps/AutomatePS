@@ -17,7 +17,7 @@ function Get-AMServer {
             Get-AMServer -Type Management
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMServer.md
     #>
     [CmdletBinding()]
     param (

@@ -68,7 +68,7 @@ function Get-AMCondition {
             Get-AMCondition -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "Daily"},@{ Property = "Enabled"; Operator = "="; Value = "false"}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMCondition.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMTriggerv10],[AMTriggerv11])]

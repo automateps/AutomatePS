@@ -55,7 +55,7 @@ function New-AMWindowCondition {
             The server to create the object on.
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMWindowCondition.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

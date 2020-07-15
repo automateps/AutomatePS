@@ -33,7 +33,7 @@ function Remove-AMObject {
             Get-AMAgent "agent01" | Remove-AMObject
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMObject.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="High")]
     [Alias("Remove-AMAgent")]

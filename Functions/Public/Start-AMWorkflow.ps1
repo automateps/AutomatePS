@@ -25,7 +25,7 @@ function Start-AMWorkflow {
             Get-AMWorkflow "My Workflow" | Start-AMWorkflow -Parameters $parameters
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Start-AMWorkflow.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     [OutputType([AMInstancev10],[AMInstancev11])]

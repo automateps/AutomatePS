@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Copy-AMWorkflow.md
 schema: 2.0.0
 ---
 
@@ -103,7 +103,7 @@ Aliases:
 
 Required: False
 Position: 5
-Default value: [Hashtable]::new()
+Default value: @{}
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -154,5 +154,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Copy-AMWorkflow.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Copy-AMWorkflow.md)
 

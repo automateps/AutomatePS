@@ -61,7 +61,7 @@ function Get-AMCalendar {
             Get-AMCalendar -FilterSet @{Property = 'ScheduleDescription'; Operator = 'contains'; Value = 'hour(s)'}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMCalendar.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     param (

@@ -69,7 +69,7 @@ function Get-AMWorkflow {
             Get-AMWorkflow -FilterSet @{Property = "StartedOn"; Operator = ">"; Value = (Get-Date).AddHours(-1)}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMWorkflow.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMWorkflowv10],[AMWorkflowv11])]

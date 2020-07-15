@@ -31,7 +31,7 @@ function Set-AMWorkflow {
             Set-AMWorkflow -Instance $modifiedWorkflow
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMWorkflow.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

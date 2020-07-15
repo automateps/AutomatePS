@@ -41,7 +41,7 @@ function Get-AMMetric {
             Get-AMMetric -Type Completed -Interval 86400 -StartDate (Get-Date).AddDays(-7)
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMMetric.md
     #>
     [CmdletBinding()]
     param (

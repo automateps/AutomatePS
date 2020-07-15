@@ -79,7 +79,7 @@ function Set-AMTaskProperty {
             If the priority is not met, the status to set on the task.
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMTaskProperty.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

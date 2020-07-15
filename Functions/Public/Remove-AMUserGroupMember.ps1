@@ -28,7 +28,7 @@ function Remove-AMUserGroupMember {
             Get-AMUserGroup | Remove-AMUserGroupMember -User (Get-AMUser "John")
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMUserGroupMember.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

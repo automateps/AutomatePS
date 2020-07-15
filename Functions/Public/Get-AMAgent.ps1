@@ -65,7 +65,7 @@ function Get-AMAgent {
             Get-AMAgent -FilterSet @{ Property = "Enabled"; Operator = "="; Value = "true"}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMAgent.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMAgentv10],[AMAgentv11])]

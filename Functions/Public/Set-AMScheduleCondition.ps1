@@ -50,7 +50,7 @@ function Set-AMScheduleCondition {
             Get-AMCondition "Daily at 8PM" | Set-AMScheduleCondition -ScheduleType Day -OnTaskLate DisableTrigger
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMScheduleCondition.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium",DefaultParameterSetName="Default")]
     param (

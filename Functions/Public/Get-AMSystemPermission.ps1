@@ -45,7 +45,7 @@ function Get-AMSystemPermission {
             Get-AMSystemPermission -FilterSet @{Property = 'EditDefaultPropertiesPermission'; Operator = '='; Value = 'true'}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMSystemPermission.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMSystemPermissionv10],[AMSystemPermissionv11])]

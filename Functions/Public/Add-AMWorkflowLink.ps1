@@ -42,7 +42,7 @@ function Add-AMWorkflowLink {
             Get-AMWorkflow "FTP Files" | Add-AMWorkflowLink -SourceConstruct (Get-AMTask "Copy Files") -DestinationConstruct (Get-AMTask "Move Files")
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMWorkflowLink.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

@@ -32,7 +32,7 @@ function Get-AMConsoleOutput {
             Get-AMConsoleOutput -Connection "AM01"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMConsoleOutput.md
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWriteHost", "")]
     [CmdletBinding()]

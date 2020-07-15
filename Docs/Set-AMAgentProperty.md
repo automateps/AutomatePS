@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMAgentProperty.md
 schema: 2.0.0
 ---
 
@@ -31,7 +31,7 @@ Set-AMAgentProperty [-InputObject] <Object> [-DefaultUserPropertiesSpecified]
  [[-EmailVersion] <AMEmailVersion>] [[-EmailProxyType] <AMProxyType>] [[-EmailProxyServer] <String>]
  [[-EmailProxyPort] <Int32>] [[-EmailProxyUsername] <String>] [[-EmailProxyPassword] <String>]
  [-SystemPropertiesSpecified] [[-AgentPort] <Int32>] [[-TaskCacheFilePath] <String>]
- [[-EventMonitorAutoStartMode] <AMEventMonitorAutoStartModeType>] [-DisableForegroundTimeout]
+ [[-EventMonitorAutoMateStartMode] <AMEventMonitorAutoStartModeType>] [-DisableForegroundTimeout]
  [[-EventMonitorUser] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -905,7 +905,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -EventMonitorAutoStartMode
+### -EventMonitorAutoMateStartMode
 The event monitor user context.
 
 ```yaml
@@ -993,5 +993,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMAgentProperty.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMAgentProperty.md)
 

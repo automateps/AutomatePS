@@ -26,7 +26,7 @@ function Add-AMAgentGroupMember {
             Get-AMAgentGroup | Add-AMAgentGroupMember -Agent (Get-AMAgent "Agent1")
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMAgentGroupMember.md
     #>
     [CmdletBinding()]
     param (

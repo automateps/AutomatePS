@@ -24,7 +24,7 @@ function Get-AMSystemAgent {
             Get-AMSystemAgent -Type Previous | Get-AMWorkflow
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMSystemAgent.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     param (

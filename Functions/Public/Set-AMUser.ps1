@@ -26,7 +26,7 @@ function Set-AMUser {
             The API requires that the password be passed in on every update call.  Therefore, it is required to either specify the -Password parameter or -UseActiveDirectory whenever calling this function, even if only updating the Notes property for the user.
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMUser.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

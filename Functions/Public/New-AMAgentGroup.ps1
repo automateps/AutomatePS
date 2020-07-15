@@ -23,7 +23,7 @@ function New-AMAgentGroup {
             New-AMAgentGroup -Name "All Agents" -Notes "Group containing all agents"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMAgentGroup.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

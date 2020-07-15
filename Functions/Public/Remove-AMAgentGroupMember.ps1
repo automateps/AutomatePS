@@ -28,7 +28,7 @@ function Remove-AMAgentGroupMember {
             Get-AMAgentGroup | Remove-AMAgentGroupMember -Agent (Get-AMAgent "Agent1")
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMAgentGroupMember.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

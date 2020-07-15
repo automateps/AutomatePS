@@ -29,7 +29,7 @@ function Rename-AMObject {
             Get-AMWorkflow "My Workflow" | Rename-AMObject "My Renamed Workflow"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Rename-AMObject.md
     #>
     [CmdletBinding()]
     [Alias("Rename-AMAgentGroup")]

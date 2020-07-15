@@ -1,4 +1,4 @@
-﻿function Remove-AMScheduleConditionHoliday {
+function Remove-AMScheduleConditionHoliday {
     <#
         .SYNOPSIS
             Removes a holiday from an Automate schedule condition using the Holidays interval.
@@ -24,7 +24,7 @@
             Get-AMCondition "On Specified Dates" | Remove-AMScheduleConditionHoliday -Holiday "United States"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMScheduleConditionHoliday.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

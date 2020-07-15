@@ -37,7 +37,7 @@ function New-AMServiceCondition {
             The server to create the object on.
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMServiceCondition.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

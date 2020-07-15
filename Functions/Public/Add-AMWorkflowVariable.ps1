@@ -42,7 +42,7 @@ function Add-AMWorkflowVariable {
             Get-AMWorkflow "Some Workflow" | Add-AMWorkflowVariable -Name "emailAddress" -InitialValue "person@example.com" -Description "Email this user when the job fails"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMWorkflowVariable.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

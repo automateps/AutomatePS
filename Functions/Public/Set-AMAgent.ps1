@@ -25,7 +25,7 @@ function Set-AMAgent {
             Get-AMAgent "Agent1" | Set-AMAgent -Notes "Site 1 Agent"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMAgent.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

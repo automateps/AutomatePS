@@ -28,7 +28,7 @@ function Add-AMUserGroupMember {
             Get-AMUserGroup | Add-AMUserGroupMember -User (Get-AMUser "John")
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMUserGroupMember.md
     #>
     [CmdletBinding()]
     param (

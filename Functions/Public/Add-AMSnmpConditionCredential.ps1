@@ -32,7 +32,7 @@ function Add-AMSnmpConditionCredential {
             Get-AMCondition "snmp" | Add-AMSnmpConditionCredential -User john
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMSnmpConditionCredential.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default")]
     param (

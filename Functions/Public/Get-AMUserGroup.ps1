@@ -53,7 +53,7 @@ function Get-AMUserGroup {
             Get-AMUserGroup -FilterSet @{ Property = "Name"; Value = "admin"}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMUserGroup.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMUserGroupv10],[AMUserGroupv11])]
