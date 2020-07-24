@@ -40,6 +40,12 @@ function Format-AMUri {
         .PARAMETER SortDescending
             If specified, this will sort the output on the specified SortProperty in descending order.  Otherwise, ascending order is assumed.
 
+        .PARAMETER StartIndex
+            The index of the first element to retrieve.
+
+        .PARAMETER PageSize
+            The number of elements to retrieve.
+
         .EXAMPLE
             Format-AMUri -FilterSet @{Property = "Enabled"; Operator = "="; Value = "true"} -SortProperty "Name"
 
@@ -73,7 +79,13 @@ function Format-AMUri {
         [ValidateNotNullOrEmpty()]
         [string[]]$SortProperty,
 
-        [switch]$SortDescending = $false
+        [switch]$SortDescending = $false,
+
+        [ValidateRange(0, [int]::MaxValue)]
+        [int]$StartIndex,
+
+        [ValidateRange(1, [int]::MaxValue)]
+        [int]$PageSize
     )
 
     switch ($FilterSetMode) {
@@ -120,6 +132,12 @@ function Format-AMUri {
     if ($PSBoundParameters.ContainsKey("SortProperty")) {
         $Parameters += "sort_field=$($SortProperty[0])"
         if ($SortDescending.ToBool()) { $Parameters += "sort_order=DSC" }
+    }
+    if ($PSBoundParameters.ContainsKey("StartIndex")) {
+        $Parameters += "start_index=$StartIndex"
+    }
+    if ($PSBoundParameters.ContainsKey("PageSize")) {
+        $Parameters += "page_size=$PageSize"
     }
     $index = 0
     foreach ($parameter in $Parameters | Where-Object {-not [string]::IsNullOrEmpty($_)}) {
