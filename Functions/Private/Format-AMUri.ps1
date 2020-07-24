@@ -46,6 +46,9 @@ function Format-AMUri {
         .PARAMETER PageSize
             The number of elements to retrieve.
 
+        .PARAMETER Variables
+            The variables to pass into a workflow or task at runtime.
+
         .EXAMPLE
             Format-AMUri -FilterSet @{Property = "Enabled"; Operator = "="; Value = "true"} -SortProperty "Name"
 
@@ -85,7 +88,9 @@ function Format-AMUri {
         [int]$StartIndex,
 
         [ValidateRange(1, [int]::MaxValue)]
-        [int]$PageSize
+        [int]$PageSize,
+
+        [Hashtable]$Variables
     )
 
     switch ($FilterSetMode) {
@@ -138,6 +143,15 @@ function Format-AMUri {
     }
     if ($PSBoundParameters.ContainsKey("PageSize")) {
         $Parameters += "page_size=$PageSize"
+    }
+    if ($PSBoundParameters.ContainsKey("Variables")) {
+        if ($Variables.Count -gt 0) {
+            $vars = @()
+            foreach ($key in $Variables.Keys) {
+                $vars += '"' + $key + '","' + $Variables[$key] + '"'
+            }
+            $Parameters += "variables={$($vars -join "|")}"
+        }
     }
     $index = 0
     foreach ($parameter in $Parameters | Where-Object {-not [string]::IsNullOrEmpty($_)}) {
