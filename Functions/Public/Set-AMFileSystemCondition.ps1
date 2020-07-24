@@ -178,16 +178,12 @@ function Set-AMFileSystemCondition {
                     if ($property -eq "MonitorFolder") { $property = "Folder" }
 
                     if ($property -eq "UsePollingMode") {
-                        if ((Get-AMConnection $updateObject.ConnectionAlias).Version -ge [Version]"11.1.20") {
+                        $property = "PollingInterval"
+                        $value = 10
+                        if (Test-AMFeatureSupport -Connection $updateObject.ConnectionAlias -Feature FileSystemConditionPollingMode -Action Warn) {
                             if ($UsePollingMode.IsPresent) {
-                                $property = "PollingInterval"
                                 $value = 11
-                            } else {
-                                $property = "PollingInterval"
-                                $value = 10
                             }
-                        } else {
-                            Write-Warning "Parameter -UsePollingMode is only supported on version 11.1.20 and later!"
                         }
                     }
 
