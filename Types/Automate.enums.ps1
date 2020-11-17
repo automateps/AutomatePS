@@ -401,6 +401,7 @@ enum AMEmailVersion {
 enum AMInstanceStatus {
     All       = -1
     Completed = -2
+    Unknown   = 0
     Success   = 1
     Failed    = 2
     Aborted   = 3
@@ -583,6 +584,11 @@ enum AMAuditEventType {
     RevisionRestored           = 2002
     RevisionDeletedRecycleBin  = 2003
     RevisionRestoredRecycleBin = 2004
+
+    # Credential event types
+    CredentialCreated  = 2100
+    CredentialModified = 2101
+    CredentialRemoved  = 2102
 
     # Server event types
     LicenseAdded             = 400
