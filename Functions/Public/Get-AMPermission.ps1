@@ -32,7 +32,7 @@ function Get-AMPermission {
             Get-AMWorkflow "My Workflow" | Get-AMPermission
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMPermission.md
     #>
     [CmdletBinding()]
     [OutputType([AMPermissionv10],[AMPermissionv11])]

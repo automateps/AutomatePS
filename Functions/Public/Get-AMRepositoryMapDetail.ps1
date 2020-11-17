@@ -16,7 +16,7 @@ function Get-AMRepositoryMapDetail {
             The file path to retrieve repository mappings from, retrieved from the user profile by default
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMRepositoryMapDetail.md
 
     #>
     [CmdletBinding()]

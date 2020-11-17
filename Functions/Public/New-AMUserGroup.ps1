@@ -23,7 +23,7 @@ function New-AMUserGroup {
             New-AMUserGroup -Name "All Users" -Notes "Group containing all users"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMUserGroup.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

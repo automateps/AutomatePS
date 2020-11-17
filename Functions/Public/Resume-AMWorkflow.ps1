@@ -17,7 +17,7 @@ function Resume-AMWorkflow {
             Get-AMWorkflow "Failed workflow" | Resume-AMWorkflow
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Resume-AMWorkflow.md
     #>
     [CmdletBinding(DefaultParameterSetName="All",SupportsShouldProcess=$true,ConfirmImpact="High")]
     [OutputType([System.Object[]])]

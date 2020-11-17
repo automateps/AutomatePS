@@ -65,7 +65,7 @@ function New-AMSystemPermission {
             Get-AMUser -Name "John" | New-AMSystemPermission -FullControl
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMSystemPermission.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

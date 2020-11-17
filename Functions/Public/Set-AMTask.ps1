@@ -34,7 +34,7 @@ function Set-AMTask {
             Get-AMTask "Some Task" | Set-AMTask -AML (Get-AMTask "Some Other Task").AML
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMTask.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

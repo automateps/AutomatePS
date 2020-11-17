@@ -53,7 +53,7 @@ function Get-AMUser {
             Get-AMAgent -FilterSet @{ Property = "Enabled"; Operator = "="; Value = "true"}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMUser.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMUserv10],[AMUserv11])]

@@ -30,7 +30,7 @@ function Copy-AMCondition {
             Get-AMCondition "Daily at 12:00PM" -Connection server1 | Copy-AMCondition -Folder (Get-AMFolder CONDITIONS -Connection server2) -Connection server2
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Copy-AMCondition.md
     #>
     [CmdletBinding()]
     param (

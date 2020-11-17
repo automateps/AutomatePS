@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Start-AMTask.md
 schema: 2.0.0
 ---
 
@@ -14,12 +14,14 @@ Starts Automate tasks.
 
 ### Agent
 ```
-Start-AMTask -InputObject <Object> [-Agent <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Start-AMTask -InputObject <Object> [-Agent <Object>] [-Variables <Hashtable>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### AgentGroup
 ```
-Start-AMTask -InputObject <Object> [-AgentGroup <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Start-AMTask -InputObject <Object> [-AgentGroup <Object>] [-Variables <Hashtable>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,6 +33,12 @@ Start-AMTask starts tasks.
 ```
 # Starts task "My Task" on agent "agent01"
 Get-AMTask "My Task" | Start-AMTask -Agent "agent01"
+```
+
+### EXAMPLE 2
+```
+# Starts task "My Task" on agent "agent01" with variables var1 and var
+Get-AMTask "My Task" | Start-AMTask -Agent "agent01" -Variables @{var1 = 123, var2 = 456}
 ```
 
 ## PARAMETERS
@@ -80,6 +88,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Variables
+The variables to pass into a workflow or task at runtime.
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
@@ -119,10 +142,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### Tasks can be supplied on the pipeline to this function.
 ## OUTPUTS
 
-### System.Object[]
+### AMInstancev10
+### AMInstancev11
 ## NOTES
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Start-AMTask.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Start-AMTask.md)
 

@@ -77,7 +77,7 @@ function Get-AMInstance {
             Get-AMInstance -FilterSet @{ Property = "ResultText"; Operator = "contains"; Value = "FTP Workflow"}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMInstance.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMInstancev10],[AMInstancev11])]

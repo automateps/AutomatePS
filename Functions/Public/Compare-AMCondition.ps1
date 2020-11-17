@@ -19,7 +19,7 @@ function Compare-AMCondition {
             Include equal items in the input.
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Compare-AMCondition.md
     #>
     [CmdletBinding()]
     param (

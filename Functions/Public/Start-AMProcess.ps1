@@ -1,4 +1,4 @@
-﻿function Start-AMProcess {
+function Start-AMProcess {
     <#
         .SYNOPSIS
             Starts Automate processes.
@@ -23,7 +23,7 @@
             Get-AMProcess "My Process" | Start-AMProcess -Agent "agent01"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Start-AMProcess.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     [OutputType([AMInstancev10],[AMInstancev11])]

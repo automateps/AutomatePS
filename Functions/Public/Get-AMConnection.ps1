@@ -27,7 +27,7 @@ function Get-AMConnection {
             Get-AMConnection -Connection "prod"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMConnection.md
     #>
     [CmdletBinding(DefaultParameterSetName="AllConnections")]
     [OutputType([AMConnection])]

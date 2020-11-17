@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
-Module Name: AutoMatePS
-online version: https://github.com/AutomatePS/AutoMatePS
+Module Name: AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Import-AMHoliday.md
 schema: 2.0.0
 ---
 
@@ -55,5 +55,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutoMatePS](https://github.com/AutomatePS/AutoMatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Import-AMHoliday.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Import-AMHoliday.md)
 

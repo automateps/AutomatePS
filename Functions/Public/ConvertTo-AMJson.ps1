@@ -16,7 +16,7 @@ function ConvertTo-AMJson {
         Omits white space and indented formatting in the output string.
 
     .LINK
-        https://github.com/AutomatePS/AutomatePS
+        https://github.com/AutomatePS/AutomatePS/blob/master/Docs/ConvertTo-AMJson.md
 #>
     [CmdletBinding()]
     param (

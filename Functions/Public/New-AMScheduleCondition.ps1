@@ -57,7 +57,7 @@ function New-AMScheduleCondition {
             New-AMScheduleCondition -Name "Third Wednesday" -MonthInterval -Measure Wednesday -DayOfMonth third -Frequency 2 -NextLaunchDate (Get-Date "9:00PM")
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMScheduleCondition.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

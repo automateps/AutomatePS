@@ -27,7 +27,7 @@ function Set-AMCondition {
             Get-AMCondition "Daily at 8AM" | Set-AMCondition -Notes "Starts every day at 8AM"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMCondition.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

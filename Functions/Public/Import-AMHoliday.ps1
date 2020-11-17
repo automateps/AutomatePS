@@ -13,7 +13,7 @@ function Import-AMHoliday {
             Import-AMHoliday -Path "C:\ProgramData\AutoMate\Automate Enterprise 11\Holidays.aho"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Import-AMHoliday.md
     #>
     [CmdletBinding()]
     [OutputType([Hashtable])]

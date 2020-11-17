@@ -17,7 +17,7 @@ function Stop-AMInstance {
             Get-AMInstance -Status Running | Stop-AMInstance
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Stop-AMInstance.md
     #>
     [CmdletBinding(DefaultParameterSetName="All",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     [OutputType([AMInstancev10],[AMInstancev11])]

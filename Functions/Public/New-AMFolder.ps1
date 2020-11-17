@@ -23,7 +23,7 @@ function New-AMFolder {
             Get-AMFolder ParentFolder | New-AMFolder -Name "FTP Workflows"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMFolder.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

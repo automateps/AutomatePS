@@ -38,7 +38,7 @@ function Connect-AMServer {
             Connect-AMServer -Connection "automate01" -Credential (Get-Credential)
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Connect-AMServer.md
     #>
     [CmdletBinding(DefaultParameterSetName="ByConnectionStore")]
     [OutputType([AMConnection])]

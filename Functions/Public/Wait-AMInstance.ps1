@@ -20,7 +20,7 @@ function Wait-AMInstance {
             Get-AMInstance -Status Running | Wait-AMInstance
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Wait-AMInstance.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMInstancev10],[AMInstancev11])]

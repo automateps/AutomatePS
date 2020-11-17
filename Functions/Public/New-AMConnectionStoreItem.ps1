@@ -31,7 +31,7 @@ function New-AMConnectionStoreItem {
             New-AMConnectionStoreItem -Connection server01 -Credential (Get-Credential)
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMConnectionStoreItem.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

@@ -23,7 +23,7 @@ function Remove-AMEmailConditionFilter {
             Get-AMCondition "email" | Remove-AMEmailConditionFilter -ID "{5ccaab49-012a-48db-b186-696061e20a2c}"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMEmailConditionFilter.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

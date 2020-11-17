@@ -86,7 +86,7 @@ function New-AMPermission {
             Get-AMTask -Name "Test" | New-AMPermission -Principal "John"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMPermission.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

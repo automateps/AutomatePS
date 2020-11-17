@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: http://cloud.networkautomation.com/installs/Automate/v10/10.5.0.56/BPA_RESTful_API.html
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Invoke-AMRestMethod.md
 schema: 2.0.0
 ---
 
@@ -123,6 +123,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Invoke-AMRestMethod.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Invoke-AMRestMethod.md)
 
 [http://cloud.networkautomation.com/installs/Automate/v10/10.5.0.56/BPA_RESTful_API.html](http://cloud.networkautomation.com/installs/Automate/v10/10.5.0.56/BPA_RESTful_API.html)
 

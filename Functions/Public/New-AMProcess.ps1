@@ -35,7 +35,7 @@ function New-AMProcess {
             New-AMProcess -Name "Test Process" -CommandLine "dir.exe > %TEMP%\dir.txt" -EnvironmentVariables "TEMP"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMProcess.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

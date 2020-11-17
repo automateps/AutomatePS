@@ -25,7 +25,7 @@ function Remove-AMWorkflowVariable {
             Get-AMWorkflow "Some Workflow" | Remove-AMWorkflowVariable -Name "emailAddress"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMWorkflowVariable.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Start-AMWorkflow.md
 schema: 2.0.0
 ---
 
@@ -13,7 +13,7 @@ Starts Automate workflows.
 ## SYNTAX
 
 ```
-Start-AMWorkflow [-InputObject] <Object> [[-Parameters] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Start-AMWorkflow [-InputObject] <Object> [[-Variables] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,9 +29,8 @@ Get-AMWorkflow "My Workflow" | Start-AMWorkflow
 
 ### EXAMPLE 2
 ```
-# Starts workflow "My Workflow" with parameters
-$parameters = @{ varName = "test" }
-Get-AMWorkflow "My Workflow" | Start-AMWorkflow -Parameters $parameters
+# Starts workflow "My Workflow" with variables
+Get-AMWorkflow "My Workflow" | Start-AMWorkflow -Variables @{ varName = "test" }
 ```
 
 ## PARAMETERS
@@ -51,8 +50,8 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Parameters
-A hashtable containing shared variable name/value pairs to update the workflow with prior to execution.
+### -Variables
+The variables to pass into a workflow or task at runtime.
 
 ```yaml
 Type: Hashtable
@@ -105,10 +104,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### Workflows can be supplied on the pipeline to this function.
 ## OUTPUTS
 
-### System.Object[]
+### AMInstancev10
+### AMInstancev11
 ## NOTES
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Start-AMWorkflow.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Start-AMWorkflow.md)
 

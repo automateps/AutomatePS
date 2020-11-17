@@ -17,7 +17,7 @@ function Suspend-AMInstance {
             Get-AMInstance -Status Running | Suspend-AMInstance
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Suspend-AMInstance.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     param (

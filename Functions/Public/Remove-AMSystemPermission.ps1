@@ -20,7 +20,7 @@ function Remove-AMSystemPermission {
             Get-AMUser "MyUsername" | Get-AMSystemPermission | Remove-AMSystemPermission
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMSystemPermission.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

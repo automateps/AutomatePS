@@ -38,7 +38,7 @@ function Copy-AMWorkflow {
             Get-AMWorkflow "FTP Files to Company A" | Copy-AMWorkflow -Name "FTP Files to Company B" -Folder (Get-AMFolder WORKFLOWS)
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Copy-AMWorkflow.md
     #>
     [CmdletBinding()]
     param (

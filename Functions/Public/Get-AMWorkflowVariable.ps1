@@ -33,7 +33,7 @@ function Get-AMWorkflowVariable {
             Get-AMWorkflow "FTP Files" | Get-AMWorkflowVariable
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMWorkflowVariable.md
     #>
     [CmdletBinding()]
     [OutputType([AMWorkflowVariablev10],[AMWorkflowVariablev11])]

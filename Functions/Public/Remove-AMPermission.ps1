@@ -20,7 +20,7 @@ function Remove-AMPermission {
             Get-AMFolder "FTP Workflows" | Get-AMPermission | Remove-AMPermission
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMPermission.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

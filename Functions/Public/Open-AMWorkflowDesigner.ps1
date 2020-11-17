@@ -20,7 +20,7 @@ function Open-AMWorkflowDesigner {
             None
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Open-AMWorkflowDesigner.md
     #>
     [CmdletBinding()]
     param (

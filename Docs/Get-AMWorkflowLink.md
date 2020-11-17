@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMWorkflowLink.md
 schema: 2.0.0
 ---
 
@@ -69,9 +69,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### Workflow
 ## OUTPUTS
 
+### AMWorkflowLinkv10
+### AMWorkflowLinkv11
 ## NOTES
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMWorkflowLink.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMWorkflowLink.md)
 

@@ -28,7 +28,7 @@ function Disable-AMObject {
             Get-AMWorkflow "My Workflow" | Disable-AMObject
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Disable-AMObject.md
     #>
     [CmdletBinding()]
     [Alias("Disable-AMAgent")]

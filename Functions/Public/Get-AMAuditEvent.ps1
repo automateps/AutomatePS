@@ -63,7 +63,7 @@ function Get-AMAuditEvent {
             Get-AMAuditEvent -FilterSet @{Property = 'EventText'; Operator = 'contains'; Value = 'connection from IP 10.1.1.10'}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMAuditEvent.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMAuditEventv10],[AMAuditEventv11])]

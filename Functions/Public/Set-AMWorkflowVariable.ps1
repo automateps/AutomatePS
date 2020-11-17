@@ -37,7 +37,7 @@ function Set-AMWorkflowVariable {
             Get-AMWorkflow "Some Workflow" | Set-AMWorkflowVariable -Name "emailAddress" -InitialValue "person@example.com" -PassValueFromParent -PassValueToParent:$false
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMWorkflowVariable.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

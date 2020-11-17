@@ -30,7 +30,7 @@ function New-AMAgent {
             New-AMAgent -Name Proc_Agent1 -Type ProcessAgent
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMAgent.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

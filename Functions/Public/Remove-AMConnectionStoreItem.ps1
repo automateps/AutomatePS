@@ -13,7 +13,7 @@ function Remove-AMConnectionStoreItem {
             Remove-AMConnectionStoreItem -Connection server01
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMConnectionStoreItem.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

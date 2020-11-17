@@ -1,4 +1,4 @@
-﻿function Set-AMAgentProperty {
+function Set-AMAgentProperty {
     <#
         .SYNOPSIS
             Sets the properties of an Automate agent.
@@ -187,7 +187,7 @@
 			The user to run the event monitor as.
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMAgentProperty.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

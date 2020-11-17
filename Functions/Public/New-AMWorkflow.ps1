@@ -23,7 +23,7 @@ function New-AMWorkflow {
             New-AMWorkflow -Name "Test Workflow"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMWorkflow.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

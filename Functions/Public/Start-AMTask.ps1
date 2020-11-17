@@ -1,4 +1,4 @@
-﻿function Start-AMTask {
+function Start-AMTask {
     <#
         .SYNOPSIS
             Starts Automate tasks.
@@ -15,6 +15,9 @@
         .PARAMETER AgentGroup
             The agent group to run the task on.
 
+        .PARAMETER Variables
+            The variables to pass into a workflow or task at runtime.
+
         .INPUTS
             Tasks can be supplied on the pipeline to this function.
 
@@ -22,8 +25,12 @@
             # Starts task "My Task" on agent "agent01"
             Get-AMTask "My Task" | Start-AMTask -Agent "agent01"
 
+        .EXAMPLE
+            # Starts task "My Task" on agent "agent01" with variables var1 and var
+            Get-AMTask "My Task" | Start-AMTask -Agent "agent01" -Variables @{var1 = 123, var2 = 456}
+
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Start-AMTask.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     [OutputType([AMInstancev10],[AMInstancev11])]
@@ -38,12 +45,19 @@
 
         [Parameter(ParameterSetName = "AgentGroup")]
         [ValidateNotNullOrEmpty()]
-        $AgentGroup
+        $AgentGroup,
+
+        [Hashtable]$Variables
     )
 
     PROCESS {
         foreach ($obj in $InputObject) {
             if ($obj.Type -eq "Task") {
+                if ($PSBoundParameters.ContainsKey("Variables")) {
+                    if (-not (Test-AMFeatureSupport -Connection $obj.ConnectionAlias -Feature ApiRuntimeVariables -Action Throw)) {
+                        break
+                    }
+                }
                 $connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
                 switch($PSCmdlet.ParameterSetName) {
                     "Agent" {
@@ -61,7 +75,7 @@
                             if ($Agent.AgentType -eq "TaskAgent") {
                                 if ($Agent.ConnectionAlias -eq $obj.ConnectionAlias) {
                                     Write-Verbose "Running task $($obj.Name) on agent $($Agent.Name)."
-                                    $runUri = Format-AMUri -Path "tasks/$($obj.ID)/run" -Parameters "agent_id=$($Agent.ID)"
+                                    $runUri = Format-AMUri -Path "tasks/$($obj.ID)/run" -Variables $Variables -Parameters "agent_id=$($Agent.ID)"
                                 } else {
                                     throw "Task '$($obj.Name)' and agent '$($Agent.Name)' are not on the same server!"
                                 }
@@ -86,7 +100,7 @@
                         if ($AgentGroup.Type -eq "AgentGroup") {
                             if ($AgentGroup.ConnectionAlias -eq $obj.ConnectionAlias) {
                                 Write-Verbose "Running task $($obj.Name) on agent group $($AgentGroup.Name)."
-                                $runUri = Format-AMUri -Path "tasks/$($obj.ID)/run" -Parameters "agent_group_id=$($AgentGroup.ID)"
+                                $runUri = Format-AMUri -Path "tasks/$($obj.ID)/run" -Variables $Variables -Parameters "agent_group_id=$($AgentGroup.ID)"
                             } else {
                                 throw "Task '$($obj.Name)' and agent group '$($AgentGroup.Name)' are not on the same server!"
                             }

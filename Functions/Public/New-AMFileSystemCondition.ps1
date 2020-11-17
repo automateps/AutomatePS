@@ -103,7 +103,7 @@ function New-AMFileSystemCondition {
             New-AMFileSystemCondition -Name "Monitor folder C:\temp" -MonitorFolder "C:\temp" -FileAdded
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMFileSystemCondition.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (
@@ -221,10 +221,8 @@ function New-AMFileSystemCondition {
             $newObject.UserMode        = $UserMode
             $newObject.Wait            = $Wait.IsPresent
             if ($UsePollingMode.IsPresent) {
-                if ($Connection.Version -ge [Version]"11.1.20") {
+                if (Test-AMFeatureSupport -Connection $Connection -Feature FileSystemConditionPollingMode -Action Warn) {
                     $newObject.PollingInterval = 11
-                } else {
-                    Write-Warning "Parameter -UsePollingMode is only supported on version 11.1.20 and later!"
                 }
             }
             if ($newObject.UserMode -eq [AMConditionUserMode]::SpecifiedUser) {

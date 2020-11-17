@@ -34,7 +34,7 @@ function Copy-AMProcess {
             Get-AMProcess "Start Service" | Copy-AMProcess -Name "Restart Service"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Copy-AMProcess.md
     #>
     [CmdletBinding()]
     param (

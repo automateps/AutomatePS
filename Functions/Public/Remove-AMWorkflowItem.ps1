@@ -26,7 +26,7 @@ function Remove-AMWorkflowItem {
             (Get-AMWorkflow "Some Workflow").Triggers | Remove-AMWorkflowItem
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMWorkflowItem.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

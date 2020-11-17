@@ -23,7 +23,7 @@ function Remove-AMSnmpConditionCredential {
             Get-AMCondition "snmp" | Remove-AMSnmpConditionCredential -ID "{5ccaab49-012a-48db-b186-696061e20a2c}"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMSnmpConditionCredential.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default",SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

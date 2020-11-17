@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMScheduleConditionCustomDate.md
 schema: 2.0.0
 ---
 
@@ -13,7 +13,8 @@ Adds a custom date to an Automate schedule condition using the Custom interval.
 ## SYNTAX
 
 ```
-Add-AMScheduleConditionCustomDate -InputObject <Object> [-CustomLaunchDates] <DateTime[]> [<CommonParameters>]
+Add-AMScheduleConditionCustomDate -InputObject <Object> [-CustomLaunchDates] <DateTime[]>
+ [-RemovePreviousDates] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -45,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -CustomLaunchDates
-The dates to add to the schedule.
+The future launch date(s) to add to the schedule.
 
 ```yaml
 Type: DateTime[]
@@ -55,6 +56,21 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RemovePreviousDates
+If specified, past dates are removed from the schedule.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -73,5 +89,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMScheduleConditionCustomDate.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMScheduleConditionCustomDate.md)
 

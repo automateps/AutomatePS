@@ -33,7 +33,7 @@ function New-AMUser {
             New-AMUser -Name John -Password (Read-Host -Prompt "Enter password" -AsSecureString)
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMUser.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
     param (

@@ -24,7 +24,7 @@ function Resume-AMInstance {
             Get-AMWorkflow "My Workflow" | Get-AMInstance -Status Paused | Resume-AMInstance
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Resume-AMInstance.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMInstancev10],[AMInstancev11])]

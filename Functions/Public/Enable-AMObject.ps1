@@ -28,7 +28,7 @@ function Enable-AMObject {
             Get-AMAgent "agent01" | Enable-AMObject
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Enable-AMObject.md
     #>
     [CmdletBinding()]
     [Alias("Enable-AMAgent")]

@@ -57,7 +57,7 @@ function Get-AMProcess {
             Get-AMProcess -FilterSet @{ Property = "Name"; Operator = "contains"; Value = "CMD"},@{ Property = "Enabled"; Operator = "="; Value = "false"}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMProcess.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMProcessv10],[AMProcessv11])]

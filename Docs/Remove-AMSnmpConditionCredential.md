@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMSnmpConditionCredential.md
 schema: 2.0.0
 ---
 
@@ -104,5 +104,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMSnmpConditionCredential.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Remove-AMSnmpConditionCredential.md)
 

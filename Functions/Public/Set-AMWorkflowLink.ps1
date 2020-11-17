@@ -31,7 +31,7 @@ function Set-AMWorkflowLink {
             Get-AMWorkflow "Some Workflow" | Set-AMWorkflowLink -ID "{1103992f-cbbd-44fd-9177-9de31b1070ab}" -Value "123"
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMWorkflowLink.md
     #>
     [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Medium")]
     param (

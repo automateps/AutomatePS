@@ -38,7 +38,7 @@ function Add-AMWindowConditionControl {
             Get-AMCondition "window" | Add-AMWindowConditionControl -Class ConsoleWindowClass -Name Close -Type PushButton
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMWindowConditionControl.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default")]
     param (

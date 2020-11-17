@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Open-AMWorkflowDesigner.md
 schema: 2.0.0
 ---
 
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -InstallationPath
-If the AutoMate Developer Tools are not installed in the default location, specify the path to the tools here.
+If the Automate Developer Tools are not installed in the default location, specify the path to the tools here.
 
 ```yaml
 Type: Object
@@ -65,7 +65,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### The following AutoMate object types can be processed by this function:
+### The following Automate object types can be processed by this function:
 ### Workflow
 ## OUTPUTS
 
@@ -74,5 +74,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Open-AMWorkflowDesigner.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Open-AMWorkflowDesigner.md)
 

@@ -22,7 +22,7 @@ function Lock-AMObject {
             Get-AMWorkflow "My Workflow" | Lock-AMObject
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Lock-AMObject.md
     #>
     [CmdletBinding()]
     [Alias("Lock-AMCondition")]

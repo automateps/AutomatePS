@@ -1,7 +1,7 @@
 ---
 external help file: AutomatePS-help.xml
 Module Name: AutomatePS
-online version: https://github.com/AutomatePS/AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMUser.md
 schema: 2.0.0
 ---
 
@@ -142,5 +142,5 @@ Therefore, it is required to either specify the -Password parameter or -UseActiv
 
 ## RELATED LINKS
 
-[https://github.com/AutomatePS/AutomatePS](https://github.com/AutomatePS/AutomatePS)
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMUser.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Set-AMUser.md)
 

@@ -23,7 +23,7 @@ function Get-AMObjectProperty {
             Get-AMWorkflow "My Workflow" | Get-AMObjectProperty
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMObjectProperty.md
     #>
     [CmdletBinding()]
     [Alias("Get-AMAgentProperty")]

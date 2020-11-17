@@ -26,7 +26,7 @@ function Find-AMObject {
             Find-AMObject -Pattern "AMFTP" -Type Task
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Find-AMObject.md
     #>
     [CmdletBinding()]
     param (

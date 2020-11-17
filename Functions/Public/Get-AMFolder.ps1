@@ -84,7 +84,7 @@ function Get-AMFolder {
             Get-AMFolder -FilterSet @{ Property = "Path"; Operator = "contains"; Value = "WORKFLOWS"}
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMFolder.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
     [OutputType([AMFolderv10],[AMFolderv11])]

@@ -27,7 +27,7 @@ function Add-AMScheduleConditionCustomDate {
             Get-AMCondition "On Specified Dates" | Add-AMScheduleConditionCustomDate -CustomLaunchDates (Get-Date).AddHours(1)
 
         .LINK
-            https://github.com/AutomatePS/AutomatePS
+            https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Add-AMScheduleConditionCustomDate.md
     #>
     [CmdletBinding(DefaultParameterSetName="Default")]
     param (
