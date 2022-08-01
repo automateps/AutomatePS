@@ -120,10 +120,10 @@ function Format-AMUri {
         $Parameters += ("filter_sets=$($filterStrings -join [uri]::EscapeDataString($operator))")
     }
     if ($PSBoundParameters.ContainsKey("RangeStart")) {
-        $Parameters += "range_start=$($RangeStart.ToUniversalTime())"
+        $Parameters += "range_start=$($RangeStart.ToUniversalTime().ToString((Get-Culture).DateTimeFormat.SortableDateTimePattern))"
     }
     if ($PSBoundParameters.ContainsKey("RangeEnd")) {
-        $Parameters += "range_end=$($RangeEnd.ToUniversalTime())"
+        $Parameters += "range_end=$($RangeEnd.ToUniversalTime().ToString((Get-Culture).DateTimeFormat.SortableDateTimePattern))"
     }
     if ($PSBoundParameters.ContainsKey("FolderID")) {
         $Parameters += "folder_id=$FolderID"
