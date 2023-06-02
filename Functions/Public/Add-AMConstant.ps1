@@ -65,9 +65,9 @@ function Add-AMConstant {
                 $shouldUpdate = $false
                 if ($updateObject.Constants.Name -notcontains $Name) {
                     switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
-                        10      { $newConstant = [AMConstantv10]::new($obj.ConnectionAlias) }
-                        11      { $newConstant = [AMConstantv11]::new($obj.ConnectionAlias) }
-                        default { throw "Unsupported server major version: $_!" }
+                        10             { $newConstant = [AMConstantv10]::new($obj.ConnectionAlias) }
+                        {$_ -in 11,22} { $newConstant = [AMConstantv11]::new($obj.ConnectionAlias) }
+                        default        { throw "Unsupported server major version: $_!" }
                     }
                     $newConstant.ParentID       = $updateObject.ID
                     $newConstant.Name           = $Name

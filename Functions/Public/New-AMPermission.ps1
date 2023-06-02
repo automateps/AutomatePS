@@ -179,7 +179,7 @@ function New-AMPermission {
                     if ($null -eq ($currentPermissions | Where-Object {$_.GroupID -eq $p.ID})) {
                         switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
                             10 { $newObject = [AMPermissionv10]::new($obj, $p, $obj.ConnectionAlias) }
-                            11 {
+                            {$_ -in 11,22} {
                                 $newObject = [AMPermissionv11]::new($obj, $p, $obj.ConnectionAlias)
                                 $newObject.DeleteRevisionFromRecycleBinPermission  = $DeleteRevisionFromRecycleBin.ToBool()
                                 $newObject.DeleteRevisionPermission                = $DeleteRevision.ToBool()

@@ -12,7 +12,7 @@
 RootModule = 'AutomatePS.psm1'
 
 # Version number of this module.
-ModuleVersion = '5.1.1'
+ModuleVersion = '5.2.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()

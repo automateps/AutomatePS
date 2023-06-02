@@ -95,9 +95,9 @@ function New-AMEventLogCondition {
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
             if (-not $Folder) { $Folder = $user | Get-AMFolder -Type CONDITIONS } # Place the condition in the users condition folder
             switch ($Connection.Version.Major) {
-                10      { $newObject = [AMEventLogTriggerv10]::new($Name, $Folder, $Connection.Alias) }
-                11      { $newObject = [AMEventLogTriggerv11]::new($Name, $Folder, $Connection.Alias) }
-                default { throw "Unsupported server major version: $_!" }
+                10             { $newObject = [AMEventLogTriggerv10]::new($Name, $Folder, $Connection.Alias) }
+                {$_ -in 11,22} { $newObject = [AMEventLogTriggerv11]::new($Name, $Folder, $Connection.Alias) }
+                default        { throw "Unsupported server major version: $_!" }
             }
             $newObject.CreatedBy        = $user.ID
             $newObject.Notes            = $Notes
