@@ -567,6 +567,8 @@ enum AMAuditEventType {
     UserGroupMoved    = 1806
     UserGroupPropertiesModified = 1807
     UserGroupPermissionsModified = 1808
+    UserGroupMemberAdded   = 1809
+    UserGroupMemberRemoved = 1810
 
     # Folder event types
     FolderCreated = 1600
