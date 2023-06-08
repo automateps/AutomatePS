@@ -526,6 +526,7 @@ enum AMAuditEventType {
     AgentPropertiesModified   = 1405
     AgentRenamed              = 1406
     AgentPermissionsModified  = 1407
+    AgentEdited               = 1408
 
     # Agent group event types
     AgentGroupCreated  = 1700
@@ -556,6 +557,7 @@ enum AMAuditEventType {
     UserMoved           = 1305
     UserPropertiesModified = 1306
     UserPermissionsModified = 1307
+    UserRenamed         = 1308
 
     # User group event types
     UserGroupCreated  = 1800
