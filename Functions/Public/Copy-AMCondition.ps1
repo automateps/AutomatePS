@@ -148,7 +148,7 @@ function Copy-AMCondition {
                             default       { throw "Unsupported trigger type '$($obj.TriggerType)' encountered!" }
                         }
                     }
-                    11 {
+                    {$_ -in 11,22} {
                         switch ($obj.TriggerType) {
                             "Database"    { $copyObject = [AMDatabaseTriggerv11]::new($Name, $Folder, $Connection.Alias) }
                             "Email"       {

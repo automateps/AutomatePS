@@ -55,6 +55,11 @@ function Open-AMWorkflowDesigner {
                     $utilityDLL = "AutoMate.Utilities.v11.dll"
                     $managementServerPort = 9703
                 }
+                22 {
+                    $programFolder = "Automate Enterprise 2022"
+                    $utilityDLL = "AutoMate.Utilities.v11.dll"
+                    $managementServerPort = 9703
+                }
                 default {
                     throw "Unsupported server major version: $_!"
                 }
@@ -73,9 +78,9 @@ function Open-AMWorkflowDesigner {
             }
             Add-Type -Path "$InstallationPath\$utilityDLL"
             switch ($connection.Version.Major) {
-                10 { $encryptedPass = [Automate.Utilities.v10.StringManager]::EncryptTripleDESSalted($connection.Credential.GetNetworkCredential().Password) }
-                11 { $encryptedPass = [Automate.Utilities.v11.StringManager]::EncryptWithMostAdvanced($connection.Credential.GetNetworkCredential().Password) }
-                default { throw "Unsupported server major version: $_!" }
+                10             { $encryptedPass = [Automate.Utilities.v10.StringManager]::EncryptTripleDESSalted($connection.Credential.GetNetworkCredential().Password) }
+                {$_ -in 11,22} { $encryptedPass = [Automate.Utilities.v11.StringManager]::EncryptWithMostAdvanced($connection.Credential.GetNetworkCredential().Password) }
+                default        { throw "Unsupported server major version: $_!" }
             }
 
             $procArgs = [string]::Format('{0}:{1} "{2}" "{3}" "-ID:{4}"', $connection.Server, $managementServerPort, $connection.Credential.UserName, $encryptedPass, $Workflow.ID)

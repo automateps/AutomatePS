@@ -76,9 +76,9 @@ function New-AMTask {
                 }
             }
             switch ($Connection.Version.Major) {
-                10      { $newObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
-                11      { $newObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
-                default { throw "Unsupported server major version: $_!" }
+                10             { $newObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
+                {$_ -in 11,22} { $newObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
+                default        { throw "Unsupported server major version: $_!" }
             }
             $newObject.CreatedBy       = $user.ID
             $newObject.Notes           = $Notes
