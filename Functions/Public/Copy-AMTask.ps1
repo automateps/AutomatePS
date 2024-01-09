@@ -92,9 +92,9 @@ function Copy-AMTask {
 
                 if (-not $PSBoundParameters.ContainsKey("Name")) { $Name = $obj.Name }
                 switch ($Connection.Version.Major) {
-                    10             { $copyObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
-                    {$_ -in 11,22} { $copyObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
-                    default { throw "Unsupported server major version: $_!" }
+                    10                { $copyObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
+                    {$_ -in 11,22,23} { $copyObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
+                    default           { throw "Unsupported server major version: $_!" }
                 }
 
                 if ($PSBoundParameters.ContainsKey("Connection") -and $obj.ConnectionAlias -ne $Connection.Alias) {

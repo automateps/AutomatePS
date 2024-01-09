@@ -157,7 +157,7 @@ function Invoke-AMRestMethod {
                             default            { $processUnrecognizedObject = $true}
                         }
                     }
-                    {$_ -in 11,22} {
+                    {$_ -in 11,22,23} {
                         switch ($object.Type -as [AMConstructType]) {
                             "Agent"         { [AMAgentv11]::new($object,$lookupTable,$c.Alias)  }
                             "AgentGroup"    { [AMAgentGroupv11]::new($object,$lookupTable,$c.Alias) }
