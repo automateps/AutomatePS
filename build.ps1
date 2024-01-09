@@ -19,7 +19,7 @@ if ($PSCmdlet.ShouldProcess("Updating module manifest")) {
         Guid = "410dd814-d087-4645-a62e-0388a22798c0"
         Path = ".\AutomatePS.psd1"
         Author = "AutomatePS"
-        Description = "AutomatePS provides PowerShell integration with HelpSystems Automate Enterprise"
+        Description = "AutomatePS provides PowerShell integration with Fortra Automate"
         RootModule = "AutomatePS.psm1"
         PowerShellVersion = "5.0"
         FormatsToProcess = "AutomatePS.Format.ps1xml"

@@ -51,9 +51,9 @@ function New-AMAgentGroup {
             $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
             if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "AGENTGROUPS" -Connection $Connection } # Place the agent group in the root agent groups folder
             switch ($Connection.Version.Major) {
-                10             { $newObject = [AMAgentGroupv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22} { $newObject = [AMAgentGroupv11]::new($Name, $Folder, $Connection.Alias) }
-                default        { throw "Unsupported server major version: $_!" }
+                10                { $newObject = [AMAgentGroupv10]::new($Name, $Folder, $Connection.Alias) }
+                {$_ -in 11,22,23} { $newObject = [AMAgentGroupv11]::new($Name, $Folder, $Connection.Alias) }
+                default           { throw "Unsupported server major version: $_!" }
             }
             $newObject.CreatedBy = $user.ID
             $newObject.Notes     = $Notes

@@ -84,8 +84,10 @@ function Add-AMWorkflowLink {
         if ($LinkType -ne [AMLinkType]::Result) {
             $ResultType = [AMLinkResultType]::Default
             $Value = ""
-        } elseif ($ResultType -ne [AMLinkResultType]::Value) {
-            $Value = ""
+        } else {
+            if ($ResultType -ne [AMLinkResultType]::Value) {
+                $Value = $ResultType.ToString()
+            }
         }
     }
 
@@ -133,9 +135,9 @@ function Add-AMWorkflowLink {
                 }
 
                 switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
-                    10             { $newLink = [AMWorkflowLinkv10]::new($obj.ConnectionAlias) }
-                    {$_ -in 11,22} { $newLink = [AMWorkflowLinkv11]::new($obj.ConnectionAlias) }
-                    default        { throw "Unsupported server major version: $_!" }
+                    10                { $newLink = [AMWorkflowLinkv10]::new($obj.ConnectionAlias) }
+                    {$_ -in 11,22,23} { $newLink = [AMWorkflowLinkv11]::new($obj.ConnectionAlias) }
+                    default           { throw "Unsupported server major version: $_!" }
                 }
                 $newLink.ParentID           = $updateObject.ID
                 $newLink.DestinationID      = $destination.ID
@@ -146,11 +148,7 @@ function Add-AMWorkflowLink {
                 $newLink.SourceID           = $source.ID
                 $newLink.SourcePoint.x      = $source.X
                 $newLink.SourcePoint.y      = $source.Y
-                if ($ResultType -eq [AMLinkResultType]::Value) {
-                    $newLink.Value          = $Value
-                } else {
-                    $newLink.Value          = $ResultType.ToString()
-                }
+                $newLink.Value              = $Value
                 $newLink.WorkflowID         = $updateObject.ID
                 $updateObject.Links += $newLink
                 Set-AMWorkflow -Instance $updateObject
