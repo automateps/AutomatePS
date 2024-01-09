@@ -30,7 +30,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) AutomatePS. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'AutomatePS provides PowerShell integration with HelpSystems Automate Enterprise'
+Description = 'AutomatePS provides PowerShell integration with Fortra Automate'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.0'
