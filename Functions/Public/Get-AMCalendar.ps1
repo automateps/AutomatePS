@@ -156,7 +156,7 @@ function Get-AMCalendar {
 
     END {
         $result | Foreach-Object {$_.PSObject.TypeNames.Insert(0,"AMCalendar")}
-        $SortProperty += "ConnectionAlias", "ID"
-        return $result | Sort-Object $SortProperty -Unique -Descending:$SortDescending.ToBool()
+        $SortProperty += "ConnectionAlias", "NextRunTime"
+        return $result | Sort-Object $SortProperty -Descending:$SortDescending.ToBool()
     }
 }
