@@ -132,7 +132,7 @@ function Connect-AMServer {
                         } else {
                             $global:AMConnections = @($global:AMConnections, $thisConnection)
                         }
-                        return $thisConnection
+                        $thisConnection
                     }
                 } else {
                     throw "Already connected to another server with alias '$($thisConnection.Alias)'!"
