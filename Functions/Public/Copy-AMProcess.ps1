@@ -61,7 +61,6 @@ function Copy-AMProcess {
             } elseif (($Connection | Measure-Object).Count -gt 1) {
                 throw "Multiple Automate servers specified, please specify one server to copy the process to!"
             }
-            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
         }
     }
 
@@ -76,7 +75,7 @@ function Copy-AMProcess {
                                 throw "Folder specified exists on $($Folder.ConnectionAlias), the folder must exist on $($Connection.Name)!"
                             }
                         } else {
-                            $Folder = Get-AMFolder -ID $user.ProcessFolderID -Connection $Connection
+                            $Folder = Get-AMDefaultFolder -Connection $Connection -Type PROCESSES
                         }
                     }
                 } else {
@@ -84,14 +83,13 @@ function Copy-AMProcess {
                     if (-not $PSBoundParameters.ContainsKey("Folder")) {
                         $Folder = Get-AMFolder -ID $obj.ParentID -Connection $obj.ConnectionAlias
                     }
-                    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
                 }
 
                 if (-not $PSBoundParameters.ContainsKey("Name")) { $Name = $obj.Name }
                 switch ($Connection.Version.Major) {
-                    10                { $copyObject = [AMProcessv10]::new($Name, $Folder, $Connection.Alias) }
+                    10                   { $copyObject = [AMProcessv10]::new($Name, $Folder, $Connection.Alias) }
                     {$_ -in 11,22,23,24} { $copyObject = [AMProcessv11]::new($Name, $Folder, $Connection.Alias) }
-                    default           { throw "Unsupported server major version: $_!" }
+                    default              { throw "Unsupported server major version: $_!" }
                 }
 
                 if ($PSBoundParameters.ContainsKey("Connection") -and $obj.ConnectionAlias -ne $Connection.Alias) {
@@ -101,7 +99,6 @@ function Copy-AMProcess {
                     }
                 }
 
-                $copyObject.CreatedBy = $user.ID
                 $currentObject = Get-AMProcess -ID $obj.ID -Connection $obj.ConnectionAlias
                 $copyObject.CommandLine = $currentObject.CommandLine
                 $copyObject.EnvironmentVariables = $currentObject.EnvironmentVariables

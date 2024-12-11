@@ -1,9 +1,15 @@
+enum AMApiAuthenticationMethod {
+    Basic  = 0
+    Bearer = 1
+}
 class AMConnection {
     [string]$Name
     [string]$Alias
     [string]$Server
     [int]$Port
     [System.Management.Automation.PSCredential]$Credential
+    [string]$ApiKey
+    [AMApiAuthenticationMethod]$AuthenticationMethod
     [Version]$Version
     AMConnection([string]$Server, [int]$Port, [System.Management.Automation.PSCredential]$Credential) {
         $this.Server = $Server
@@ -11,6 +17,7 @@ class AMConnection {
         $this.Credential = $Credential
         $this.Name = "$($Server):$($Port)"
         $this.Alias = "$($Server):$($Port)"
+        $this.AuthenticationMethod = [AMApiAuthenticationMethod]::Basic
     }
     AMConnection([string]$Alias, [string]$Server, [int]$Port, [System.Management.Automation.PSCredential]$Credential) {
         $this.Server = $Server
@@ -18,24 +25,94 @@ class AMConnection {
         $this.Credential = $Credential
         $this.Name = "$($Server):$($Port)"
         $this.Alias = $Alias
+        $this.AuthenticationMethod = [AMApiAuthenticationMethod]::Basic
+    }
+    AMConnection([string]$Server, [int]$Port, [string]$ApiKey) {
+        $this.Server = $Server
+        $this.Port = $Port
+        $this.ApiKey = $ApiKey
+        $this.Name = "$($Server):$($Port)"
+        $this.Alias = "$($Server):$($Port)"
+        $this.AuthenticationMethod = [AMApiAuthenticationMethod]::Bearer
+    }
+    AMConnection([string]$Alias, [string]$Server, [int]$Port, [string]$ApiKey) {
+        $this.Server = $Server
+        $this.Port = $Port
+        $this.ApiKey = $ApiKey
+        $this.Name = "$($Server):$($Port)"
+        $this.Alias = $Alias
+        $this.AuthenticationMethod = [AMApiAuthenticationMethod]::Bearer
     }
     [bool]Authenticate() {
         $success = $false
-        $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $this.Credential.UserName,$this.Credential.GetNetworkCredential().Password)))
-        $headers = @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+        $headers = @{}
+        switch ($this.AuthenticationMethod) {
+            "Basic" {
+                $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("$($this.Credential.UserName):$($this.Credential.GetNetworkCredential().Password)"))
+                $headers.Add("Authorization", "Basic $base64AuthInfo")
+            }
+            "Bearer" {
+                $headers.Add("Authorization", "Bearer $($this.GetApiToken())")
+            }
+        }
+        
         try {
             $authTest = Invoke-RestMethod "http://$($this.Server):$($this.Port)/BPAManagement/users/authenticate" -Method Get -Headers $headers -UseBasicParsing -ErrorAction Stop
         } catch {
-            throw "Failed to authenticate to server $($this.Server):$($this.Port) as $($this.Credential.UserName)!"
+            throw "Failed to authenticate to server $($this.Server):$($this.Port)!"
         }
         if ($authTest.Data -eq "success") {
             $success = $true
             $serverInfo = Invoke-RestMethod "http://$($this.Server):$($this.Port)/BPAManagement/info/get" -Method Get -Headers $headers -UseBasicParsing
             $this.Version = [Version]$serverInfo.Data.Version
         } else {
-            throw "Failed to authenticate to server $($this.Server):$($this.Port) as $($this.Credential.UserName)!"
+            throw "Failed to authenticate to server $($this.Server):$($this.Port)!"
         }
         return $success
+    }
+    [Version]GetServerVersion() {
+        if ($null -eq $this.Version) {
+            $serverInfo = Invoke-RestMethod "http://$($this.Server):$($this.Port)/BPAManagement/info/get" -Method Get -UseBasicParsing
+            $this.Version = [Version]$serverInfo.Data.Version
+        }
+        return $this.Version
+    }
+    [string]GetApiToken() {
+        $passphrase = 'iS68kp&5jH%ss79H{730D415'
+        $passphraseBytes = [Text.Encoding]::UTF8.GetBytes($passphrase)
+
+        # Create the key salt
+        $keySaltBytes = [byte[]](1..8)
+
+        # Create a salt for encryption (4 bytes)
+        $saltBytes = [byte[]]::new(4)
+        [System.Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($saltBytes)
+        $saltString = [Convert]::ToBase64String($saltBytes)
+
+        # Get current datetime in the required format
+        $datetime = [DateTime]::UtcNow.ToString("yyyy-MM-dd HH:mm:ssZ")
+
+        # Create the string to be encrypted
+        $cryptString = $saltString + $this.ApiKey + $datetime
+
+        $cryptoServiceProvider = [System.Security.Cryptography.AesCryptoServiceProvider]::new()
+        $cryptoServiceProvider.KeySize = 256
+        $cryptoServiceProvider.BlockSize = 128
+        $cryptoServiceProvider.Mode = [System.Security.Cryptography.CipherMode]::CBC
+        $rfc2898DeriveBytes = [System.Security.Cryptography.Rfc2898DeriveBytes]::new($passphraseBytes, $keySaltBytes, 1000)
+        $cryptoServiceProvider.Key = $rfc2898DeriveBytes.GetBytes($cryptoServiceProvider.KeySize / 8)
+        $cryptoServiceProvider.IV = $rfc2898DeriveBytes.GetBytes($cryptoServiceProvider.BlockSize / 8)
+        $memoryStream = [System.IO.MemoryStream]::new()
+        $cryptoStream = [System.Security.Cryptography.CryptoStream]::new($memoryStream, $cryptoServiceProvider.CreateEncryptor(), [System.Security.Cryptography.CryptoStreamMode]::Write)
+
+        # Convert the string to bytes
+        $cryptStringBytes = [Text.Encoding]::UTF8.GetBytes($cryptString)
+        $cryptoStream.Write($cryptStringBytes, 0, $cryptStringBytes.Length)
+
+        $cryptoStream.Close()
+        $memoryStream.Close()
+        $encryptedString = [System.Convert]::ToBase64String($memoryStream.ToArray())
+        return $encryptedString
     }
 }
 

@@ -53,8 +53,7 @@ function New-AMTask {
     }
     switch (($Connection | Measure-Object).Count) {
         1 {
-            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-            if (-not $Folder) { $Folder = $user | Get-AMFolder -Type TASKS } # Place the task in the users task folder
+            if (-not $Folder) { $Folder = Get-AMDefaultFolder -Connection $Connection -Type TASKS }
             if ($PSBoundParameters.ContainsKey("AML")) {
                 # Validate AML
                 if ($AML -is [string]) {
@@ -80,7 +79,6 @@ function New-AMTask {
                 {$_ -in 11,22,23,24} { $newObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
                 default              { throw "Unsupported server major version: $_!" }
             }
-            $newObject.CreatedBy       = $user.ID
             $newObject.Notes           = $Notes
             $newObject.AML             = $AML
             $newObject | New-AMObject -Connection $Connection

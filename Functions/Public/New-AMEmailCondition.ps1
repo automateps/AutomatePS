@@ -210,13 +210,11 @@ function New-AMEmailCondition {
     if (Test-AMFeatureSupport -Connection $Connection -Feature EmailCondition -Action Throw) {
         switch (($Connection | Measure-Object).Count) {
             1 {
-                $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-                if (-not $Folder) { $Folder = $user | Get-AMFolder -Type CONDITIONS } # Place the condition in the users condition folder
+                if (-not $Folder) { $Folder = Get-AMDefaultFolder -Connection $Connection -Type CONDITIONS }
                 switch ($Connection.Version.Major) {
                     {$_ -in 11,22,23,24} { $newObject = [AMEmailTriggerv11]::new($Name, $Folder, $Connection.Alias) }
                     default              { throw "Unsupported server major version: $_!" }
                 }
-                $newObject.CreatedBy       = $user.ID
                 $newObject.Notes           = $Notes
                 $newObject.Wait            = $Wait.ToBool()
                 if ($newObject.Wait) {

@@ -30,7 +30,7 @@ function Test-AMFeatureSupport {
         $Connection,
 
         [Parameter(Mandatory = $true)]
-        [ValidateSet("EmailCondition","FileSystemConditionPollingMode","ApiRuntimeVariables","MultiDomainUser","VariableSpecialCharacters")]
+        [ValidateSet("EmailCondition","FileSystemConditionPollingMode","ApiRuntimeVariables","MultiDomainUser","ApiKeyAuthentication")]
         $Feature,
 
         [ValidateSet("Throw","Warn","Ignore")]
@@ -42,6 +42,7 @@ function Test-AMFeatureSupport {
         FileSystemConditionPollingMode = [Version]"11.1.20.0"
         ApiRuntimeVariables            = [Version]"11.4.0.0"
         MultiDomainUser                = [Version]"23.1.0.0"
+        ApiKeyAuthentication           = [Version]"23.1.0.0"
     }
 
     if ($Connection -is [string]) {
@@ -49,7 +50,7 @@ function Test-AMFeatureSupport {
     } elseif ($Connection -is [AMConnection]) {
         $serverConnection = $Connection
     }
-    if ($serverConnection.Version -lt $featureVersions[$Feature]) {
+    if ($serverConnection.GetServerVersion() -lt $featureVersions[$Feature]) {
         $message = "Feature '$Feature' is not supported in version $($serverConnection.Version), version $($featureVersions[$Feature]) or greater is required."
         switch ($Action) {
             "Warn" {

@@ -73,10 +73,9 @@ function Copy-AMWorkflow {
             } elseif (($Connection | Measure-Object).Count -gt 1) {
                 throw "Multiple Automate servers specified, please specify one server to copy the workflow to!"
             }
-            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-            $taskFolder = $user | Get-AMFolder -Type TASKS
-            $conditionFolder = $user | Get-AMFolder -Type CONDITIONS
-            $processFolder = $user | Get-AMFolder -Type PROCESSES
+            $taskFolder = Get-AMDefaultFolder -Connection $Connection -Type TASKS
+            $conditionFolder = Get-AMDefaultFolder -Connection $Connection -Type CONDITIONS
+            $processFolder = Get-AMDefaultFolder -Connection $Connection -Type PROCESSES
 
             Write-Verbose "Caching workflow IDs for server $($Connection.Alias) for ID checking"
             $workflowCache = Get-AMWorkflow -Connection $Connection
@@ -117,7 +116,7 @@ function Copy-AMWorkflow {
                             if ($substitions.ContainsKey($obj.ParentID)) {
                                 $Folder = Get-AMFolder -ID $substitions[$obj.ParentID] -Connection $Connection
                             } else {
-                                $Folder = Get-AMFolder -ID $user.WorkflowFolderID -Connection $Connection
+                                $Folder = Get-AMDefaultFolder -Connection $Connection -Type WORKFLOWS
                             }
                         }
                     }
@@ -128,7 +127,6 @@ function Copy-AMWorkflow {
                         # If folder was not specified, place workflow in same folder as source workflow
                         $Folder = Get-AMFolder -ID $obj.ParentID -Connection $obj.ConnectionAlias
                     }
-                    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
                 }
 
                 # If a name was not specified, default to using the original objects name (API will automatically append number if there is a naming conflict)
@@ -150,7 +148,6 @@ function Copy-AMWorkflow {
                     Write-Verbose "Could not find workflow with ID $($obj.ID), assuming this is a workflow that was deleted from the server."
                     $currentObject = $obj.PSObject.Copy()
                 }
-                $copyObject.CreatedBy       = $user.ID
                 $copyObject.CompletionState = $currentObject.CompletionState
                 $copyObject.Enabled         = $currentObject.Enabled
                 $copyObject.LockedBy        = $currentObject.LockedBy

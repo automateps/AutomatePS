@@ -48,15 +48,13 @@ function New-AMAgentGroup {
     }
     switch (($Connection | Measure-Object).Count) {
         1 {
-            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-            if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "AGENTGROUPS" -Connection $Connection } # Place the agent group in the root agent groups folder
+            if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "AGENTGROUPS" -Connection $Connection }
             switch ($Connection.Version.Major) {
                 10                   { $newObject = [AMAgentGroupv10]::new($Name, $Folder, $Connection.Alias) }
                 {$_ -in 11,22,23,24} { $newObject = [AMAgentGroupv11]::new($Name, $Folder, $Connection.Alias) }
                 default              { throw "Unsupported server major version: $_!" }
             }
-            $newObject.CreatedBy = $user.ID
-            $newObject.Notes     = $Notes
+            $newObject.Notes = $Notes
             $newObject | New-AMObject -Connection $Connection
         }
         0       { throw "No servers are currently connected!" }

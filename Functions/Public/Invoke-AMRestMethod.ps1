@@ -74,11 +74,20 @@ function Invoke-AMRestMethod {
         if ((Get-AMConnection).Name -notcontains $c.Name) {
             throw "No longer connected to $($c.Name)!  Please reconnect first."
         }
-        $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $c.Credential.UserName,$c.Credential.GetNetworkCredential().Password)))
+        $headers = @{}
+        switch ($c.AuthenticationMethod) {
+            "Basic" {
+                $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $c.Credential.UserName,$c.Credential.GetNetworkCredential().Password)))
+                $headers.Add("Authorization", "Basic $base64AuthInfo")
+            }
+            "Bearer" {
+                $headers.Add("Authorization", "Bearer $($c.GetApiToken())")
+            }
+        }
         $splat = @{
             Method = $RestMethod
             Uri = "http://$($c.Server):$($c.Port)/BPAManagement/$Resource"
-            Headers = @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+            Headers = $headers
 			UseBasicParsing = $true
         }
         if ($Body) {

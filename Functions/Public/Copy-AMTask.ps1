@@ -61,7 +61,6 @@ function Copy-AMTask {
             } elseif (($Connection | Measure-Object).Count -gt 1) {
                 throw "Multiple Automate servers specified, please specify one server to copy the task to!"
             }
-            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
         }
     }
 
@@ -79,7 +78,7 @@ function Copy-AMTask {
                                 throw "Folder specified exists on $($Folder.ConnectionAlias), the folder must exist on $($Connection.Name)!"
                             }
                         } else {
-                            $Folder = Get-AMFolder -ID $user.TaskFolderID -Connection $Connection
+                            $Folder = Get-AMDefaultFolder -Connection $Connection -Type TASKS
                         }
                     }
                 } else {
@@ -87,7 +86,6 @@ function Copy-AMTask {
                     if (-not $PSBoundParameters.ContainsKey("Folder")) {
                         $Folder = Get-AMFolder -ID $obj.ParentID -Connection $obj.ConnectionAlias
                     }
-                    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
                 }
 
                 if (-not $PSBoundParameters.ContainsKey("Name")) { $Name = $obj.Name }
@@ -104,7 +102,6 @@ function Copy-AMTask {
                     }
                 }
 
-                $copyObject.CreatedBy = $user.ID
                 $currentObject = Get-AMTask -ID $obj.ID -Connection $obj.ConnectionAlias
                 $copyObject.AML             = $currentObject.AML
                 $copyObject.CompletionState = $currentObject.CompletionState
