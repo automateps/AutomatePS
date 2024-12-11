@@ -1,4 +1,23 @@
 function Get-AMDefaultFolder {
+    <#
+        .SYNOPSIS
+            Gets a default folder in the repository to place new objects.
+
+        .DESCRIPTION
+            Get-AMDefaultFolder gets a default location in the repository to place new objects.
+
+        .PARAMETER Connection
+            The connection to get the default folder for.
+
+        .PARAMETER Type
+            The type of repository folder.
+
+        .EXAMPLE
+            Get-AMDefaultFolder -Connection $connection -Type WORKFLOWS
+
+        .LINK
+            https://github.com/AutomatePS/AutomatePS
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
