@@ -120,7 +120,7 @@ function New-AMSystemPermission {
                 if ($null -eq $currentPermissions) {
                     switch ($connection.Version.Major) {
                         10 { $newObject = [AMSystemPermissionv10]::new($connection.Alias) }
-                        {$_ -in 11,22,23} {
+                        {$_ -in 11,22,23,24} {
                             $newObject = [AMSystemPermissionv11]::new($connection.Alias)
                             $newObject.EditRevisionManagementPermission = $EditRevisionManagement.ToBool()
                             $newObject.ViewRevisionManagementPermission = $ViewRevisionManagement.ToBool()

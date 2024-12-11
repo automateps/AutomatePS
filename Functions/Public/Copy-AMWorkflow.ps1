@@ -135,9 +135,9 @@ function Copy-AMWorkflow {
                 if (-not $PSBoundParameters.ContainsKey("Name")) { $Name = $obj.Name }
                 # Create the new workflow object
                 switch ($Connection.Version.Major) {
-                    10                { $copyObject = [AMWorkflowv10]::new($Name, $Folder, $Connection.Alias) }
-                    {$_ -in 11,22,23} { $copyObject = [AMWorkflowv11]::new($Name, $Folder, $Connection.Alias) }
-                    default           { throw "Unsupported server major version: $_!" }
+                    10                   { $copyObject = [AMWorkflowv10]::new($Name, $Folder, $Connection.Alias) }
+                    {$_ -in 11,22,23,24} { $copyObject = [AMWorkflowv11]::new($Name, $Folder, $Connection.Alias) }
+                    default              { throw "Unsupported server major version: $_!" }
                 }
                 # If an object with the same ID doesn't already exist, use the same ID (when copying between servers)
                 if ($copyToAnotherServer -and $obj.ID -notin $existingIds) {
@@ -162,9 +162,9 @@ function Copy-AMWorkflow {
                         "Evaluation" {
                             # Create a new evaluation object
                             switch ($Connection.Version.Major) {
-                                10                { $newItem = [AMWorkflowConditionv10]::new($Connection.Alias) }
-                                {$_ -in 11,22,23} { $newItem = [AMWorkflowConditionv11]::new($Connection.Alias) }
-                                default           { throw "Unsupported server major version: $_!" }
+                                10                   { $newItem = [AMWorkflowConditionv10]::new($Connection.Alias) }
+                                {$_ -in 11,22,23,24} { $newItem = [AMWorkflowConditionv11]::new($Connection.Alias) }
+                                default              { throw "Unsupported server major version: $_!" }
                             }
                             # Copy properties of the source evaluation object to the new evaluation
                             $newItem.Expression = $item.Expression
@@ -172,9 +172,9 @@ function Copy-AMWorkflow {
                         "Wait" {
                             # Create a new wait object
                             switch ($Connection.Version.Major) {
-                                10                { $newItem = [AMWorkflowItemv10]::new($Connection.Alias) }
-                                {$_ -in 11,22,23} { $newItem = [AMWorkflowItemv11]::new($Connection.Alias) }
-                                default           { throw "Unsupported server major version: $_!" }
+                                10                   { $newItem = [AMWorkflowItemv10]::new($Connection.Alias) }
+                                {$_ -in 11,22,23,24} { $newItem = [AMWorkflowItemv11]::new($Connection.Alias) }
+                                default              { throw "Unsupported server major version: $_!" }
                             }
                             # Copy properties of the source wait object to the new evaluation
                             $newItem.ConstructType = $item.ConstructType
@@ -182,9 +182,9 @@ function Copy-AMWorkflow {
                         default {
                             # Create the new workflow item (for workflows/tasks/processes)
                             switch ($Connection.Version.Major) {
-                                10                { $newItem = [AMWorkflowItemv10]::new($Connection.Alias) }
-                                {$_ -in 11,22,23} { $newItem = [AMWorkflowItemv11]::new($Connection.Alias) }
-                                default           { throw "Unsupported server major version: $_!" }
+                                10                   { $newItem = [AMWorkflowItemv10]::new($Connection.Alias) }
+                                {$_ -in 11,22,23,24} { $newItem = [AMWorkflowItemv11]::new($Connection.Alias) }
+                                default              { throw "Unsupported server major version: $_!" }
                             }
                             # Workflows don't use an agent, so there's no reason to set it
                             if ($item.ConstructType -ne "Workflow") {
@@ -366,9 +366,9 @@ function Copy-AMWorkflow {
                 }
                 foreach ($trigger in $currentObject.Triggers) {
                     switch ($Connection.Version.Major) {
-                        10                { $newTrigger = [AMWorkflowTriggerv10]::new($Connection.Alias) }
-                        {$_ -in 11,22,23} { $newTrigger = [AMWorkflowTriggerv11]::new($Connection.Alias) }
-                        default           { throw "Unsupported server major version: $_!" }
+                        10                   { $newTrigger = [AMWorkflowTriggerv10]::new($Connection.Alias) }
+                        {$_ -in 11,22,23,24} { $newTrigger = [AMWorkflowTriggerv11]::new($Connection.Alias) }
+                        default              { throw "Unsupported server major version: $_!" }
                     }
                     # Schedules don't use an agent, so there's no reason to set it
                     if ($trigger.TriggerType -ne "Schedule") {
@@ -448,9 +448,9 @@ function Copy-AMWorkflow {
                 }
                 foreach ($link in $currentObject.Links) {
                     switch ($Connection.Version.Major) {
-                        10                { $newLink = [AMWorkflowLinkv10]::new($Connection.Alias) }
-                        {$_ -in 11,22,23} { $newLink = [AMWorkflowLinkv11]::new($Connection.Alias) }
-                        default           { throw "Unsupported server major version: $_!" }
+                        10                   { $newLink = [AMWorkflowLinkv10]::new($Connection.Alias) }
+                        {$_ -in 11,22,23,24} { $newLink = [AMWorkflowLinkv11]::new($Connection.Alias) }
+                        default              { throw "Unsupported server major version: $_!" }
                     }
                     # Retain the link ID if it does not already exist
                     if ($copyToAnotherServer -and $link.ID -notin $existingIds) {
@@ -470,9 +470,9 @@ function Copy-AMWorkflow {
                 }
                 foreach ($variable in $currentObject.Variables) {
                     switch ($Connection.Version.Major) {
-                        10                { $newVariable = [AMWorkflowVariablev10]::new($Connection.Alias) }
-                        {$_ -in 11,22,23} { $newVariable = [AMWorkflowVariablev11]::new($Connection.Alias) }
-                        default           { throw "Unsupported server major version: $_!" }
+                        10                   { $newVariable = [AMWorkflowVariablev10]::new($Connection.Alias) }
+                        {$_ -in 11,22,23,24} { $newVariable = [AMWorkflowVariablev11]::new($Connection.Alias) }
+                        default              { throw "Unsupported server major version: $_!" }
                     }
                     # Retain the variable ID if it does not already exist
                     if ($copyToAnotherServer -and $variable.ID -notin $existingIds) {

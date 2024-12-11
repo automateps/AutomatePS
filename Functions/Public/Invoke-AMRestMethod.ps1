@@ -157,7 +157,7 @@ function Invoke-AMRestMethod {
                             default            { $processUnrecognizedObject = $true}
                         }
                     }
-                    {$_ -in 11,22,23} {
+                    {$_ -in 11,22,23,24} {
                         switch ($object.Type -as [AMConstructType]) {
                             "Agent"         { [AMAgentv11]::new($object,$lookupTable,$c.Alias)  }
                             "AgentGroup"    { [AMAgentGroupv11]::new($object,$lookupTable,$c.Alias) }
@@ -191,7 +191,13 @@ function Invoke-AMRestMethod {
                             "SystemPermission" { [AMSystemPermissionv11]::new($object,$lookupTable,$c.Alias) }
                             "Task"             { [AMTaskv11]::new($object,$lookupTable,$c.Alias) }
                             "TaskProperty"     { [AMTaskPropertyv11]::new($object,$lookupTable,$c.Alias) }
-                            "User"             { [AMUserv11]::new($object,$lookupTable,$c.Alias) }
+                            "User"             {
+                                if ($c.Version.Major -ge 23) {
+                                    [AMUserv1123]::new($object,$lookupTable,$c.Alias)
+                                } else {
+                                    [AMUserv11]::new($object,$lookupTable,$c.Alias)
+                                }
+                            }
                             "UserGroup"        { [AMUserGroupv11]::new($object,$lookupTable,$c.Alias) }
                             "Workflow"         { [AMWorkflowv11]::new($object,$lookupTable,$c.Alias) }
                             "WorkflowProperty" { [AMWorkflowPropertyv11]::new($object,$lookupTable,$c.Alias) }

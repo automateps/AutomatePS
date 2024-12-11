@@ -157,6 +157,11 @@ enum AMUserRole {
     Administrator = 999
     Manager       = 2000
 }
+
+enum AMAuthProvider {
+    Automate = 1
+    AD       = 2
+}
 #endregion
 
 #region Workflow types

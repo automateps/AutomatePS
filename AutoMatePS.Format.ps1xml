@@ -761,6 +761,7 @@
             <ViewSelectedBy>
                 <TypeName>AMUserv10</TypeName>
                 <TypeName>AMUserv11</TypeName>
+                <TypeName>AMUserv1123</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <AutoSize />

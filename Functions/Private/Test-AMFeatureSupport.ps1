@@ -30,10 +30,10 @@ function Test-AMFeatureSupport {
         $Connection,
 
         [Parameter(Mandatory = $true)]
-        [ValidateSet("EmailCondition","FileSystemConditionPollingMode","ApiRuntimeVariables")]
+        [ValidateSet("EmailCondition","FileSystemConditionPollingMode","ApiRuntimeVariables","MultiDomainUser","VariableSpecialCharacters")]
         $Feature,
 
-        [ValidateSet("Throw","Warn")]
+        [ValidateSet("Throw","Warn","Ignore")]
         $Action
     )
 
@@ -41,6 +41,7 @@ function Test-AMFeatureSupport {
         EmailCondition                 = [Version]"11.0.0.0"
         FileSystemConditionPollingMode = [Version]"11.1.20.0"
         ApiRuntimeVariables            = [Version]"11.4.0.0"
+        MultiDomainUser                = [Version]"23.1.0.0"
     }
 
     if ($Connection -is [string]) {
