@@ -68,7 +68,7 @@ function New-AMTask {
                     if ($convertSuccess) {
                         $amlVersion = [version]$xml.SelectSingleNode("//*[@TaskVersion|@TASKVERSION]").TaskVersion
                         if ($amlVersion.Major -ne $Connection.Version.Major) {
-                            throw "AML version ($($amlVersion.Major)) does not match server version ($($Connection.Version.Major))!"
+                            Write-Warning "AML version ($($amlVersion.Major)) does not match server version ($($Connection.Version.Major))!"
                         }
                     }
                 } else {
