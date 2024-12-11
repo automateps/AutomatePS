@@ -15,21 +15,22 @@ Gets Automate agents.
 ### All (Default)
 ```
 Get-AMAgent [[-Name] <String>] [-Type <AMAgentType>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
 Get-AMAgent [-InputObject <Object>] [[-Name] <String>] [-Type <AMAgentType>] [-FilterSet <Hashtable[]>]
  [-FilterSetMode <String>] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>]
- [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByID
 ```
 Get-AMAgent [[-Name] <String>] [-ID <String>] [-Type <AMAgentType>] [-FilterSet <Hashtable[]>]
  [-FilterSetMode <String>] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>]
- [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -200,6 +201,21 @@ The Automate management server.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

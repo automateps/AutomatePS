@@ -15,21 +15,22 @@ Gets Automate conditions.
 ### All (Default)
 ```
 Get-AMCondition [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-Type <AMTriggerType>]
- [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
 Get-AMCondition [-InputObject <Object>] [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
  [-Type <AMTriggerType>] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>]
- [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByID
 ```
 Get-AMCondition [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
  [-Type <AMTriggerType>] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>]
- [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -203,6 +204,21 @@ The Automate management server.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

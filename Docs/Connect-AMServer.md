@@ -15,19 +15,26 @@ Connect to an Automate management server
 ### ByConnectionStore (Default)
 ```
 Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-ConnectionAlias <String>]
- [-ConnectionStoreFilePath <String>] [-SaveConnection] [<CommonParameters>]
+ [-ConnectionStoreFilePath <String>] [-SaveConnection] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ### ByCredential
 ```
 Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-Credential <PSCredential>] [-ConnectionAlias <String>]
- [-SaveConnection] [<CommonParameters>]
+ [-SaveConnection] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+### ByApiKey
+```
+Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-ApiKey <String>] [-ConnectionAlias <String>]
+ [-SaveConnection] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByUserPass
 ```
 Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-UserName <String>] [-Password <SecureString>]
- [-ConnectionAlias <String>] [-SaveConnection] [<CommonParameters>]
+ [-ConnectionAlias <String>] [-SaveConnection] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,6 +88,21 @@ The credentials use during authentication.
 ```yaml
 Type: PSCredential
 Parameter Sets: ByCredential
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ApiKey
+The API key to use during authentication, supported in v23.1 and later.
+
+```yaml
+Type: String
+Parameter Sets: ByApiKey
 Aliases:
 
 Required: False
@@ -161,6 +183,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

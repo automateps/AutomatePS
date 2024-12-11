@@ -16,14 +16,15 @@ Gets Automate audit events.
 ```
 Get-AMAuditEvent [-StartDate <DateTime>] [-EndDate <DateTime>] [-EventType <AMAuditEventType>]
  [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-SortProperty <String[]>] [-SortDescending]
- [-Connection <Object>] [<CommonParameters>]
+ [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
 Get-AMAuditEvent [[-InputObject] <Object>] [-StartDate <DateTime>] [-EndDate <DateTime>]
  [-EventType <AMAuditEventType>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-SortProperty <String[]>] [-SortDescending] [-AuditUserActivity] [-Connection <Object>] [<CommonParameters>]
+ [-SortProperty <String[]>] [-SortDescending] [-AuditUserActivity] [-Connection <Object>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -98,7 +99,7 @@ Use auto-complete or see types.ps1 for a full list.
 Type: AMAuditEventType
 Parameter Sets: (All)
 Aliases:
-Accepted values: ConnectionOpened, ConnectionClosed, UserLoggedOn, UserLogonDenied, UserLoggedOff, AgentConnected, AgentDisconnected, AgentDisconnectedByServer, TaskAgentUpgrading, TaskAgentConnected, ProcessAgentConnected, UserConnectedSMC, UserConnectedWFD, TaskAgentDisconnected, ProcessAgentDisconnected, UserDisconnectedSMC, UserDisconnectedWFD, UserConnectedWebSMC, UserDisconnectedWebSMC, SkybotConnected, SkybotDisconnected, AMExecuteConnected, AMExecuteDisconnected, InterMapperConnected, InterMapperDisconnected, ScheduleEnterpriseConnected, ScheduleEnterpriseDisconnected, LicenseAdded, LicenseRemoved, WorkflowCreated, WorkflowRemoved, WorkflowEdited, WorkflowEnabled, WorkflowDisabled, WorkflowRenamed, WorkflowMoved, WorkflowPropertiesModified, WorkflowExported, WorkflowImported, WorkflowPermissionsModified, TaskCreated, TaskRemoved, TaskEdited, TaskEnabled, TaskDisabled, TaskRenamed, TaskMoved, TaskPropertiesModified, TaskExported, TaskImported, TaskPermissionsModified, ConditionCreated, ConditionRemoved, ConditionEdited, ConditionEnabled, ConditionDisabled, ConditionRenamed, ConditionMoved, ConditionPropertiesModified, ConditionExported, ConditionImported, ConditionPermissionsModified, UserCreated, UserRemoved, UserEdited, UserEnabled, UserDisabled, UserMoved, UserPropertiesModified, UserPermissionsModified, AgentRegistered, AgentRemoved, AgentEnabled, AgentDisabled, AgentMoved, AgentPropertiesModified, AgentRenamed, AgentPermissionsModified, ServerPropertiesModified, ServerPermissionsModifed, ApiPermissionsModified, RevisionManagementPropertiesModified, FolderCreated, FolderRemoved, FolderRenamed, FolderMoved, FolderPropertiesModified, FolderPermissionsModified, FolderExported, FolderImported, AgentGroupCreated, AgentGroupRemoved, AgentGroupEdited, AgentGroupEnabled, AgentGroupDisabled, AgentGroupRenamed, AgentGroupMoved, AgentGroupPropertiesModified, AgentGroupPermissionsModified, UserGroupCreated, UserGroupRemoved, UserGroupEdited, UserGroupEnabled, UserGroupDisabled, UserGroupRenamed, UserGroupMoved, UserGroupPropertiesModified, UserGroupPermissionsModified, ProcessCreated, ProcessRemoved, ProcessEdited, ProcessEnabled, ProcessDisabled, ProcessRenamed, ProcessMoved, ProcessPropertiesModified, ProcessExported, ProcessImported, ProcessPermissionsModified, RevisionUpdated, RevisionDeleted, RevisionRestored, RevisionDeletedRecycleBin, RevisionRestoredRecycleBin, All
+Accepted values: ConnectionOpened, ConnectionClosed, UserLoggedOn, UserLogonDenied, UserLoggedOff, AgentConnected, AgentDisconnected, AgentDisconnectedByServer, TaskAgentUpgrading, TaskAgentConnected, ProcessAgentConnected, UserConnectedSMC, UserConnectedWFD, TaskAgentDisconnected, ProcessAgentDisconnected, UserDisconnectedSMC, UserDisconnectedWFD, UserConnectedWebSMC, UserDisconnectedWebSMC, SkybotConnected, SkybotDisconnected, AMExecuteConnected, AMExecuteDisconnected, InterMapperConnected, InterMapperDisconnected, ScheduleEnterpriseConnected, ScheduleEnterpriseDisconnected, LicenseAdded, LicenseRemoved, WorkflowCreated, WorkflowRemoved, WorkflowEdited, WorkflowEnabled, WorkflowDisabled, WorkflowRenamed, WorkflowMoved, WorkflowPropertiesModified, WorkflowExported, WorkflowImported, WorkflowPermissionsModified, TaskCreated, TaskRemoved, TaskEdited, TaskEnabled, TaskDisabled, TaskRenamed, TaskMoved, TaskPropertiesModified, TaskExported, TaskImported, TaskPermissionsModified, ConditionCreated, ConditionRemoved, ConditionEdited, ConditionEnabled, ConditionDisabled, ConditionRenamed, ConditionMoved, ConditionPropertiesModified, ConditionExported, ConditionImported, ConditionPermissionsModified, UserCreated, UserRemoved, UserEdited, UserEnabled, UserDisabled, UserMoved, UserPropertiesModified, UserPermissionsModified, UserRenamed, AgentRegistered, AgentRemoved, AgentEnabled, AgentDisabled, AgentMoved, AgentPropertiesModified, AgentRenamed, AgentPermissionsModified, AgentEdited, ServerPropertiesModified, ServerPermissionsModifed, ApiPermissionsModified, RevisionManagementPropertiesModified, FolderCreated, FolderRemoved, FolderRenamed, FolderMoved, FolderPropertiesModified, FolderPermissionsModified, FolderExported, FolderImported, AgentGroupCreated, AgentGroupRemoved, AgentGroupEdited, AgentGroupEnabled, AgentGroupDisabled, AgentGroupRenamed, AgentGroupMoved, AgentGroupPropertiesModified, AgentGroupPermissionsModified, UserGroupCreated, UserGroupRemoved, UserGroupEdited, UserGroupEnabled, UserGroupDisabled, UserGroupRenamed, UserGroupMoved, UserGroupPropertiesModified, UserGroupPermissionsModified, UserGroupMemberAdded, UserGroupMemberRemoved, ProcessCreated, ProcessRemoved, ProcessEdited, ProcessEnabled, ProcessDisabled, ProcessRenamed, ProcessMoved, ProcessPropertiesModified, ProcessExported, ProcessImported, ProcessPermissionsModified, RevisionUpdated, RevisionDeleted, RevisionRestored, RevisionDeletedRecycleBin, RevisionRestoredRecycleBin, CredentialCreated, CredentialModified, CredentialRemoved, All
 
 Required: False
 Position: Named
@@ -195,6 +196,21 @@ The Automate management server.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

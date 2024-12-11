@@ -15,15 +15,15 @@ Adds a link between two objects in an Automate workflow
 ### ByConstruct
 ```
 Add-AMWorkflowLink -InputObject <Object> -SourceConstruct <Object> -DestinationConstruct <Object>
- [-LinkType <AMLinkType>] [-ResultType <AMLinkResultType>] [-Value <Object>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-LinkType <AMLinkType>] [-ResultType <AMLinkResultType>] [-Value <Object>]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByItem
 ```
 Add-AMWorkflowLink -InputObject <Object> -SourceItemID <Object> -DestinationItemID <Object>
- [-LinkType <AMLinkType>] [-ResultType <AMLinkResultType>] [-Value <Object>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-LinkType <AMLinkType>] [-ResultType <AMLinkResultType>] [-Value <Object>]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -186,6 +186,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

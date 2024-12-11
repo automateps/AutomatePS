@@ -16,8 +16,8 @@ Sets the properties of an Automate workflow.
 Set-AMWorkflowProperty [-InputObject] <Object> [-DefaultAgentPropertiesSpecified] [[-DefaultAgent] <Object>]
  [-ErrorNotificationPropertiesSpecified] [[-ErrorNotifyEmailFromAddress] <String>]
  [[-ErrorNotifyEmailToAddress] <String>] [-DisableOnFailure] [-ResumeFromFailure] [-TimeoutPropertiesSpecified]
- [-TimeoutEnabled] [[-Timeout] <Int32>] [[-TimeoutUnit] <AMTimeMeasure>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-TimeoutEnabled] [[-Timeout] <Int32>] [[-TimeoutUnit] <AMTimeMeasure>] [-ProgressAction <ActionPreference>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -238,6 +238,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

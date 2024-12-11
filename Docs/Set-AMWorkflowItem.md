@@ -15,7 +15,7 @@ Sets an item in a Automate workflow
 ```
 Set-AMWorkflowItem -InputObject <Object> [[-ID] <String>] [-Construct <Object>] [-Agent <Object>] [-Enabled]
  [-UseLabel] [-Label <String>] [-Height <Int32>] [-Width <Int32>] [-X <Int32>] [-Y <Int32>]
- [-Expression <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Expression <String>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -234,6 +234,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

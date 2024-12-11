@@ -14,12 +14,12 @@ Disconnect from an Automate management server
 
 ### All (Default)
 ```
-Disconnect-AMServer [<CommonParameters>]
+Disconnect-AMServer [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByConnection
 ```
-Disconnect-AMServer [[-Connection] <Object>] [<CommonParameters>]
+Disconnect-AMServer [[-Connection] <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -47,6 +47,21 @@ Required: False
 Position: 1
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

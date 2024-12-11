@@ -15,15 +15,15 @@ Sets properties of an Automate keyboard condition.
 ### Hotkey
 ```
 Set-AMKeyboardCondition -InputObject <Object> [-Hotkey <String>] [-HotkeyPassthrough] [-Process <String>]
- [-ProcessFocused] [-Notes <String>] [-CompletionState <AMCompletionState>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-ProcessFocused] [-Notes <String>] [-CompletionState <AMCompletionState>]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Text
 ```
 Set-AMKeyboardCondition -InputObject <Object> [-Text <String>] [-EraseText] [-Process <String>]
- [-ProcessFocused] [-Notes <String>] [-CompletionState <AMCompletionState>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-ProcessFocused] [-Notes <String>] [-CompletionState <AMCompletionState>]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -199,6 +199,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

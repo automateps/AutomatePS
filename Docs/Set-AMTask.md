@@ -15,12 +15,12 @@ Sets properties of an Automate task.
 ### ByInputObject
 ```
 Set-AMTask -InputObject <Object> [-Notes <String>] [-AML <String>] [-CompletionState <AMCompletionState>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByInstance
 ```
-Set-AMTask -Instance <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-AMTask -Instance <Object> [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -142,6 +142,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

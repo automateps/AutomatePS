@@ -14,17 +14,19 @@ Gets Automate system agent types.
 
 ### All (Default)
 ```
-Get-AMSystemAgent [-Connection <Object>] [<CommonParameters>]
+Get-AMSystemAgent [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByID
 ```
-Get-AMSystemAgent [-ID <String>] [-Connection <Object>] [<CommonParameters>]
+Get-AMSystemAgent [-ID <String>] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ### ByType
 ```
-Get-AMSystemAgent [-Type <String>] [-Connection <Object>] [<CommonParameters>]
+Get-AMSystemAgent [-Type <String>] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -83,6 +85,21 @@ The Automate management server.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

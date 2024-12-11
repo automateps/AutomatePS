@@ -13,7 +13,8 @@ Gets Automate permissions.
 ## SYNTAX
 
 ```
-Get-AMPermission [[-InputObject] <Object>] [-ID <Object>] [<CommonParameters>]
+Get-AMPermission [[-InputObject] <Object>] [-ID <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -51,6 +52,21 @@ The ID of the permission to retrieve.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

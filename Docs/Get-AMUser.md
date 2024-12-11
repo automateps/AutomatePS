@@ -15,19 +15,21 @@ Gets Automate users.
 ### All (Default)
 ```
 Get-AMUser [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-SortProperty <String[]>]
- [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
 Get-AMUser [-InputObject <Object>] [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ### ByID
 ```
 Get-AMUser [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -176,6 +178,21 @@ The Automate management server.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

@@ -13,7 +13,8 @@ Adds users to an Automate user group.
 ## SYNTAX
 
 ```
-Add-AMUserGroupMember -InputObject <Object> [-User] <Object> [<CommonParameters>]
+Add-AMUserGroupMember -InputObject <Object> [-User] <Object> [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -60,6 +61,21 @@ Aliases:
 
 Required: True
 Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

@@ -16,21 +16,21 @@ Gets Automate folders.
 ```
 Get-AMFolder [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-Path <String>]
  [-Recurse] [-RecurseCache <Hashtable>] [-Type <String>] [-SortProperty <String[]>] [-SortDescending]
- [-Connection <Object>] [<CommonParameters>]
+ [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
 Get-AMFolder [-InputObject <Object>] [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
  [-Path <String>] [-Parent] [-Recurse] [-RecurseCache <Hashtable>] [-Type <String>] [-SortProperty <String[]>]
- [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByID
 ```
 Get-AMFolder [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
  [-Path <String>] [-Recurse] [-RecurseCache <Hashtable>] [-Type <String>] [-SortProperty <String[]>]
- [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -274,6 +274,21 @@ The Automate management server.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named
