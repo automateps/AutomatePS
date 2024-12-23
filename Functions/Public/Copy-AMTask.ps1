@@ -71,7 +71,7 @@ function Copy-AMTask {
                     # Copy from one Automate server to another
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
                         if ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major -ne $Connection.Version.Major) {
-                            throw "Source server and destination server are different versions! This module does not support changing task versions."
+                            Write-Warning "Source server and destination server are different versions! This module does not support changing task versions."
                         }
                         if ($PSBoundParameters.ContainsKey("Folder")) {
                             if ($Folder.ConnectionAlias -ne $Connection.Alias) {
