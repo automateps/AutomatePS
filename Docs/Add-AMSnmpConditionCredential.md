@@ -14,7 +14,7 @@ Adds a credential to an Automate SNMP condition.
 
 ```
 Add-AMSnmpConditionCredential [-InputObject] <Object> [[-User] <Object>]
- [[-EncryptionAlgorithm] <AMEncryptionAlgorithm>] [<CommonParameters>]
+ [[-EncryptionAlgorithm] <AMEncryptionAlgorithm>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -71,6 +71,21 @@ Accepted values: NoEncryption, DES, AES, TripleDES
 Required: False
 Position: 3
 Default value: NoEncryption
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

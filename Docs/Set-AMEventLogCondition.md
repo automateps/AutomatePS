@@ -16,7 +16,8 @@ Sets properties of an Automate event log condition.
 Set-AMEventLogCondition [-InputObject] <Object> [[-LogType] <String>] [[-EventSource] <String>]
  [[-EventType] <AMEventLogTriggerEventType>] [[-EventCategory] <String>] [[-EventDescription] <String>] [-Wait]
  [[-Timeout] <Int32>] [[-TimeoutUnit] <AMTimeMeasure>] [[-TriggerAfter] <Int32>] [[-Notes] <String>]
- [[-CompletionState] <AMCompletionState>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-CompletionState] <AMCompletionState>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -240,6 +241,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

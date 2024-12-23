@@ -14,12 +14,12 @@ Gets current Automate connections.
 
 ### AllConnections (Default)
 ```
-Get-AMConnection [<CommonParameters>]
+Get-AMConnection [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByConnection
 ```
-Get-AMConnection [-Connection <Object>] [<CommonParameters>]
+Get-AMConnection [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -48,6 +48,21 @@ The connection name(s) or object(s).
 Type: Object
 Parameter Sets: ByConnection
 Aliases: ConnectionAlias
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

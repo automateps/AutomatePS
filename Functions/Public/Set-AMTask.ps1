@@ -90,7 +90,7 @@ function Set-AMTask {
                                     $serverVersion = (Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version
                                     $amlVersion = [version]$xml.SelectSingleNode("//*[@TaskVersion|@TASKVERSION]").TaskVersion
                                     if ($amlVersion.Major -ne $serverVersion.Major) {
-                                        throw "AML version ($($amlVersion.Major)) does not match server version ($($serverVersion.Major))!"
+                                        Write-Warning "AML version ($($amlVersion.Major)) does not match server version ($($serverVersion.Major))!"
                                     }
                                 }
                             } else {

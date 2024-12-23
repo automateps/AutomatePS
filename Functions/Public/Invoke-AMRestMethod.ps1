@@ -29,7 +29,7 @@ function Invoke-AMRestMethod {
             https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Invoke-AMRestMethod.md
 
         .LINK
-            http://cloud.networkautomation.com/installs/Automate/v10/10.5.0.56/BPA_RESTful_API.html
+            https://hstechdocs.helpsystems.com/manuals/automate/automate/api/index.html
     #>
     [CmdletBinding(DefaultParameterSetName="AllConnections")]
     param (
@@ -74,11 +74,20 @@ function Invoke-AMRestMethod {
         if ((Get-AMConnection).Name -notcontains $c.Name) {
             throw "No longer connected to $($c.Name)!  Please reconnect first."
         }
-        $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $c.Credential.UserName,$c.Credential.GetNetworkCredential().Password)))
+        $headers = @{}
+        switch ($c.AuthenticationMethod) {
+            "Basic" {
+                $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $c.Credential.UserName,$c.Credential.GetNetworkCredential().Password)))
+                $headers.Add("Authorization", "Basic $base64AuthInfo")
+            }
+            "Bearer" {
+                $headers.Add("Authorization", "Bearer $($c.GetApiToken())")
+            }
+        }
         $splat = @{
             Method = $RestMethod
             Uri = "http://$($c.Server):$($c.Port)/BPAManagement/$Resource"
-            Headers = @{Authorization=("Basic {0}" -f $base64AuthInfo)}
+            Headers = $headers
 			UseBasicParsing = $true
         }
         if ($Body) {
@@ -157,7 +166,7 @@ function Invoke-AMRestMethod {
                             default            { $processUnrecognizedObject = $true}
                         }
                     }
-                    {$_ -in 11,22,23} {
+                    {$_ -in 11,22,23,24} {
                         switch ($object.Type -as [AMConstructType]) {
                             "Agent"         { [AMAgentv11]::new($object,$lookupTable,$c.Alias)  }
                             "AgentGroup"    { [AMAgentGroupv11]::new($object,$lookupTable,$c.Alias) }
@@ -191,7 +200,13 @@ function Invoke-AMRestMethod {
                             "SystemPermission" { [AMSystemPermissionv11]::new($object,$lookupTable,$c.Alias) }
                             "Task"             { [AMTaskv11]::new($object,$lookupTable,$c.Alias) }
                             "TaskProperty"     { [AMTaskPropertyv11]::new($object,$lookupTable,$c.Alias) }
-                            "User"             { [AMUserv11]::new($object,$lookupTable,$c.Alias) }
+                            "User"             {
+                                if ($c.Version.Major -ge 23) {
+                                    [AMUserv1123]::new($object,$lookupTable,$c.Alias)
+                                } else {
+                                    [AMUserv11]::new($object,$lookupTable,$c.Alias)
+                                }
+                            }
                             "UserGroup"        { [AMUserGroupv11]::new($object,$lookupTable,$c.Alias) }
                             "Workflow"         { [AMWorkflowv11]::new($object,$lookupTable,$c.Alias) }
                             "WorkflowProperty" { [AMWorkflowPropertyv11]::new($object,$lookupTable,$c.Alias) }

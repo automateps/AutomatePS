@@ -132,15 +132,13 @@ function New-AMDatabaseCondition {
     }
     switch (($Connection | Measure-Object).Count) {
         1 {
-            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-            if (-not $Folder) { $Folder = $user | Get-AMFolder -Type CONDITIONS } # Place the condition in the users condition folder
+            if (-not $Folder) { $Folder = Get-AMDefaultFolder -Connection $Connection -Type CONDITIONS }
             if ($DatabaseType -ne [AMDatabaseTriggerType]::Oracle) { $NotificationPort = -1 } # Notification port is an Oracle only setting
             switch ($Connection.Version.Major) {
-                10                { $newObject = [AMDatabaseTriggerv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22,23} { $newObject = [AMDatabaseTriggerv11]::new($Name, $Folder, $Connection.Alias) }
-                default           { throw "Unsupported server major version: $_!" }
+                10                   { $newObject = [AMDatabaseTriggerv10]::new($Name, $Folder, $Connection.Alias) }
+                {$_ -in 11,22,23,24} { $newObject = [AMDatabaseTriggerv11]::new($Name, $Folder, $Connection.Alias) }
+                default              { throw "Unsupported server major version: $_!" }
             }
-            $newObject.CreatedBy        = $user.ID
             $newObject.Notes            = $Notes
             $newObject.Wait             = $Wait.ToBool()
             if ($newObject.Wait) {

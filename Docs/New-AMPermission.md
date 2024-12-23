@@ -16,8 +16,8 @@ Assigns security to an Automate object.
 New-AMPermission [-InputObject] <Object> [[-Principal] <Object>] [-FullControl] [-Create] [-Read] [-Edit]
  [-Delete] [-DeleteRevisionFromRecycleBin] [-DeleteRevision] [-RestoreRevisionFromRecycleBin]
  [-RestoreRevision] [-Move] [-ToggleEnable] [-ManualRun] [-Stop] [-Import] [-Export] [-Staging] [-Assign]
- [-ChangeSecurity] [-ManualResume] [-ManualRunFromHere] [-ToggleLock] [-UpdateRevision] [-Upgrade] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [-ChangeSecurity] [-ManualResume] [-ManualRunFromHere] [-ToggleLock] [-UpdateRevision] [-Upgrade]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -431,6 +431,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

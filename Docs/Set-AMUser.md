@@ -12,16 +12,16 @@ Sets properties of an Automate user.
 
 ## SYNTAX
 
-### AutomatePassword
+### AutomateAuth (Default)
 ```
-Set-AMUser -InputObject <Object> -Password <SecureString> [-Notes <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Set-AMUser -InputObject <Object> [-Password <SecureString>] [-ForceReset] [-Notes <String>]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### ActiveDirectoryPassword
+### ADAuth
 ```
-Set-AMUser -InputObject <Object> [-UseActiveDirectory] [-Notes <String>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Set-AMUser -InputObject <Object> [-Domain <String>] [-UseSecureConnection] [-Notes <String>]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -57,26 +57,56 @@ The password for the user.
 
 ```yaml
 Type: SecureString
-Parameter Sets: AutomatePassword
+Parameter Sets: AutomateAuth
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UseActiveDirectory
-Authenticate against Active Directory. 
-If not specified, Automate authentication is used.
+### -Domain
+The domain the user will authenticate against if running Automate version 23.1 or later. 
+On earlier versions specifying this parameter will enable AD authentication, but the domain passed in is ignored and the machine domain is used instead.
+
+```yaml
+Type: String
+Parameter Sets: ADAuth
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ForceReset
+Force the user to reset their password on login.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: ActiveDirectoryPassword
+Parameter Sets: AutomateAuth
 Aliases:
 
-Required: True
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UseSecureConnection
+Use encryption when authenticating against Active Directory.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: ADAuth
+Aliases:
+
+Required: False
 Position: Named
 Default value: False
 Accept pipeline input: False
@@ -121,6 +151,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

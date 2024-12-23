@@ -1505,7 +1505,7 @@ class AMUserv11 : AMAutomationConstructv11 {
     [string]$WorkflowFolderID  = [string]::Empty
 
     AMUserv11([string]$Name, [AMFolderv11]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
-        $this.Type    = [AMConstructType]::User
+        $this.Type              = [AMConstructType]::User
     }
     AMUserv11([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
         $this.CipherPassword    = $PSCustomObject.CipherPassword
@@ -1534,6 +1534,48 @@ class AMUserv11 : AMAutomationConstructv11 {
     [AMFolderv11]GetWorkflowFolder() {
         $return = Get-AMFolder -ID $this.WorkflowFolderID -Connection $this.ConnectionAlias
         return $return
+    }
+}
+
+# New capabilities were added to user objects starting in v23, but the construct version was not changed.  This class supports those changes.
+class AMUserv1123 : AMAutomationConstructv11 {
+    hidden [string]$__type        = "UserConstruct:#AutoMate.Constructs.v11"
+    [AMAuthProvider]$AuthProvider = [AMAuthProvider]::Automate
+    [string]$ConditionFolderID    = [string]::Empty
+    [string]$Domain               = [string]::Empty
+    [bool]$ForceReset             = $false
+    [DateTime]$LockedOutOn        = (New-Object DateTime 1900, 1, 1, 0, 0, 0, ([DateTimeKind]::Utc))
+    [DateTime]$PasswordResetDate  = (New-Object DateTime 1900, 1, 1, 0, 0, 0, ([DateTimeKind]::Utc))
+    [string]$ProcessFolderID      = [string]::Empty
+    [string]$TaskFolderID         = [string]::Empty
+    [bool]$UseSecureConnection    = $false
+    [string]$WorkflowFolderID     = [string]::Empty
+    [string]$CipherSalt           = [string]::Empty
+    [string]$Username             = [string]::Empty
+    [AMUserRole]$Role             = [AMUserRole]::Developer
+    [string]$Password             = [string]::Empty
+    [string]$CipherPassword       = [string]::Empty
+
+    AMUserv1123([string]$Name, [AMFolderv11]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
+        $this.Type                = [AMConstructType]::User
+    }
+    AMUserv1123([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
+        
+        $this.AuthProvider        = $PSCustomObject.AuthProvider
+        $this.ConditionFolderID   = $PSCustomObject.ConditionFolderID
+        $this.Domain              = $PSCustomObject.Domain
+        $this.ForceReset          = $PSCustomObject.ForceReset
+        $this.LockedOutOn         = $PSCustomObject.LockedOutOn.ToLocalTime()
+        $this.PasswordResetDate   = $PSCustomObject.PasswordResetDate.ToLocalTime()
+        $this.ProcessFolderID     = $PSCustomObject.ProcessFolderID
+        $this.TaskFolderID        = $PSCustomObject.TaskFolderID
+        $this.UseSecureConnection = $PSCustomObject.UseSecureConnection
+        $this.WorkflowFolderID    = $PSCustomObject.WorkflowFolderID
+        $this.CipherSalt          = $PSCustomObject.CipherSalt
+        $this.Username            = $PSCustomObject.Username
+        $this.Role                = $PSCustomObject.Role
+        $this.Password            = $PSCustomObject.Password
+        $this.CipherPassword      = $PSCustomObject.CipherPassword
     }
 }
 

@@ -16,28 +16,30 @@ Gets Automate workflow and task instances.
 ```
 Get-AMInstance [-StartDate <DateTime>] [-EndDate <DateTime>] [-Status <AMInstanceStatus>]
  [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-IncludeRelative] [-SortProperty <String[]>]
- [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
 Get-AMInstance [-InputObject <Object>] [-StartDate <DateTime>] [-EndDate <DateTime>]
  [-Status <AMInstanceStatus>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-IncludeRelative]
- [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ### ByID
 ```
 Get-AMInstance [[-ID] <String>] [-StartDate <DateTime>] [-EndDate <DateTime>] [-Status <AMInstanceStatus>]
  [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-IncludeRelative] [-SortProperty <String[]>]
- [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByTransactionID
 ```
 Get-AMInstance [-TransactionID <String>] [-StartDate <DateTime>] [-EndDate <DateTime>]
  [-Status <AMInstanceStatus>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>] [-IncludeRelative]
- [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -158,7 +160,7 @@ The status of the instance:
 Type: AMInstanceStatus
 Parameter Sets: (All)
 Aliases:
-Accepted values: Success, Failed, Aborted, Stopped, TimedOut, Paused, Queued, Running, ResumedFromFailure, Completed, All
+Accepted values: Unknown, Success, Failed, Aborted, Stopped, TimedOut, Paused, Queued, Running, ResumedFromFailure, Completed, All
 
 Required: False
 Position: Named
@@ -253,6 +255,21 @@ The Automate management server.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

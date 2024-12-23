@@ -13,7 +13,8 @@ Gets a list of links within a workflow.
 ## SYNTAX
 
 ```
-Get-AMWorkflowLink [-InputObject] <Object> [[-LinkType] <AMLinkType>] [<CommonParameters>]
+Get-AMWorkflowLink [-InputObject] <Object> [[-LinkType] <AMLinkType>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -55,6 +56,21 @@ Accepted values: Blank, Success, Failure, Result
 
 Required: False
 Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

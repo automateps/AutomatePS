@@ -14,12 +14,12 @@ Pauses Automate workflow and task instances.
 
 ### All (Default)
 ```
-Suspend-AMInstance [<CommonParameters>]
+Suspend-AMInstance [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
-Suspend-AMInstance [-InputObject <Object>] [<CommonParameters>]
+Suspend-AMInstance [-InputObject <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -47,6 +47,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

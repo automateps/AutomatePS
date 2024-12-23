@@ -14,12 +14,13 @@ Retrieves connections for the specified Automate server
 
 ### Default (Default)
 ```
-Get-AMConnectionStoreItem [-FilePath <String>] [<CommonParameters>]
+Get-AMConnectionStoreItem [-FilePath <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByServerOrPort
 ```
-Get-AMConnectionStoreItem [[-Server] <String>] [-Port <Int32>] [-FilePath <String>] [<CommonParameters>]
+Get-AMConnectionStoreItem [[-Server] <String>] [-Port <Int32>] [-FilePath <String>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -76,6 +77,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: "$($env:APPDATA)\AutomatePS\connstore.xml"
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

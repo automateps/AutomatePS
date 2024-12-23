@@ -14,7 +14,7 @@ Retrieves server to server repository mappings
 
 ```
 Get-AMRepositoryMap [-SourceConnection] <Object> [-DestinationConnection] <Object> [[-FilePath] <String>]
- [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -72,6 +72,21 @@ Aliases:
 Required: False
 Position: 3
 Default value: "$($env:APPDATA)\AutomatePS\repositorymap.csv"
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

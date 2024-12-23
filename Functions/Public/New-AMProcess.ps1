@@ -69,14 +69,12 @@ function New-AMProcess {
     }
     switch (($Connection | Measure-Object).Count) {
         1 {
-            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-            if (-not $Folder) { $Folder = $user | Get-AMFolder -Type PROCESSES -Connection $Connection } # Place the process in the users process folder
+            if (-not $Folder) { $Folder = Get-AMDefaultFolder -Connection $Connection -Type PROCESSES }
             switch ($Connection.Version.Major) {
-                10                { $newObject = [AMProcessv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22,23} { $newObject = [AMProcessv11]::new($Name, $Folder, $Connection.Alias) }
-                default           { throw "Unsupported server major version: $_!" }
+                10                   { $newObject = [AMProcessv10]::new($Name, $Folder, $Connection.Alias) }
+                {$_ -in 11,22,23,24} { $newObject = [AMProcessv11]::new($Name, $Folder, $Connection.Alias) }
+                default              { throw "Unsupported server major version: $_!" }
             }
-            $newObject.CreatedBy            = $user.ID
             $newObject.Notes                = $Notes
             $newObject.CommandLine          = $CommandLine
             $newObject.EnvironmentVariables = $EnvironmentVariables

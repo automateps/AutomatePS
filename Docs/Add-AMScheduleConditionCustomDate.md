@@ -14,7 +14,7 @@ Adds a custom date to an Automate schedule condition using the Custom interval.
 
 ```
 Add-AMScheduleConditionCustomDate -InputObject <Object> [-CustomLaunchDates] <DateTime[]>
- [-RemovePreviousDates] [<CommonParameters>]
+ [-RemovePreviousDates] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -71,6 +71,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

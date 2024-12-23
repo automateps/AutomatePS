@@ -12,8 +12,14 @@ function New-AMUser {
         .PARAMETER Password
             The password for the user.
 
-        .PARAMETER UseActiveDirectory
-            Authenticate against Active Directory.  If not specified, Automate authentication is used.
+        .PARAMETER Domain
+            The domain the user will authenticate against if running Automate version 23.1 or later.  On earlier versions specifying this parameter will enable AD authentication, but the domain passed in is ignored and the machine domain is used instead.
+
+        .PARAMETER ForceReset
+            Force the user to reset their password on login.
+
+        .PARAMETER UseSecureConnection
+            Use encryption when authenticating against Active Directory.
 
         .PARAMETER Notes
             The new notes to set on the object.
@@ -35,18 +41,25 @@ function New-AMUser {
         .LINK
             https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMUser.md
     #>
-    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low")]
+    [CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact="Low",DefaultParameterSetName="AutomateAuth")]
     param (
         [Parameter(Mandatory = $true, Position = 0)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "AutomatePassword")]
+        [Parameter(Mandatory = $true, ParameterSetName = "AutomateAuth")]
         [ValidateNotNullOrEmpty()]
         [Security.SecureString]$Password,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "ActiveDirectoryPassword")]
-        [switch]$UseActiveDirectory,
+        [Parameter(Mandatory = $true, ParameterSetName = "ADAuth")]
+        [ValidateNotNullOrEmpty()]
+        [string]$Domain,
+        
+        [Parameter(ParameterSetName = "AutomateAuth")]
+        [switch]$ForceReset,
+        
+        [Parameter(ParameterSetName = "ADAuth")]
+        [switch]$UseSecureConnection,
 
         [string]$Notes = "",
 
@@ -63,22 +76,35 @@ function New-AMUser {
     } else {
         $Connection = Get-AMConnection
     }
+    switch ($PSCmdlet.ParameterSetName) {
+        "AutomateAuth" { $AuthProvider = [AMAuthProvider]::Automate }
+        "ADAuth"       { $AuthProvider = [AMAuthProvider]::AD }
+    }
     switch (($Connection | Measure-Object).Count) {
         1 {
-            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
-            if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "USERS" -Connection $Connection } # Place the user in the root users folder
+            if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "USERS" -Connection $Connection }
             switch ($Connection.Version.Major) {
-                10                { $newObject = [AMUserv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22,23} { $newObject = [AMUserv11]::new($Name, $Folder, $Connection.Alias) }
-                default           { throw "Unsupported server major version: $_!" }
+                10             { $newObject = [AMUserv10]::new($Name, $Folder, $Connection.Alias) }
+                {$_ -in 11,22} { $newObject = [AMUserv11]::new($Name, $Folder, $Connection.Alias) }
+                {$_ -in 23,24} { $newObject = [AMUserv1123]::new($Name, $Folder, $Connection.Alias) }
+                default        { throw "Unsupported server major version: $_!" }
             }
-            $newObject.CreatedBy = $user.ID
             $newObject.Notes     = $Notes
             $newObject.Username  = $Name
-            if ($UseActiveDirectory.IsPresent) {
-                $newObject.Password = "<!*!>"
+            if ($AuthProvider -eq [AMAuthProvider]::AD) {
+                if (Test-AMFeatureSupport -Connection $Connection -Feature MultiDomainUser -Action Ignore) {
+                    $newObject.AuthProvider = $AuthProvider
+                    $newObject.Domain = $Domain
+                    $newObject.UseSecureConnection = $UseSecureConnection.IsPresent
+                } else {                    
+                    $newObject.Password = "<!*!>"
+                }
             } else {
                 $newObject.Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
+                if (Test-AMFeatureSupport -Connection $Connection -Feature MultiDomainUser -Action Ignore) {
+                    $newObject.AuthProvider = $AuthProvider
+                    $newObject.ForceReset = $ForceReset.IsPresent
+                }
             }
             $newObject | New-AMObject -Connection $Connection
         }

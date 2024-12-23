@@ -58,9 +58,9 @@ function Add-AMEmailConditionFilter {
                     }
                 }
                 switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
-                    10                { $emailFilter = [AMEmailFilterv10]::new() }
-                    {$_ -in 11,22,23} { $emailFilter = [AMEmailFilterv11]::new() }
-                    default           { throw "Unsupported server major version: $_!" }
+                    10                   { $emailFilter = [AMEmailFilterv10]::new() }
+                    {$_ -in 11,22,23,24} { $emailFilter = [AMEmailFilterv11]::new() }
+                    default              { throw "Unsupported server major version: $_!" }
                 }
                 $emailFilter.FieldName = $FieldName
                 $emailFilter.FieldValue = $FieldValue

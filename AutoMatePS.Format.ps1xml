@@ -185,9 +185,6 @@
                         <Label>Port</Label>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Label>UserName</Label>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
                         <Label>Version</Label>
                     </TableColumnHeader>
                 </TableHeaders>
@@ -202,11 +199,6 @@
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Port</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
-                                <ScriptBlock>
-                                    $_.Credential.UserName
-                                </ScriptBlock>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Version</PropertyName>
@@ -761,6 +753,7 @@
             <ViewSelectedBy>
                 <TypeName>AMUserv10</TypeName>
                 <TypeName>AMUserv11</TypeName>
+                <TypeName>AMUserv1123</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <AutoSize />

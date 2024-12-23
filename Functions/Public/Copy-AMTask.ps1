@@ -61,7 +61,6 @@ function Copy-AMTask {
             } elseif (($Connection | Measure-Object).Count -gt 1) {
                 throw "Multiple Automate servers specified, please specify one server to copy the task to!"
             }
-            $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
         }
     }
 
@@ -72,14 +71,14 @@ function Copy-AMTask {
                     # Copy from one Automate server to another
                     if ($obj.ConnectionAlias -ne $Connection.Alias) {
                         if ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major -ne $Connection.Version.Major) {
-                            throw "Source server and destination server are different versions! This module does not support changing task versions."
+                            Write-Warning "Source server and destination server are different versions! This module does not support changing task versions."
                         }
                         if ($PSBoundParameters.ContainsKey("Folder")) {
                             if ($Folder.ConnectionAlias -ne $Connection.Alias) {
                                 throw "Folder specified exists on $($Folder.ConnectionAlias), the folder must exist on $($Connection.Name)!"
                             }
                         } else {
-                            $Folder = Get-AMFolder -ID $user.TaskFolderID -Connection $Connection
+                            $Folder = Get-AMDefaultFolder -Connection $Connection -Type TASKS
                         }
                     }
                 } else {
@@ -87,14 +86,13 @@ function Copy-AMTask {
                     if (-not $PSBoundParameters.ContainsKey("Folder")) {
                         $Folder = Get-AMFolder -ID $obj.ParentID -Connection $obj.ConnectionAlias
                     }
-                    $user = Get-AMUser -Connection $Connection | Where-Object {$_.Name -ieq $Connection.Credential.UserName}
                 }
 
                 if (-not $PSBoundParameters.ContainsKey("Name")) { $Name = $obj.Name }
                 switch ($Connection.Version.Major) {
-                    10                { $copyObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
-                    {$_ -in 11,22,23} { $copyObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
-                    default           { throw "Unsupported server major version: $_!" }
+                    10                   { $copyObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
+                    {$_ -in 11,22,23,24} { $copyObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
+                    default              { throw "Unsupported server major version: $_!" }
                 }
 
                 if ($PSBoundParameters.ContainsKey("Connection") -and $obj.ConnectionAlias -ne $Connection.Alias) {
@@ -104,7 +102,6 @@ function Copy-AMTask {
                     }
                 }
 
-                $copyObject.CreatedBy = $user.ID
                 $currentObject = Get-AMTask -ID $obj.ID -Connection $obj.ConnectionAlias
                 $copyObject.AML             = $currentObject.AML
                 $copyObject.CompletionState = $currentObject.CompletionState

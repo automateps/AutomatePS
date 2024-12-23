@@ -16,6 +16,9 @@ function Connect-AMServer {
         .PARAMETER Credential
             The credentials use during authentication.
 
+        .PARAMETER ApiKey
+            The API key to use during authentication, supported in v23.1 and later.
+
         .PARAMETER UserName
             The username to use during authentication.
 
@@ -53,6 +56,10 @@ function Connect-AMServer {
         [Parameter(ParameterSetName = "ByCredential")]
         [ValidateNotNullOrEmpty()]
         [System.Management.Automation.PSCredential]$Credential,
+
+        [Parameter(ParameterSetName = "ByApiKey")]
+        [ValidateNotNullOrEmpty()]
+        [string]$ApiKey,
 
         [Parameter(ParameterSetName = "ByUserPass")]
         [ValidateNotNullOrEmpty()]
@@ -110,10 +117,19 @@ function Connect-AMServer {
         }
 
         if (-not $fromStoredConnection) {
-            if ($PSBoundParameters.ContainsKey("ConnectionAlias")) {
-                $thisConnection = [AMConnection]::new($ConnectionAlias, $s, $Port, $Credential)
+            if ($PSCmdlet.ParameterSetName -eq "ByApiKey") {
+                if ($PSBoundParameters.ContainsKey("ConnectionAlias")) {
+                    $thisConnection = [AMConnection]::new($ConnectionAlias, $s, $Port, $ApiKey)
+                } else {
+                    $thisConnection = [AMConnection]::new($s, $Port, $ApiKey)
+                }
+                Test-AMFeatureSupport -Connection $thisConnection -Feature ApiKeyAuthentication -Action Throw | Out-Null
             } else {
-                $thisConnection = [AMConnection]::new($s, $Port, $Credential)
+                if ($PSBoundParameters.ContainsKey("ConnectionAlias")) {
+                    $thisConnection = [AMConnection]::new($ConnectionAlias, $s, $Port, $Credential)
+                } else {
+                    $thisConnection = [AMConnection]::new($s, $Port, $Credential)
+                }
             }
             if ($global:AMConnections.Name -notcontains $thisConnection.Name) {
                 if ($global:AMConnections.Alias -notcontains $thisConnection.Alias) {
@@ -132,7 +148,7 @@ function Connect-AMServer {
                         } else {
                             $global:AMConnections = @($global:AMConnections, $thisConnection)
                         }
-                        return $thisConnection
+                        $thisConnection
                     }
                 } else {
                     throw "Already connected to another server with alias '$($thisConnection.Alias)'!"

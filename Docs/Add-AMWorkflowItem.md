@@ -15,19 +15,19 @@ Adds an item to an Automate workflow
 ### ByConstruct
 ```
 Add-AMWorkflowItem -InputObject <Object> -Item <Object> [-Agent <Object>] [-UseLabel] [-Label <String>]
- [-X <Int32>] [-Y <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-X <Int32>] [-Y <Int32>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByEvaluation
 ```
 Add-AMWorkflowItem -InputObject <Object> -Expression <String> [-UseLabel] [-Label <String>] [-X <Int32>]
- [-Y <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Y <Int32>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByWait
 ```
 Add-AMWorkflowItem -InputObject <Object> [-Wait] [-UseLabel] [-Label <String>] [-X <Int32>] [-Y <Int32>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -201,6 +201,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

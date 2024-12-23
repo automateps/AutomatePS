@@ -14,12 +14,13 @@ Waits for Automate agent to go online or offline.
 
 ### All (Default)
 ```
-Wait-AMAgent [-Online] [-Timeout <Object>] [<CommonParameters>]
+Wait-AMAgent [-Online] [-Timeout <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
-Wait-AMAgent [-InputObject <Object>] [-Online] [-Timeout <Object>] [<CommonParameters>]
+Wait-AMAgent [-InputObject <Object>] [-Online] [-Timeout <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -75,6 +76,21 @@ Seconds to wait for the agent status to change before timing out.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

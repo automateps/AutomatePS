@@ -15,13 +15,13 @@ Invokes a command against the Automate management API.
 ### AllConnections (Default)
 ```
 Invoke-AMRestMethod -Resource <String> [-RestMethod <String>] [-Body <String>] [-FilterScript <ScriptBlock>]
- [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### SpecificConnection
 ```
 Invoke-AMRestMethod -Resource <String> [-RestMethod <String>] [-Body <String>] [-FilterScript <ScriptBlock>]
- [-Connection <Object>] [<CommonParameters>]
+ [-Connection <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -113,6 +113,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
@@ -126,5 +141,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 [https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Invoke-AMRestMethod.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Invoke-AMRestMethod.md)
 
-[http://cloud.networkautomation.com/installs/Automate/v10/10.5.0.56/BPA_RESTful_API.html](http://cloud.networkautomation.com/installs/Automate/v10/10.5.0.56/BPA_RESTful_API.html)
+[https://hstechdocs.helpsystems.com/manuals/automate/automate/api/index.html](https://hstechdocs.helpsystems.com/manuals/automate/automate/api/index.html)
 

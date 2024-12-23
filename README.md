@@ -16,11 +16,17 @@ Install-Module AutomatePS
 Using the Module
 -------------
 ### Connecting to a Automate Enterprise/Plus/Ultimate server
-To connect to an Automate Server:
+To connect to an Automate Server using credentials:
 ```PowerShell
 $myCredential = Get-Credential
 Connect-AMServer "AMserver01" -Credential $myCredential
 ```
+
+To connect to an Automate Server (v23.1 and later) using an API key:
+```PowerShell
+Connect-AMServer "AMserver01" -ApiKey 42xGBhxxWoWL/SXIUxxxB+UWO7tBxx81
+```
+NOTE: When using an API key to authenticate, AutomatePS cannot currently determine the user associated with the key. Therefore,  functions that, by default, place new objects in your user folder will instead place new objects in the root folder.
 
 To disconnect:
 ```PowerShell

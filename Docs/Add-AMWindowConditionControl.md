@@ -14,7 +14,8 @@ Adds a control to an Automate window condition.
 
 ```
 Add-AMWindowConditionControl [-InputObject] <Object> [[-Class] <Object>] [[-Name] <Object>] [[-Type] <Object>]
- [[-Value] <Object>] [[-XPosition] <Object>] [[-YPosition] <Object>] [<CommonParameters>]
+ [[-Value] <Object>] [[-XPosition] <Object>] [[-YPosition] <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -129,6 +130,21 @@ Aliases:
 
 Required: False
 Position: 7
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

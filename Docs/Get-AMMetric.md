@@ -15,7 +15,7 @@ Gets metrics from Automate.
 ```
 Get-AMMetric [[-Type] <Object>] [[-Folder] <Object>] [[-StartDate] <DateTime>] [[-EndDate] <DateTime>]
  [[-IntervalSeconds] <Int32>] [[-DeviationPercentage] <Int32>] [[-DeviationDirection] <String>]
- [[-Connection] <Object>] [<CommonParameters>]
+ [[-Connection] <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -146,6 +146,21 @@ Aliases:
 
 Required: False
 Position: 8
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

@@ -15,13 +15,15 @@ Save the connection for the specified Automate server
 ### ByCredential
 ```
 New-AMConnectionStoreItem [-Server] <String> -Port <Int32> [-ConnectionAlias <String>]
- [-Credential <PSCredential>] [-FilePath <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Credential <PSCredential>] [-FilePath <String>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### ByUserPass
 ```
 New-AMConnectionStoreItem [-Server] <String> -Port <Int32> [-ConnectionAlias <String>] [-UserName <String>]
- [-Password <SecureString>] [-FilePath <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Password <SecureString>] [-FilePath <String>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -165,6 +167,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

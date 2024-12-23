@@ -14,12 +14,14 @@ Starts Automate processes.
 
 ### Agent
 ```
-Start-AMProcess -InputObject <Object> [-Agent <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Start-AMProcess -InputObject <Object> [-Agent <Object>] [-ProgressAction <ActionPreference>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### AgentGroup
 ```
-Start-AMProcess -InputObject <Object> [-AgentGroup <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Start-AMProcess -InputObject <Object> [-AgentGroup <Object>] [-ProgressAction <ActionPreference>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -103,6 +105,21 @@ Prompts you for confirmation before running the cmdlet.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

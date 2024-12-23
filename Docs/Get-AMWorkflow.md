@@ -15,19 +15,22 @@ Gets Automate workflows.
 ### All (Default)
 ```
 Get-AMWorkflow [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
 Get-AMWorkflow [-InputObject <Object>] [[-Name] <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-Parent] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-Parent] [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByID
 ```
 Get-AMWorkflow [[-Name] <String>] [-ID <String>] [-FilterSet <Hashtable[]>] [-FilterSetMode <String>]
- [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [<CommonParameters>]
+ [-SortProperty <String[]>] [-SortDescending] [-Connection <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -204,6 +207,21 @@ The Automate management server.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

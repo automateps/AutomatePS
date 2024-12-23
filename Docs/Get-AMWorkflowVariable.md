@@ -14,7 +14,8 @@ Gets a list of variables within a workflow.
 
 ```
 Get-AMWorkflowVariable [[-InputObject] <Object>] [[-Name] <String>] [[-InitialValue] <String>]
- [[-DataType] <AMWorkflowVarDataType>] [[-VariableType] <AMWorkflowVarType>] [<CommonParameters>]
+ [[-DataType] <AMWorkflowVarDataType>] [[-VariableType] <AMWorkflowVarType>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,6 +105,21 @@ Accepted values: Auto, Text, Number
 
 Required: False
 Position: 5
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

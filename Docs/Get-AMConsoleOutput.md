@@ -15,7 +15,8 @@ Gets Automate console output.
 ```
 Get-AMConsoleOutput [[-MaxItems] <Int32>] [[-PollIntervalSeconds] <Int32>] [[-SuccessTextColor] <ConsoleColor>]
  [[-FailureTextColor] <ConsoleColor>] [[-SuccessBackgroundColor] <ConsoleColor>]
- [[-FailureBackgroundColor] <ConsoleColor>] [[-Connection] <Object>] [<CommonParameters>]
+ [[-FailureBackgroundColor] <ConsoleColor>] [[-Connection] <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -136,6 +137,21 @@ Aliases:
 
 Required: False
 Position: 7
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

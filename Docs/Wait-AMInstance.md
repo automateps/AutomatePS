@@ -14,12 +14,13 @@ Waits for Automate workflow and task instances to complete.
 
 ### All (Default)
 ```
-Wait-AMInstance [-Timeout <Object>] [<CommonParameters>]
+Wait-AMInstance [-Timeout <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByPipeline
 ```
-Wait-AMInstance [-InputObject <Object>] [-Timeout <Object>] [<CommonParameters>]
+Wait-AMInstance [-InputObject <Object>] [-Timeout <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -57,6 +58,21 @@ Seconds to wait for the instance to complete before timing out.
 Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

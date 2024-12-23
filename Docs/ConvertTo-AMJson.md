@@ -13,7 +13,8 @@ Converts Automate objects to JSON.
 ## SYNTAX
 
 ```
-ConvertTo-AMJson [[-InputObject] <Object>] [[-Depth] <Int32>] [-Compress] [<CommonParameters>]
+ConvertTo-AMJson [[-InputObject] <Object>] [[-Depth] <Int32>] [-Compress] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -72,6 +73,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
