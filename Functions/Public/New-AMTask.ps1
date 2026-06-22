@@ -74,10 +74,9 @@ function New-AMTask {
                     throw "AML is not a string!"
                 }
             }
-            switch ($Connection.Version.Major) {
-                10                   { $newObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22,23,24} { $newObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
-                default              { throw "Unsupported server major version: $_!" }
+            switch ($Connection.GetCompatibility()) {
+                10 { $newObject = [AMTaskv10]::new($Name, $Folder, $Connection.Alias) }
+                11 { $newObject = [AMTaskv11]::new($Name, $Folder, $Connection.Alias) }
             }
             $newObject.Notes           = $Notes
             $newObject.AML             = $AML

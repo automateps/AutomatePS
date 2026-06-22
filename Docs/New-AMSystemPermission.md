@@ -13,10 +13,11 @@ Assigns security to an Automate system.
 ## SYNTAX
 
 ```
-New-AMSystemPermission [-InputObject] <Object> [-FullControl] [-Deploy] [-EditDashboard]
- [-EditDefaultProperties] [-EditLicensing] [-EditPreferences] [-EditRevisionManagement] [-EditServerSettings]
- [-ToggleTriggering] [-ViewCalendar] [-ViewDashboard] [-ViewDefaultProperties] [-ViewLicensing]
- [-ViewPreferences] [-ViewReports] [-ViewRevisionManagement] [-ViewServerSettings]
+New-AMSystemPermission [-InputObject] <Object> [-FullControl] [-Deploy] [-EditCredentials]
+ [-EditCredentialsConnections] [-EditDashboard] [-EditDefaultProperties] [-EditLicensing] [-EditPreferences]
+ [-EditRevisionManagement] [-EditServerSettings] [-ToggleTriggering] [-ViewCalendar] [-ViewCredentials]
+ [-ViewCredentialsConnections] [-ViewDashboard] [-ViewDefaultProperties] [-ViewLicensing] [-ViewPreferences]
+ [-ViewRecycleBin] [-ViewReports] [-ViewRevisionManagement] [-ViewServerSettings]
  [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -65,6 +66,36 @@ Accept wildcard characters: False
 
 ### -Deploy
 Allow or deny permission to deploy agents onto remote computers.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditCredentials
+Allow or deny permission to edit credentials.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditCredentialsConnections
+Allow or deny permission to edit credentials connections.
 
 ```yaml
 Type: SwitchParameter
@@ -198,6 +229,36 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ViewCredentials
+Allow or deny permission to view credentials.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewCredentialsConnections
+Allow or deny permission to view credentials connections.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -ViewDashboard
 Allow or deny permission to view the dashboard panel of SMC.
 
@@ -245,6 +306,21 @@ Accept wildcard characters: False
 
 ### -ViewPreferences
 Allow or deny permission to view preferences which affect an assortment of visual and operational characteristics in SMC.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewRecycleBin
+Allow or deny permission to view the recycle bin.
 
 ```yaml
 Type: SwitchParameter

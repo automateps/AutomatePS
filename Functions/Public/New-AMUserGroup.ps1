@@ -49,10 +49,9 @@ function New-AMUserGroup {
     switch (($Connection | Measure-Object).Count) {
         1 {
             if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "USERGROUPS" -Connection $Connection }
-            switch ($Connection.Version.Major) {
-                10                   { $newObject = [AMUserGroupv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22,23,24} { $newObject = [AMUserGroupv11]::new($Name, $Folder, $Connection.Alias) }
-                default              { throw "Unsupported server major version: $_!" }
+            switch ($Connection.GetCompatibility()) {
+                10 { $newObject = [AMUserGroupv10]::new($Name, $Folder, $Connection.Alias) }
+                11 { $newObject = [AMUserGroupv11]::new($Name, $Folder, $Connection.Alias) }
             }
             $newObject.Notes     = $Notes
             $newObject | New-AMObject -Connection $Connection

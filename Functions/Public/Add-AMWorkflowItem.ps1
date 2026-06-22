@@ -121,18 +121,16 @@ function Add-AMWorkflowItem {
                 switch ($PSCmdlet.ParameterSetName) {
                     "ByConstruct" {
                         if ($Item.Type -eq "Condition")  {
-                            switch ($connection.Version.Major) {
-                                10                   { $newItem = [AMWorkflowTriggerv10]::new($obj.ConnectionAlias) }
-                                {$_ -in 11,22,23,24} { $newItem = [AMWorkflowTriggerv11]::new($obj.ConnectionAlias) }
-                                default              { throw "Unsupported server major version: $_!" }
+                            switch ($connection.GetCompatibility()) {
+                                10 { $newItem = [AMWorkflowTriggerv10]::new($obj.ConnectionAlias) }
+                                11 { $newItem = [AMWorkflowTriggerv11]::new($obj.ConnectionAlias) }
                             }
                             $newItem.TriggerType = $Item.TriggerType
                             $isTrigger = $true
                         } else {
-                            switch ($connection.Version.Major) {
-                                10                   { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
-                                {$_ -in 11,22,23,24} { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
-                                default              { throw "Unsupported server major version: $_!" }
+                            switch ($connection.GetCompatibility()) {
+                                10 { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
+                                11 { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
                             }
                         }
                         # Workflows don't use an agent, so there's no reason to set it
@@ -143,18 +141,16 @@ function Add-AMWorkflowItem {
                         $newItem.ConstructType = $Item.Type
                     }
                     "ByEvaluation" {
-                        switch ($connection.Version.Major) {
-                            10                   { $newItem = [AMWorkflowConditionv10]::new($obj.ConnectionAlias) }
-                            {$_ -in 11,22,23,24} { $newItem = [AMWorkflowConditionv11]::new($obj.ConnectionAlias) }
-                            default              { throw "Unsupported server major version: $_!" }
+                        switch ($connection.GetCompatibility()) {
+                            10 { $newItem = [AMWorkflowConditionv10]::new($obj.ConnectionAlias) }
+                            11 { $newItem = [AMWorkflowConditionv11]::new($obj.ConnectionAlias) }
                         }
                         $newItem.Expression = $Expression
                     }
                     "ByWait" {
-                        switch ($connection.Version.Major) {
-                            10                   { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
-                            {$_ -in 11,22,23,24} { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
-                            default              { throw "Unsupported server major version: $_!" }
+                        switch ($connection.GetCompatibility()) {
+                            10 { $newItem = [AMWorkflowItemv10]::new($obj.ConnectionAlias) }
+                            11 { $newItem = [AMWorkflowItemv11]::new($obj.ConnectionAlias) }
                         }
                         $newItem.ConstructType = [AMConstructType]::Wait
                     }

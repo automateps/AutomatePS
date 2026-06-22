@@ -91,10 +91,9 @@ function Add-AMWorkflowVariable {
                 $shouldUpdate = $false
 
                 if ($updateObject.Variables.Name -notcontains $Name) {
-                    switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
-                        10                   { $newVariable = [AMWorkflowVariablev10]::new($obj.ConnectionAlias) }
-                        {$_ -in 11,22,23,24} { $newVariable = [AMWorkflowVariablev11]::new($obj.ConnectionAlias) }
-                        default              { throw "Unsupported server major version: $_!" }
+                    switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).GetCompatibility()) {
+                        10 { $newVariable = [AMWorkflowVariablev10]::new($obj.ConnectionAlias) }
+                        11 { $newVariable = [AMWorkflowVariablev11]::new($obj.ConnectionAlias) }
                     }
                     $newVariable.Name         = $Name
                     $newVariable.ParentID     = $updateObject.ID

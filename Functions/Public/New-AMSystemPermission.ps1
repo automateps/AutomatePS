@@ -15,6 +15,12 @@ function New-AMSystemPermission {
 		.PARAMETER Deploy
 			Allow or deny permission to deploy agents onto remote computers.
 
+		.PARAMETER EditCredentials
+			Allow or deny permission to edit credentials.
+
+		.PARAMETER EditCredentialsConnections
+			Allow or deny permission to edit credentials connections.
+
 		.PARAMETER EditDashboard
 			Allow or deny permission to edit the dashboard panel.
 
@@ -39,6 +45,12 @@ function New-AMSystemPermission {
 		.PARAMETER ViewCalendar
 			Allow or deny permission to view the calendar of previous and future events.
 
+		.PARAMETER ViewCredentials
+			Allow or deny permission to view credentials.
+
+		.PARAMETER ViewCredentialsConnections
+			Allow or deny permission to view credentials connections.
+
 		.PARAMETER ViewDashboard
             Allow or deny permission to view the dashboard panel of SMC.
 
@@ -50,6 +62,9 @@ function New-AMSystemPermission {
 
 		.PARAMETER ViewPreferences
 			Allow or deny permission to view preferences which affect an assortment of visual and operational characteristics in SMC.
+
+		.PARAMETER ViewRecycleBin
+			Allow or deny permission to view the recycle bin.
 
 		.PARAMETER ViewReports
 			Allow or deny permission to view reports, including charts and tables.
@@ -74,6 +89,8 @@ function New-AMSystemPermission {
 
         [switch]$FullControl = $false,
         [switch]$Deploy = $false,
+        [switch]$EditCredentials = $false,
+        [switch]$EditCredentialsConnections = $false,
         [switch]$EditDashboard = $false,
         [switch]$EditDefaultProperties = $false,
         [switch]$EditLicensing = $false,
@@ -82,18 +99,23 @@ function New-AMSystemPermission {
         [switch]$EditServerSettings = $false,
         [switch]$ToggleTriggering = $false,
         [switch]$ViewCalendar = $false,
+        [switch]$ViewCredentials = $false,
+        [switch]$ViewCredentialsConnections = $false,
         [switch]$ViewDashboard = $false,
         [switch]$ViewDefaultProperties = $false,
         [switch]$ViewLicensing = $false,
         [switch]$ViewPreferences = $false,
+        [switch]$ViewRecycleBin = $false,
         [switch]$ViewReports = $false,
         [switch]$ViewRevisionManagement = $false,
         [switch]$ViewServerSettings = $false
     )
 
     BEGIN {
-        if ($FullControl.ToBool()) {
+        if ($FullControl.IsPresent) {
             $Deploy = $true
+            $EditCredentials = $true
+            $EditCredentialsConnections = $true
             $EditDashboard = $true
             $EditDefaultProperties = $true
             $EditLicensing = $true
@@ -102,10 +124,13 @@ function New-AMSystemPermission {
             $EditServerSettings = $true
             $ToggleTriggering = $true
             $ViewCalendar = $true
+            $ViewCredentials = $true
+            $ViewCredentialsConnections = $true
             $ViewDashboard = $true
             $ViewDefaultProperties = $true
             $ViewLicensing = $true
             $ViewPreferences = $true
+            $ViewRecycleBin = $true
             $ViewReports = $true
             $ViewRevisionManagement = $true
             $ViewServerSettings = $true
@@ -118,30 +143,42 @@ function New-AMSystemPermission {
             if ($obj.Type -in @("User","UserGroup")) {
                 $currentPermissions = $obj | Get-AMSystemPermission
                 if ($null -eq $currentPermissions) {
-                    switch ($connection.Version.Major) {
+                    switch ($connection.GetCompatibility()) {
                         10 { $newObject = [AMSystemPermissionv10]::new($connection.Alias) }
-                        {$_ -in 11,22,23,24} {
-                            $newObject = [AMSystemPermissionv11]::new($connection.Alias)
-                            $newObject.EditRevisionManagementPermission = $EditRevisionManagement.ToBool()
-                            $newObject.ViewRevisionManagementPermission = $ViewRevisionManagement.ToBool()
+                        11 {                            
+                            if (Test-AMFeatureSupport -Connection $connection -Feature Credentials -Action Ignore) {
+                                $newObject = [AMSystemPermissionv11dot4]::new($connection.Alias)
+                            } else {
+                                $newObject = [AMSystemPermissionv11]::new($connection.Alias)
+                            }
                         }
-                        default { throw "Unsupported server major version: $_!" }
                     }
-                    $newObject.GroupID                         = $obj.ID
-                    $newObject.DeployPermission                = $Deploy.ToBool()
-                    $newObject.EditDashboardPermission         = $EditDashboard.ToBool()
-                    $newObject.EditDefaultPropertiesPermission = $EditDefaultProperties.ToBool()
-                    $newObject.EditLicensingPermission         = $EditLicensing.ToBool()
-                    $newObject.EditPreferencesPermission       = $EditPreferences.ToBool()
-                    $newObject.EditServerSettingsPermission    = $EditServerSettings.ToBool()
-                    $newObject.ToggleTriggeringPermission      = $ToggleTriggering.ToBool()
-                    $newObject.ViewCalendarPermission          = $ViewCalendar.ToBool()
-                    $newObject.ViewDashboardPermission         = $ViewDashboard.ToBool()
-                    $newObject.ViewDefaultPropertiesPermission = $ViewDefaultProperties.ToBool()
-                    $newObject.ViewLicensingPermission         = $ViewLicensing.ToBool()
-                    $newObject.ViewPreferencesPermission       = $ViewPreferences.ToBool()
-                    $newObject.ViewReportsPermission           = $ViewReports.ToBool()
-                    $newObject.ViewServerSettingsPermission    = $ViewServerSettings.ToBool()
+                    $newObject.GroupID                              = $obj.ID
+                    $newObject.DeployPermission                     = $Deploy.IsPresent
+                    $newObject.EditDashboardPermission              = $EditDashboard.IsPresent
+                    $newObject.EditDefaultPropertiesPermission      = $EditDefaultProperties.IsPresent
+                    $newObject.EditLicensingPermission              = $EditLicensing.IsPresent
+                    $newObject.EditPreferencesPermission           = $EditPreferences.IsPresent
+                    $newObject.EditServerSettingsPermission         = $EditServerSettings.IsPresent
+                    $newObject.ToggleTriggeringPermission           = $ToggleTriggering.IsPresent
+                    $newObject.ViewCalendarPermission               = $ViewCalendar.IsPresent
+                    $newObject.ViewDashboardPermission              = $ViewDashboard.IsPresent
+                    $newObject.ViewDefaultPropertiesPermission      = $ViewDefaultProperties.IsPresent
+                    $newObject.ViewLicensingPermission              = $ViewLicensing.IsPresent
+                    $newObject.ViewPreferencesPermission            = $ViewPreferences.IsPresent
+                    $newObject.ViewReportsPermission                = $ViewReports.IsPresent
+                    $newObject.ViewServerSettingsPermission         = $ViewServerSettings.IsPresent
+                    if (Test-AMFeatureSupport -Connection $connection -Feature RevisionManagement -Action Ignore) {
+                        $newObject.EditRevisionManagementPermission = $EditRevisionManagement.IsPresent
+                        $newObject.ViewRevisionManagementPermission = $ViewRevisionManagement.IsPresent
+                        $newObject.ViewRecycleBinPermission         = $ViewRecycleBin.IsPresent
+                    }
+                    if (Test-AMFeatureSupport -Connection $connection -Feature Credentials -Action Ignore) {
+                        $newObject.EditCredentialsPermission      = $EditCredentials.IsPresent
+                        $newObject.EditVaultConnectionsPermission = $EditCredentialsConnections.IsPresent
+                        $newObject.ViewCredentialsPermission      = $ViewCredentials.IsPresent
+                        $newObject.ViewVaultConnectionsPermission = $ViewCredentialsConnections.IsPresent
+                    }
 
                     $splat += @{
                         Resource = "/system_permissions/create"

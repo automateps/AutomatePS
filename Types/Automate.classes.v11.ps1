@@ -288,11 +288,12 @@ class AMAgentGroupv11 : AMAutomationConstructv11 {
         $this.Type = [AMConstructType]::AgentGroup
     }
     AMAgentGroupv11([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
+        $agentNames = [System.Collections.ArrayList]::new()
         foreach ($agentID in $PSCustomObject.AgentIDs) {
             $this.AgentIDs.Add($agentID)
+            $agentNames.Add(($LookupTable | Where-Object {$_.ID -eq $agentID}).Name)
         }
-        $AgentNames = $LookupTable | Where-Object {$_.ID -in $this.AgentIDs}
-        $this | Add-Member -MemberType NoteProperty -Name "AgentNames" -Value $AgentNames.Name
+        $this | Add-Member -MemberType NoteProperty -Name "AgentNames" -Value $agentNames
     }
     [AMAgentv11[]]GetAgents() {
         $return = $this | Get-AMAgent
@@ -720,6 +721,7 @@ class AMSystemPermissionv11 : AMObjectConstructv11 {
     [bool]$ViewDefaultPropertiesPermission  = $false
     [bool]$ViewLicensingPermission          = $false
     [bool]$ViewPreferencesPermission        = $false
+    [bool]$ViewRecycleBinPermission         = $false
     [bool]$ViewReportsPermission            = $false
     [bool]$ViewRevisionManagementPermission = $false
     [bool]$ViewServerSettingsPermission     = $false
@@ -742,9 +744,72 @@ class AMSystemPermissionv11 : AMObjectConstructv11 {
         $this.ViewDefaultPropertiesPermission  = $PSCustomObject.ViewDefaultPropertiesPermission
         $this.ViewLicensingPermission          = $PSCustomObject.ViewLicensingPermission
         $this.ViewPreferencesPermission        = $PSCustomObject.ViewPreferencesPermission
+        $this.ViewRecycleBinPermission         = $PSCustomObject.ViewRecycleBinPermission
         $this.ViewReportsPermission            = $PSCustomObject.ViewReportsPermission
         $this.ViewRevisionManagementPermission = $PSCustomObject.ViewRevisionManagementPermission
         $this.ViewServerSettingsPermission     = $PSCustomObject.ViewServerSettingsPermission
+    }
+
+    [AMAutomationConstructv11]GetUser() {
+        $return = $null
+        if (-not [string]::IsNullOrEmpty($this.GroupID)) {
+            $return = Get-AMObject -ID $this.GroupID -Types User,UserGroup -Connection $this.ConnectionAlias
+        }
+        return $return
+    }
+}
+
+class AMSystemPermissionv11dot4 : AMObjectConstructv11 {
+    hidden [string]$__type                  = "SystemPermissionsConstruct:#AutoMate.Constructs.v11"
+    [bool]$DeployPermission                 = $false
+    [bool]$EditCredentialsPermission        = $false
+    [bool]$EditVaultConnectionsPermission   = $false
+    [bool]$EditDashboardPermission          = $false
+    [bool]$EditDefaultPropertiesPermission  = $false
+    [bool]$EditLicensingPermission          = $false
+    [bool]$EditPreferencesPermission        = $false
+    [bool]$EditRevisionManagementPermission = $false
+    [bool]$EditServerSettingsPermission     = $false
+    [string]$GroupID                        = [string]::Empty
+    [bool]$ToggleTriggeringPermission       = $false
+    [bool]$ViewCalendarPermission           = $false
+    [bool]$ViewCredentialsPermission        = $false
+    [bool]$ViewVaultConnectionsPermission   = $false
+    [bool]$ViewDashboardPermission          = $false
+    [bool]$ViewDefaultPropertiesPermission  = $false
+    [bool]$ViewLicensingPermission          = $false
+    [bool]$ViewPreferencesPermission        = $false
+    [bool]$ViewRecycleBinPermission         = $false
+    [bool]$ViewReportsPermission            = $false
+    [bool]$ViewRevisionManagementPermission = $false
+    [bool]$ViewServerSettingsPermission     = $false
+
+    AMSystemPermissionv11dot4([string]$ConnectionAlias) : Base($ConnectionAlias) {
+        $this.Type = [AMConstructType]::SystemPermission
+    }
+    AMSystemPermissionv11dot4([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $ConnectionAlias) {
+        $this.DeployPermission                 = $PSCustomObject.DeployPermission
+        $this.EditCredentialsPermission        = $PSCustomObject.EditCredentialsPermission
+        $this.EditDashboardPermission          = $PSCustomObject.EditDashboardPermission
+        $this.EditDefaultPropertiesPermission  = $PSCustomObject.EditDefaultPropertiesPermission
+        $this.EditLicensingPermission          = $PSCustomObject.EditLicensingPermission
+        $this.EditPreferencesPermission        = $PSCustomObject.EditPreferencesPermission
+        $this.EditRevisionManagementPermission = $PSCustomObject.EditRevisionManagementPermission
+        $this.EditServerSettingsPermission     = $PSCustomObject.EditServerSettingsPermission
+        $this.EditVaultConnectionsPermission   = $PSCustomObject.EditVaultConnectionsPermission
+        $this.GroupID                          = $PSCustomObject.GroupID
+        $this.ToggleTriggeringPermission       = $PSCustomObject.ToggleTriggeringPermission
+        $this.ViewCalendarPermission           = $PSCustomObject.ViewCalendarPermission
+        $this.ViewCredentialsPermission        = $PSCustomObject.ViewCredentialsPermission
+        $this.ViewDashboardPermission          = $PSCustomObject.ViewDashboardPermission
+        $this.ViewDefaultPropertiesPermission  = $PSCustomObject.ViewDefaultPropertiesPermission
+        $this.ViewLicensingPermission          = $PSCustomObject.ViewLicensingPermission
+        $this.ViewPreferencesPermission        = $PSCustomObject.ViewPreferencesPermission
+        $this.ViewRecycleBinPermission         = $PSCustomObject.ViewRecycleBinPermission
+        $this.ViewReportsPermission            = $PSCustomObject.ViewReportsPermission
+        $this.ViewRevisionManagementPermission = $PSCustomObject.ViewRevisionManagementPermission
+        $this.ViewServerSettingsPermission     = $PSCustomObject.ViewServerSettingsPermission
+        $this.ViewVaultConnectionsPermission   = $PSCustomObject.ViewVaultConnectionsPermission
     }
 
     [AMAutomationConstructv11]GetUser() {
@@ -1538,7 +1603,7 @@ class AMUserv11 : AMAutomationConstructv11 {
 }
 
 # New capabilities were added to user objects starting in v23, but the construct version was not changed.  This class supports those changes.
-class AMUserv1123 : AMAutomationConstructv11 {
+class AMUserv23 : AMAutomationConstructv11 {
     hidden [string]$__type        = "UserConstruct:#AutoMate.Constructs.v11"
     [AMAuthProvider]$AuthProvider = [AMAuthProvider]::Automate
     [string]$ConditionFolderID    = [string]::Empty
@@ -1556,11 +1621,10 @@ class AMUserv1123 : AMAutomationConstructv11 {
     [string]$Password             = [string]::Empty
     [string]$CipherPassword       = [string]::Empty
 
-    AMUserv1123([string]$Name, [AMFolderv11]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
+    AMUserv23([string]$Name, [AMFolderv11]$Folder, [string]$ConnectionAlias) : Base($Name, $Folder, $ConnectionAlias) {
         $this.Type                = [AMConstructType]::User
     }
-    AMUserv1123([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
-        
+    AMUserv23([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {        
         $this.AuthProvider        = $PSCustomObject.AuthProvider
         $this.ConditionFolderID   = $PSCustomObject.ConditionFolderID
         $this.Domain              = $PSCustomObject.Domain

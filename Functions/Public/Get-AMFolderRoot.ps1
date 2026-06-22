@@ -60,10 +60,9 @@ function Get-AMFolderRoot {
 
     foreach ($Type in $Types) {
         foreach ($c in $Connection) {
-            switch ($c.Version.Major) {
-                10                   { $result = [AMFolderv10]::new($c.Alias) }
-                {$_ -in 11,22,23,24} { $result = [AMFolderv11]::new($c.Alias) }
-                default              { throw "Unsupported server major version: $_!" }
+            switch ($c.GetCompatibility()) {
+                10 { $result = [AMFolderv10]::new($c.Alias) }
+                11 { $result = [AMFolderv11]::new($c.Alias) }
             }
             $result.ID   = ([AMTypeDictionary]::$Type).RootFolderID
             $result.Name = ([AMTypeDictionary]::$Type).RootFolderName

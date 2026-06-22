@@ -83,11 +83,15 @@ function New-AMUser {
     switch (($Connection | Measure-Object).Count) {
         1 {
             if (-not $Folder) { $Folder = Get-AMFolder -Path "\" -Name "USERS" -Connection $Connection }
-            switch ($Connection.Version.Major) {
-                10             { $newObject = [AMUserv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22} { $newObject = [AMUserv11]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 23,24} { $newObject = [AMUserv1123]::new($Name, $Folder, $Connection.Alias) }
-                default        { throw "Unsupported server major version: $_!" }
+            switch ($Connection.GetCompatibility()) {
+                10 { $newObject = [AMUserv10]::new($Name, $Folder, $Connection.Alias) }
+                11 {
+                    if (Test-AMFeatureSupport -Connection $c -Feature MultiDomainUser -Action Ignore) {
+                        $newObject = [AMUserv23]::new($Name, $Folder, $Connection.Alias)
+                    } else {
+                        $newObject = [AMUserv11]::new($Name, $Folder, $Connection.Alias)
+                    }
+                }
             }
             $newObject.Notes     = $Notes
             $newObject.Username  = $Name

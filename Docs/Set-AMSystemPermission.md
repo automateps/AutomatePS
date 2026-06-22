@@ -1,0 +1,440 @@
+---
+external help file: AutomatePS-help.xml
+Module Name: AutomatePS
+online version: https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMSystemPermission.md
+schema: 2.0.0
+---
+
+# Set-AMSystemPermission
+
+## SYNOPSIS
+Assigns security to an Automate system.
+
+## SYNTAX
+
+```
+Set-AMSystemPermission [-InputObject] <Object> [-FullControl] [-Deploy] [-EditCredentials]
+ [-EditCredentialsConnections] [-EditDashboard] [-EditDefaultProperties] [-EditLicensing] [-EditPreferences]
+ [-EditRevisionManagement] [-EditServerSettings] [-ToggleTriggering] [-ViewCalendar] [-ViewCredentials]
+ [-ViewCredentialsConnections] [-ViewDashboard] [-ViewDefaultProperties] [-ViewLicensing] [-ViewPreferences]
+ [-ViewRecycleBin] [-ViewReports] [-ViewRevisionManagement] [-ViewServerSettings]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+## DESCRIPTION
+Set-AMPermission assigns security to the Automate server.
+
+## EXAMPLES
+
+### EXAMPLE 1
+```
+# Gives user 'John' full control
+Get-AMUser -Name "John" | New-AMSystemPermission -FullControl
+```
+
+## PARAMETERS
+
+### -InputObject
+The system permission object to modify.
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -FullControl
+Sets all permissions to allow for the specified user(s) or group(s).
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Deploy
+Allow or deny permission to deploy agents onto remote computers.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditCredentials
+Allow or deny permission to edit credentials.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditCredentialsConnections
+Allow or deny permission to edit credentials connections.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditDashboard
+Allow or deny permission to edit the dashboard panel.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditDefaultProperties
+Allow or deny permission to edit default properties.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditLicensing
+Allow or deny permission to edit product license information.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditPreferences
+Allow or deny permission to edit preferences.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditRevisionManagement
+Allow or deny permission to edit the Revision Management information.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EditServerSettings
+Allow or deny permission to edit server level settings.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ToggleTriggering
+Allow or deny permission to turn global triggering on or off.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewCalendar
+Allow or deny permission to view the calendar of previous and future events.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewCredentials
+Allow or deny permission to view credentials.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewCredentialsConnections
+Allow or deny permission to view credentials connections.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewDashboard
+Allow or deny permission to view the dashboard panel of SMC.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewDefaultProperties
+Allow or deny permission to view default properties which affect the behavior of individual workflows, tasks, agents, and other objects.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewLicensing
+Allow or deny permission to view product license information.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewPreferences
+Allow or deny permission to view preferences which affect an assortment of visual and operational characteristics in SMC.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewRecycleBin
+Allow or deny permission to view the recycle bin.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewReports
+Allow or deny permission to view reports, including charts and tables.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewRevisionManagement
+Allow or deny permission to view the Revision Management information.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewServerSettings
+Allow or deny permission to view server level settings, such as Data Store, Load Management, SQL Connections and more.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+## RELATED LINKS
+
+[https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMSystemPermission.md](https://github.com/AutomatePS/AutomatePS/blob/master/Docs/New-AMSystemPermission.md)
+

@@ -30,7 +30,7 @@ function Test-AMFeatureSupport {
         $Connection,
 
         [Parameter(Mandatory = $true)]
-        [ValidateSet("EmailCondition","FileSystemConditionPollingMode","ApiRuntimeVariables","MultiDomainUser","ApiKeyAuthentication")]
+        [ValidateSet("EmailCondition","RevisionManagement","FileSystemConditionPollingMode","ApiRuntimeVariables","Credentials","MultiDomainUser","ApiKeyAuthentication")]
         $Feature,
 
         [ValidateSet("Throw","Warn","Ignore")]
@@ -39,8 +39,10 @@ function Test-AMFeatureSupport {
 
     $featureVersions = @{
         EmailCondition                 = [Version]"11.0.0.0"
+        RevisionManagement             = [Version]"11.1.0.0"
         FileSystemConditionPollingMode = [Version]"11.1.20.0"
         ApiRuntimeVariables            = [Version]"11.4.0.0"
+        Credentials                    = [Version]"11.4.0.0"
         MultiDomainUser                = [Version]"23.1.0.0"
         ApiKeyAuthentication           = [Version]"23.1.0.0"
     }

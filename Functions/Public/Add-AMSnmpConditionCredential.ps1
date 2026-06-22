@@ -49,10 +49,9 @@ function Add-AMSnmpConditionCredential {
         foreach ($obj in $InputObject) {
             if (($obj.Type -eq "Condition") -and ($obj.TriggerType -eq [AMTriggerType]::SNMPTrap)) {
                 $updateObject = Get-AMCondition -ID $obj.ID -Connection $obj.ConnectionAlias
-                switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
-                    10                   { $credential = [AMSNMPTriggerCredentialv10]::new() }
-                    {$_ -in 11,22,23,24} { $credential = [AMSNMPTriggerCredentialv11]::new() }
-                    default { throw "Unsupported server major version: $_!" }
+                switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).GetCompatibility()) {
+                    10 { $credential = [AMSNMPTriggerCredentialv10]::new() }
+                    11 { $credential = [AMSNMPTriggerCredentialv11]::new() }
                 }
                 if ($PSBoundParameters.ContainsKey("User")) {
                     $credential.User = $User

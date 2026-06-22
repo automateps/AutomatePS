@@ -25,6 +25,9 @@ function Connect-AMServer {
         .PARAMETER Password
             The password to use during authentication.
 
+        .PARAMETER TryCompatibilityWithLatestVersion
+            If attempting to connect to an unsupported server version, this switch will bypass the version checks and attempt compatibility with the most recent supported version.  Use at your own risk.
+
         .PARAMETER ConnectionAlias
             The alias to assign to this connection.
 
@@ -70,6 +73,9 @@ function Connect-AMServer {
         [Security.SecureString]$Password,
 
         [ValidateNotNullOrEmpty()]
+        [switch]$TryCompatibilityWithLatestVersion,
+
+        [ValidateNotNullOrEmpty()]
         [string]$ConnectionAlias,
 
         [Parameter(ParameterSetName = "ByConnectionStore")]
@@ -104,9 +110,9 @@ function Connect-AMServer {
                 $Credential = Get-Credential -Message "Enter credentials for Automate server '$s'"
                 if ($null -ne $Credential)  {
                     if ($PSBoundParameters.ContainsKey("ConnectionAlias")) {
-                        Connect-AMServer -Server $s -Port $Port -Credential $Credential -ConnectionAlias $ConnectionAlias -SaveConnection:$SaveConnection.ToBool()
+                        Connect-AMServer -Server $s -Port $Port -Credential $Credential -TryCompatibilityWithLatestVersion:$TryCompatibilityWithLatestVersion.IsPresent -ConnectionAlias $ConnectionAlias -SaveConnection:$SaveConnection.IsPresent
                     } else {
-                        Connect-AMServer -Server $s -Port $Port -Credential $Credential -SaveConnection:$SaveConnection.ToBool()
+                        Connect-AMServer -Server $s -Port $Port -Credential $Credential -TryCompatibilityWithLatestVersion:$TryCompatibilityWithLatestVersion.IsPresent -SaveConnection:$SaveConnection.IsPresent
                     }
                 } else {
                     throw "No credentials specified for server '$s'!"
@@ -119,16 +125,16 @@ function Connect-AMServer {
         if (-not $fromStoredConnection) {
             if ($PSCmdlet.ParameterSetName -eq "ByApiKey") {
                 if ($PSBoundParameters.ContainsKey("ConnectionAlias")) {
-                    $thisConnection = [AMConnection]::new($ConnectionAlias, $s, $Port, $ApiKey)
+                    $thisConnection = [AMConnection]::new($ConnectionAlias, $s, $Port, $ApiKey, $TryCompatibilityWithLatestVersion.IsPresent)
                 } else {
-                    $thisConnection = [AMConnection]::new($s, $Port, $ApiKey)
+                    $thisConnection = [AMConnection]::new($s, $Port, $ApiKey, $TryCompatibilityWithLatestVersion.IsPresent)
                 }
                 Test-AMFeatureSupport -Connection $thisConnection -Feature ApiKeyAuthentication -Action Throw | Out-Null
             } else {
                 if ($PSBoundParameters.ContainsKey("ConnectionAlias")) {
-                    $thisConnection = [AMConnection]::new($ConnectionAlias, $s, $Port, $Credential)
+                    $thisConnection = [AMConnection]::new($ConnectionAlias, $s, $Port, $Credential, $TryCompatibilityWithLatestVersion.IsPresent)
                 } else {
-                    $thisConnection = [AMConnection]::new($s, $Port, $Credential)
+                    $thisConnection = [AMConnection]::new($s, $Port, $Credential, $TryCompatibilityWithLatestVersion.IsPresent)
                 }
             }
             if ($global:AMConnections.Name -notcontains $thisConnection.Name) {

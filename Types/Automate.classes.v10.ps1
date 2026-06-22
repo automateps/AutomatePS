@@ -288,11 +288,12 @@ class AMAgentGroupv10 : AMAutomationConstructv10 {
         $this.Type = [AMConstructType]::AgentGroup
     }
     AMAgentGroupv10([PSCustomObject]$PSCustomObject, [PSCustomObject[]]$LookupTable, [string]$ConnectionAlias) : Base($PSCustomObject, $LookupTable, $ConnectionAlias) {
+        $agentNames = [System.Collections.ArrayList]::new()
         foreach ($agentID in $PSCustomObject.AgentIDs) {
             $this.AgentIDs.Add($agentID)
+            $agentNames.Add(($LookupTable | Where-Object {$_.ID -eq $agentID}).Name)
         }
-        $AgentNames = $LookupTable | Where-Object {$_.ID -in $this.AgentIDs}
-        $this | Add-Member -MemberType NoteProperty -Name "AgentNames" -Value $AgentNames.Name
+        $this | Add-Member -MemberType NoteProperty -Name "AgentNames" -Value $agentNames
     }
     [AMAgentv10[]]GetAgents() {
         $return = $this | Get-AMAgent

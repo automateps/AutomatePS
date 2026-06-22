@@ -16,7 +16,7 @@ Assigns security to an Automate object.
 New-AMPermission [-InputObject] <Object> [[-Principal] <Object>] [-FullControl] [-Create] [-Read] [-Edit]
  [-Delete] [-DeleteRevisionFromRecycleBin] [-DeleteRevision] [-RestoreRevisionFromRecycleBin]
  [-RestoreRevision] [-Move] [-ToggleEnable] [-ManualRun] [-Stop] [-Import] [-Export] [-Staging] [-Assign]
- [-ChangeSecurity] [-ManualResume] [-ManualRunFromHere] [-ToggleLock] [-UpdateRevision] [-Upgrade]
+ [-ChangeSecurity] [-ManualResume] [-ManualRunFromHere] [-ToggleLock] [-UpdateRevision] [-Upgrade] [-Resurrect]
  [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -394,6 +394,21 @@ Accept wildcard characters: False
 ```
 
 ### -Upgrade
+Allow or deny permission to upgrade an agent.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Resurrect
 Undocumented permission.
 
 ```yaml

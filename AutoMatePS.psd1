@@ -12,7 +12,7 @@
 RootModule = 'AutomatePS.psm1'
 
 # Version number of this module.
-ModuleVersion = '6.0.0'
+ModuleVersion = '6.1.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -118,7 +118,8 @@ FunctionsToExport = 'Add-AMAgentGroupMember', 'Add-AMConstant',
                'Set-AMPerformanceCondition', 'Set-AMProcess', 
                'Set-AMProcessCondition', 'Set-AMScheduleCondition', 
                'Set-AMServiceCondition', 'Set-AMSharePointCondition', 
-               'Set-AMSnmpCondition', 'Set-AMSnmpConditionCredential', 'Set-AMTask', 
+               'Set-AMSnmpCondition', 'Set-AMSnmpConditionCredential',
+               'Set-AMSystemPermission', 'Set-AMTask', 
                'Set-AMTaskProperty', 'Set-AMUser', 'Set-AMUserGroup', 
                'Set-AMWindowCondition', 'Set-AMWindowConditionControl', 
                'Set-AMWmiCondition', 'Set-AMWorkflow', 'Set-AMWorkflowItem', 

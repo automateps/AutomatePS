@@ -91,7 +91,7 @@ function Copy-AMCondition {
                 if (-not $PSBoundParameters.ContainsKey("Name")) { $Name = $obj.Name }
                 $excludedProperties = @()
                 $currentObject = Get-AMCondition -ID $obj.ID -Connection $obj.ConnectionAlias
-                switch ($Connection.Version.Major) {
+                switch ($Connection.GetCompatibility()) {
                     10 {
                         switch ($obj.TriggerType) {
                             "Database"    { $copyObject = [AMDatabaseTriggerv10]::new($Name, $Folder, $Connection.Alias) }
@@ -146,7 +146,7 @@ function Copy-AMCondition {
                             default       { throw "Unsupported trigger type '$($obj.TriggerType)' encountered!" }
                         }
                     }
-                    {$_ -in 11,22,23,24} {
+                    11 {
                         switch ($obj.TriggerType) {
                             "Database"    { $copyObject = [AMDatabaseTriggerv11]::new($Name, $Folder, $Connection.Alias) }
                             "Email"       {
@@ -211,7 +211,6 @@ function Copy-AMCondition {
                             default       { throw "Unsupported trigger type '$($obj.TriggerType)' encountered!" }
                         }
                     }
-                    default { throw "Unsupported server major version: $_!" }
                 }
 
                 if ($PSBoundParameters.ContainsKey("Connection") -and $obj.ConnectionAlias -ne $Connection.Alias) {

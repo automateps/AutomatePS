@@ -56,7 +56,7 @@ function Get-AMUser {
             https://github.com/AutomatePS/AutomatePS/blob/master/Docs/Get-AMUser.md
     #>
     [CmdletBinding(DefaultParameterSetName="All")]
-    [OutputType([AMUserv10],[AMUserv11],[AMUserv1123])]
+    [OutputType([AMUserv10],[AMUserv11],[AMUserv23])]
     param (
         [Parameter(ValueFromPipeline = $true, ParameterSetName = "ByPipeline")]
         [ValidateNotNullOrEmpty()]

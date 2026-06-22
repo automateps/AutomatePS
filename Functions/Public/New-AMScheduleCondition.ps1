@@ -113,10 +113,9 @@ function New-AMScheduleCondition {
     switch (($Connection | Measure-Object).Count) {
         1 {
             if (-not $Folder) { $Folder = Get-AMDefaultFolder -Connection $Connection -Type CONDITIONS }
-            switch ($Connection.Version.Major) {
-                10                   { $newObject = [AMScheduleTriggerv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22,23,24} { $newObject = [AMScheduleTriggerv11]::new($Name, $Folder, $Connection.Alias) }
-                default              { throw "Unsupported server major version: $_!" }
+            switch ($Connection.GetCompatibility()) {
+                10 { $newObject = [AMScheduleTriggerv10]::new($Name, $Folder, $Connection.Alias) }
+                11 { $newObject = [AMScheduleTriggerv11]::new($Name, $Folder, $Connection.Alias) }
             }
             $newObject.Notes           = $Notes
             $newObject.ScheduleType    = $ScheduleType

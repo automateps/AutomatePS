@@ -49,10 +49,9 @@ function New-AMFolder {
     }
     switch (($Connection | Measure-Object).Count) {
         1 {
-            switch ($Connection.Version.Major) {
-                10                   { $newObject = [AMFolderv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22,23,24} { $newObject = [AMFolderv11]::new($Name, $Folder, $Connection.Alias) }
-                default              { throw "Unsupported server major version: $_!" }
+            switch ($Connection.GetCompatibility()) {
+                10 { $newObject = [AMFolderv10]::new($Name, $Folder, $Connection.Alias) }
+                11 { $newObject = [AMFolderv11]::new($Name, $Folder, $Connection.Alias) }
             }
             $newObject.Notes = $Notes
             $newObject | New-AMObject -Connection $Connection

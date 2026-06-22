@@ -64,10 +64,9 @@ function Add-AMConstant {
             if (($updateObject | Measure-Object).Count -eq 1) {
                 $shouldUpdate = $false
                 if ($updateObject.Constants.Name -notcontains $Name) {
-                    switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
-                        10                   { $newConstant = [AMConstantv10]::new($obj.ConnectionAlias) }
-                        {$_ -in 11,22,23,24} { $newConstant = [AMConstantv11]::new($obj.ConnectionAlias) }
-                        default              { throw "Unsupported server major version: $_!" }
+                    switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).GetCompatibility()) {
+                        10 { $newConstant = [AMConstantv10]::new($obj.ConnectionAlias) }
+                        11 { $newConstant = [AMConstantv11]::new($obj.ConnectionAlias) }
                     }
                     $newConstant.ParentID       = $updateObject.ID
                     $newConstant.Name           = $Name

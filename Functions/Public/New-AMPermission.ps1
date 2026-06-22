@@ -79,7 +79,10 @@ function New-AMPermission {
 			Allow or deny permission to update a revision.
 
 		.PARAMETER Upgrade
-			Undocumented permission.
+			Allow or deny permission to upgrade an agent.
+
+        .PARAMETER Resurrect
+            Undocumented permission.
 
         .EXAMPLE
             # Denies user 'John' access to task 'Test'
@@ -118,7 +121,8 @@ function New-AMPermission {
         [switch]$ManualRunFromHere = $false,
         [switch]$ToggleLock = $false,
         [switch]$UpdateRevision = $false,
-        [switch]$Upgrade = $false
+        [switch]$Upgrade = $false,
+        [switch]$Resurrect = $false
     )
 
     BEGIN {
@@ -145,7 +149,7 @@ function New-AMPermission {
         }
         $Principal = $tempPrincipal
 
-        if ($FullControl.ToBool()) {
+        if ($FullControl.IsPresent) {
             $Create = $true
             $Read = $true
             $Edit = $true
@@ -168,44 +172,46 @@ function New-AMPermission {
             $ToggleLock = $true
             $UpdateRevision = $true
             $Upgrade = $true
+            $Resurrect = $true
         }
     }
 
     PROCESS {
         foreach ($obj in $InputObject) {
+            $connection = Get-AMConnection -ConnectionAlias $obj.ConnectionAlias
             if ($obj.Type -in @("Folder","Workflow","Task","Condition","Process","Agent","AgentGroup","User","UserGroup")) {
                 $currentPermissions = $obj | Get-AMPermission
                 foreach ($p in $Principal) {
                     if ($null -eq ($currentPermissions | Where-Object {$_.GroupID -eq $p.ID})) {
-                        switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
+                        switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).GetCompatibility()) {
                             10 { $newObject = [AMPermissionv10]::new($obj, $p, $obj.ConnectionAlias) }
-                            {$_ -in 11,22,23,24} {
-                                $newObject = [AMPermissionv11]::new($obj, $p, $obj.ConnectionAlias)
-                                $newObject.DeleteRevisionFromRecycleBinPermission  = $DeleteRevisionFromRecycleBin.ToBool()
-                                $newObject.DeleteRevisionPermission                = $DeleteRevision.ToBool()
-                                $newObject.RestoreRevisionFromRecycleBinPermission = $RestoreRevisionFromRecycleBin.ToBool()
-                                $newObject.RestoreRevisionPermission               = $RestoreRevision.ToBool()
-                                $newObject.UpdateRevisionPermission                = $UpdateRevision.ToBool()
-                            }
-                            default { throw "Unsupported server major version: $_!" }
+                            11 { $newObject = [AMPermissionv11]::new($obj, $p, $obj.ConnectionAlias) }
                         }
-                        $newObject.AssignPermission      = $Assign.ToBool()
-                        $newObject.CreatePermission      = $Create.ToBool()
-                        $newObject.DeletePermission      = $Delete.ToBool()
-                        $newObject.EditPermission        = $Edit.ToBool()
-                        $newObject.EnablePermission      = $ToggleEnable.ToBool()
-                        $newObject.ExportPermission      = $Export.ToBool()
-                        $newObject.ImportPermission      = $Import.ToBool()
-                        $newObject.LockPermission        = $ToggleLock.ToBool()
-                        $newObject.MovePermission        = $Move.ToBool()
-                        $newObject.ReadPermission        = $Read.ToBool()
-                        $newObject.ResumePermission      = $ManualResume.ToBool()
-                        $newObject.RunFromHerePermission = $ManualRunFromHere.ToBool()
-                        $newObject.RunPermission         = $ManualRun.ToBool()
-                        $newObject.SecurityPermission    = $ChangeSecurity.ToBool()
-                        $newObject.StagingPermission     = $Staging.ToBool()
-                        $newObject.StopPermission        = $Stop.ToBool()
-                        $newObject.UpgradePermission     = $Upgrade.ToBool()
+                        $newObject.AssignPermission      = $Assign.IsPresent
+                        $newObject.CreatePermission      = $Create.IsPresent
+                        $newObject.DeletePermission      = $Delete.IsPresent
+                        $newObject.EditPermission        = $Edit.IsPresent
+                        $newObject.EnablePermission      = $ToggleEnable.IsPresent
+                        $newObject.ExportPermission      = $Export.IsPresent
+                        $newObject.ImportPermission      = $Import.IsPresent
+                        $newObject.LockPermission        = $ToggleLock.IsPresent
+                        $newObject.MovePermission        = $Move.IsPresent
+                        $newObject.ReadPermission        = $Read.IsPresent
+                        $newObject.ResumePermission      = $ManualResume.IsPresent
+                        $newObject.ResurrectPermission   = $Resurrect.IsPresent
+                        $newObject.RunFromHerePermission = $ManualRunFromHere.IsPresent
+                        $newObject.RunPermission         = $ManualRun.IsPresent
+                        $newObject.SecurityPermission    = $ChangeSecurity.IsPresent
+                        $newObject.StagingPermission     = $Staging.IsPresent
+                        $newObject.StopPermission        = $Stop.IsPresent
+                        $newObject.UpgradePermission     = $Upgrade.IsPresent
+                        if (Test-AMFeatureSupport -Connection $connection -Feature RevisionManagement -Action Ignore) {
+                            $newObject.DeleteRevisionFromRecycleBinPermission  = $DeleteRevisionFromRecycleBin.IsPresent
+                            $newObject.DeleteRevisionPermission                = $DeleteRevision.IsPresent
+                            $newObject.RestoreRevisionFromRecycleBinPermission = $RestoreRevisionFromRecycleBin.IsPresent
+                            $newObject.RestoreRevisionPermission               = $RestoreRevision.IsPresent
+                            $newObject.UpdateRevisionPermission                = $UpdateRevision.IsPresent
+                        }
 
                         $splat += @{
                             Resource = "$(([AMTypeDictionary]::($obj.Type)).RestResource)/$($obj.ID)/permissions/create"
@@ -213,7 +219,7 @@ function New-AMPermission {
                             Body = $newObject.ToJson()
                             Connection = $obj.ConnectionAlias
                         }
-                        if ($PSCmdlet.ShouldProcess($Connection.Name, "Creating permission for: $(Join-Path -Path $obj.Path -ChildPath $obj.Name)")) {
+                        if ($PSCmdlet.ShouldProcess($connection.Name, "Creating permission for: $(Join-Path -Path $obj.Path -ChildPath $obj.Name)")) {
                             Invoke-AMRestMethod @splat | Out-Null
                             Write-Verbose "Assigned permissions to $($p.Type) '$($p.Name)' for $($obj.Type) '$($obj.Name)'!"
                             $obj | Get-AMPermission -ID $newObject.ID

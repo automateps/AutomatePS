@@ -211,9 +211,8 @@ function New-AMEmailCondition {
         switch (($Connection | Measure-Object).Count) {
             1 {
                 if (-not $Folder) { $Folder = Get-AMDefaultFolder -Connection $Connection -Type CONDITIONS }
-                switch ($Connection.Version.Major) {
-                    {$_ -in 11,22,23,24} { $newObject = [AMEmailTriggerv11]::new($Name, $Folder, $Connection.Alias) }
-                    default              { throw "Unsupported server major version: $_!" }
+                switch ($Connection.GetCompatibility()) {
+                    11 { $newObject = [AMEmailTriggerv11]::new($Name, $Folder, $Connection.Alias) }
                 }
                 $newObject.Notes           = $Notes
                 $newObject.Wait            = $Wait.ToBool()

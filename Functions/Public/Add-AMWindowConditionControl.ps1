@@ -69,9 +69,9 @@ function Add-AMWindowConditionControl {
         foreach ($obj in $InputObject) {
             if (($obj.Type -eq "Condition") -and ($obj.TriggerType -eq [AMTriggerType]::Window)) {
                 $updateObject = Get-AMCondition -ID $obj.ID -Connection $obj.ConnectionAlias
-                switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).Version.Major) {
+                switch ((Get-AMConnection -ConnectionAlias $obj.ConnectionAlias).GetCompatibility()) {
                     10      { $windowcontrol = [AMWindowTriggerControlv10]::new() }
-                    default { throw "Unsupported server major version: $_!" }
+                    11      { $windowcontrol = [AMWindowTriggerControlv11]::new() }
                 }
                 if ($PSBoundParameters.ContainsKey("Class")) {
                     $windowcontrol.Class = $Class

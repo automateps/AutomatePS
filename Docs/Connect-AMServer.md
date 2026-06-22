@@ -14,27 +14,29 @@ Connect to an Automate management server
 
 ### ByConnectionStore (Default)
 ```
-Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-ConnectionAlias <String>]
- [-ConnectionStoreFilePath <String>] [-SaveConnection] [-ProgressAction <ActionPreference>]
- [<CommonParameters>]
+Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-TryCompatibilityWithLatestVersion]
+ [-ConnectionAlias <String>] [-ConnectionStoreFilePath <String>] [-SaveConnection]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByCredential
 ```
-Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-Credential <PSCredential>] [-ConnectionAlias <String>]
- [-SaveConnection] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-Credential <PSCredential>]
+ [-TryCompatibilityWithLatestVersion] [-ConnectionAlias <String>] [-SaveConnection]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByApiKey
 ```
-Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-ApiKey <String>] [-ConnectionAlias <String>]
- [-SaveConnection] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-ApiKey <String>] [-TryCompatibilityWithLatestVersion]
+ [-ConnectionAlias <String>] [-SaveConnection] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### ByUserPass
 ```
 Connect-AMServer [-Server] <String[]> [-Port <Int32>] [-UserName <String>] [-Password <SecureString>]
- [-ConnectionAlias <String>] [-SaveConnection] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [-TryCompatibilityWithLatestVersion] [-ConnectionAlias <String>] [-SaveConnection]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -138,6 +140,22 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TryCompatibilityWithLatestVersion
+If attempting to connect to an unsupported server version, this switch will bypass the version checks and attempt compatibility with the most recent supported version. 
+Use at your own risk.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

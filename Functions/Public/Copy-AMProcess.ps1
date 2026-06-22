@@ -86,10 +86,9 @@ function Copy-AMProcess {
                 }
 
                 if (-not $PSBoundParameters.ContainsKey("Name")) { $Name = $obj.Name }
-                switch ($Connection.Version.Major) {
-                    10                   { $copyObject = [AMProcessv10]::new($Name, $Folder, $Connection.Alias) }
-                    {$_ -in 11,22,23,24} { $copyObject = [AMProcessv11]::new($Name, $Folder, $Connection.Alias) }
-                    default              { throw "Unsupported server major version: $_!" }
+                switch ($Connection.GetCompatibility()) {
+                    10 { $copyObject = [AMProcessv10]::new($Name, $Folder, $Connection.Alias) }
+                    11 { $copyObject = [AMProcessv11]::new($Name, $Folder, $Connection.Alias) }
                 }
 
                 if ($PSBoundParameters.ContainsKey("Connection") -and $obj.ConnectionAlias -ne $Connection.Alias) {

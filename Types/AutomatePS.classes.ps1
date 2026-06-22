@@ -7,38 +7,47 @@ class AMConnection {
     [string]$Alias
     [string]$Server
     [int]$Port
+    [bool]$TryCompatibilityWithLatestVersion
     [System.Management.Automation.PSCredential]$Credential
     [string]$ApiKey
     [AMApiAuthenticationMethod]$AuthenticationMethod
     [Version]$Version
-    AMConnection([string]$Server, [int]$Port, [System.Management.Automation.PSCredential]$Credential) {
+    # User/Pass auth without named alias
+    AMConnection([string]$Server, [int]$Port, [System.Management.Automation.PSCredential]$Credential, [bool]$TryCompatibilityWithLatestVersion) {
         $this.Server = $Server
         $this.Port = $Port
         $this.Credential = $Credential
+        $this.TryCompatibilityWithLatestVersion = $TryCompatibilityWithLatestVersion
         $this.Name = "$($Server):$($Port)"
         $this.Alias = "$($Server):$($Port)"
         $this.AuthenticationMethod = [AMApiAuthenticationMethod]::Basic
     }
-    AMConnection([string]$Alias, [string]$Server, [int]$Port, [System.Management.Automation.PSCredential]$Credential) {
+    # User/Pass auth with named alias
+    AMConnection([string]$Alias, [string]$Server, [int]$Port, [System.Management.Automation.PSCredential]$Credential, [bool]$TryCompatibilityWithLatestVersion) {
         $this.Server = $Server
         $this.Port = $Port
         $this.Credential = $Credential
+        $this.TryCompatibilityWithLatestVersion = $TryCompatibilityWithLatestVersion
         $this.Name = "$($Server):$($Port)"
         $this.Alias = $Alias
         $this.AuthenticationMethod = [AMApiAuthenticationMethod]::Basic
     }
-    AMConnection([string]$Server, [int]$Port, [string]$ApiKey) {
+    # API Key auth without named alias
+    AMConnection([string]$Server, [int]$Port, [string]$ApiKey, [bool]$TryCompatibilityWithLatestVersion) {
         $this.Server = $Server
         $this.Port = $Port
         $this.ApiKey = $ApiKey
+        $this.TryCompatibilityWithLatestVersion = $TryCompatibilityWithLatestVersion
         $this.Name = "$($Server):$($Port)"
         $this.Alias = "$($Server):$($Port)"
         $this.AuthenticationMethod = [AMApiAuthenticationMethod]::Bearer
     }
-    AMConnection([string]$Alias, [string]$Server, [int]$Port, [string]$ApiKey) {
+    # API Key auth with named alias
+    AMConnection([string]$Alias, [string]$Server, [int]$Port, [string]$ApiKey, [bool]$TryCompatibilityWithLatestVersion) {
         $this.Server = $Server
         $this.Port = $Port
         $this.ApiKey = $ApiKey
+        $this.TryCompatibilityWithLatestVersion = $TryCompatibilityWithLatestVersion
         $this.Name = "$($Server):$($Port)"
         $this.Alias = $Alias
         $this.AuthenticationMethod = [AMApiAuthenticationMethod]::Bearer
@@ -65,10 +74,32 @@ class AMConnection {
             $success = $true
             $serverInfo = Invoke-RestMethod "http://$($this.Server):$($this.Port)/BPAManagement/info/get" -Method Get -Headers $headers -UseBasicParsing
             $this.Version = [Version]$serverInfo.Data.Version
+            if (-not $this.IsCompatible()) {
+                if ($this.TryCompatibilityWithLatestVersion) {
+                    Write-Warning "Version $($this.Version) is not supported, but TryCompatibilityWithLatestVersion has been specified.  Please use with caution!"
+                } else {
+                    throw "Unsupported server version: $($this.Version)!"
+                    return $false
+                }
+            }
         } else {
             throw "Failed to authenticate to server $($this.Server):$($this.Port)!"
         }
         return $success
+    }
+    [bool]IsCompatible() {
+        return $this.Version.Major -in 10,11,22,23,24,25
+    }
+    [int]GetCompatibility() {
+        if ($this.Version.Major -eq 10) {
+            return 10
+        } elseif ($this.Version.Major -in 11,22,23,24,25) {
+            return 11
+        } elseif ($this.Version.Major -gt 25 -and $this.TryCompatibilityWithLatestVersion) {
+            return 11
+        } else {
+            throw "Unsupported server version: $($this.Version)!"
+        }
     }
     [Version]GetServerVersion() {
         if ($null -eq $this.Version) {

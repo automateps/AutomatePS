@@ -134,10 +134,9 @@ function New-AMDatabaseCondition {
         1 {
             if (-not $Folder) { $Folder = Get-AMDefaultFolder -Connection $Connection -Type CONDITIONS }
             if ($DatabaseType -ne [AMDatabaseTriggerType]::Oracle) { $NotificationPort = -1 } # Notification port is an Oracle only setting
-            switch ($Connection.Version.Major) {
-                10                   { $newObject = [AMDatabaseTriggerv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22,23,24} { $newObject = [AMDatabaseTriggerv11]::new($Name, $Folder, $Connection.Alias) }
-                default              { throw "Unsupported server major version: $_!" }
+            switch ($Connection.GetCompatibility()) {
+                10 { $newObject = [AMDatabaseTriggerv10]::new($Name, $Folder, $Connection.Alias) }
+                11 { $newObject = [AMDatabaseTriggerv11]::new($Name, $Folder, $Connection.Alias) }
             }
             $newObject.Notes            = $Notes
             $newObject.Wait             = $Wait.ToBool()

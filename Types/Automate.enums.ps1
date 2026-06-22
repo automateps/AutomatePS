@@ -598,6 +598,10 @@ enum AMAuditEventType {
     CredentialCreated  = 2100
     CredentialModified = 2101
     CredentialRemoved  = 2102
+    VaultConnectionCreated  = 2200
+    VaultConnectionModified = 2201
+    VaultConnectionRemoved  = 2202
+    CredentialBrokerError = 2300
 
     # Server event types
     LicenseAdded             = 400
@@ -606,6 +610,8 @@ enum AMAuditEventType {
     ServerPermissionsModifed = 1501
     ApiPermissionsModified   = 1502
     RevisionManagementPropertiesModified = 1503
+    GlobalTriggeringEnabled  = 1504
+    GlobalTriggeringDisabled = 1505
 
     # Miscellaneous
     ConnectionOpened               = 100

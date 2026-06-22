@@ -72,10 +72,9 @@ function New-AMAgent {
                     }
                 }
             }
-            switch ($Connection.Version.Major) {
-                10                   { $newObject = [AMAgentv10]::new($Name, $Folder, $Connection.Alias) }
-                {$_ -in 11,22,23,24} { $newObject = [AMAgentv11]::new($Name, $Folder, $Connection.Alias) }
-                default              { throw "Unsupported server major version: $_!" }
+            switch ($Connection.GetCompatibility()) {
+                10 { $newObject = [AMAgentv10]::new($Name, $Folder, $Connection.Alias) }
+                11 { $newObject = [AMAgentv11]::new($Name, $Folder, $Connection.Alias) }
             }
             $newObject.Notes     = $Notes
             $newObject.AgentType = $Type
